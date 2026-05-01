@@ -1,0 +1,8 @@
+webcrawler/raw_html/
+webcrawler/test_run/
+webcrawler/bat_test/
+__pycache__/
+*.pyc
+webcrawler/webcrawler/__pycache__/
+webcrawler/webcrawler/spiders/__pycache__/
+.vscode/

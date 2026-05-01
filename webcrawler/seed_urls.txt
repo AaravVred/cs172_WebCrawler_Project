@@ -1,0 +1,8 @@
+https://docs.python.org/3/
+https://flask.palletsprojects.com/
+https://docs.djangoproject.com/en/stable/
+https://scikit-learn.org/stable/user_guide.html
+https://pandas.pydata.org/docs/
+https://numpy.org/doc/stable/
+https://www.elastic.co/guide/index.html
+https://lucene.apache.org/core/
