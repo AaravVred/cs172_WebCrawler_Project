@@ -39,6 +39,7 @@ class HtmlSpider(scrapy.Spider):
         self.output_dir = output_dir
         os.makedirs(self.output_dir, exist_ok=True)
         self.saved_count = 0
+        self.seen_hashes = set()
 
     def parse(self, response):      
         content_type = response.headers.get("Content-Type", b"").decode("utf-8").lower()
@@ -46,6 +47,12 @@ class HtmlSpider(scrapy.Spider):
         if "text/html" not in content_type:     # skip non-html pages
             return
 
+        # skip pages that have duplicate content
+        content_hash = hashlib.sha256(response.body).hexdigest()
+        if content_hash in self.seen_hashes:
+            return
+        self.seen_hashes.add(content_hash)
+        
         url_hash = hashlib.sha256(response.url.encode("utf-8")).hexdigest()  # unique hashes to prevent filename collisions
         parsed = urlparse(response.url)
         domain = parsed.netloc.replace(":", "_")
