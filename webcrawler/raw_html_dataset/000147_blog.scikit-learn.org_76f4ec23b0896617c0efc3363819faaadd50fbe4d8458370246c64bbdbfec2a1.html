@@ -1,0 +1,1017 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Three Components for Reviewing a Pull Request - scikit-learn Blog</title>
+<meta name="description" content="Author:         Thomas J. Fan">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="scikit-learn Blog">
+<meta property="og:title" content="Three Components for Reviewing a Pull Request">
+<meta property="og:url" content="https://blog.scikit-learn.org/community/pull-request/">
+
+
+  <meta property="og:description" content="Author:         Thomas J. Fan">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-02-19T00:00:00+00:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://blog.scikit-learn.org/community/pull-request/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": null,
+      "url": "https://blog.scikit-learn.org/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="scikit-learn Blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+<link rel="manifest" href="/assets/images/site.webmanifest">
+<link rel="mask-icon" href="/assets/images/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/images/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" content="/assets/images/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- Load MathJax only in the pages with `usemathjax: true` -->
+
+
+
+
+    <script defer data-domain="blog.scikit-learn.org" src="https://views.scientific-python.org/js/script.js"></script>
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/scikit-learn-logo.png" alt="scikit-learn Blog"></a>
+        
+        <a class="site-title" href="/">
+          scikit-learn Blog
+          
+        </a>
+        <ul class="visible-links">
+                
+                
+                    <li class="masthead__menu-item">
+                        <a href="https://scikit-learn.org/stable/">scikit-learn.org</a>
+                    </li>
+                
+            
+                
+                
+                    <li class="masthead__menu-item">
+                        <a href="/calendar">Calendar</a>
+                    </li>
+                
+            
+                
+                
+                    <li class="masthead__menu-item">
+                        <a href="/resources">Resources</a>
+                    </li>
+                
+            
+                
+                
+                    <li class="masthead__menu-item">
+                        <a href="/sprints">Sprints</a>
+                    </li>
+                
+            
+                
+                
+                    <li class="dropdown ">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More    <i class="fa fa-caret-down fa-sm" aria-hidden="true"></i><span class="caret"></span></a>
+                        <ul class="dropdown-content">
+                            
+                                <li>
+                                    <a href="https://scikit-learn.org/stable/install">    Install</a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://scikit-learn.org/stable/user_guide">    User Guide</a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://scikit-learn.org/stable/api/index">    API</a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://scikit-learn.org/stable/auto_examples/index">    Examples</a>
+                                </li>
+                            
+                        </ul>
+                    </li>
+                
+            
+        </ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="https://blog.scikit-learn.org/" itemprop="url"></a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>Open source library for machine learning in Python.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="https://github.com/scikit-learn" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-github-square" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://linkedin.com/company/scikit-learn/" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">LinkedIn</span></a></li>
+          
+        
+          
+            <li><a href="https://bsky.app/profile/scikit-learn.org" rel="nofollow noopener noreferrer me"><i class="fas fa-link" aria-hidden="true"></i><span class="label">Bluesky</span></a></li>
+          
+        
+          
+            <li><a href="https://fosstodon.org/@sklearn" rel="nofollow noopener noreferrer me"><i class="fab fa-brands fa-mastodon" aria-hidden="true"></i><span class="label">Mastodon</span></a></li>
+          
+        
+          
+            <li><a href="https://www.youtube.com/@scikit-learn" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-youtube" aria-hidden="true"></i><span class="label">YouTube</span></a></li>
+          
+        
+          
+            <li><a href="https://facebook.com/scikitlearnofficial/" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i><span class="label">Facebook</span></a></li>
+          
+        
+          
+            <li><a href="https://instagram.com/scikitlearnofficial/" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-instagram" aria-hidden="true"></i><span class="label">Instagram</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">Archives</span>
+        
+
+        
+        <ul>
+          
+            <li><a href="/categories/">Category</a></li>
+          
+            <li><a href="/tags/">Tag</a></li>
+          
+            <li><a href="/years/">Year</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">scikit-learn</span>
+        
+
+        
+        <ul>
+          
+            <li><a href="https://scikit-learn.org/stable/about">About Us</a></li>
+          
+            <li><a href="https://scikit-learn.org/stable/faq">FAQ</a></li>
+          
+            <li><a href="https://python.org/psf/conduct/">Code of Conduct</a></li>
+          
+            <li><a href="https://scikit-learn.org/stable/developers/contributing.html">Contribute to scikit-learn</a></li>
+          
+            <li><a href="https://github.com/scikit-learn/blog">Contribute to the blog</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Community</span>
+        
+
+        
+        <ul>
+          
+            <li><a href="https://github.com/scikit-learn/administrative/tree/master/monthly_meetings">Monthly Meeting Minutes</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Mailing List</span>
+        
+
+        
+        <ul>
+          
+            <li><a href="https://mail.python.org/mailman/listinfo/scikit-learn">Subscribe</a></li>
+          
+            <li><a href="https://mail.python.org/pipermail/scikit-learn/">Archive</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Three Components for Reviewing a Pull Request">
+    <meta itemprop="description" content="              Author:        Thomas J. Fan     ">
+    <meta itemprop="datePublished" content="2022-02-19T00:00:00+00:00">
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="https://blog.scikit-learn.org/community/pull-request/" class="u-url" itemprop="url">Three Components for Reviewing a Pull Request
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-02-19T00:00:00+00:00">2022-02-19</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+        <div>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+Author:  
+      <a itemprop="sameAs" content="https://github.com/thomasjpfan" href="https://github.com/thomasjpfan" rel="me noopener noreferrer" style="vertical-align:top;"><img src="/assets/images/author_images/thomas_fan.jpeg" style="width:1em;margin-right:.5em;border-radius: 50%;" alt="Author Icon" class="orcid-icon" />Thomas J. Fan</a>
+     
+
+<br /><br />
+
+</div>
+
+<p>A pull request is a method for submitting contributions to a software project. Maintainers or contributors review these pull requests to discuss the proposed changes and help ensure the changes meet the project guidelines and quality standards. In this talk, we will learn about three components for reviewing a pull request:</p>
+
+<ol>
+  <li>The mechanics of code review on GitHub.</li>
+  <li>The social aspects of code review and how to effectively give feedback.</li>
+  <li>The technical aspects of reviewing a pull request.</li>
+</ol>
+
+<p>The <a href="https://thomasjpfan.github.io/data-umbrella-2021-reviewing-prs/#/">slides</a> for this presentation are available.</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dyxS9KKCNzA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<h2 id="outline">Outline</h2>
+<ul>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=0s">00:00:00</a> Reshama introduces Data Umbrella</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=320s">00:05:20</a> Thomas begins talk</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=395s">00:06:35</a> Terms: pull request, reviewer, contributor, merged</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=432s">00:07:12</a> PART 1: Mechanics of Code Review. Why code review?</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=1150s">00:19:10</a> Browsing Code in GitHub</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=1310s">00:21:50</a> shift+click: highlight multiple lines</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=1338s">00:22:18</a> GitHub b: blame, tells last contributor to the code</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=1392s">00:23:12</a> Overview of Mechanics</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=1452s">00:24:12</a> Q: How does a suggestion get incorporated into the code? how to sync local repo?</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=1622s">00:27:02</a> PART 2: Social Aspects of Reviewing a Pull Request</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=1678s">00:27:58</a> Tip 1 for giving feedback: Ask, don’t tell</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=1726s">00:28:46</a> Tip 2 for giving feedback: Offer alternative implementations</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=1796s">00:29:56</a> Tip 3 for giving feedback: Explain why code should be changed</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=2396s">00:39:56</a> DRY: Don’t Repeat Yourself; refactor, having common logic in multiple places, rewrite code so you have same funtionality, but this makes code more maintainable</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=1910s">00:31:50</a> Avoid using derogatory terms</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=1952s">00:32:32</a> Tip 4: Be humble, assume everyone is intelligent and well-meaning</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=1995s">00:33:15</a> Tip 5: Ask for clarification</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=2051s">00:34:11</a> Tip 6: Communicate which ideas you do not feel strongly about</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=2102s">00:35:02</a> Tip 7: Try to leave a positive comment</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=2133s">00:35:33</a> Tip 8: Thank contributors for their work</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=2156s">00:35:56</a> General Social Aspects</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=2197s">00:36:37</a> Disagreement</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=2259s">00:37:39</a> Talk synchronously (talk, take notes, update PR with notes to document discussion)</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=2325s">00:38:45</a> Overview of Social Aspects</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=2345s">00:39:05</a> PART 3: Technical Aspects</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=2392s">00:39:52</a> Presentation: how your PR is presented? description of PR</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=2520s">00:42:00</a> Was unrelated code changed?</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=2575s">00:42:55</a> Is the PR easy to review?</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=2685s">00:44:45</a> Engineering, Technical Aspects</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=2698s">00:44:58</a> Every change should be intentional</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=2710s">00:45:10</a> Offer ways to simplify or improve code</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=2780s">00:46:20</a> Does the change maintain backwards compatibility</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=2922s">00:48:42</a> Performance optimizations, require benchmarks</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=2972s">00:49:32</a> Is there documentation?</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=3065s">00:51:05</a> Code comments</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=3135s">00:52:15</a> Testing! (are there tests, and more)</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=3248s">00:54:08</a> What does it mean when CI tests fail?</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=3342s">00:55:42</a> It’s ok to make mistakes</li>
+  <li><a href="https://www.youtube.com/watch?v=dyxS9KKCNzA&amp;t=3413s">00:56:53</a> Q&amp;A</li>
+</ul>
+
+<h2 id="about-the-speaker">About the Speaker</h2>
+<p>Thomas J. Fan is a maintainer for scikit-learn, an open-source machine learning library for Python. He leads the scikit-learn project by designing the project’s roadmap, giving feedback to contributors, and implementing new features. Fan also is a maintainer for skorch, a scikit-learn compatible library that wraps PyTorch. He has a Masters in Mathematics from NYU and a Masters in Physics from Stony Brook University. During his academic studies, Fan researched quantum computation and condensed matter physics.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#open-source" class="page__taxonomy-item p-category" rel="tag">Open Source</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#community" class="page__taxonomy-item p-category" rel="tag">Community</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2022-02-19T00:00:00+00:00">2022-02-19</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+    <h4 class="page__share-title">Share on</h4>
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fblog.scikit-learn.org%2Fcommunity%2Fpull-request%2F&text=Three+Components+for+Reviewing+a+Pull+Request" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+
+    <a href="https://bsky.app/intent/compose?text=Three+Components+for+Reviewing+a+Pull+Request https%3A%2F%2Fblog.scikit-learn.org%2Fcommunity%2Fpull-request%2F" class="btn btn--bluesky" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Bluesky"><i class="fab fa-brands fa-bluesky" aria-hidden="true"></i><span> Bluesky</span></a>
+
+    <a href="https://mastodonshare.com/?url=https%3A%2F%2Fblog.scikit-learn.org%2Fcommunity%2Fpull-request%2F&text=Three+Components+for+Reviewing+a+Pull+Request" class="btn btn--mastodon" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Mastodon"><i class="fab fa-brands fa-mastodon" aria-hidden="true"></i><span> Mastodon</span></a>
+
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fblog.scikit-learn.org%2Fcommunity%2Fpull-request%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  
+
+  </section>
+
+      
+  <nav class="pagination">
+    
+      <a href="/technical/performances/" class="pagination--pager" title="Performances and scikit-learn
+">Previous</a>
+    
+    
+      <a href="/events/wimlds-paris-sprint/" class="pagination--pager" title="Women in Machine Learning - A WiMLDS Paris sprint and contribution workshop
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">You May Also Enjoy</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/updates/update-array-api/" rel="permalink">Update on array API adoption in scikit-learn
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-03-05T00:00:00+00:00">2026-03-05</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          10 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+Author:  
+      Lucy Liu
+     
+
+
+
+
+Note: this blog post is a cross-post of a Quansight Labs blog post.
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/updates/enhancing-user-experience/" rel="permalink">Enhancing user experience through interactive inspection
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-01-06T00:00:00+00:00">2026-01-06</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+Author:  
+      Dea María Léon
+      
+        
+      
+
+
+
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/team/virgil-chan-interview/" rel="permalink">Interview with Virgil Chan, scikit-learn Team Member
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2025-11-26T00:00:00+00:00">2025-11-26</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          5 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+Author:  
+      Reshama Shaikh
+     , 
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+
+      Virgil Chan
+     
+
+
+
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/press/gh-sosf/" rel="permalink">scikit-learn Completes the GitHub Secure Open Source Training
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2025-08-16T00:00:00+00:00">2025-08-16</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+Author:  
+      Reshama Shaikh
+     
+
+
+
+
+
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/scikit-learn" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github-square" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://linkedin.com/company/scikit-learn/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
+        
+      
+        
+          <li><a href="https://bsky.app/profile/scikit-learn.org" rel="nofollow noopener noreferrer"><i class="fas fa-link" aria-hidden="true"></i> Bluesky</a></li>
+        
+      
+        
+          <li><a href="https://fosstodon.org/@sklearn" rel="nofollow noopener noreferrer"><i class="fab fa-brands fa-mastodon" aria-hidden="true"></i> Mastodon</a></li>
+        
+      
+        
+          <li><a href="https://www.youtube.com/@scikit-learn" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-youtube" aria-hidden="true"></i> YouTube</a></li>
+        
+      
+        
+          <li><a href="https://facebook.com/scikitlearnofficial/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+        
+      
+        
+          <li><a href="https://instagram.com/scikitlearnofficial/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-instagram" aria-hidden="true"></i> Instagram</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2026 scikit-learn Blog. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+  <script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22606712-3']);
+  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

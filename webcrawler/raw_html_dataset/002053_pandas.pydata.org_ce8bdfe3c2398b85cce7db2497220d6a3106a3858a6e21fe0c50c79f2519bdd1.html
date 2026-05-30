@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script defer data-domain="pandas.pydata.org" src="https://views.scientific-python.org/js/script.js"></script>
+        <title>pandas - Python Data Analysis Library</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel='shortcut icon' type='image/x-icon' id='favicon-tag' href='../static/img/favicon.ico'/>
+        <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+              integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+              crossorigin="anonymous">
+        
+            <link rel="stylesheet"
+                  href="../static/css/pandas.css">
+        
+            <link rel="stylesheet"
+                  href="../static/css/codehilite.css">
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-content" aria-controls="nav-content" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <a class="navbar-brand" href="../."><img alt="" src="../static/img/pandas_white.svg"/></a>
+
+                    <div class="collapse navbar-collapse" id="nav-content">   
+                        <ul class="navbar-nav ms-auto">
+                            
+                                
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle"
+                                           data-bs-toggle="dropdown"
+                                           id="about-us"
+                                           href="#"
+                                           role="button"
+                                           aria-haspopup="true"
+                                           aria-expanded="false">About us</a>
+                                        <div class="dropdown-menu" aria-labelledby="about-us">
+                                        
+                                            <a class="dropdown-item" href="../about/">About pandas</a>
+                                        
+                                            <a class="dropdown-item" href="../about/roadmap.html">Project roadmap</a>
+                                        
+                                            <a class="dropdown-item" href="../about/governance.html">Governance</a>
+                                        
+                                            <a class="dropdown-item" href="../about/team.html">Team</a>
+                                        
+                                            <a class="dropdown-item" href="../about/sponsors.html">Sponsors</a>
+                                        
+                                            <a class="dropdown-item" href="../about/citing.html">Citing and logo</a>
+                                        
+                                        </div>
+                                    </li>
+                                
+                            
+                                
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="../getting_started.html">Getting started</a>
+                                    </li>
+                                
+                            
+                                
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="../docs/">Documentation</a>
+                                    </li>
+                                
+                            
+                                
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle"
+                                           data-bs-toggle="dropdown"
+                                           id="community"
+                                           href="#"
+                                           role="button"
+                                           aria-haspopup="true"
+                                           aria-expanded="false">Community</a>
+                                        <div class="dropdown-menu" aria-labelledby="community">
+                                        
+                                            <a class="dropdown-item" href="../community/blog/">Blog</a>
+                                        
+                                            <a class="dropdown-item" href="https://stackoverflow.com/questions/tagged/pandas">Ask a question (StackOverflow)</a>
+                                        
+                                            <a class="dropdown-item" href="../community/coc.html">Code of conduct</a>
+                                        
+                                            <a class="dropdown-item" href="../community/ecosystem.html">Ecosystem</a>
+                                        
+                                            <a class="dropdown-item" href="../community/benchmarks.html">Benchmarks</a>
+                                        
+                                        </div>
+                                    </li>
+                                
+                            
+                                
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="../contribute.html">Contribute</a>
+                                    </li>
+                                
+                            
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main">
+            
+            <div class="container container-main">
+                <h1 id="pdep-4-consistent-datetime-parsing">PDEP-4: Consistent datetime parsing<a class="headerlink" href="#pdep-4-consistent-datetime-parsing" title="Permanent link"> #</a></h1>
+<ul>
+<li>Created: 18 September 2022</li>
+<li>Status: Implemented</li>
+<li>Discussion: <a href="https://github.com/pandas-dev/pandas/pull/48621">#48621</a></li>
+<li>Author: <a href="https://github.com/MarcoGorelli">Marco Gorelli</a></li>
+<li>Revision: 2</li>
+</ul>
+<div class="toc"><span class="toctitle">Table of Contents</span><ul>
+<li><a href="#abstract">Abstract</a></li>
+<li><a href="#motivation-and-scope">Motivation and Scope</a></li>
+<li><a href="#detailed-description">Detailed Description</a></li>
+<li><a href="#usage-and-impact">Usage and Impact</a></li>
+<li><a href="#implementation">Implementation</a></li>
+<li><a href="#out-of-scope">Out of scope</a><ul>
+<li><a href="#pdep-history">PDEP History</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="abstract">Abstract<a class="headerlink" href="#abstract" title="Permanent link"> #</a></h2>
+<p>The suggestion is that:</p>
+<ul>
+<li><code>to_datetime</code> becomes strict and uses the same datetime format to parse all elements in its input.
+  The format will either be inferred from the first non-NaN element (if <code>format</code> is not provided by the user), or from
+  <code>format</code>;</li>
+<li><code>infer_datetime_format</code> be deprecated (as a strict version of it will become the default);</li>
+<li>an easy workaround for non-strict parsing be clearly documented.</li>
+</ul>
+<h2 id="motivation-and-scope">Motivation and Scope<a class="headerlink" href="#motivation-and-scope" title="Permanent link"> #</a></h2>
+<p>Pandas date parsing is very flexible, but arguably too much so - see
+https://github.com/pandas-dev/pandas/issues/12585 and linked issues for how
+much confusion this causes. Pandas can swap format midway, and though this
+is documented, it regularly breaks users' expectations.</p>
+<p>Simple example:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">([</span><span class="s1">&#39;12-01-2000 00:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;13-01-2000 00:00:00&#39;</span><span class="p">])</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">DatetimeIndex</span><span class="p">([</span><span class="s1">&#39;2000-12-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2000-01-13&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;datetime64[ns]&#39;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+
+<p>The user was almost certainly intending the data to be read as "12th of January, 13th of January".
+However, it's read as "1st of December, 13th of January". No warning or error is thrown.</p>
+<p>Currently, the only way to ensure consistent parsing is by explicitly passing
+<code>format=</code>. The argument <code>infer_datetime_format</code>
+isn't strict, can be called together with <code>format</code>, and can still break users' expectations:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">([</span><span class="s1">&#39;12-01-2000 00:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;13-01-2000 00:00:00&#39;</span><span class="p">],</span> <span class="n">infer_datetime_format</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">DatetimeIndex</span><span class="p">([</span><span class="s1">&#39;2000-12-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2000-01-13&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;datetime64[ns]&#39;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+
+<h2 id="detailed-description">Detailed Description<a class="headerlink" href="#detailed-description" title="Permanent link"> #</a></h2>
+<p>Concretely, the suggestion is:</p>
+<ul>
+<li>if no <code>format</code> is specified, <code>pandas</code> will guess the format from the first non-NaN row
+  and parse the rest of the input according to that format. Errors will be handled
+  according to the <code>errors</code> argument - there will be no silent switching of format;</li>
+<li><code>infer_datetime_format</code> will be deprecated;</li>
+<li><code>dayfirst</code> and <code>yearfirst</code> will continue working as they currently do;</li>
+<li>if the format cannot be guessed from the first non-NaN row, a <code>UserWarning</code> will be thrown,
+  encouraging users to explicitly pass in a format.
+  Note that this should only happen for invalid inputs such as <code>'a'</code>
+  (which would later throw a <code>ParserError</code> anyway), or inputs such as <code>'00:12:13'</code>,
+  which would currently get converted to <code>''2022-09-18 00:12:13''</code>.</li>
+</ul>
+<p>If a user has dates in a mixed format, they can still use flexible parsing and accept
+the risks that poses, e.g.:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">([</span><span class="s1">&#39;12-01-2000 00:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;13-01-2000 00:00:00&#39;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;mixed&#39;</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">DatetimeIndex</span><span class="p">([</span><span class="s1">&#39;2000-12-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2000-01-13&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;datetime64[ns]&#39;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+
+<p>or, if their dates are all ISO8601,</p>
+<div class="codehilite"><pre><span></span><code><span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">([</span><span class="s1">&#39;2020-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2020-01-01 03:00&#39;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;ISO8601&#39;</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">DatetimeIndex</span><span class="p">([</span><span class="s1">&#39;2020-01-01 00:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;2020-01-01 03:00:00&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;datetime64[ns]&#39;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+
+<h2 id="usage-and-impact">Usage and Impact<a class="headerlink" href="#usage-and-impact" title="Permanent link"> #</a></h2>
+<p>My expectation is that the impact would be a net-positive:</p>
+<ul>
+<li>potentially severe bugs in people's code will be caught early;</li>
+<li>users who actually want mixed formats can still parse them, but now they'd be forced to be
+  very explicit about it;</li>
+<li>the codebase would be noticeably simplified.</li>
+</ul>
+<p>As far as I can tell, there is no chance of <em>introducing</em> bugs.</p>
+<h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link"> #</a></h2>
+<p>The whatsnew notes read</p>
+<blockquote>
+<p>In the next major version release, 2.0, several larger API changes are being considered without a formal deprecation.</p>
+</blockquote>
+<p>I'd suggest making this change as part of the above, because:</p>
+<ul>
+<li>it would only help prevent bugs, not introduce any;</li>
+<li>given the severity of bugs that can result from the current behaviour, waiting another 2 years until pandas 3.0.0
+  would potentially cause a lot of damage.</li>
+</ul>
+<p>Note that this wouldn't mean getting rid of <code>dateutil.parser</code>, as that would still be used within <code>guess_datetime_format</code>. With this proposal, however, subsequent rows would be parsed with the guessed format rather than repeatedly calling <code>dateutil.parser</code> and risk having it silently switch format</p>
+<p>Finally, the function <code>from pandas._libs.tslibs.parsing import guess_datetime_format</code> would be made public, under <code>pandas.tools</code>.</p>
+<h2 id="out-of-scope">Out of scope<a class="headerlink" href="#out-of-scope" title="Permanent link"> #</a></h2>
+<p>We could make <code>guess_datetime_format</code> smarter by using a random sample of elements to infer the format.</p>
+<h3 id="pdep-history">PDEP History<a class="headerlink" href="#pdep-history" title="Permanent link"> #</a></h3>
+<ul>
+<li>18 September 2022: Initial draft</li>
+<li>25 January 2023: Amended to mention <code>format='ISO8601'</code> and <code>format='mixed'</code> options</li>
+</ul>
+            </div>
+            
+        </main>
+        <footer class="container pt-4 pt-md-5 border-top">
+            <ul class="list-inline social-buttons float-end">
+                <li class="list-inline-item">
+                    <a href="https://t.me/s/pandas_dev">
+                        <i class="fab bi bi-telegram"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="https://fosstodon.org/@pandas_dev" rel="me">
+                        <i class="fab bi bi-mastodon"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="https://x.com/pandas_dev">
+                        <i class="fab bi bi-twitter-x"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="https://github.com/pandas-dev/pandas">
+                        <i class="fab bi bi-github"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="https://stackoverflow.com/questions/tagged/pandas">
+                        <i class="fab bi bi-stack-overflow"></i>
+                    </a>
+                </li>
+            </ul>
+            <p>
+                &copy; 2026 pandas via <a href="https://numfocus.org">NumFOCUS, Inc.</a> Hosted by <a href="https://www.ovhcloud.com">OVHcloud</a>.
+            </p>
+        </footer>
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" 
+                integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" 
+                crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            const faviconTag = document.getElementById('favicon-tag');
+            const matcher = window.matchMedia('(prefers-color-scheme:dark)');
+            
+            const onUpdate = () => {
+                if (matcher.matches) faviconTag.href = "..//static/img/favicon_white.ico";
+                else faviconTag.href = "..//static/img/favicon.ico";
+            };
+            
+            onUpdate();
+            
+            matcher.addEventListener('change', onUpdate);
+        </script>
+    </body>
+</html>

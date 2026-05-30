@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script defer data-domain="pandas.pydata.org" src="https://views.scientific-python.org/js/script.js"></script>
+        <title>pandas - Python Data Analysis Library</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel='shortcut icon' type='image/x-icon' id='favicon-tag' href='../static/img/favicon.ico'/>
+        <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+              integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+              crossorigin="anonymous">
+        
+            <link rel="stylesheet"
+                  href="../static/css/pandas.css">
+        
+            <link rel="stylesheet"
+                  href="../static/css/codehilite.css">
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-content" aria-controls="nav-content" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <a class="navbar-brand" href="../."><img alt="" src="../static/img/pandas_white.svg"/></a>
+
+                    <div class="collapse navbar-collapse" id="nav-content">   
+                        <ul class="navbar-nav ms-auto">
+                            
+                                
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle"
+                                           data-bs-toggle="dropdown"
+                                           id="about-us"
+                                           href="#"
+                                           role="button"
+                                           aria-haspopup="true"
+                                           aria-expanded="false">About us</a>
+                                        <div class="dropdown-menu" aria-labelledby="about-us">
+                                        
+                                            <a class="dropdown-item" href="../about/">About pandas</a>
+                                        
+                                            <a class="dropdown-item" href="../about/roadmap.html">Project roadmap</a>
+                                        
+                                            <a class="dropdown-item" href="../about/governance.html">Governance</a>
+                                        
+                                            <a class="dropdown-item" href="../about/team.html">Team</a>
+                                        
+                                            <a class="dropdown-item" href="../about/sponsors.html">Sponsors</a>
+                                        
+                                            <a class="dropdown-item" href="../about/citing.html">Citing and logo</a>
+                                        
+                                        </div>
+                                    </li>
+                                
+                            
+                                
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="../getting_started.html">Getting started</a>
+                                    </li>
+                                
+                            
+                                
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="../docs/">Documentation</a>
+                                    </li>
+                                
+                            
+                                
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle"
+                                           data-bs-toggle="dropdown"
+                                           id="community"
+                                           href="#"
+                                           role="button"
+                                           aria-haspopup="true"
+                                           aria-expanded="false">Community</a>
+                                        <div class="dropdown-menu" aria-labelledby="community">
+                                        
+                                            <a class="dropdown-item" href="../community/blog/">Blog</a>
+                                        
+                                            <a class="dropdown-item" href="https://stackoverflow.com/questions/tagged/pandas">Ask a question (StackOverflow)</a>
+                                        
+                                            <a class="dropdown-item" href="../community/coc.html">Code of conduct</a>
+                                        
+                                            <a class="dropdown-item" href="../community/ecosystem.html">Ecosystem</a>
+                                        
+                                            <a class="dropdown-item" href="../community/benchmarks.html">Benchmarks</a>
+                                        
+                                        </div>
+                                    </li>
+                                
+                            
+                                
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="../contribute.html">Contribute</a>
+                                    </li>
+                                
+                            
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main">
+            
+            <div class="container container-main">
+                <h1 id="pdep-12-compact-and-reversible-json-interface">PDEP-12: Compact and reversible JSON interface<a class="headerlink" href="#pdep-12-compact-and-reversible-json-interface" title="Permanent link"> #</a></h1>
+<ul>
+<li>Created: 16 June 2023</li>
+<li>Status: Rejected</li>
+<li>Discussion:
+    <a href="https://github.com/pandas-dev/pandas/issues/53252">#53252</a>
+    <a href="https://github.com/pandas-dev/pandas/issues/55038">#55038</a></li>
+<li>Author: <a href="https://github.com/loco-philippe">Philippe THOMY</a></li>
+<li>Revision: 3</li>
+</ul>
+<div class="toc"><span class="toctitle">Table of Contents</span><ul>
+<li><a href="#abstract">Abstract</a><ul>
+<li><a href="#problem-description">Problem description</a></li>
+<li><a href="#feature-description">Feature Description</a></li>
+</ul>
+</li>
+<li><a href="#scope">Scope</a></li>
+<li><a href="#motivation">Motivation</a><ul>
+<li><a href="#why-extend-the-orienttable-option-to-other-data-types">Why extend the orient=table option to other data types?</a></li>
+<li><a href="#why-is-it-important-to-have-a-compact-and-reversible-json-interface">Why is it important to have a compact and reversible JSON interface ?</a></li>
+<li><a href="#is-it-relevant-to-take-an-extended-type-into-account">Is it relevant to take an extended type into account ?</a></li>
+<li><a href="#is-this-only-useful-for-pandas">Is this only useful for pandas ?</a></li>
+</ul>
+</li>
+<li><a href="#description">Description</a><ul>
+<li><a href="#data-typing">Data typing</a></li>
+<li><a href="#correspondence-between-tableschema-and-pandas">Correspondence between TableSchema and pandas</a></li>
+<li><a href="#json-format">JSON format</a></li>
+<li><a href="#conversion">Conversion</a></li>
+</ul>
+</li>
+<li><a href="#usage-and-impact">Usage and Impact</a><ul>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#compatibility">Compatibility</a></li>
+<li><a href="#impacts-on-the-pandas-framework">Impacts on the pandas framework</a></li>
+<li><a href="#risk-to-do-risk-not-to-do">Risk to do / risk not to do</a></li>
+</ul>
+</li>
+<li><a href="#implementation">Implementation</a><ul>
+<li><a href="#modules">Modules</a></li>
+<li><a href="#implementation-options">Implementation options</a></li>
+</ul>
+</li>
+<li><a href="#faq">F.A.Q.</a></li>
+<li><a href="#synthesis">Synthesis</a></li>
+<li><a href="#core-team-decision">Core team decision</a></li>
+<li><a href="#timeline">Timeline</a></li>
+<li><a href="#pdep-history">PDEP History</a></li>
+</ul>
+</div>
+<h2 id="abstract">Abstract<a class="headerlink" href="#abstract" title="Permanent link"> #</a></h2>
+<h3 id="problem-description">Problem description<a class="headerlink" href="#problem-description" title="Permanent link"> #</a></h3>
+<p>The <code>dtype</code> and "Python type" are not explicitly taken into account in the current JSON interface.</p>
+<p>So, the JSON interface is not always reversible and has inconsistencies related to the consideration of the <code>dtype</code>.</p>
+<p>Another consequence is the partial application of the Table Schema specification in the <code>orient="table"</code> option (6 Table Schema data types are taken into account out of the 24 defined).</p>
+<p>Some JSON-interface problems are detailed in the <a href="https://nbviewer.org/github/loco-philippe/ntv-pandas/blob/main/example/example_json_pandas.ipynb#Current-Json-interface">linked NoteBook</a></p>
+<h3 id="feature-description">Feature Description<a class="headerlink" href="#feature-description" title="Permanent link"> #</a></h3>
+<p>To have a simple, compact and reversible solution, I propose to use the <a href="https://github.com/loco-philippe/NTV#readme">JSON-NTV format (Named and Typed Value)</a> - which integrates the notion of type - and its JSON-TAB variation for tabular data (the JSON-NTV format is defined in an <a href="https://datatracker.ietf.org/doc/draft-thomy-json-ntv/">IETF Internet-Draft</a> (not yet an RFC !!) ).</p>
+<p>This solution allows to include a large number of types (not necessarily pandas <code>dtype</code>) which allows to have:</p>
+<ul>
+<li>a Table Schema JSON interface (<code>orient="table"</code>) which respects the Table Schema specification (going from 6 types to 20 types),</li>
+<li>a global JSON interface for all pandas data formats.</li>
+</ul>
+<h4 id="global-json-interface-example">Global JSON interface example<a class="headerlink" href="#global-json-interface-example" title="Permanent link"> #</a></h4>
+<p>In the example below, a DataFrame with several data types is converted to JSON.</p>
+<p>The DataFrame resulting from this JSON is identical to the initial DataFrame (reversibility).</p>
+<p>With the existing JSON interface, this conversion is not possible.</p>
+<p>This example uses <code>ntv_pandas</code> module defined in the <a href="https://github.com/loco-philippe/ntv-pandas#readme">ntv-pandas repository</a>.</p>
+<p>Data example:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">from</span><span class="w"> </span><span class="nn">shapely.geometry</span><span class="w"> </span><span class="kn">import</span> <span class="n">Point</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">date</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">ntv_pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">npd</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;index&#39;</span><span class="p">:</span>           <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">600</span><span class="p">],</span>
+                <span class="s1">&#39;dates::date&#39;</span><span class="p">:</span>     <span class="p">[</span><span class="n">date</span><span class="p">(</span><span class="mi">1964</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">date</span><span class="p">(</span><span class="mi">1985</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="n">date</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">),</span> <span class="n">date</span><span class="p">(</span><span class="mi">1964</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">date</span><span class="p">(</span><span class="mi">1985</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="n">date</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">)],</span>
+                <span class="s1">&#39;value&#39;</span><span class="p">:</span>           <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span>
+                <span class="s1">&#39;value32&#39;</span><span class="p">:</span>         <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;int32&#39;</span><span class="p">),</span>
+                <span class="s1">&#39;res&#39;</span><span class="p">:</span>             <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span>
+                <span class="s1">&#39;coord::point&#39;</span><span class="p">:</span>    <span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">)],</span>
+                <span class="s1">&#39;names&#39;</span><span class="p">:</span>           <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;john&#39;</span><span class="p">,</span> <span class="s1">&#39;eric&#39;</span><span class="p">,</span> <span class="s1">&#39;judith&#39;</span><span class="p">,</span> <span class="s1">&#39;mila&#39;</span><span class="p">,</span> <span class="s1">&#39;hector&#39;</span><span class="p">,</span> <span class="s1">&#39;maria&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;string&#39;</span><span class="p">),</span>
+                <span class="s1">&#39;unique&#39;</span><span class="p">:</span>          <span class="kc">True</span> <span class="p">}</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">df</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span>       <span class="n">dates</span><span class="p">::</span><span class="n">date</span>  <span class="n">value</span>  <span class="n">value32</span>  <span class="n">res</span> <span class="n">coord</span><span class="p">::</span><span class="n">point</span>   <span class="n">names</span>  <span class="n">unique</span>
+        <span class="n">index</span>
+        <span class="mi">100</span>    <span class="mi">1964</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span>     <span class="mi">10</span>       <span class="mi">12</span>   <span class="mi">10</span>  <span class="n">POINT</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">2</span><span class="p">)</span>    <span class="n">john</span>    <span class="kc">True</span>
+        <span class="mi">200</span>    <span class="mi">1985</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">05</span>     <span class="mi">10</span>       <span class="mi">12</span>   <span class="mi">20</span>  <span class="n">POINT</span> <span class="p">(</span><span class="mi">3</span> <span class="mi">4</span><span class="p">)</span>    <span class="n">eric</span>    <span class="kc">True</span>
+        <span class="mi">300</span>    <span class="mi">2022</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">21</span>     <span class="mi">20</span>       <span class="mi">22</span>   <span class="mi">30</span>  <span class="n">POINT</span> <span class="p">(</span><span class="mi">5</span> <span class="mi">6</span><span class="p">)</span>  <span class="n">judith</span>    <span class="kc">True</span>
+        <span class="mi">400</span>    <span class="mi">1964</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span>     <span class="mi">20</span>       <span class="mi">22</span>   <span class="mi">10</span>  <span class="n">POINT</span> <span class="p">(</span><span class="mi">7</span> <span class="mi">8</span><span class="p">)</span>    <span class="n">mila</span>    <span class="kc">True</span>
+        <span class="mi">500</span>    <span class="mi">1985</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">05</span>     <span class="mi">30</span>       <span class="mi">32</span>   <span class="mi">20</span>  <span class="n">POINT</span> <span class="p">(</span><span class="mi">3</span> <span class="mi">4</span><span class="p">)</span>  <span class="n">hector</span>    <span class="kc">True</span>
+        <span class="mi">600</span>    <span class="mi">2022</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">21</span>     <span class="mi">30</span>       <span class="mi">32</span>   <span class="mi">30</span>  <span class="n">POINT</span> <span class="p">(</span><span class="mi">5</span> <span class="mi">6</span><span class="p">)</span>   <span class="n">maria</span>    <span class="kc">True</span>
+</code></pre></div>
+
+<p>JSON representation</p>
+<div class="codehilite"><pre><span></span><code><span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">df_to_json</span> <span class="o">=</span> <span class="n">npd</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+        <span class="n">pprint</span><span class="p">(</span><span class="n">df_to_json</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="p">{</span><span class="s1">&#39;:tab&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;coord::point&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">7.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">]],</span>
+                  <span class="s1">&#39;dates::date&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;1964-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;1985-02-05&#39;</span><span class="p">,</span> <span class="s1">&#39;2022-01-21&#39;</span><span class="p">,</span> <span class="s1">&#39;1964-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;1985-02-05&#39;</span><span class="p">,</span> <span class="s1">&#39;2022-01-21&#39;</span><span class="p">],</span>
+                  <span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">600</span><span class="p">],</span>
+                  <span class="s1">&#39;names::string&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;john&#39;</span><span class="p">,</span> <span class="s1">&#39;eric&#39;</span><span class="p">,</span> <span class="s1">&#39;judith&#39;</span><span class="p">,</span> <span class="s1">&#39;mila&#39;</span><span class="p">,</span> <span class="s1">&#39;hector&#39;</span><span class="p">,</span> <span class="s1">&#39;maria&#39;</span><span class="p">],</span>
+                  <span class="s1">&#39;res&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span>
+                  <span class="s1">&#39;unique&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
+                  <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span>
+                  <span class="s1">&#39;value32::int32&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">]}}</span>
+</code></pre></div>
+
+<p>Reversibility</p>
+<div class="codehilite"><pre><span></span><code><span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">df_from_json</span> <span class="o">=</span> <span class="n">npd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">df_to_json</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;df created from JSON is equal to initial df ? &#39;</span><span class="p">,</span> <span class="n">df_from_json</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">df</span><span class="p">))</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">df</span> <span class="n">created</span> <span class="kn">from</span><span class="w"> </span><span class="nn">JSON</span> <span class="ow">is</span> <span class="n">equal</span> <span class="n">to</span> <span class="n">initial</span> <span class="n">df</span> <span class="err">?</span>  <span class="kc">True</span>
+</code></pre></div>
+
+<p>Several other examples are provided in the <a href="https://nbviewer.org/github/loco-philippe/ntv-pandas/blob/main/example/example_ntv_pandas.ipynb">linked NoteBook</a></p>
+<h4 id="table-schema-json-interface-example">Table Schema JSON interface example<a class="headerlink" href="#table-schema-json-interface-example" title="Permanent link"> #</a></h4>
+<p>In the example below, a DataFrame with several Table Schema data types is converted to JSON.</p>
+<p>The DataFrame resulting from this JSON is identical to the initial DataFrame (reversibility).</p>
+<p>With the existing Table Schema JSON interface, this conversion is not possible.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">from</span><span class="w"> </span><span class="nn">shapely.geometry</span><span class="w"> </span><span class="kn">import</span> <span class="n">Point</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">date</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+            <span class="s1">&#39;end february::date&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;date(2023,2,28)&#39;</span><span class="p">,</span> <span class="s1">&#39;date(2024,2,29)&#39;</span><span class="p">,</span> <span class="s1">&#39;date(2025,2,28)&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;coordinates::point&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Point([2.3, 48.9])&#39;</span><span class="p">,</span> <span class="s1">&#39;Point([5.4, 43.3])&#39;</span><span class="p">,</span> <span class="s1">&#39;Point([4.9, 45.8])&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;contact::email&#39;</span><span class="p">:</span>     <span class="p">[</span><span class="s1">&#39;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4a20252224642e252f0a3e2b28262f64292527">[email&#160;protected]</a>&#39;</span><span class="p">,</span> <span class="s1">&#39;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8de1e4feeca3e0e4e3e8e1e1e4cdfeeee5e8e0eca3eee2e0">[email&#160;protected]</a>&#39;</span><span class="p">,</span> <span class="s1">&#39;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d5a2b4b9a1b0a7fba2bdbca1b095b7a7b0b4bebcbbb2fbb6bab8">[email&#160;protected]</a>&#39;</span><span class="p">]</span>
+            <span class="p">})</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">df</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">end</span> <span class="n">february</span><span class="p">::</span><span class="n">date</span> <span class="n">coordinates</span><span class="p">::</span><span class="n">point</span>             <span class="n">contact</span><span class="p">::</span><span class="n">email</span>
+        <span class="mi">0</span>         <span class="mi">2023</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">28</span>   <span class="n">POINT</span> <span class="p">(</span><span class="mf">2.3</span> <span class="mf">48.9</span><span class="p">)</span>         <span class="n">john</span><span class="o">.</span><span class="n">doe</span><span class="nd">@table</span><span class="o">.</span><span class="n">com</span>
+        <span class="mi">1</span>         <span class="mi">2024</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">29</span>   <span class="n">POINT</span> <span class="p">(</span><span class="mf">5.4</span> <span class="mf">43.3</span><span class="p">)</span>    <span class="n">lisa</span><span class="o">.</span><span class="n">minelli</span><span class="nd">@schema</span><span class="o">.</span><span class="n">com</span>
+        <span class="mi">2</span>         <span class="mi">2025</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">28</span>   <span class="n">POINT</span> <span class="p">(</span><span class="mf">4.9</span> <span class="mf">45.8</span><span class="p">)</span>  <span class="n">walter</span><span class="o">.</span><span class="n">white</span><span class="nd">@breaking</span><span class="o">.</span><span class="n">com</span>
+</code></pre></div>
+
+<p>JSON representation</p>
+<div class="codehilite"><pre><span></span><code><span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">df_to_table</span> <span class="o">=</span> <span class="n">npd</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">pprint</span><span class="p">(</span><span class="n">df_to_table</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">sort_dicts</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;fields&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;integer&#39;</span><span class="p">},</span>
+                               <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;end february&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;date&#39;</span><span class="p">},</span>
+                               <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;coordinates&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;geopoint&#39;</span><span class="p">,</span> <span class="s1">&#39;format&#39;</span><span class="p">:</span> <span class="s1">&#39;array&#39;</span><span class="p">},</span>
+                               <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;contact&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span> <span class="s1">&#39;format&#39;</span><span class="p">:</span> <span class="s1">&#39;email&#39;</span><span class="p">}],</span>
+                    <span class="s1">&#39;primaryKey&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">],</span>
+                    <span class="s1">&#39;pandas_version&#39;</span><span class="p">:</span> <span class="s1">&#39;1.4.0&#39;</span><span class="p">},</span>
+         <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;end february&#39;</span><span class="p">:</span> <span class="s1">&#39;2023-02-28&#39;</span><span class="p">,</span> <span class="s1">&#39;coordinates&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">2.3</span><span class="p">,</span> <span class="mf">48.9</span><span class="p">],</span> <span class="s1">&#39;contact&#39;</span><span class="p">:</span> <span class="s1">&#39;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c1abaea9afefa5aea481b5a0a3ada4efa2aeac">[email&#160;protected]</a>&#39;</span><span class="p">},</span>
+                  <span class="p">{</span><span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;end february&#39;</span><span class="p">:</span> <span class="s1">&#39;2024-02-29&#39;</span><span class="p">,</span> <span class="s1">&#39;coordinates&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">5.4</span><span class="p">,</span> <span class="mf">43.3</span><span class="p">],</span> <span class="s1">&#39;contact&#39;</span><span class="p">:</span> <span class="s1">&#39;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0864617b69266561666d646461487b6b606d6569266b6765">[email&#160;protected]</a>&#39;</span><span class="p">},</span>
+                  <span class="p">{</span><span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;end february&#39;</span><span class="p">:</span> <span class="s1">&#39;2025-02-28&#39;</span><span class="p">,</span> <span class="s1">&#39;coordinates&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">4.9</span><span class="p">,</span> <span class="mf">45.8</span><span class="p">],</span> <span class="s1">&#39;contact&#39;</span><span class="p">:</span> <span class="s1">&#39;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4136202d3524336f362928352401233324202a282f266f222e2c">[email&#160;protected]</a>&#39;</span><span class="p">}]}</span>
+</code></pre></div>
+
+<p>Reversibility</p>
+<div class="codehilite"><pre><span></span><code><span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">df_from_table</span> <span class="o">=</span> <span class="n">npd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">df_to_table</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;df created from JSON is equal to initial df ? &#39;</span><span class="p">,</span> <span class="n">df_from_table</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">df</span><span class="p">))</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">df</span> <span class="n">created</span> <span class="kn">from</span><span class="w"> </span><span class="nn">JSON</span> <span class="ow">is</span> <span class="n">equal</span> <span class="n">to</span> <span class="n">initial</span> <span class="n">df</span> <span class="err">?</span>  <span class="kc">True</span>
+</code></pre></div>
+
+<p>Several other examples are provided in the <a href="https://nbviewer.org/github/loco-philippe/ntv-pandas/blob/main/example/example_table_pandas.ipynb">linked NoteBook</a></p>
+<h2 id="scope">Scope<a class="headerlink" href="#scope" title="Permanent link"> #</a></h2>
+<p>The objective is to make available the proposed JSON interface for any type of data and for <code>orient="table"</code> option or a new option <code>orient="ntv"</code>.</p>
+<p>The proposed interface is compatible with existing data.</p>
+<h2 id="motivation">Motivation<a class="headerlink" href="#motivation" title="Permanent link"> #</a></h2>
+<h3 id="why-extend-the-orienttable-option-to-other-data-types">Why extend the <code>orient=table</code> option to other data types?<a class="headerlink" href="#why-extend-the-orienttable-option-to-other-data-types" title="Permanent link"> #</a></h3>
+<ul>
+<li>The Table Schema specification defines 24 data types, 6 are taken into account in the pandas interface</li>
+</ul>
+<h3 id="why-is-it-important-to-have-a-compact-and-reversible-json-interface">Why is it important to have a compact and reversible JSON interface ?<a class="headerlink" href="#why-is-it-important-to-have-a-compact-and-reversible-json-interface" title="Permanent link"> #</a></h3>
+<ul>
+<li>a reversible interface provides an exchange format.</li>
+<li>a textual exchange format facilitates exchanges between platforms (e.g. OpenData)</li>
+<li>a JSON exchange format can be used at API level</li>
+</ul>
+<h3 id="is-it-relevant-to-take-an-extended-type-into-account">Is it relevant to take an extended type into account ?<a class="headerlink" href="#is-it-relevant-to-take-an-extended-type-into-account" title="Permanent link"> #</a></h3>
+<ul>
+<li>it avoids the addition of an additional data schema</li>
+<li>it increases the semantic scope of the data processed by pandas</li>
+<li>it is an answer to several issues (e.g.  #12997, #14358, #16492, #35420, #35464, #36211, #39537, #49585, #50782, #51375, #52595, #53252)</li>
+<li>the use of a complementary type avoids having to modify the pandas data model</li>
+</ul>
+<h3 id="is-this-only-useful-for-pandas">Is this only useful for pandas ?<a class="headerlink" href="#is-this-only-useful-for-pandas" title="Permanent link"> #</a></h3>
+<ul>
+<li>the JSON-TAB format is applicable to tabular data and multi-dimensional data.</li>
+<li>this JSON interface can therefore be used for any application using tabular or multi-dimensional data. This would allow for example reversible data exchanges between pandas - DataFrame and Xarray - DataArray (Xarray issue under construction) <a href="https://nbviewer.org/github/loco-philippe/NTV/blob/main/example/example_pandas.ipynb#Multidimensional-data">see example DataFrame / DataArray</a>.</li>
+</ul>
+<h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link"> #</a></h2>
+<p>The proposed solution is based on several key points:</p>
+<ul>
+<li>data typing</li>
+<li>correspondence between TableSchema and pandas</li>
+<li>JSON format for tabular data</li>
+<li>conversion to and from JSON format</li>
+</ul>
+<h3 id="data-typing">Data typing<a class="headerlink" href="#data-typing" title="Permanent link"> #</a></h3>
+<p>Data types are defined and managed in the NTV project (name, JSON encoder and decoder).</p>
+<p>Pandas <code>dtype</code> are compatible with NTV types :</p>
+<table class="table table-bordered">
+<thead>
+<tr>
+<th><strong>pandas  dtype</strong></th>
+<th><strong>NTV type</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>intxx</td>
+<td>intxx</td>
+</tr>
+<tr>
+<td>uintxx</td>
+<td>uintxx</td>
+</tr>
+<tr>
+<td>floatxx</td>
+<td>floatxx</td>
+</tr>
+<tr>
+<td>datetime[ns]</td>
+<td>datetime</td>
+</tr>
+<tr>
+<td>datetime[ns, <tz>]</td>
+<td>datetimetz</td>
+</tr>
+<tr>
+<td>timedelta[ns]</td>
+<td>durationiso</td>
+</tr>
+<tr>
+<td>string</td>
+<td>string</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>boolean</td>
+</tr>
+</tbody>
+</table>
+<p>Note:</p>
+<ul>
+<li>datetime with timezone is a single NTV type (string ISO8601)</li>
+<li><code>CategoricalDtype</code> and <code>SparseDtype</code> are included in the tabular JSON format</li>
+<li><code>object</code> <code>dtype</code> is depending on the context (see below)</li>
+<li><code>PeriodDtype</code> and <code>IntervalDtype</code> are to be defined</li>
+</ul>
+<p>JSON types (implicit or explicit) are converted in <code>dtype</code> following pandas JSON interface:</p>
+<table class="table table-bordered">
+<thead>
+<tr>
+<th><strong>JSON type</strong></th>
+<th><strong>pandas  dtype</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>number</td>
+<td>int64 / float64</td>
+</tr>
+<tr>
+<td>string</td>
+<td>string / object</td>
+</tr>
+<tr>
+<td>array</td>
+<td>object</td>
+</tr>
+<tr>
+<td>object</td>
+<td>object</td>
+</tr>
+<tr>
+<td>true, false</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>null</td>
+<td>NaT / NaN / None</td>
+</tr>
+</tbody>
+</table>
+<p>Note:</p>
+<ul>
+<li>if an NTV type is defined, the <code>dtype</code> is adjusted accordingly</li>
+<li>the consideration of null type data needs to be clarified</li>
+</ul>
+<p>The other NTV types are associated with <code>object</code> <code>dtype</code>.</p>
+<h3 id="correspondence-between-tableschema-and-pandas">Correspondence between TableSchema and pandas<a class="headerlink" href="#correspondence-between-tableschema-and-pandas" title="Permanent link"> #</a></h3>
+<p>The TableSchema typing is carried by two attributes <code>format</code> and <code>type</code>.</p>
+<p>The table below shows the correspondence between TableSchema format / type and pandas NTVtype / dtype:</p>
+<table class="table table-bordered">
+<thead>
+<tr>
+<th><strong>format / type</strong></th>
+<th><strong>NTV type / dtype</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>default / datetime</td>
+<td>/ datetime64[ns]</td>
+</tr>
+<tr>
+<td>default / number</td>
+<td>/ float64</td>
+</tr>
+<tr>
+<td>default / integer</td>
+<td>/ int64</td>
+</tr>
+<tr>
+<td>default / boolean</td>
+<td>/ bool</td>
+</tr>
+<tr>
+<td>default / string</td>
+<td>/ object</td>
+</tr>
+<tr>
+<td>default / duration</td>
+<td>/ timedelta64[ns]</td>
+</tr>
+<tr>
+<td>email   / string</td>
+<td>email   / string</td>
+</tr>
+<tr>
+<td>uri     / string</td>
+<td>uri     / string</td>
+</tr>
+<tr>
+<td>default / object</td>
+<td>object  / object</td>
+</tr>
+<tr>
+<td>default / array</td>
+<td>array   / object</td>
+</tr>
+<tr>
+<td>default / date</td>
+<td>date    / object</td>
+</tr>
+<tr>
+<td>default / time</td>
+<td>time    / object</td>
+</tr>
+<tr>
+<td>default / year</td>
+<td>year    / int64</td>
+</tr>
+<tr>
+<td>default / yearmonth</td>
+<td>month   / int64</td>
+</tr>
+<tr>
+<td>array   / geopoint</td>
+<td>point   / object</td>
+</tr>
+<tr>
+<td>default / geojson</td>
+<td>geojson / object</td>
+</tr>
+</tbody>
+</table>
+<p>Note:</p>
+<ul>
+<li>other TableSchema format are defined and are to be studied (uuid, binary, topojson, specific format for geopoint and datation)</li>
+<li>the first six lines correspond to the existing</li>
+</ul>
+<h3 id="json-format">JSON format<a class="headerlink" href="#json-format" title="Permanent link"> #</a></h3>
+<p>The JSON format for the TableSchema interface is the existing.</p>
+<p>The JSON format for the Global interface is defined in <a href="https://github.com/loco-philippe/NTV/blob/v1.1.0/documentation/JSON-TAB-standard.pdf">JSON-TAB</a> specification.
+It includes the naming rules originally defined in the <a href="https://github.com/glenkleidon/JSON-ND">JSON-ND project</a> and support for categorical data.
+The specification have to be updated to include sparse data.</p>
+<h3 id="conversion">Conversion<a class="headerlink" href="#conversion" title="Permanent link"> #</a></h3>
+<p>When data is associated with a non-<code>object</code> <code>dtype</code>, pandas conversion methods are used.
+Otherwise, NTV conversion is used.</p>
+<h4 id="pandas-json">pandas -&gt; JSON<a class="headerlink" href="#pandas-json" title="Permanent link"> #</a></h4>
+<ul>
+<li><code>NTV type</code> is not defined : use <code>to_json()</code></li>
+<li><code>NTV type</code> is defined and <code>dtype</code> is not <code>object</code> : use <code>to_json()</code></li>
+<li><code>NTV type</code> is defined and <code>dtype</code> is <code>object</code> : use NTV conversion (if pandas conversion does not exist)</li>
+</ul>
+<h4 id="json-pandas">JSON -&gt; pandas<a class="headerlink" href="#json-pandas" title="Permanent link"> #</a></h4>
+<ul>
+<li><code>NTV type</code> is compatible with a <code>dtype</code> : use <code>read_json()</code></li>
+<li><code>NTV type</code> is not compatible with a <code>dtype</code> : use NTV conversion (if pandas conversion does not exist)</li>
+</ul>
+<h2 id="usage-and-impact">Usage and Impact<a class="headerlink" href="#usage-and-impact" title="Permanent link"> #</a></h2>
+<h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link"> #</a></h3>
+<p>It seems to me that this proposal responds to important issues:</p>
+<ul>
+<li>
+<p>having an efficient text format for data exchange</p>
+<p>The alternative CSV format is not reversible and obsolete (last revision in 2005). Current CSV tools do not comply with the standard.</p>
+</li>
+<li>
+<p>taking into account "semantic" data in pandas objects</p>
+</li>
+<li>
+<p>having a complete Table Schema interface</p>
+</li>
+</ul>
+<h3 id="compatibility">Compatibility<a class="headerlink" href="#compatibility" title="Permanent link"> #</a></h3>
+<p>Interface can be used without NTV type (compatibility with existing data - <a href="https://nbviewer.org/github/loco-philippe/ntv-pandas/blob/main/example/example_ntv_pandas.ipynb#Appendix-:-Series-tests">see examples</a>)</p>
+<p>If the interface is available, throw a new <code>orient</code> option in the JSON interface, the use of the feature is decoupled from the other features.</p>
+<h3 id="impacts-on-the-pandas-framework">Impacts on the pandas framework<a class="headerlink" href="#impacts-on-the-pandas-framework" title="Permanent link"> #</a></h3>
+<p>Initially, the impacts are very limited:</p>
+<ul>
+<li>modification of the <code>name</code> of <code>Series</code> or <code>DataFrame columns</code> (no functional impact),</li>
+<li>added an option in the Json interface (e.g. <code>orient='ntv'</code>) and added associated methods (no functional interference with the other methods)</li>
+</ul>
+<p>In later stages, several developments could be considered:</p>
+<ul>
+<li>validation of the <code>name</code> of <code>Series</code> or <code>DataFrame columns</code> ,</li>
+<li>management of the NTV type as a "complementary-object-dtype"</li>
+<li>functional extensions depending on the NTV type</li>
+</ul>
+<h3 id="risk-to-do-risk-not-to-do">Risk to do / risk not to do<a class="headerlink" href="#risk-to-do-risk-not-to-do" title="Permanent link"> #</a></h3>
+<p>The JSON-NTV format and the JSON-TAB format are not (yet) recognized and used formats. The risk for pandas is that this function is not used (no functional impacts).</p>
+<p>On the other hand, the early use by pandas will allow a better consideration of the expectations and needs of pandas as well as a reflection on the evolution of the types supported by pandas.</p>
+<h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link"> #</a></h2>
+<h3 id="modules">Modules<a class="headerlink" href="#modules" title="Permanent link"> #</a></h3>
+<p>Two modules are defined for NTV:</p>
+<ul>
+<li>
+<p>json-ntv</p>
+<p>this module manages NTV data without dependency to another module</p>
+</li>
+<li>
+<p>ntvconnector</p>
+<p>those modules manage the conversion between objects and JSON data. They have dependency with objects modules (e.g. connectors with shapely location have dependency with shapely).</p>
+</li>
+</ul>
+<p>The pandas integration of the JSON interface requires importing only the json-ntv module.</p>
+<h3 id="implementation-options">Implementation options<a class="headerlink" href="#implementation-options" title="Permanent link"> #</a></h3>
+<p>The interface can be implemented as NTV connector (<code>SeriesConnector</code> and <code>DataFrameConnector</code>) and as a new pandas JSON interface <code>orient</code> option.</p>
+<p>Several pandas implementations are possible:</p>
+<ol>
+<li>
+<p>External:</p>
+<p>In this implementation, the interface is available only in the NTV side.
+This option means that this evolution of the JSON interface is not useful or strategic for pandas.</p>
+</li>
+<li>
+<p>NTV side:</p>
+<p>In this implementation, the interface is available in the both sides and the conversion is located inside NTV.
+This option is the one that minimizes the impacts on the pandas side</p>
+</li>
+<li>
+<p>pandas side:</p>
+<p>In this implementation, the interface is available in the both sides and the conversion is located inside pandas.
+This option allows pandas to keep control of this evolution</p>
+</li>
+<li>
+<p>pandas restricted:</p>
+<p>In this implementation, the pandas interface and the conversion are located inside pandas and only for non-object <code>dtype</code>.
+This option makes it possible to offer a compact and reversible interface while prohibiting the introduction of types incompatible with the existing <code>dtype</code></p>
+</li>
+</ol>
+<h2 id="faq">F.A.Q.<a class="headerlink" href="#faq" title="Permanent link"> #</a></h2>
+<p><strong>Q: Does <code>orient="table"</code> not do what you are proposing already?</strong></p>
+<p><strong>A</strong>: In principle, yes, this option takes into account the notion of type.</p>
+<p>But this is very limited (see examples added in the <a href="https://nbviewer.org/github/loco-philippe/NTV/blob/main/example/example_pandas.ipynb">Notebook</a>) :</p>
+<ul>
+<li><strong>Types and Json interface</strong></li>
+<li>the only way to keep the types in the json interface is to use the <code>orient='table'</code> option</li>
+<li>few dtypes are not allowed in json-table interface : period, timedelta64, interval</li>
+<li>allowed types are not always kept in json-table interface</li>
+<li>data with 'object' dtype is kept only id data is string</li>
+<li>with categorical dtype, the underlying dtype is not included in json interface</li>
+<li><strong>Data compactness</strong></li>
+<li>json-table interface is not compact (in the example in the <a href="https://nbviewer.org/github/loco-philippe/NTV/blob/main/example/example_pandas.ipynb#data-compactness">Notebook</a>)the size is triple or quadruple the size of the compact format</li>
+<li><strong>Reversibility</strong></li>
+<li>Interface is reversible only with few dtypes : int64, float64, bool, string, datetime64 and partially categorical</li>
+<li><strong>External types</strong></li>
+<li>the interface does not accept external types</li>
+<li>Table-schema defines 20 data types but the <code>orient="table"</code> interface takes into account 5 data types (see <a href="https://nbviewer.org/github/loco-philippe/NTV/blob/main/example/example_pandas.ipynb#Converting-table-schema-type-to-pandas-dtype">table</a>)</li>
+<li>to integrate external types, it is necessary to first create ExtensionArray and ExtensionDtype objects</li>
+</ul>
+<p>The current interface is not compatible with the data structure defined by table-schema. For this to be possible, it is necessary to integrate a "type extension" like the one proposed (this has moreover been partially achieved with the notion of <code>extDtype</code> found in the interface for several formats).</p>
+<p><strong>Q: In general, we should only have 1 <code>"table"</code> format for pandas in read_json/to_json. There is also the issue of backwards compatibility if we do change the format. The fact that the table interface is buggy is not a reason to add a new interface (I'd rather fix those bugs). Can the existing format be adapted in a way that fixes the type issues/issues with roundtripping?</strong></p>
+<p><strong>A</strong>: I will add two additional remarks:</p>
+<ul>
+<li>the types defined in Tableschema are partially taken into account (examples of types not taken into account in the interface: string-uri, array, date, time, year, geopoint, string-email):</li>
+<li>the <code>read_json()</code> interface works too with the following data: <code>{'simple': [1,2,3] }</code> (contrary to what is indicated in the documentation) but it is impossible with <code>to_json()</code> to recreate this simple json.</li>
+</ul>
+<p>I think that the problem cannot be limited to bug fixes and that a clear strategy must be defined for the Json interface in particular with the gradual abandonment in open-data solutions of the obsolete CSV format in favor of a Json format.</p>
+<p>As stated, the proposed solution addresses several shortcomings of the current interface and could simply fit into the pandas environment (the other option would be to consider that the Json interface is a peripheral function of pandas and can remain external to pandas) regardless of the <code>orient='table'</code> option.</p>
+<p>It is nevertheless possible to merge the proposed format and the <code>orient='table'</code> format in order to have an explicit management of the notion of <code>extDtype</code></p>
+<p><strong>Q: As far as I can tell, JSON NTV is not in any form a standardised JSON format. I believe that pandas (and geopandas, which is where I came from to this issue) should try to follow either de facto or de jure standards and do not opt in for a file format that does not have any community support at this moment. This can obviously change in the future and that is where this PR should be revised. Why would pandas use this standard?</strong></p>
+<p><strong>A</strong>: As indicated in the issue (and detailed in <a href="https://nbviewer.org/github/loco-philippe/NTV/blob/main/example/example_pandas.ipynb">the attached Notebook</a>), the json interface is not reversible (<code>to_json</code> then <code>read_json</code> does not always return the initial object) and several shortcomings and bugs are present. The main cause of this problem is that the data type is not taken into account in the JSON format (or very partially with the <code>orient='table'</code> option).</p>
+<p>The proposal made answers this problem (<a href="https://nbviewer.org/github/loco-philippe/NTV/blob/main/example/example_pandas.ipynb#0---Simple-example">the example at the beginning of Notebook</a> simply and clearly illustrates the interest of the proposal).</p>
+<p>Regarding the underlying JSON-NTV format, its impact is quite low for tabular data (it is limited to adding the type in the field name).
+Nevertheless, the question is relevant: The JSON-NTV format (<a href="https://datatracker.ietf.org/doc/draft-thomy-json-ntv/">IETF Internet-Draft</a>) is a shared, documented, supported and implemented format, but indeed the community support is for the moment reduced but it only asks to expand !!</p>
+<h2 id="synthesis">Synthesis<a class="headerlink" href="#synthesis" title="Permanent link"> #</a></h2>
+<p>To conclude,</p>
+<ul>
+<li>if it is important (or strategic) to have a reversible JSON interface for any type of data, the proposal can be allowed,</li>
+<li>if not, a third-party package listed in the <a href="https://pandas.pydata.org/community/ecosystem.html">ecosystem</a> that reads/writes this format to/from pandas DataFrames should be considered</li>
+</ul>
+<h2 id="core-team-decision">Core team decision<a class="headerlink" href="#core-team-decision" title="Permanent link"> #</a></h2>
+<p>Vote was open from september-11 to september-26:</p>
+<ul>
+<li>Final tally is 0 approvals, 5 abstentions, 7 disapprove. The quorum has been met. The PDEP fails.</li>
+</ul>
+<p><strong>Disapprove comments</strong> :</p>
+<ul>
+<li>1 Given the newness of the proposed JSON NTV format, I would support (as described in the PDEP): "if not, a third-party package listed in the ecosystem that reads/writes this format to/from pandas DataFrames should be considered"</li>
+<li>2 Same reason as -1-, this should be a third party package for now</li>
+<li>3 Not mature enough, and not clear what the market size would be.</li>
+<li>4 for the same reason I left in the PDEP: "I think this (JSON-NTV format) does not meet the bar of being a commonly used format for implementation within pandas"</li>
+<li>5 agree with -4-</li>
+<li>6 agree with the other core-dev responders. I think work in the existing json interface is extremely valuable. A number of the original issues raised are just bug fixes / extensions of already existing functionality. Trying to start anew is likely not worth the migration effort. That said if a format is well supported in the community we can reconsider in the future (obviously json is well supported but the actual specification detailed here is too new / not accepted as a standard)</li>
+<li>7 while I do think having a more comprehensive JSON format would be worthwhile, making a new format part of pandas means an implicit endorsement of a standard that is still being reviewed by the broader community.</li>
+</ul>
+<p><strong>Decision</strong>:</p>
+<ul>
+<li>add the <code>ntv-pandas</code> package in the <a href="https://pandas.pydata.org/community/ecosystem.html">ecosystem</a></li>
+<li>revisit again this PDEP at a later stage, for example in 1/2 to 1 year (based on the evolution of the Internet draft <a href="https://www.ietf.org/archive/id/draft-thomy-json-ntv-01.html">JSON semantic format (JSON-NTV)</a> and the usage of the <a href="https://github.com/loco-philippe/ntv-pandas#readme">ntv-pandas</a>)</li>
+</ul>
+<h2 id="timeline">Timeline<a class="headerlink" href="#timeline" title="Permanent link"> #</a></h2>
+<p>Not applicable</p>
+<h2 id="pdep-history">PDEP History<a class="headerlink" href="#pdep-history" title="Permanent link"> #</a></h2>
+<ul>
+<li>16 June 2023: Initial draft</li>
+<li>22 July 2023: Add F.A.Q.</li>
+<li>06 September 2023: Add Table Schema extension</li>
+<li>01 Octobre: Add Core team decision</li>
+</ul>
+            </div>
+            
+        </main>
+        <footer class="container pt-4 pt-md-5 border-top">
+            <ul class="list-inline social-buttons float-end">
+                <li class="list-inline-item">
+                    <a href="https://t.me/s/pandas_dev">
+                        <i class="fab bi bi-telegram"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="https://fosstodon.org/@pandas_dev" rel="me">
+                        <i class="fab bi bi-mastodon"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="https://x.com/pandas_dev">
+                        <i class="fab bi bi-twitter-x"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="https://github.com/pandas-dev/pandas">
+                        <i class="fab bi bi-github"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="https://stackoverflow.com/questions/tagged/pandas">
+                        <i class="fab bi bi-stack-overflow"></i>
+                    </a>
+                </li>
+            </ul>
+            <p>
+                &copy; 2026 pandas via <a href="https://numfocus.org">NumFOCUS, Inc.</a> Hosted by <a href="https://www.ovhcloud.com">OVHcloud</a>.
+            </p>
+        </footer>
+        
+        <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" 
+                integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" 
+                crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            const faviconTag = document.getElementById('favicon-tag');
+            const matcher = window.matchMedia('(prefers-color-scheme:dark)');
+            
+            const onUpdate = () => {
+                if (matcher.matches) faviconTag.href = "..//static/img/favicon_white.ico";
+                else faviconTag.href = "..//static/img/favicon.ico";
+            };
+            
+            onUpdate();
+            
+            matcher.addEventListener('change', onUpdate);
+        </script>
+    </body>
+</html>

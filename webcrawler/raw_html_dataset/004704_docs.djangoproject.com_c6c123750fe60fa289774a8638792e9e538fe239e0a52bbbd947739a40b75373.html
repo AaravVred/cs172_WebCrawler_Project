@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="ROBOTS" content="ALL" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="" />
+    <meta name="fediverse:creator" content="@django@fosstodon.org" />
+    
+  
+    
+      
+    
+  
+  <link rel="canonical" href="https://docs.djangoproject.com/sv/6.0/internals/contributing/bugs-and-features/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="el"
+          href="https://docs.djangoproject.com/el/6.0/internals/contributing/bugs-and-features/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="en"
+          href="https://docs.djangoproject.com/en/6.0/internals/contributing/bugs-and-features/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="es"
+          href="https://docs.djangoproject.com/es/6.0/internals/contributing/bugs-and-features/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="fr"
+          href="https://docs.djangoproject.com/fr/6.0/internals/contributing/bugs-and-features/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="id"
+          href="https://docs.djangoproject.com/id/6.0/internals/contributing/bugs-and-features/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="it"
+          href="https://docs.djangoproject.com/it/6.0/internals/contributing/bugs-and-features/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="ja"
+          href="https://docs.djangoproject.com/ja/6.0/internals/contributing/bugs-and-features/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="ko"
+          href="https://docs.djangoproject.com/ko/6.0/internals/contributing/bugs-and-features/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="pl"
+          href="https://docs.djangoproject.com/pl/6.0/internals/contributing/bugs-and-features/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="pt-br"
+          href="https://docs.djangoproject.com/pt-br/6.0/internals/contributing/bugs-and-features/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="sv"
+          href="https://docs.djangoproject.com/sv/6.0/internals/contributing/bugs-and-features/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="zh-hans"
+          href="https://docs.djangoproject.com/zh-hans/6.0/internals/contributing/bugs-and-features/">
+  
+
+  <link rel="search"
+        type="application/opensearchdescription+xml"
+        href="https://docs.djangoproject.com/sv/6.0/search/description/"
+        title="Django-dokumentation">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="https://static.djangoproject.com/img/icon-touch.e4872c4da341.png">
+    <link rel="icon" sizes="192x192" href="https://static.djangoproject.com/img/icon-touch.e4872c4da341.png">
+    <link rel="shortcut icon" href="https://static.djangoproject.com/img/favicon.6dbf28c0650e.ico">
+    <meta name="msapplication-TileColor" content="#113228">
+    <meta name="msapplication-TileImage" content="https://static.djangoproject.com/img/icon-tile.b01ac0ef9f67.png">
+    <meta name="theme-color" content="#0C4B33">
+
+    
+      <meta property="og:title" content="Rapportering av buggar och önskemål om funktioner | Django-dokumentation" />
+      <meta property="og:description" content="The web framework for perfectionists with deadlines." />
+      <meta property="og:image" content="https://static.djangoproject.com/img/logos/django-logo-negative.1d528e2cb5fb.png" />
+      <meta property="og:image:alt" content="Django logo" />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="546" />
+      <meta property="og:image:type" content="image/png"/>
+      <meta property="og:url" content="https://docs.djangoproject.com/sv/6.0/internals/contributing/bugs-and-features/" />
+      <meta property="og:site_name" content="Django Project" />
+
+      <meta property="twitter:creator" content="djangoproject" />
+      <meta property="twitter:site" content="djangoproject" />
+      <meta property="twitter:card" content="summary">
+    
+
+    <title>Rapportering av buggar och önskemål om funktioner | Django-dokumentation | Django</title>
+
+    <link rel="stylesheet" href="https://static.djangoproject.com/css/output.33b5c879d992.css" >
+
+    <script src="https://static.djangoproject.com/js/mod/switch-dark-mode.139625c684db.js"></script>
+    
+  </head>
+
+  <body id="generic" class="">
+    
+  
+
+
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+
+<header id="top">
+  <div class="container container--flex--wrap--mobile">
+    <a class="logo" href="https://www.djangoproject.com/">Django</a>
+    <p class="meta">The web framework for perfectionists with deadlines.</p>
+    <button class="menu-button">
+      <i class="icon icon-reorder" aria-hidden="true"></i>
+      <span class="visuallyhidden">Menu</span>
+    </button>
+    <nav aria-labelledby="navigation-header">
+      <span id="navigation-header" class="visuallyhidden">Main navigation</span>
+      <ul>
+        <li>
+          <a href="https://www.djangoproject.com/start/overview/">Overview</a>
+        </li>
+        <li>
+          <a href="https://www.djangoproject.com/download/">Download</a>
+        </li>
+        <li class="active">
+          <a href="https://docs.djangoproject.com/">Documentation</a>
+        </li>
+        <li>
+          <a href="https://www.djangoproject.com/weblog/">News</a>
+        </li>
+        <li>
+          <a href="https://github.com/django/django" target="_blank" rel="noopener">Code</a>
+        </li>
+        <li>
+          <a href="https://code.djangoproject.com/">Issues</a>
+        </li>
+        <li>
+          <a href="https://www.djangoproject.com/community/">Community</a>
+        </li>
+        <li>
+          <a href="https://www.djangoproject.com/foundation/">Foundation</a>
+        </li>
+        <li>
+          <a href="https://www.djangoproject.com/fundraising/">&#9829; Donate</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="header-tools">
+      
+<search class="search form-input" aria-labelledby="docs-search-label">
+  <form action="https://docs.djangoproject.com/sv/6.0/search/">
+    <label id="docs-search-label" class="visuallyhidden" for="id_q">Search</label>
+    <input type="search" name="q" placeholder="Search" id="id_q">
+    <input type="hidden" name="category" value="">
+
+    <button type="submit">
+      <i class="icon icon-search" aria-hidden="true"></i>
+      <span class="visuallyhidden">Skicka</span>
+    </button>
+  </form>
+</search>
+
+      
+
+<button class="theme-toggle">
+  <div class="visually-hidden theme-label-when-auto">Växla tema (aktuellt tema: auto)</div>
+  <div class="visually-hidden theme-label-when-light">Byt tema (aktuellt tema: ljus)</div>
+  <div class="visually-hidden theme-label-when-dark">Byt tema (nuvarande tema: mörkt)</div>
+
+  <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+  <svg aria-hidden="true" class="theme-icon-when-auto">
+    <use xlink:href="#icon-auto" />
+  </svg>
+  <svg aria-hidden="true" class="theme-icon-when-dark">
+    <use xlink:href="#icon-moon" />
+  </svg>
+  <svg aria-hidden="true" class="theme-icon-when-light">
+    <use xlink:href="#icon-sun" />
+  </svg>
+</button>
+
+    </div>
+  </div>
+</header>
+
+    
+
+    <section class="copy-banner">
+      <div class="container 
+  container--flex container--flex--wrap--mobile
+">
+        
+  <p><a href="https://docs.djangoproject.com/sv/6.0/">Dokumentation</a></p>
+
+      </div>
+    </section>
+
+    <div id="billboard">
+      
+  <div class="banner">
+    <h2>Until May 1, 2026, get PyCharm for 30% off!</h2>
+    Get 💸✨30%✨💸 off a new <em>or renewal</em> annual PyCharm Professional license while supporting the <em>Django Software Foundation</em>. <br/>
+🎁 Now includes renewals, and every purchase helps fund the DSF.
+    
+      <a id="banner-cta" class="cta" href="https://www.jetbrains.com/pycharm/promo/support-django/">Get PyCharm for 30% off</a>
+    
+  </div>
+
+
+    </div>
+
+    <div class="container sidebar-right">
+      <main id="main-content">
+
+        
+          
+        
+
+        
+  <div id="version-switcher">
+    <ul id="faq-link">
+      <li class="current-link">
+        <a href="https://docs.djangoproject.com/sv/6.0/faq/help/">
+          <span>Få hjälp</span>
+        </a>
+      </li>
+    </ul>
+    <ul id="doc-languages" class="language-switcher doc-switcher">
+      <li class="current">
+        <button>Språk: <strong>sv</strong></button>
+      </li>
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/zh-hans/6.0/internals/contributing/bugs-and-features/">zh-hans</a>
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/pt-br/6.0/internals/contributing/bugs-and-features/">pt-br</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/pl/6.0/internals/contributing/bugs-and-features/">pl</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/ko/6.0/internals/contributing/bugs-and-features/">ko</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/ja/6.0/internals/contributing/bugs-and-features/">ja</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/it/6.0/internals/contributing/bugs-and-features/">it</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/id/6.0/internals/contributing/bugs-and-features/">id</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/fr/6.0/internals/contributing/bugs-and-features/">fr</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/es/6.0/internals/contributing/bugs-and-features/">es</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/en/6.0/internals/contributing/bugs-and-features/">en</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/el/6.0/internals/contributing/bugs-and-features/">el</a>
+          </li>
+        
+      
+    </ul>
+
+    
+    <ul id="doc-versions" class="version-switcher doc-switcher">
+      <li class="current ">
+        <button>Dokumentationsversion:
+          <strong>6.0</strong>
+        </button>
+      </li>
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/sv/dev/internals/contributing/bugs-and-features/">dev</a>
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/sv/5.2/internals/contributing/bugs-and-features/">5.2</a>
+          </li>
+        
+      
+    </ul>
+    <ul id="backtotop-link">
+      <li class="current-link">
+        <a href="#top" aria-label="Back to top" class="icon-chevron-up-align"><i class="icon icon-chevron-up"></i></a>
+      </li>
+    </ul>
+  </div>
+
+  
+    <article id="docs-content">
+      <section id="s-reporting-bugs-and-requesting-features">
+<span id="reporting-bugs-and-requesting-features"></span><h1>Rapportering av buggar och önskemål om funktioner<a class="headerlink" href="#reporting-bugs-and-requesting-features" title="Link to this heading">¶</a></h1>
+<div class="admonition important">
+<p class="admonition-title">Viktigt</p>
+<p>Please report security issues <strong>only</strong> to
+<code class="docutils literal notranslate"><span class="pre">security&#64;djangoproject.com</span></code>. This is a private list only open to
+long-time, highly trusted Django developers, and its archives are
+not public. For further details, please see <a class="reference internal" href="../../security/"><span class="doc">our security
+policies</span></a>.</p>
+</div>
+<section id="s-reporting-bugs">
+<span id="s-id1"></span><span id="reporting-bugs"></span><span id="id1"></span><h2>Rapportering av buggar<a class="headerlink" href="#reporting-bugs" title="Link to this heading">¶</a></h2>
+<p>Innan du rapporterar en bugg på <a class="reference external" href="https://code.djangoproject.com/">ticket tracker</a> bör du tänka på följande punkter:</p>
+<ul class="simple">
+<li><p>Kontrollera att någon inte redan har lämnat in felrapporten genom att <a class="reference external" href="https://code.djangoproject.com/search">söka</a> eller köra <a class="reference external" href="https://code.djangoproject.com/query">anpassade frågor</a> i ärendehanteraren.</p></li>
+<li><p>Använd inte ärendesystemet för att ställa supportfrågor. Använd <a class="reference external" href="https://forum.djangoproject.com/">Django Forum</a> eller <a class="reference external" href="https://chat.djangoproject.com">Django Discord server</a> för det.</p></li>
+<li><p>Återöppna inte frågor som har markerats som ”wontfix” utan att hitta enighet om att göra det på <a class="reference external" href="https://forum.djangoproject.com/">Django Forum</a>.</p></li>
+<li><p>Don’t reopen issues that have been marked ”needsnewfeatureprocess” without
+shepherding an issue through the <a class="reference external" href="https://github.com/orgs/django/projects/24/">new feature ideas</a> GitHub project.</p></li>
+<li><p>Använd inte ärendehanteraren för långa diskussioner, eftersom de sannolikt kommer att gå förlorade. Om ett viss ärende är kontroversiell, flytta diskussionen till <a class="reference external" href="https://forum.djangoproject.com/">Django Forum</a>.</p></li>
+</ul>
+<p>Välskrivna felrapporter är <em>obeskrivligt</em> användbara. Det finns dock en viss mängd kostnader involverade i att arbeta med alla felhanteringssystem, så din hjälp med att hålla vår ärendehanterare så användbar som möjligt uppskattas. I synnerhet:</p>
+<ul class="simple">
+<li><p><a href="#id1"><span class="problematic" id="id2">**</span></a>Läs också <a class="reference internal" href="../../../faq/"><span class="doc">FAQ</span></a> för att se om ditt problem kan vara en välkänd fråga.</p></li>
+<li><p><a href="#id1"><span class="problematic" id="id2">**</span></a>Fråga på <a class="reference external" href="https://forum.djangoproject.com/">Django Forum</a> eller <a class="reference external" href="https://chat.djangoproject.com">Django Discord server</a> <em>först</em> om du inte är säker på om det du ser är en bugg.</p></li>
+<li><p><strong>Skriv</strong> fullständiga, reproducerbara och specifika felrapporter. Du måste inkludera en tydlig, kortfattad beskrivning av problemet och en uppsättning instruktioner för att replikera det. Lägg till så mycket felsökningsinformation som möjligt: kodavsnitt, testfall, backtraces för undantag, skärmdumpar osv. Ett trevligt litet testfall är det bästa sättet att rapportera en bugg, eftersom det ger oss ett användbart sätt att snabbt bekräfta buggen.</p></li>
+<li><p><a href="#id1"><span class="problematic" id="id2">**</span></a>Posta inte på <a class="reference external" href="https://forum.djangoproject.com/">Django Forum</a> bara för att meddela att du har lämnat in en felrapport. Alla ärenden skickas till en annan lista, <a class="reference internal" href="../../mailing-lists/#django-updates-mailing-list"><span class="std std-ref">django-updates</span></a>, som spåras av utvecklare och intresserade medlemmar i gemenskapen; vi ser dem när de lämnas in.</p></li>
+</ul>
+<p>To understand the lifecycle of your ticket once you have created it, refer to
+<a class="reference internal" href="../triaging-tickets/#triage-workflow"><span class="std std-ref">Arbetsflöde för triagering</span></a>.</p>
+<section id="s-reporting-user-interface-bugs">
+<span id="reporting-user-interface-bugs"></span><h3>Rapportering av buggar i användargränssnittet<a class="headerlink" href="#reporting-user-interface-bugs" title="Link to this heading">¶</a></h3>
+<p>Om din bugg påverkar något visuellt av naturen finns det några ytterligare riktlinjer att följa:</p>
+<ul class="simple">
+<li><p>Inkludera skärmdumpar i ditt ärende som är den visuella motsvarigheten till ett minimalt testfall. Visa upp problemet, inte de galna anpassningar du har gjort i din webbläsare.</p></li>
+<li><p>Om det är svårt att visa upp problemet med en stillbild kan du överväga att ta en <em>kort</em> screencast. Om din programvara tillåter det, ta bara den relevanta delen av skärmen.</p></li>
+<li><p>Om du erbjuder en patch som ändrar utseendet eller beteendet hos Djangos UI, måste du <strong>måste</strong> bifoga före <em>och</em> efter skärmdumpar / skärmsändningar. Ärenden som saknar dessa är svåra för triagers att bedöma snabbt.</p></li>
+<li><p>Skärmdumpar befriar dig inte från andra goda rapporteringsmetoder. Se till att inkludera webbadresser, kodavsnitt och steg-för-steg-instruktioner om hur du reproducerar det beteende som syns i skärmdumparna.</p></li>
+<li><p>Se till att sätta UI/UX-flaggan på ärendet så att intresserade parter kan hitta ditt ärende.</p></li>
+<li><p>Om problemet rör tillgänglighet, länka till relevant <a class="reference internal" href="../accessibility/#accessibility-standards"><span class="std std-ref">tillgänglighetsstandard</span></a> om tillämpligt.</p></li>
+</ul>
+</section>
+</section>
+<section id="s-requesting-features">
+<span id="s-id2"></span><span id="requesting-features"></span><span id="id2"></span><h2>Begär funktioner<a class="headerlink" href="#requesting-features" title="Link to this heading">¶</a></h2>
+<p>Vi försöker alltid göra Django bättre, och dina funktionsförfrågningar är en viktig del av det. Här är några tips om hur du gör en begäran på effektivaste sätt:</p>
+<ul class="simple">
+<li><p>Utvärdera om funktionsidén kräver ändringar i Djangos kärna. Om din idé kan utvecklas som en oberoende applikation eller modul - till exempel om du vill stödja en annan databasmotor - kommer vi förmodligen att föreslå att du utvecklar den självständigt. Om ditt projekt sedan samlar tillräckligt med stöd från gemenskapen kan vi överväga att inkludera det i Django.</p></li>
+<li><p>Föreslå funktionen i GitHub-projektet <a class="reference external" href="https://github.com/orgs/django/projects/24/">new feature ideas</a> (inte i ärendehanteraren) genom att skapa ett nytt objekt i kolumnen <strong>Idea</strong>. Det är här som gemenskapen och <a class="reference internal" href="../../organization/#steering-council"><span class="std std-ref">Steering Council</span></a> utvärderar nya idéer för Djangos ekosystem. Detta steg är särskilt viktigt för stora eller komplexa förslag. Vi föredrar att diskutera alla betydande förändringar av Djangos kärna innan någon utveckling påbörjas. I vissa fall kan en funktion vara bättre lämpad som ett tredjepartspaket, där den kan utvecklas oberoende av Djangos utgivningscykel.</p></li>
+<li><p>Beskriv klart och koncist vad det är som saknas och hur du skulle vilja att det implementerades. Inkludera exempelkod (icke-funktionell är OK) om möjligt.</p></li>
+<li><p>Förklara <em>varför</em> du skulle vilja ha funktionen. Att förklara ett minimalt användningsfall hjälper andra att förstå var det passar in och om det redan finns andra sätt att uppnå samma sak.</p></li>
+</ul>
+<p>Se även: <a class="reference internal" href="../writing-documentation/#documenting-new-features"><span class="std std-ref">Dokumentera nya funktioner</span></a>.</p>
+</section>
+<section id="s-requesting-performance-optimizations">
+<span id="requesting-performance-optimizations"></span><h2>Begäran om prestandaoptimeringar<a class="headerlink" href="#requesting-performance-optimizations" title="Link to this heading">¶</a></h2>
+<p>Rapporter om prestandaförluster eller förslag på prestandaoptimeringar bör innehålla riktmärken och kommandon som ärendehanteraren kan reproducera.</p>
+<p>Se <a class="reference internal" href="../writing-code/submitting-patches/#django-asv-benchmarks"><span class="std std-ref">django-asv riktmärken</span></a> för mer information om Djangos befintliga benchmarks.</p>
+</section>
+<section id="s-how-we-make-decisions">
+<span id="s-id3"></span><span id="how-we-make-decisions"></span><span id="id3"></span><h2>Hur vi fattar beslut<a class="headerlink" href="#how-we-make-decisions" title="Link to this heading">¶</a></h2>
+<p>När det är möjligt strävar vi efter grov konsensus. Emoji-reaktioner används på frågor inom GitHub-projektet <a class="reference external" href="https://github.com/orgs/django/projects/24/">new feature ideas</a> för att spåra återkoppling från gemenskapen. Följande betydelser tilldelas varje reaktion:</p>
+<ul class="simple">
+<li><p>👍: Jag stöder den här funktionen och skulle använda den</p></li>
+<li><p>👎: Jag motsätter mig den här funktionen eller tror att den skulle orsaka problem för mig eller Django</p></li>
+<li><p>😕: Jag har ingen stark åsikt om den här funktionen</p></li>
+<li><p>🎉: Den här funktionen verkar som ett enkelt och fördelaktigt tillägg</p></li>
+</ul>
+<p><a class="reference internal" href="../../organization/#steering-council"><span class="std std-ref">Steering Council</span></a> kommer regelbundet att granska idéerna i projektet och flytta de idéer som har stöd i gemenskapen genom följande steg:</p>
+<ul class="simple">
+<li><p>Idé</p></li>
+<li><p>Godkänd - Förfining av idéer - Skapande av team</p></li>
+<li><p>Påbörjad</p></li>
+<li><p>Arbetslösning - Granskning - Feedback</p></li>
+<li><p>Behöver underhållare (endast Django)</p></li>
+<li><p>Klar</p></li>
+</ul>
+<p>Ibland kan diskussioner om funktionsidéer eller Djangos riktning äga rum på Django Forum. Dessa diskussioner kan innehålla informella röster, som följer den röstningsstil som uppfanns av Apache och används på Python själv, där rösterna ges som +1, +0, -0 eller -1. Grovt översatt betyder dessa röster:</p>
+<ul class="simple">
+<li><p>+1: ”Jag älskar idén och jag är starkt engagerad i den.”</p></li>
+<li><p>+0: ”Låter okej för mig.”</p></li>
+<li><p>-0: ”Jag är inte så förtjust, men jag tänker inte stå i vägen.”</p></li>
+<li><p>-1: ”Jag håller inte alls med och skulle bli mycket olycklig om idén blev verklighet.”</p></li>
+</ul>
+<p>Även om dessa omröstningar är informella kommer de att tas på stort allvar. Om det efter en lämplig omröstningsperiod uppstår ett uppenbart samförstånd kommer vi att följa omröstningarna.</p>
+</section>
+<section id="s-how-to-test-pre-release-versions-of-django">
+<span id="s-testing-pre-releases"></span><span id="how-to-test-pre-release-versions-of-django"></span><span id="testing-pre-releases"></span><h2>How to test pre-release versions of Django<a class="headerlink" href="#how-to-test-pre-release-versions-of-django" title="Link to this heading">¶</a></h2>
+<p>Testing pre-releases is a great way to contribute to Django. Early testers
+help catch bugs before the final release, ensuring a smoother upgrade
+experience for everyone.</p>
+<section id="s-prerequisites">
+<span id="prerequisites"></span><h3>Förutsättningar<a class="headerlink" href="#prerequisites" title="Link to this heading">¶</a></h3>
+<p>Before testing a pre-release, it is important that your project is running
+smoothly on the latest stable release of Django. That way, any regressions can
+be attributed to the pre-release. See the <a class="reference internal" href="../../../howto/upgrade-version/"><span class="doc">Så här uppgraderar du Django till en nyare version</span></a> guide
+for instructions on getting up to date.</p>
+<p>To ensure your project is ready, you should also:</p>
+<ul>
+<li><p><strong>Read the release notes:</strong> Review the <a class="reference internal" href="../../../releases/"><span class="doc">Versionsinformation</span></a> for the
+upcoming version to learn about upgrade paths for deprecated features or
+about minor backward-incompatible changes.</p></li>
+<li><p><strong>Resolve deprecation warnings:</strong> Run your tests with deprecation warnings
+enabled to become aware of required follow-up actions:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python<span class="w"> </span>-Wa<span class="w"> </span>manage.py<span class="w"> </span><span class="nb">test</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="s-testing-your-project">
+<span id="testing-your-project"></span><h3>Testing your project<a class="headerlink" href="#testing-your-project" title="Link to this heading">¶</a></h3>
+<p>You can install the latest pre-release using <code class="docutils literal notranslate"><span class="pre">pip</span></code>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--pre<span class="w"> </span>Django
+</pre></div>
+</div>
+<p>Once installed, run your project’s test suite. Rather than just checking
+if tests pass, try the following:</p>
+<ul class="simple">
+<li><p><strong>Check dependency support:</strong> Determine whether major dependencies support
+the new version by checking Django version classifiers on PyPI.
+Since those projects also value early bug reports, don’t let a lack
+of support prevent you from testing.</p></li>
+<li><p><strong>Monitor performance:</strong> You can run your tests with the <a class="reference internal" href="../../../ref/django-admin/#cmdoption-test-durations"><code class="xref std std-option docutils literal notranslate"><span class="pre">test</span>
+<span class="pre">--durations</span></code></a> flag to identify potential performance regressions.</p></li>
+<li><p><strong>Automate tests in CI:</strong> Consider running your Continuous Integration (CI)
+pipeline with the pre-release version.</p></li>
+<li><p><strong>Test manually:</strong> While automated tests are great, manually testing your
+application’s main workflows is an important part of verifying compatibility
+with a new release.</p></li>
+</ul>
+</section>
+<section id="s-reporting-issues">
+<span id="reporting-issues"></span><h3>Reporting issues<a class="headerlink" href="#reporting-issues" title="Link to this heading">¶</a></h3>
+<p>If you discover a bug, please report it via the <a class="reference external" href="https://code.djangoproject.com/">Django issue tracker</a> so it can be fixed before the final
+release. When creating the ticket, be sure to set the Django version field to
+the exact pre-release version you are testing.</p>
+<p>If you suspect a regression, it’s helpful to report the specific commit that
+caused it. See <a class="reference internal" href="../triaging-tickets/#bisecting-a-regression"><span class="std std-ref">Bisektion av en regression</span></a> for instructions.</p>
+<p>You can also discuss any issues or share feedback in the <a class="reference external" href="https://forum.djangoproject.com/c/announcements/prereleases/32">Pre-releases</a> category
+on the <a class="reference external" href="https://forum.djangoproject.com/">Django Forum</a>.</p>
+</section>
+</section>
+</section>
+
+    </article>
+  
+
+  
+    <nav class="browse-horizontal" aria-labelledby="browse-horizontal-header">
+      <span id="browse-horizontal-header" class="visuallyhidden">Föregående sida och nästa sida</span>
+      
+        <div class="left"><a rel="prev" href="../localizing/"><i class="icon icon-chevron-left"></i> Lokalisering av Django</a></div>
+      
+      
+        <div class="right"><a rel="next" href="../triaging-tickets/">Bedömning av ärenden <i class="icon icon-chevron-right"></i></a></div>
+      
+    </nav>
+  
+
+
+        <a href="#top" class="backtotop"><i class="icon icon-chevron-up"></i> Back to Top</a>
+      </main>
+
+      
+  <div role="complementary">
+    <h2 class="visuallyhidden" id="aside-header">Ytterligare information</h2>
+
+    
+
+
+  <div class="fundraising-sidebar">
+    <h3>Stöd Django!</h3>
+
+    <div class="small-heart">
+      <img src="https://static.djangoproject.com/img/fundraising-heart.cd6bb84ffd33.svg" alt="Support Django!" />
+    </div>
+
+    <div class="small-cta">
+      <ul class="list-links-small">
+        <li><a href="https://www.djangoproject.com/fundraising/">
+          Matt Doughty donerade till Django Software Foundation för att stödja Django-utvecklingen. Donera idag!
+        </a></li>
+      </ul>
+    </div>
+  </div>
+
+
+
+    
+      <h3>Innehåll</h3>
+      
+        <ul>
+<li><a class="reference internal" href="#">Rapportering av buggar och önskemål om funktioner</a><ul>
+<li><a class="reference internal" href="#reporting-bugs">Rapportering av buggar</a><ul>
+<li><a class="reference internal" href="#reporting-user-interface-bugs">Rapportering av buggar i användargränssnittet</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#requesting-features">Begär funktioner</a></li>
+<li><a class="reference internal" href="#requesting-performance-optimizations">Begäran om prestandaoptimeringar</a></li>
+<li><a class="reference internal" href="#how-we-make-decisions">Hur vi fattar beslut</a></li>
+<li><a class="reference internal" href="#how-to-test-pre-release-versions-of-django">How to test pre-release versions of Django</a><ul>
+<li><a class="reference internal" href="#prerequisites">Förutsättningar</a></li>
+<li><a class="reference internal" href="#testing-your-project">Testing your project</a></li>
+<li><a class="reference internal" href="#reporting-issues">Reporting issues</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    
+
+    
+      <nav aria-labelledby="browse-header">
+        <h3 id="browse-header">Bläddra</h3>
+        <ul>
+          
+            
+              <li>Föregående: <a rel="prev" href="../localizing/">Lokalisering av Django</a></li>
+            
+            
+              <li>Nästa: <a rel="next" href="../triaging-tickets/">Bedömning av ärenden</a></li>
+            
+            <li><a href="https://docs.djangoproject.com/sv/6.0/contents/">Innehållsförteckning</a></li>
+            
+              <li><a href="https://docs.djangoproject.com/sv/6.0/genindex/">Huvudindex</a></li>
+            
+              <li><a href="https://docs.djangoproject.com/sv/6.0/py-modindex/">Python Modulindex</a></li>
+            
+          
+        </ul>
+      </nav>
+    
+
+    
+      <nav aria-labelledby="breadcrumbs-header">
+        <h3 id="breadcrumbs-header">Du är här:</h3>
+        <ul>
+          <li>
+            <a href="https://docs.djangoproject.com/sv/6.0/">Django 6.0 dokumentation</a>
+            
+              <ul><li><a href="../../">Djangos interna funktioner</a>
+            
+              <ul><li><a href="../">Att bidra till Django</a>
+            
+            <ul><li>Rapportering av buggar och önskemål om funktioner</li></ul>
+            </li></ul></li></ul>
+          </li>
+        </ul>
+      </nav>
+    
+
+    
+      <section aria-labelledby="getting-help-sidebar">
+        <h3 id="getting-help-sidebar">Få hjälp</h3>
+        <dl class="list-links">
+          <dt><a href="https://docs.djangoproject.com/sv/6.0/faq/">FAQ</a></dt>
+          <dd>Prova FAQ — där finns svar på många vanliga frågor.</dd>
+
+          <dt><a href="https://docs.djangoproject.com/en/stable/genindex/">Index</a>, <a href="https://docs.djangoproject.com/en/stable/py-modindex/">Modulindex</a>, or <a href="https://docs.djangoproject.com/en/stable/contents/">Innehållsförteckning</a></dt>
+          <dd>Praktiskt när du letar efter specifik information.</dd>
+
+          <dt><a href="https://chat.djangoproject.com">Django Discord Server</a></dt>
+          <dd>Gå med i Djangos Discord-gemenskap.</dd>
+
+          <dt><a href="https://forum.djangoproject.com/">Officiellt Django Forum</a></dt>
+          <dd>Gå med i gemenskapen på Django Forum.</dd>
+
+          <dt><a href="https://code.djangoproject.com/">Ärendehantering</a></dt>
+          <dd>Rapportera fel med Django- eller Django-dokumentation i vår biljettspårare.</dd>
+        </dl>
+      </section>
+    
+
+    
+      <section aria-labelledby="links-wrapper-header">
+        <h3 id="links-wrapper-header">Ladda ner:</h3>
+        <p>
+          Offline  (Django 6.0):
+          <a href="https://media.djangoproject.com/docs/django-docs-6.0-sv.zip">HTML</a> |
+          <a href="https://media.readthedocs.org/pdf/django/6.0.x/django.pdf">PDF</a> |
+          <a href="https://media.readthedocs.org/epub/django/6.0.x/django.epub">ePub</a>
+          <br>
+          <span class="quiet">
+            Tillhandahålls av<a href="https://readthedocs.org/"> Läs dokumenten </a>.
+          </span>
+        </p>
+      </section>
+    
+
+    
+  <div class="corporate-members">
+    <h3>Diamond and Platinum Members</h3>
+    
+      <div class="clearfix">
+        <div class="member-logo">
+          <a href="https://jb.gg/ybja10" title="JetBrains">
+            <img src="https://media.djangoproject.com/cache/c0/ea/c0ea128467983e64aab91cd27e7918c0.png" alt="JetBrains" />
+          </a>
+        </div>
+        <div class="small-cta">
+          <ul class="list-links-small">
+            <li><strong>JetBrains</strong></li>
+            <li><a href="https://jb.gg/ybja10" title="JetBrains">
+              JetBrains delivers intelligent software solutions that make developers more productive by simplifying their challenging tasks, automating the routine, and helping them adopt the best development practices. PyCharm is the Python IDE for Professional Developers by JetBrains providing a complete set of tools for productive Python, Web and scientific development.
+            </a></li>
+          </ul>
+        </div>
+      </div>
+    
+      <div class="clearfix">
+        <div class="member-logo">
+          <a href="https://sentry.io/for/django/" title="Sentry">
+            <img src="https://media.djangoproject.com/cache/7a/f9/7af9c770dc49465739a82c91a0eb3d51.png" alt="Sentry" />
+          </a>
+        </div>
+        <div class="small-cta">
+          <ul class="list-links-small">
+            <li><strong>Sentry</strong></li>
+            <li><a href="https://sentry.io/for/django/" title="Sentry">
+              Monitor your Django Code
+Resolve performance bottlenecks and errors using monitoring, replays, logs and Seer an AI agent for debugging.
+            </a></li>
+          </ul>
+        </div>
+      </div>
+    
+      <div class="clearfix">
+        <div class="member-logo">
+          <a href="https://kraken.tech" title="Kraken Tech">
+            <img src="https://media.djangoproject.com/cache/71/4b/714b3473ed0cf3665f6b894d3be9491e.png" alt="Kraken Tech" />
+          </a>
+        </div>
+        <div class="small-cta">
+          <ul class="list-links-small">
+            <li><strong>Kraken Tech</strong></li>
+            <li><a href="https://kraken.tech" title="Kraken Tech">
+              Kraken is the most-loved operating system for energy. Powered by our Utility-Grade AI™ and deep industry know-how, we help utilities transform their technology and operations so they can lead the energy transition. Delivering better outcomes from generation through distribution to supply, Kraken powers 70+ million accounts worldwide, and is on a mission to make a big, green dent in the universe.
+            </a></li>
+          </ul>
+        </div>
+      </div>
+    
+  </div>
+
+
+  </div>
+
+      
+
+    </div>
+
+     
+     
+
+    
+    
+    
+
+    <!-- SVGs -->
+    <svg xmlns="http://www.w3.org/2000/svg">
+      <symbol viewBox="0 0 24 24" id="icon-auto"><path d="M0 0h24v24H0z" fill="currentColor"/><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2V4a8 8 0 1 0 0 16z"/></symbol>
+      <symbol viewBox="0 0 24 24" id="icon-moon"><path d="M0 0h24v24H0z" fill="currentColor"/><path d="M10 7a7 7 0 0 0 12 4.9v.1c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2h.1A6.979 6.979 0 0 0 10 7zm-6 5a8 8 0 0 0 15.062 3.762A9 9 0 0 1 8.238 4.938 7.999 7.999 0 0 0 4 12z"/></symbol>
+      <symbol viewBox="0 0 24 24" id="icon-sun"><path d="M0 0h24v24H0z" fill="currentColor"/><path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/></symbol>
+    </svg>
+    <!-- END SVGs -->
+
+    
+      
+
+<footer>
+  <div class="subfooter">
+    <div class="container">
+      <h2 class="visuallyhidden">Django Links</h2>
+      <div class="column-container">
+        <div class="col-learn-more">
+          <h3>Learn More</h3>
+          <ul>
+            <li><a href="https://www.djangoproject.com/start/overview/">About Django</a></li>
+            
+            <li><a href="https://www.djangoproject.com/start/">Getting Started with Django</a></li>
+            <li><a href="https://www.djangoproject.com/foundation/teams/">Team Organization</a></li>
+            <li><a href="https://www.djangoproject.com/foundation/">Django Software Foundation</a></li>
+            <li><a href="https://www.djangoproject.com/conduct/">Code of Conduct</a></li>
+            <li><a href="https://www.djangoproject.com/diversity/">Diversity Statement</a></li>
+          </ul>
+        </div>
+
+        <div class="col-get-involved">
+          <h3>Get Involved</h3>
+          <ul>
+            <li><a href="https://www.djangoproject.com/community/">Join a Group</a></li>
+            <li><a href="https://docs.djangoproject.com/en/dev/internals/contributing/">Contribute
+              to Django</a></li>
+            <li><a
+              href="https://docs.djangoproject.com/en/dev/internals/contributing/bugs-and-features/">Submit
+              a Bug</a></li>
+            <li><a
+              href="https://docs.djangoproject.com/en/dev/internals/security/#reporting-security-issues">Report
+              a Security Issue</a></li>
+            <li><a href="https://www.djangoproject.com/foundation/individual-members/">Individual membership</a></li>
+          </ul>
+        </div>
+
+        <div class="col-get-help">
+          <h3>Get Help</h3>
+          <ul>
+            <li><a href="https://docs.djangoproject.com/en/stable/faq/">Getting Help FAQ</a>
+            </li>
+            <li><a href="https://chat.djangoproject.com" target="_blank">Django Discord</a></li>
+            <li><a href="https://forum.djangoproject.com/" target="_blank">Official Django Forum</a></li>
+          </ul>
+        </div>
+
+        <div class="col-follow-us">
+          <h3>Follow Us</h3>
+          <ul>
+            <li><a href="https://github.com/django">GitHub</a></li>
+            <li><a href="https://x.com/djangoproject">X</a></li>
+            <li><a href="https://fosstodon.org/@django" rel="me">Fediverse (Mastodon)</a></li>
+            <li><a href="https://bsky.app/profile/djangoproject.com">Bluesky</a></li>
+            <li><a href="https://www.linkedin.com/company/django-software-foundation">LinkedIn</a></li>
+            <li><a href="https://www.djangoproject.com/rss/weblog/">News RSS</a></li>
+          </ul>
+        </div>
+
+        <div class="col-support-us">
+          <h3>Support Us</h3>
+          <ul>
+            <li><a href="https://www.djangoproject.com/fundraising/">Sponsor Django</a></li>
+            <li><a href="https://www.djangoproject.com/foundation/corporate-members/">Corporate membership</a></li>
+            <li><a href="https://django.threadless.com/" target="_blank">Official merchandise store</a></li>
+            <li><a href="https://www.djangoproject.com/fundraising/#benevity-giving">Benevity Workplace Giving Program</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="container">
+      <div class="footer-logo">
+        <a class="logo" href="https://www.djangoproject.com/">Django</a>
+      </div>
+      <ul class="thanks">
+        <li>
+          <span>Hosting by</span> <a class="in-kind-donors" href="https://www.djangoproject.com/fundraising/#in-kind-donors">In-kind
+            donors</a>
+        </li>
+        <li class="design"><span>Design by</span> <a class="threespot" href="https://www.threespot.com">Threespot</a>
+          <span class="ampersand">&amp;</span> <a class="andrevv" href="http://andrevv.com/">andrevv</a></li>
+      </ul>
+      <p class="copyright">&copy; 2005-2026
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+          Foundation</a> and individual contributors. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+          trademark</a> of the Django Software Foundation.
+      </p>
+    </div>
+  </div>
+
+</footer>
+
+    
+
+    
+      
+      <script>
+        function extless(input) {
+          return input.replace(/(.*)\.[^.]+$/, '$1');
+        }
+        var require = {
+          shim: {
+            'jquery': [],
+            'stripe': {
+              exports: 'Stripe'
+            }
+          },
+          paths: {
+            "jquery": extless("https://static.djangoproject.com/js/lib/jquery.min.5790ead7ad3b.js"),
+            "mod/list-collapsing": extless("https://static.djangoproject.com/js/mod/list-collapsing.2d844151b2ec.js"),
+            "mod/stripe-change-card": extless("https://static.djangoproject.com/js/mod/stripe-change-card.eaa0afc324e9.js"),
+            "mod/switch-dark-mode": extless("https://static.djangoproject.com/js/mod/switch-dark-mode.139625c684db.js"),
+            "stripe-checkout": "https://checkout.stripe.com/checkout",
+            "stripe": "https://js.stripe.com/v3/?" // ? needed due to require.js
+          }
+        };
+      </script>
+      <script data-main="https://static.djangoproject.com/js/main.8677b21133eb.js" src="https://static.djangoproject.com/js/lib/require.177879fbe7dd.js"></script>
+      <script src="https://static.djangoproject.com/js/djangoproject.6e389ef71ec2.js"></script>
+    
+  </body>
+</html>

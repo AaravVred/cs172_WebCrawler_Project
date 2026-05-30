@@ -1,129 +1,151 @@
-# CS172 Part A – Web Crawler
+# CS172 Information Retrieval Project
 
 ## Overview
 
-This project implements a Scrapy-based web crawler that collects public technical documentation pages related to:
+This project implements:
 
-* Artificial Intelligence
-* Machine Learning
-* Python programming
-* Data science libraries
+1. A Scrapy-based web crawler (Part A)
+2. A PyLucene search engine and Flask web interface (Part B)
 
-The crawler reads seed URLs from a file, follows links within approved domains, stores raw HTML pages, and generates metadata for future indexing and search.
-
----
-
-## Features
-
-* Reads seed URLs from `seed_urls.txt`
-* Crawls HTML pages using Scrapy
-* Saves raw HTML files locally
-* Generates metadata in JSONL format
-* Supports configurable crawl size
-* Supports configurable crawl depth
-* Handles duplicate URLs automatically
+The crawler collects technical documentation pages and stores raw HTML files. The search engine indexes the collected pages and returns ranked search results using Lucene.
 
 ---
 
 ## Requirements
 
-* Python 3.10+
-* pip
+Python 3.10+
 
 Install dependencies:
 
 ```bash
 pip install -r requirements.txt
+pip install beautifulsoup4 flask
 ```
+
+PyLucene must also be installed.
 
 ---
 
-## How To Run
-
-Move into outer crawler directory:
-
-```bash
-cd webcrawler
-```
+# Part A - Web Crawler
 
 Run crawler:
 
 ```bash
-scrapy crawl html_spider -a output_dir=raw_html -s CLOSESPIDER_PAGECOUNT=1000
+cd webcrawler
+
+scrapy crawl html_spider \
+-a output_dir=raw_html_dataset \
+-s CLOSESPIDER_PAGECOUNT=1000
 ```
 
----
-
-## Parameters
-
-### Output Directory
-
-`output_dir` defines where crawled HTML files are saved.
-
-Example:
-
-```bash
-scrapy crawl html_spider -a output_dir=mycrawl
-```
-
-### Page Count
-
-`CLOSESPIDER_PAGECOUNT` defines the maximum number of pages to crawl.
-
-Example:
-
-```bash
-scrapy crawl html_spider -a output_dir=raw_html -s CLOSESPIDER_PAGECOUNT=500
-```
-
----
-
-## Seed URLs
-
-Seed URLs are stored in:
+Output:
 
 ```txt
-webcrawler/seed_urls.txt
-```
-
----
-
-## Output
-
-After running, the crawler creates:
-
-```txt
-raw_html/
-```
-
-Contents:
-
-```txt
-raw_html/
+raw_html_dataset/
     *.html
     metadata.jsonl
 ```
 
-* `.html` files contain raw webpage HTML
-* `metadata.jsonl` stores page metadata
+---
 
-Example metadata entry:
+# Part B - Build Index
 
-```json
-{
-  "url": "https://docs.python.org/3/tutorial/",
-  "title": "Python Tutorial",
-  "file_path": "raw_html/000001.html",
-  "content_type": "text/html",
-  "status": 200
-}
+Build the Lucene index:
+
+```bash
+cd webcrawler
+
+python3 indexer.py
+```
+
+Example output:
+
+```txt
+Indexed 7270 documents into lucene_index
+```
+
+This creates:
+
+```txt
+lucene_index/
+```
+
+---
+
+# Part B - Command Line Search
+
+Run:
+
+```bash
+python3 search.py
+```
+
+Example:
+
+```txt
+Enter search query: machine learning
+```
+
+The system returns:
+
+* Lucene score
+* Page title
+* Original URL
+* Local file path
+
+---
+
+# Part B - Web Search Interface
+
+Start the Flask application:
+
+```bash
+python3 app.py
+```
+
+Server:
+
+```txt
+http://127.0.0.1:8888
+```
+
+If running through the CS172 server, create an SSH tunnel, or open a new local terminal and run:
+
+```bash
+ssh -L 8899:class-043.cs.ucr.edu:8888 <netid>@bolt.cs.ucr.edu
+```
+
+Then open this in a browser like chrome:
+
+```txt
+http://127.0.0.1:8899
+```
+
+The interface provides:
+
+* Search textbox
+* Search button
+* Top 10 ranked results
+* Lucene scores
+* Original URLs
+* Local file paths
+
+---
+
+## Files
+
+```txt
+indexer.py            Build Lucene index
+search.py             Command-line search
+app.py                Flask web application
+templates/index.html  Search interface
 ```
 
 ---
 
 ## Notes
 
-* Duplicate URLs are handled automatically by Scrapy
-* Crawl depth is controlled by `DEPTH_LIMIT`
-* `raw_html/` is excluded from GitHub using `.gitignore`
-* Designed for the CS172 Information Retrieval project
+* Dataset directory: `raw_html_dataset/`
+* Lucene index directory: `lucene_index/`
+* Results are ranked using Lucene relevance scoring.
+* Raw datasets are excluded from GitHub because of size.

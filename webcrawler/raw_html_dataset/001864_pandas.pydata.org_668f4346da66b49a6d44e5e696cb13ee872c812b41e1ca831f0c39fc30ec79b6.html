@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script defer data-domain="pandas.pydata.org" src="https://views.scientific-python.org/js/script.js"></script>
+        <title>pandas - Python Data Analysis Library</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel='shortcut icon' type='image/x-icon' id='favicon-tag' href='../static/img/favicon.ico'/>
+        <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+              integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+              crossorigin="anonymous">
+        
+            <link rel="stylesheet"
+                  href="../static/css/pandas.css">
+        
+            <link rel="stylesheet"
+                  href="../static/css/codehilite.css">
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-content" aria-controls="nav-content" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <a class="navbar-brand" href="../."><img alt="" src="../static/img/pandas_white.svg"/></a>
+
+                    <div class="collapse navbar-collapse" id="nav-content">   
+                        <ul class="navbar-nav ms-auto">
+                            
+                                
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle"
+                                           data-bs-toggle="dropdown"
+                                           id="about-us"
+                                           href="#"
+                                           role="button"
+                                           aria-haspopup="true"
+                                           aria-expanded="false">About us</a>
+                                        <div class="dropdown-menu" aria-labelledby="about-us">
+                                        
+                                            <a class="dropdown-item" href="../about/">About pandas</a>
+                                        
+                                            <a class="dropdown-item" href="../about/roadmap.html">Project roadmap</a>
+                                        
+                                            <a class="dropdown-item" href="../about/governance.html">Governance</a>
+                                        
+                                            <a class="dropdown-item" href="../about/team.html">Team</a>
+                                        
+                                            <a class="dropdown-item" href="../about/sponsors.html">Sponsors</a>
+                                        
+                                            <a class="dropdown-item" href="../about/citing.html">Citing and logo</a>
+                                        
+                                        </div>
+                                    </li>
+                                
+                            
+                                
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="../getting_started.html">Getting started</a>
+                                    </li>
+                                
+                            
+                                
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="../docs/">Documentation</a>
+                                    </li>
+                                
+                            
+                                
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle"
+                                           data-bs-toggle="dropdown"
+                                           id="community"
+                                           href="#"
+                                           role="button"
+                                           aria-haspopup="true"
+                                           aria-expanded="false">Community</a>
+                                        <div class="dropdown-menu" aria-labelledby="community">
+                                        
+                                            <a class="dropdown-item" href="../community/blog/">Blog</a>
+                                        
+                                            <a class="dropdown-item" href="https://stackoverflow.com/questions/tagged/pandas">Ask a question (StackOverflow)</a>
+                                        
+                                            <a class="dropdown-item" href="../community/coc.html">Code of conduct</a>
+                                        
+                                            <a class="dropdown-item" href="../community/ecosystem.html">Ecosystem</a>
+                                        
+                                            <a class="dropdown-item" href="../community/benchmarks.html">Benchmarks</a>
+                                        
+                                        </div>
+                                    </li>
+                                
+                            
+                                
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="../contribute.html">Contribute</a>
+                                    </li>
+                                
+                            
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main">
+            
+            <div class="container container-main">
+                <h1 id="ecosystem">Ecosystem<a class="headerlink" href="#ecosystem" title="Permanent link"> #</a></h1>
+<div class="toc"><span class="toctitle">Table of Contents</span><ul>
+<li><a href="#extensions">Extensions</a><ul>
+<li><a href="#accessors">Accessors</a></li>
+<li><a href="#data-types">Data types</a></li>
+<li><a href="#plotting-backends">Plotting backends</a></li>
+</ul>
+</li>
+<li><a href="#domain-specific-pandas-extensions">Domain specific pandas extensions</a></li>
+<li><a href="#data-io-for-pandas">Data IO for pandas</a></li>
+<li><a href="#scaling-pandas">Scaling pandas</a></li>
+<li><a href="#data-cleaning-and-validation-for-pandas">Data cleaning and validation for pandas</a></li>
+<li><a href="#development-tools-for-pandas">Development tools for pandas</a></li>
+<li><a href="#other-related-libraries">Other related libraries</a></li>
+</ul>
+</div>
+<p>This is a community-maintained list of projects that build on pandas in order to provide tools
+in the PyData space. The pandas core development team does not necessarily endorse any particular
+project on this list or have any knowledge of the maintenance status of any particular library.</p>
+<h2 id="extensions">Extensions<a class="headerlink" href="#extensions" title="Permanent link"> #</a></h2>
+<p>pandas has different ways to allow third-party packages to enhance its
+functionality. This section contains a list of known projects that
+extend pandas functionality.</p>
+<p>Developers who want to extend pandas can find more information in the
+<a href="https://pandas.pydata.org/docs/dev/development/extending.html">Extending pandas</a>
+page in our documentation.</p>
+<h3 id="accessors">Accessors<a class="headerlink" href="#accessors" title="Permanent link"> #</a></h3>
+<p>A directory of projects providing
+<a href="https://pandas.pydata.org/docs/development/extending.html#registering-custom-accessors">extension accessors</a>.
+This is for users to discover new accessors and for library
+authors to coordinate on the namespace.</p>
+<table class="table table-bordered">
+<thead>
+<tr>
+<th>Library</th>
+<th>Accessor</th>
+<th>Classes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://akimbo.readthedocs.io/en/latest/">akimbo</a></td>
+<td><code>ak</code></td>
+<td><code>Series</code></td>
+</tr>
+<tr>
+<td><a href="https://altair-viz.github.io/pdvega/">pdvega</a></td>
+<td><code>vgplot</code></td>
+<td><code>Series</code>, <code>DataFrame</code></td>
+</tr>
+<tr>
+<td><a href="https://pandas-genomics.readthedocs.io/en/latest/">pandas-genomics</a></td>
+<td><code>genomics</code></td>
+<td><code>Series</code>, <code>DataFrame</code></td>
+</tr>
+<tr>
+<td><a href="https://github.com/hgrecco/pint-pandas">pint-pandas</a></td>
+<td><code>pint</code></td>
+<td><code>Series</code>, <code>DataFrame</code></td>
+</tr>
+<tr>
+<td><a href="https://github.com/mocquin/physipandas">physipandas</a></td>
+<td><code>physipy</code></td>
+<td><code>Series</code>, <code>DataFrame</code></td>
+</tr>
+<tr>
+<td><a href="https://github.com/alteryx/compose">composeml</a></td>
+<td><code>slice</code></td>
+<td><code>DataFrame</code></td>
+</tr>
+<tr>
+<td><a href="https://github.com/Gurobi/gurobipy-pandas">gurobipy-pandas</a></td>
+<td><code>gppd</code></td>
+<td><code>Series</code>, <code>DataFrame</code></td>
+</tr>
+<tr>
+<td><a href="https://www.staircase.dev/">staircase</a></td>
+<td><code>sc</code></td>
+<td><code>Series</code>, <code>DataFrame</code></td>
+</tr>
+<tr>
+<td><a href="https://github.com/alteryx/woodwork">woodwork</a></td>
+<td><code>slice</code></td>
+<td><code>Series</code>, <code>DataFrame</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="data-types">Data types<a class="headerlink" href="#data-types" title="Permanent link"> #</a></h3>
+<p>Pandas provides an interface for defining
+<a href="https://pandas.pydata.org/docs/development/extending.html#extension-types">extension types</a> to extend NumPy's type system.
+The following libraries implement that interface to provide types not found in NumPy or pandas,
+which work well with pandas' data containers.</p>
+<h4 id="akimbo"><a href="https://github.com/intake/akimbo">akimbo</a><a class="headerlink" href="#akimbo" title="Permanent link"> #</a></h4>
+<p>Akimbo provides an extension type for storing <a href="https://awkward-array.org/">Awkward
+Arrays</a> inside pandas' Series and
+DataFrame. It also provides an accessor for using awkward functions
+on Series that are of awkward type.</p>
+<h4 id="db-dtypes"><a href="https://github.com/googleapis/python-db-dtypes-pandas">db-dtypes</a><a class="headerlink" href="#db-dtypes" title="Permanent link"> #</a></h4>
+<p>db-dtypes provides an extension types for working with types like
+DATE, TIME, and JSON from database systems. This package is used
+by pandas-gbq to provide natural dtypes for BigQuery data types without
+a natural numpy type.</p>
+<h4 id="pandas-genomics"><a href="https://pandas-genomics.readthedocs.io/en/latest/">Pandas-Genomics</a><a class="headerlink" href="#pandas-genomics" title="Permanent link"> #</a></h4>
+<p>Pandas-Genomics provides an extension type and extension array for working
+ with genomics data.  It also includes <code>genomics</code> accessors for many useful properties
+ and methods related to QC and analysis of genomics data.</p>
+<h4 id="physipandas"><a href="https://github.com/mocquin/physipandas">Physipandas</a><a class="headerlink" href="#physipandas" title="Permanent link"> #</a></h4>
+<p>Physipandas provides an extension for manipulating physical quantities
+ (like scalar and numpy.ndarray) in association with a physical unit
+ (like meter or joule) and additional features for integration of
+ <code>physipy</code> accessors with pandas Series and Dataframe.</p>
+<h4 id="pint-pandas"><a href="https://github.com/hgrecco/pint-pandas">Pint-Pandas</a><a class="headerlink" href="#pint-pandas" title="Permanent link"> #</a></h4>
+<p>Pint-Pandas provides an extension type for storing numeric arrays with units.
+These arrays can be stored inside pandas' Series and DataFrame. Operations
+between Series and DataFrame columns which use pint's extension array are then
+units aware.</p>
+<h4 id="text-extensions"><a href="https://ibm.biz/text-extensions-for-pandas">Text Extensions</a><a class="headerlink" href="#text-extensions" title="Permanent link"> #</a></h4>
+<p>Text Extensions for Pandas provides extension types to cover common data
+structures for representing natural language data, plus library integrations
+that convert the outputs of popular natural language processing libraries into pandas DataFrames.</p>
+<h3 id="plotting-backends">Plotting backends<a class="headerlink" href="#plotting-backends" title="Permanent link"> #</a></h3>
+<p>pandas uses <a href="https://matplotlib.org/">Matplotlib</a> by default for plotting. This can be
+changed with the with <code>plotting.backend</code> option:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;plotting.backend&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;plotting-backend-name&gt;&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>This is the list of known plotting backends:</p>
+<h4 id="altair"><a href="https://altair-viz.github.io/">Altair</a><a class="headerlink" href="#altair" title="Permanent link"> #</a></h4>
+<p>Altair is a declarative statistical visualization library for Python.
+With Altair, you can spend more time understanding your data and its
+meaning. Altair's API is simple, friendly and consistent and built on
+top of the powerful Vega-Lite JSON specification. This elegant
+simplicity produces beautiful and effective visualizations with a
+minimal amount of code. Altair works with Pandas DataFrames.</p>
+<p><a href="https://github.com/altair-viz/altair_pandas">altair-pandas</a> provides
+the pandas Altair backend via:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;plotting.backend&quot;</span><span class="p">,</span> <span class="s2">&quot;altair&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<h4 id="bokeh"><a href="https://docs.bokeh.org">Bokeh</a><a class="headerlink" href="#bokeh" title="Permanent link"> #</a></h4>
+<p>Bokeh is a Python interactive visualization library for large datasets
+that natively uses the latest web technologies. Its goal is to provide
+elegant, concise construction of novel graphics in the style of
+Protovis/D3, while delivering high-performance interactivity over large
+data to thin clients.</p>
+<p><a href="https://github.com/PatrikHlobil/Pandas-Bokeh">Pandas-Bokeh</a> provides a
+high level API for Bokeh that can be loaded as a native Pandas plotting
+backend via:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;plotting.backend&quot;</span><span class="p">,</span> <span class="s2">&quot;pandas_bokeh&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>It is very similar to the matplotlib plotting backend, but provides
+interactive web-based charts and maps.</p>
+<h4 id="hvplot"><a href="https://hvplot.holoviz.org/index.html">hvplot</a><a class="headerlink" href="#hvplot" title="Permanent link"> #</a></h4>
+<p>hvPlot is a high-level plotting API for the PyData ecosystem built on <a href="https://holoviews.org/">HoloViews</a>.
+It can be loaded as a native pandas plotting backend via:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;plotting.backend&quot;</span><span class="p">,</span> <span class="s2">&quot;hvplot&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<h4 id="plotly"><a href="https://plot.ly/python">Plotly</a><a class="headerlink" href="#plotly" title="Permanent link"> #</a></h4>
+<p><a href="https://plot.ly/">Plotly's</a> <a href="https://plot.ly/python/">Python API</a>
+enables interactive figures and web shareability. Maps, 2D, 3D, and
+live-streaming graphs are rendered with <a href="https://www.khronos.org/webgl/">WebGL</a> and
+<a href="https://d3js.org/">D3.js</a>. The library supports plotting directly from
+a pandas DataFrame and cloud-based collaboration. Users of <a href="https://plot.ly/python/matplotlib-to-plotly-tutorial/">matplotlib,
+ggplot for Python, and
+Seaborn</a> can
+convert figures into interactive web-based plots. Plots can be drawn in
+<a href="https://plot.ly/ipython-notebooks/">IPython Notebooks</a> , edited with R
+or MATLAB, modified in a GUI, or embedded in apps and dashboards. Plotly
+is free for unlimited sharing, and has cloud, offline, or on-premise
+accounts for private use.</p>
+<p>Plotly can be used as a pandas plotting backend via:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;plotting.backend&quot;</span><span class="p">,</span> <span class="s2">&quot;plotly&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<h2 id="domain-specific-pandas-extensions">Domain specific pandas extensions<a class="headerlink" href="#domain-specific-pandas-extensions" title="Permanent link"> #</a></h2>
+<h4 id="geopandas"><a href="https://github.com/geopandas/geopandas">Geopandas</a><a class="headerlink" href="#geopandas" title="Permanent link"> #</a></h4>
+<p>Geopandas extends pandas data objects to include geographic information
+which support geometric operations. If your work entails maps and
+geographical coordinates, and you love pandas, you should take a close
+look at Geopandas.</p>
+<h4 id="gurobipy-pandas"><a href="https://github.com/Gurobi/gurobipy-pandas">gurobipy-pandas</a><a class="headerlink" href="#gurobipy-pandas" title="Permanent link"> #</a></h4>
+<p>gurobipy-pandas provides a convenient accessor API to connect pandas with
+gurobipy. It enables users to more easily and efficiently build mathematical
+optimization models from data stored in DataFrames and Series, and to read
+solutions back directly as pandas objects.</p>
+<h4 id="hail-query"><a href="https://hail.is/">Hail Query</a><a class="headerlink" href="#hail-query" title="Permanent link"> #</a></h4>
+<p>An out-of-core, preemptible-safe, distributed, dataframe library serving
+the genetics community. Hail Query ships with on-disk data formats,
+in-memory data formats, an expression compiler, a query planner, and a
+distributed sort algorithm all designed to accelerate queries on large
+matrices of genome sequencing data.</p>
+<p>It is often easiest to use pandas to manipulate the summary statistics or
+other small aggregates produced by Hail. For this reason, Hail provides
+native import to and export from pandas DataFrames:</p>
+<ul>
+<li><a href="https://hail.is/docs/latest/hail.Table.html#hail.Table.from_pandas"><code>Table.from_pandas</code></a></li>
+<li><a href="https://hail.is/docs/latest/hail.Table.html#hail.Table.to_pandas"><code>Table.to_pandas</code></a></li>
+</ul>
+<h4 id="staircase"><a href="https://github.com/staircase-dev/staircase">staircase</a><a class="headerlink" href="#staircase" title="Permanent link"> #</a></h4>
+<p>staircase is a data analysis package, built upon pandas and numpy, for modelling and
+manipulation of mathematical step functions. It provides a rich variety of arithmetic
+operations, relational operations, logical operations, statistical operations and
+aggregations for step functions defined over real numbers, datetime and timedelta domains.</p>
+<h4 id="xarray"><a href="https://github.com/pydata/xarray">xarray</a><a class="headerlink" href="#xarray" title="Permanent link"> #</a></h4>
+<p>xarray brings the labeled data power of pandas to the physical sciences
+by providing N-dimensional variants of the core pandas data structures.
+It aims to provide a pandas-like and pandas-compatible toolkit for
+analytics on multi-dimensional arrays, rather than the tabular data for
+which pandas excels.</p>
+<h2 id="data-io-for-pandas">Data IO for pandas<a class="headerlink" href="#data-io-for-pandas" title="Permanent link"> #</a></h2>
+<h4 id="arcticdb"><a href="https://github.com/man-group/ArcticDB">ArcticDB</a><a class="headerlink" href="#arcticdb" title="Permanent link"> #</a></h4>
+<p>ArcticDB is a serverless DataFrame database engine designed for the Python Data Science ecosystem.
+ArcticDB enables you to store, retrieve, and process pandas DataFrames at scale.
+It is a storage engine designed for object storage and also supports local-disk storage using LMDB.
+ArcticDB requires zero additional infrastructure beyond a running Python environment and access
+to object storage and can be installed in seconds.</p>
+<p>Please find full documentation <a href="https://docs.arcticdb.io/latest/">here</a>.</p>
+<h4 id="bcpandas"><a href="https://github.com/yehoshuadimarsky/bcpandas">BCPandas</a><a class="headerlink" href="#bcpandas" title="Permanent link"> #</a></h4>
+<p>BCPandas provides high performance writes from pandas to Microsoft SQL Server,
+far exceeding the performance of the native <code>df.to_sql</code> method. Internally, it uses
+Microsoft's BCP utility, but the complexity is fully abstracted away from the end user.
+Rigorously tested, it is a complete replacement for <code>df.to_sql</code>.</p>
+<h4 id="deltalake"><a href="https://pypi.org/project/deltalake">Deltalake</a><a class="headerlink" href="#deltalake" title="Permanent link"> #</a></h4>
+<p>Deltalake python package lets you access tables stored in
+<a href="https://delta.io/">Delta Lake</a> natively in Python without the need to use Spark or
+JVM. It provides the <code>delta_table.to_pyarrow_table().to_pandas()</code> method to convert
+any Delta table into Pandas dataframe.</p>
+<h4 id="fredapi"><a href="https://github.com/mortada/fredapi">fredapi</a><a class="headerlink" href="#fredapi" title="Permanent link"> #</a></h4>
+<p>fredapi is a Python interface to the <a href="https://fred.stlouisfed.org/">Federal Reserve Economic Data
+(FRED)</a> provided by the Federal Reserve
+Bank of St. Louis. It works with both the FRED database and ALFRED
+database that contains point-in-time data (i.e. historic data
+revisions). fredapi provides a wrapper in Python to the FRED HTTP API,
+and also provides several convenient methods for parsing and analyzing
+point-in-time data from ALFRED. fredapi makes use of pandas and returns
+data in a Series or DataFrame. This module requires a FRED API key that
+you can obtain for free on the FRED website.</p>
+<h4 id="hugging-face"><a href="https://huggingface.co/datasets">Hugging Face</a><a class="headerlink" href="#hugging-face" title="Permanent link"> #</a></h4>
+<p>The Hugging Face Dataset Hub provides a large collection of ready-to-use
+datasets for machine learning shared by the community. The platform offers
+a user-friendly interface to explore, discover and visualize datasets, and
+provides tools to easily load and work with these datasets in Python thanks
+to the <a href="https://github.com/huggingface/huggingface_hub">huggingface_hub</a> library.</p>
+<p>You can access datasets on Hugging Face using <code>hf://</code> paths in pandas,
+in the form <code>hf://datasets/username/dataset_name/...</code>.</p>
+<p>For example, here is how to load the
+<a href="https://huggingface.co/datasets/stanfordnlp/imdb">stanfordnlp/imdb dataset</a>:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># Load the IMDB dataset</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s2">&quot;hf://datasets/stanfordnlp/imdb/plain_text/train-00000-of-00001.parquet&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Tip: on a dataset page, click on "Use this dataset" to get the code to load it in pandas.</p>
+<p>To save a dataset on Hugging Face you need to
+<a href="https://huggingface.co/new-dataset">create a public or private dataset</a> and
+<a href="https://huggingface.co/docs/huggingface_hub/quick-start#login-command">login</a>,
+and then you can use <code>df.to_csv/to_json/to_parquet</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Save the dataset to my Hugging Face account</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="s2">&quot;hf://datasets/username/dataset_name/train.parquet&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>You can find more information about the Hugging Face Dataset Hub in the <a href="https://huggingface.co/docs/hub/en/datasets">documentation</a>.</p>
+<h4 id="ntv-pandas"><a href="https://github.com/loco-philippe/ntv-pandas">NTV-pandas</a><a class="headerlink" href="#ntv-pandas" title="Permanent link"> #</a></h4>
+<p>NTV-pandas provides a JSON converter with more data types than the ones supported by pandas directly.</p>
+<p>It supports the following data types:</p>
+<ul>
+<li>pandas data types</li>
+<li>data types defined in the <a href="https://loco-philippe.github.io/ES/JSON%20semantic%20format%20(JSON-NTV).htm">NTV format</a></li>
+<li>data types defined in <a href="https://datapackage.org/standard/table-schema/">Table Schema specification</a></li>
+</ul>
+<p>The interface is always reversible (conversion round trip) with two formats (JSON-NTV and JSON-TableSchema).</p>
+<p>Example:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">ntv_pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">npd</span>
+
+<span class="n">jsn</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">npd</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">table</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># save df as a JSON-value (format Table Schema if table is True else format NTV )</span>
+<span class="n">df</span>  <span class="o">=</span> <span class="n">npd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">jsn</span><span class="p">)</span>  <span class="c1"># load a JSON-value as a `DataFrame`</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">npd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">npd</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">df</span><span class="p">)))</span>  <span class="c1"># `True` in any case, whether `table=True` or not</span>
+</code></pre></div>
+
+<h4 id="pandas-datareader"><a href="https://github.com/pydata/pandas-datareader">pandas-datareader</a><a class="headerlink" href="#pandas-datareader" title="Permanent link"> #</a></h4>
+<p><code>pandas-datareader</code> is a remote data access library for pandas
+(PyPI:<code>pandas-datareader</code>). It is based on functionality that was
+located in <code>pandas.io.data</code> and <code>pandas.io.wb</code> but was split off in
+v0.19. See more in the <a href="https://pandas-datareader.readthedocs.io/en/latest/">pandas-datareader
+docs</a>:</p>
+<p>The following data feeds are available:</p>
+<ul>
+<li>Google Finance</li>
+<li>Tiingo</li>
+<li>Morningstar</li>
+<li>IEX</li>
+<li>Robinhood</li>
+<li>Enigma</li>
+<li>Quandl</li>
+<li>FRED</li>
+<li>Fama/French</li>
+<li>World Bank</li>
+<li>OECD</li>
+<li>Eurostat</li>
+<li>TSP Fund Data</li>
+<li>Nasdaq Trader Symbol Definitions</li>
+<li>Stooq Index Data</li>
+<li>MOEX Data</li>
+</ul>
+<h4 id="pandas-gbq"><a href="https://github.com/googleapis/python-bigquery-pandas">pandas-gbq</a><a class="headerlink" href="#pandas-gbq" title="Permanent link"> #</a></h4>
+<p>pandas-gbq provides high performance reads and writes to and from
+<a href="https://cloud.google.com/bigquery/">Google BigQuery</a>. Previously (before version 2.2.0),
+these methods were exposed as <code>pandas.read_gbq</code> and <code>DataFrame.to_gbq</code>.
+Use <code>pandas_gbq.read_gbq</code> and <code>pandas_gbq.to_gbq</code>, instead.</p>
+<h4 id="pandasdmx"><a href="https://pandasdmx.readthedocs.io">pandaSDMX</a><a class="headerlink" href="#pandasdmx" title="Permanent link"> #</a></h4>
+<p>pandaSDMX is a library to retrieve and acquire statistical data and
+metadata disseminated in <a href="https://sdmx.org">SDMX</a> 2.1, an
+ISO-standard widely used by institutions such as statistics offices,
+central banks, and international organisations. pandaSDMX can expose
+datasets and related structural metadata including data flows,
+code-lists, and data structure definitions as pandas Series or
+MultiIndexed DataFrames.</p>
+<h2 id="scaling-pandas">Scaling pandas<a class="headerlink" href="#scaling-pandas" title="Permanent link"> #</a></h2>
+<h4 id="bodo"><a href="https://github.com/bodo-ai/Bodo">Bodo</a><a class="headerlink" href="#bodo" title="Permanent link"> #</a></h4>
+<p>Bodo is a high-performance compute engine for Python data processing.
+Using an auto-parallelizing just-in-time (JIT) compiler, Bodo simplifies scaling Pandas
+workloads from laptops to clusters without major code changes.
+Under the hood, Bodo relies on MPI-based high-performance computing (HPC) technology—making it
+both easier to use and often much faster than alternatives.
+Bodo also provides a SQL engine that can query distributed pandas dataframes efficiently.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">bodo</span>
+
+<span class="nd">@bodo</span><span class="o">.</span><span class="n">jit</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">process_data</span><span class="p">():</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s2">&quot;my_data.pq&quot;</span><span class="p">)</span>
+    <span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">A</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">B</span> <span class="o">//</span> <span class="n">r</span><span class="o">.</span><span class="n">A</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)})</span>
+    <span class="n">df2</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="s2">&quot;out.pq&quot;</span><span class="p">)</span>
+
+<span class="n">process_data</span><span class="p">()</span>
+</code></pre></div>
+
+<h4 id="dask"><a href="https://docs.dask.org">Dask</a><a class="headerlink" href="#dask" title="Permanent link"> #</a></h4>
+<p>Dask is a flexible parallel computing library for analytics. Dask
+provides a familiar <code>DataFrame</code> interface for out-of-core, parallel and
+distributed computing.</p>
+<h4 id="ibis"><a href="https://ibis-project.org/docs/">Ibis</a><a class="headerlink" href="#ibis" title="Permanent link"> #</a></h4>
+<p>Ibis offers a standard way to write analytics code, that can be run in
+multiple engines. It helps in bridging the gap between local Python environments
+(like pandas) and remote storage and execution systems like Hadoop components
+(like HDFS, Impala, Hive, Spark) and SQL databases (Postgres, etc.).</p>
+<h4 id="koalas"><a href="https://koalas.readthedocs.io/en/latest/">Koalas</a><a class="headerlink" href="#koalas" title="Permanent link"> #</a></h4>
+<p>Koalas provides a familiar pandas DataFrame interface on top of Apache
+Spark. It enables users to leverage multi-cores on one machine or a
+cluster of machines to speed up or scale their DataFrame code.</p>
+<h4 id="modin"><a href="https://github.com/modin-project/modin">Modin</a><a class="headerlink" href="#modin" title="Permanent link"> #</a></h4>
+<p>The <code>modin.pandas</code> DataFrame is a parallel and distributed drop-in replacement
+for pandas. This means that you can use Modin with existing pandas code or write
+new code with the existing pandas API. Modin can leverage your entire machine or
+cluster to speed up and scale your pandas workloads, including traditionally
+time-consuming tasks like ingesting data (<code>read_csv</code>, <code>read_excel</code>,
+<code>read_parquet</code>, etc.).</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># import pandas as pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">modin.pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;big.csv&quot;</span><span class="p">)</span>  <span class="c1"># use all your cores!</span>
+</code></pre></div>
+
+<h2 id="data-cleaning-and-validation-for-pandas">Data cleaning and validation for pandas<a class="headerlink" href="#data-cleaning-and-validation-for-pandas" title="Permanent link"> #</a></h2>
+<h4 id="pandera"><a href="https://pandera.readthedocs.io/en/stable/">Pandera</a><a class="headerlink" href="#pandera" title="Permanent link"> #</a></h4>
+<p>Pandera provides a flexible and expressive API for performing data validation on dataframes
+to make data processing pipelines more readable and robust.
+Dataframes contain information that pandera explicitly validates at runtime. This is useful in
+production-critical data pipelines or reproducible research settings.</p>
+<h4 id="pyjanitor"><a href="https://github.com/pyjanitor-devs/pyjanitor">pyjanitor</a><a class="headerlink" href="#pyjanitor" title="Permanent link"> #</a></h4>
+<p>Pyjanitor provides a clean API for cleaning data, using method chaining.</p>
+<h2 id="development-tools-for-pandas">Development tools for pandas<a class="headerlink" href="#development-tools-for-pandas" title="Permanent link"> #</a></h2>
+<h4 id="hamilton"><a href="https://github.com/dagworks-inc/hamilton">Hamilton</a><a class="headerlink" href="#hamilton" title="Permanent link"> #</a></h4>
+<p>Hamilton is a declarative dataflow framework that came out of Stitch Fix. It was
+designed to help one manage a Pandas code base, specifically with respect to
+feature engineering for machine learning models.</p>
+<p>It prescribes an opinionated paradigm, that ensures all code is:</p>
+<ul>
+<li>unit testable</li>
+<li>integration testing friendly</li>
+<li>documentation friendly</li>
+<li>transformation logic is reusable, as it is decoupled from the context of where it is used.</li>
+<li>integratable with runtime data quality checks.</li>
+</ul>
+<p>This helps one to scale your pandas code base, at the same time, keeping maintenance costs low.</p>
+<p>For more information, see <a href="https://hamilton.readthedocs.io/">documentation</a>.</p>
+<h4 id="ipython"><a href="https://ipython.org/documentation.html">IPython</a><a class="headerlink" href="#ipython" title="Permanent link"> #</a></h4>
+<p>IPython is an interactive command shell and distributed computing
+environment. IPython tab completion works with Pandas methods and also
+attributes like DataFrame columns.</p>
+<h4 id="jupyter-notebook-jupyter-lab"><a href="https://jupyter.org">Jupyter Notebook / Jupyter Lab</a><a class="headerlink" href="#jupyter-notebook-jupyter-lab" title="Permanent link"> #</a></h4>
+<p>Jupyter Notebook is a web application for creating Jupyter notebooks. A
+Jupyter notebook is a JSON document containing an ordered list of
+input/output cells which can contain code, text, mathematics, plots and
+rich media. Jupyter notebooks can be converted to a number of open
+standard output formats (HTML, HTML presentation slides, LaTeX, PDF,
+ReStructuredText, Markdown, Python) through 'Download As' in the web
+interface and <code>jupyter convert</code> in a shell.</p>
+<p>Pandas DataFrames implement <code>_repr_html_</code> and <code>_repr_latex</code> methods which
+are utilized by Jupyter Notebook for displaying (abbreviated) HTML or
+LaTeX tables. LaTeX output is properly escaped. (Note: HTML tables may
+or may not be compatible with non-HTML Jupyter output formats.)</p>
+<p>See <a href="https://pandas.pydata.org/docs/user_guide/options.html">Options and Settings</a>
+for pandas <code>display.</code> settings.</p>
+<h4 id="marimo"><a href="https://marimo.io">marimo</a><a class="headerlink" href="#marimo" title="Permanent link"> #</a></h4>
+<p>marimo is a reactive notebook for Python and SQL that enhances productivity
+when working with dataframes. It provides several features to make data
+manipulation and visualization more interactive and fun:</p>
+<ol>
+<li>Rich, interactive displays: marimo can display pandas dataframes in
+   interactive tables or charts with filtering and sorting capabilities.</li>
+<li>Data selection: Users can select data in tables or pandas-backed plots,
+   and the selections are automatically sent to Python as pandas dataframes.</li>
+<li>No-code transformations: Users can interactively transform pandas dataframes
+   using a GUI, without writing code. The generated code can be copied and pasted into the notebook.</li>
+<li>Custom filters: marimo allows the creation of pandas-backed filters using
+   UI elements like sliders and dropdowns.</li>
+<li>Dataset explorer: marimo automatically discovers and displays all dataframes
+   in the notebook, allowing users to explore and visualize data interactively.</li>
+<li>SQL integration: marimo allows users to write SQL queries against any
+   pandas dataframes existing in memory.</li>
+</ol>
+<h4 id="pandas-stubs"><a href="https://github.com/VirtusLab/pandas-stubs">pandas-stubs</a><a class="headerlink" href="#pandas-stubs" title="Permanent link"> #</a></h4>
+<p>While pandas repository is partially typed, the package itself doesn't expose this information for external use.
+Install pandas-stubs to enable basic type coverage of pandas API.</p>
+<p>Learn more by reading through these issues <a href="https://github.com/pandas-dev/pandas/issues/14468">14468</a>,
+<a href="https://github.com/pandas-dev/pandas/issues/26766">26766</a>, <a href="https://github.com/pandas-dev/pandas/issues/28142">28142</a>.</p>
+<p>See installation and usage instructions on the <a href="https://github.com/VirtusLab/pandas-stubs">GitHub page</a>.</p>
+<h4 id="spyder"><a href="https://www.spyder-ide.org/">Spyder</a><a class="headerlink" href="#spyder" title="Permanent link"> #</a></h4>
+<p>Spyder is a cross-platform PyQt-based IDE combining the editing,
+analysis, debugging and profiling functionality of a software
+development tool with the data exploration, interactive execution, deep
+inspection and rich visualization capabilities of a scientific
+environment like MATLAB or Rstudio.</p>
+<p>Its <a href="https://docs.spyder-ide.org/current/panes/variableexplorer.html">Variable
+Explorer</a> allows
+users to view, manipulate and edit pandas <code>Index</code>, <code>Series</code>, and
+<code>DataFrame</code> objects like a "spreadsheet", including copying and
+modifying values, sorting, displaying a "heatmap", converting data
+types and more. Pandas objects can also be renamed, duplicated, new
+columns added, copied/pasted to/from the clipboard (as TSV), and
+saved/loaded to/from a file. Spyder can also import data from a variety
+of plain text and binary files or the clipboard into a new pandas
+DataFrame via a sophisticated import wizard.</p>
+<p>Most pandas classes, methods and data attributes can be autocompleted in
+Spyder's <a href="https://docs.spyder-ide.org/current/panes/editor.html">Editor</a> and <a href="https://docs.spyder-ide.org/current/panes/ipythonconsole.html">IPython
+Console</a>, and Spyder's
+<a href="https://docs.spyder-ide.org/current/panes/help.html">Help pane</a> can retrieve and
+render Numpydoc documentation on pandas objects in rich text with Sphinx
+both automatically and on-demand.</p>
+<h2 id="other-related-libraries">Other related libraries<a class="headerlink" href="#other-related-libraries" title="Permanent link"> #</a></h2>
+<h4 id="compose"><a href="https://github.com/alteryx/compose">Compose</a><a class="headerlink" href="#compose" title="Permanent link"> #</a></h4>
+<p>Compose is a machine learning tool for labeling data and prediction engineering.
+It allows you to structure the labeling process by parameterizing
+prediction problems and transforming time-driven relational data into
+target values with cutoff times that can be used for supervised learning.</p>
+<h4 id="d-tale"><a href="https://github.com/man-group/dtale">D-Tale</a><a class="headerlink" href="#d-tale" title="Permanent link"> #</a></h4>
+<p>D-Tale is a lightweight web client for visualizing pandas data structures. It
+provides a rich spreadsheet-style grid which acts as a wrapper for a lot of
+pandas functionality (query, sort, describe, corr...) so users can quickly
+manipulate their data. There is also an interactive chart-builder using Plotly
+Dash allowing users to build nice portable visualizations. D-Tale can be
+invoked with the following command</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">dtale</span>
+
+<span class="n">dtale</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</code></pre></div>
+
+<p>D-Tale integrates seamlessly with Jupyter notebooks, Python terminals, Kaggle
+&amp; Google Colab. Here are some demos of the
+<a href="http://alphatechadmin.pythonanywhere.com/dtale/main/1">grid</a>.</p>
+<h4 id="featuretools"><a href="https://github.com/alteryx/featuretools/">Featuretools</a><a class="headerlink" href="#featuretools" title="Permanent link"> #</a></h4>
+<p>Featuretools is a Python library for automated feature engineering built
+on top of pandas. It excels at transforming temporal and relational
+datasets into feature matrices for machine learning using reusable
+feature engineering "primitives". Users can contribute their own
+primitives in Python and share them with the rest of the community.</p>
+<h4 id="ipython-vega"><a href="https://github.com/vega/ipyvega">IPython Vega</a><a class="headerlink" href="#ipython-vega" title="Permanent link"> #</a></h4>
+<p><a href="https://github.com/vega/ipyvega">IPython Vega</a> leverages
+<a href="https://github.com/vega/vega">Vega</a> to create plots within Jupyter Notebook.</p>
+<h4 id="plotnine"><a href="https://github.com/has2k1/plotnine/">plotnine</a><a class="headerlink" href="#plotnine" title="Permanent link"> #</a></h4>
+<p>Hadley Wickham's <a href="https://ggplot2.tidyverse.org/">ggplot2</a> is a
+foundational exploratory visualization package for the R language. Based
+on <a href="https://doi.org/10.1007/0-387-28695-0">"The Grammar of
+Graphics"</a>
+it provides a powerful, declarative and extremely general way to
+generate bespoke plots of any kind of data.
+Various implementations to other languages are available.
+A good implementation for Python users is <a href="https://github.com/has2k1/plotnine/">has2k1/plotnine</a>.</p>
+<h4 id="pygwalker"><a href="https://github.com/Kanaries/pygwalker">pygwalker</a><a class="headerlink" href="#pygwalker" title="Permanent link"> #</a></h4>
+<p>PyGWalker is an interactive data visualization and
+exploratory data analysis tool built upon Graphic Walker
+with support for visualization, cleaning, and annotation workflows.</p>
+<p>pygwalker can save interactively created charts
+to Graphic-Walker and Vega-Lite JSON.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pygwalker</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyg</span>
+<span class="n">pyg</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</code></pre></div>
+
+<h4 id="seaborn"><a href="https://seaborn.pydata.org">seaborn</a><a class="headerlink" href="#seaborn" title="Permanent link"> #</a></h4>
+<p>Seaborn is a Python visualization library based on
+<a href="https://matplotlib.org">matplotlib</a>. It provides a high-level,
+dataset-oriented interface for creating attractive statistical graphics.
+The plotting functions in seaborn understand pandas objects and leverage
+pandas grouping operations internally to support concise specification
+of complex visualizations. Seaborn also goes beyond matplotlib and
+pandas with the option to perform statistical estimation while plotting,
+aggregating across observations and visualizing the fit of statistical
+models to emphasize patterns in a dataset.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">()</span>
+</code></pre></div>
+
+<h4 id="skrub"><a href="https://skrub-data.org">skrub</a><a class="headerlink" href="#skrub" title="Permanent link"> #</a></h4>
+<p>Skrub facilitates machine learning on dataframes. It bridges pandas
+to scikit-learn and related. In particular it facilitates building
+features from dataframes.</p>
+<h4 id="statsmodels"><a href="https://www.statsmodels.org/">Statsmodels</a><a class="headerlink" href="#statsmodels" title="Permanent link"> #</a></h4>
+<p>Statsmodels is the prominent Python "statistics and econometrics
+library" and it has a long-standing special relationship with pandas.
+Statsmodels provides powerful statistics, econometrics, analysis and
+modeling functionality that is out of pandas' scope. Statsmodels
+leverages pandas objects as the underlying data container for
+computation.</p>
+<h4 id="stumpy"><a href="https://github.com/TDAmeritrade/stumpy">STUMPY</a><a class="headerlink" href="#stumpy" title="Permanent link"> #</a></h4>
+<p>STUMPY is a powerful and scalable Python library for modern time series analysis.
+At its core, STUMPY efficiently computes something called a
+<a href="https://stumpy.readthedocs.io/en/latest/Tutorial_The_Matrix_Profile.html">matrix profile</a>,
+which can be used for a wide variety of time series data mining tasks.</p>
+            </div>
+            
+        </main>
+        <footer class="container pt-4 pt-md-5 border-top">
+            <ul class="list-inline social-buttons float-end">
+                <li class="list-inline-item">
+                    <a href="https://t.me/s/pandas_dev">
+                        <i class="fab bi bi-telegram"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="https://fosstodon.org/@pandas_dev" rel="me">
+                        <i class="fab bi bi-mastodon"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="https://x.com/pandas_dev">
+                        <i class="fab bi bi-twitter-x"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="https://github.com/pandas-dev/pandas">
+                        <i class="fab bi bi-github"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="https://stackoverflow.com/questions/tagged/pandas">
+                        <i class="fab bi bi-stack-overflow"></i>
+                    </a>
+                </li>
+            </ul>
+            <p>
+                &copy; 2026 pandas via <a href="https://numfocus.org">NumFOCUS, Inc.</a> Hosted by <a href="https://www.ovhcloud.com">OVHcloud</a>.
+            </p>
+        </footer>
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" 
+                integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" 
+                crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            const faviconTag = document.getElementById('favicon-tag');
+            const matcher = window.matchMedia('(prefers-color-scheme:dark)');
+            
+            const onUpdate = () => {
+                if (matcher.matches) faviconTag.href = "..//static/img/favicon_white.ico";
+                else faviconTag.href = "..//static/img/favicon.ico";
+            };
+            
+            onUpdate();
+            
+            matcher.addEventListener('change', onUpdate);
+        </script>
+    </body>
+</html>

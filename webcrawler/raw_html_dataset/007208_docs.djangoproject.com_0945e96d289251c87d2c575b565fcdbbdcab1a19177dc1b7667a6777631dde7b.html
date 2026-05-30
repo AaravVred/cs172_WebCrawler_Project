@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="ROBOTS" content="ALL" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="" />
+    <meta name="fediverse:creator" content="@django@fosstodon.org" />
+    
+  
+    
+      
+    
+  
+  <link rel="canonical" href="https://docs.djangoproject.com/ko/6.0/misc/api-stability/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="el"
+          href="https://docs.djangoproject.com/el/3.1/misc/api-stability/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="en"
+          href="https://docs.djangoproject.com/en/3.1/misc/api-stability/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="es"
+          href="https://docs.djangoproject.com/es/3.1/misc/api-stability/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="fr"
+          href="https://docs.djangoproject.com/fr/3.1/misc/api-stability/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="id"
+          href="https://docs.djangoproject.com/id/3.1/misc/api-stability/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="ja"
+          href="https://docs.djangoproject.com/ja/3.1/misc/api-stability/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="ko"
+          href="https://docs.djangoproject.com/ko/3.1/misc/api-stability/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="pl"
+          href="https://docs.djangoproject.com/pl/3.1/misc/api-stability/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="pt-br"
+          href="https://docs.djangoproject.com/pt-br/3.1/misc/api-stability/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="zh-hans"
+          href="https://docs.djangoproject.com/zh-hans/3.1/misc/api-stability/">
+  
+
+  <link rel="search"
+        type="application/opensearchdescription+xml"
+        href="https://docs.djangoproject.com/ko/3.1/search/description/"
+        title="Django 문서">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="https://static.djangoproject.com/img/icon-touch.e4872c4da341.png">
+    <link rel="icon" sizes="192x192" href="https://static.djangoproject.com/img/icon-touch.e4872c4da341.png">
+    <link rel="shortcut icon" href="https://static.djangoproject.com/img/favicon.6dbf28c0650e.ico">
+    <meta name="msapplication-TileColor" content="#113228">
+    <meta name="msapplication-TileImage" content="https://static.djangoproject.com/img/icon-tile.b01ac0ef9f67.png">
+    <meta name="theme-color" content="#0C4B33">
+
+    
+      <meta property="og:title" content="API 안정성 | Django 문서" />
+      <meta property="og:description" content="The web framework for perfectionists with deadlines." />
+      <meta property="og:image" content="https://static.djangoproject.com/img/logos/django-logo-negative.1d528e2cb5fb.png" />
+      <meta property="og:image:alt" content="Django logo" />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="546" />
+      <meta property="og:image:type" content="image/png"/>
+      <meta property="og:url" content="https://docs.djangoproject.com/ko/3.1/misc/api-stability/" />
+      <meta property="og:site_name" content="Django Project" />
+
+      <meta property="twitter:creator" content="djangoproject" />
+      <meta property="twitter:site" content="djangoproject" />
+      <meta property="twitter:card" content="summary">
+    
+
+    <title>API 안정성 | Django 문서 | Django</title>
+
+    <link rel="stylesheet" href="https://static.djangoproject.com/css/output.33b5c879d992.css" >
+
+    <script src="https://static.djangoproject.com/js/mod/switch-dark-mode.139625c684db.js"></script>
+    
+  </head>
+
+  <body id="generic" class="">
+    
+  
+    <div id="outdated-warning" class="doc-floating-warning">
+      지원이 중단된 Django 버전의 문서입니다. 새 릴리스로 업그레이드하세요!
+    </div>
+  
+
+
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+
+<header id="top">
+  <div class="container container--flex--wrap--mobile">
+    <a class="logo" href="https://www.djangoproject.com/">Django</a>
+    <p class="meta">The web framework for perfectionists with deadlines.</p>
+    <button class="menu-button">
+      <i class="icon icon-reorder" aria-hidden="true"></i>
+      <span class="visuallyhidden">Menu</span>
+    </button>
+    <nav aria-labelledby="navigation-header">
+      <span id="navigation-header" class="visuallyhidden">Main navigation</span>
+      <ul>
+        <li>
+          <a href="https://www.djangoproject.com/start/overview/">Overview</a>
+        </li>
+        <li>
+          <a href="https://www.djangoproject.com/download/">Download</a>
+        </li>
+        <li class="active">
+          <a href="https://docs.djangoproject.com/">Documentation</a>
+        </li>
+        <li>
+          <a href="https://www.djangoproject.com/weblog/">News</a>
+        </li>
+        <li>
+          <a href="https://github.com/django/django" target="_blank" rel="noopener">Code</a>
+        </li>
+        <li>
+          <a href="https://code.djangoproject.com/">Issues</a>
+        </li>
+        <li>
+          <a href="https://www.djangoproject.com/community/">Community</a>
+        </li>
+        <li>
+          <a href="https://www.djangoproject.com/foundation/">Foundation</a>
+        </li>
+        <li>
+          <a href="https://www.djangoproject.com/fundraising/">&#9829; Donate</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="header-tools">
+      
+<search class="search form-input" aria-labelledby="docs-search-label">
+  <form action="https://docs.djangoproject.com/ko/3.1/search/">
+    <label id="docs-search-label" class="visuallyhidden" for="id_q">Search</label>
+    <input type="search" name="q" placeholder="Search" id="id_q">
+    <input type="hidden" name="category" value="">
+
+    <button type="submit">
+      <i class="icon icon-search" aria-hidden="true"></i>
+      <span class="visuallyhidden">제출</span>
+    </button>
+  </form>
+</search>
+
+      
+
+<button class="theme-toggle">
+  <div class="visually-hidden theme-label-when-auto">테마 토글 (현재 테마:자동)</div>
+  <div class="visually-hidden theme-label-when-light">테마 토글 (현재 테마: 밝음)</div>
+  <div class="visually-hidden theme-label-when-dark">테마 토글 (현재 테마: 어두움)</div>
+
+  <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+  <svg aria-hidden="true" class="theme-icon-when-auto">
+    <use xlink:href="#icon-auto" />
+  </svg>
+  <svg aria-hidden="true" class="theme-icon-when-dark">
+    <use xlink:href="#icon-moon" />
+  </svg>
+  <svg aria-hidden="true" class="theme-icon-when-light">
+    <use xlink:href="#icon-sun" />
+  </svg>
+</button>
+
+    </div>
+  </div>
+</header>
+
+    
+
+    <section class="copy-banner">
+      <div class="container 
+  container--flex container--flex--wrap--mobile
+">
+        
+  <p><a href="https://docs.djangoproject.com/ko/3.1/">문서</a></p>
+
+      </div>
+    </section>
+
+    <div id="billboard">
+      
+  <div class="banner">
+    <h2>Until May 1, 2026, get PyCharm for 30% off!</h2>
+    Get 💸✨30%✨💸 off a new <em>or renewal</em> annual PyCharm Professional license while supporting the <em>Django Software Foundation</em>. <br/>
+🎁 Now includes renewals, and every purchase helps fund the DSF.
+    
+      <a id="banner-cta" class="cta" href="https://www.jetbrains.com/pycharm/promo/support-django/">Get PyCharm for 30% off</a>
+    
+  </div>
+
+
+    </div>
+
+    <div class="container sidebar-right">
+      <main id="main-content">
+
+        
+          
+        
+
+        
+  <div id="version-switcher">
+    <ul id="faq-link">
+      <li class="current-link">
+        <a href="https://docs.djangoproject.com/ko/3.1/faq/help/">
+          <span>Getting Help</span>
+        </a>
+      </li>
+    </ul>
+    <ul id="doc-languages" class="language-switcher doc-switcher">
+      <li class="current">
+        <button>언어: <strong>ko</strong></button>
+      </li>
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/zh-hans/3.1/misc/api-stability/">zh-hans</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/pt-br/3.1/misc/api-stability/">pt-br</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/pl/3.1/misc/api-stability/">pl</a>
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/ja/3.1/misc/api-stability/">ja</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/id/3.1/misc/api-stability/">id</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/fr/3.1/misc/api-stability/">fr</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/es/3.1/misc/api-stability/">es</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/en/3.1/misc/api-stability/">en</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/el/3.1/misc/api-stability/">el</a>
+          </li>
+        
+      
+    </ul>
+
+    
+    <ul id="doc-versions" class="version-switcher doc-switcher">
+      <li class="current ">
+        <button>문서 버전:
+          <strong>3.1</strong>
+        </button>
+      </li>
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/ko/dev/misc/api-stability/">dev</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/ko/6.0/misc/api-stability/">6.0</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/ko/5.2/misc/api-stability/">5.2</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/ko/5.1/misc/api-stability/">5.1</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/ko/5.0/misc/api-stability/">5.0</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/ko/4.2/misc/api-stability/">4.2</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/ko/4.1/misc/api-stability/">4.1</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/ko/4.0/misc/api-stability/">4.0</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/ko/3.2/misc/api-stability/">3.2</a>
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/ko/3.0/misc/api-stability/">3.0</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/ko/2.1/misc/api-stability/">2.1</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/ko/2.0/misc/api-stability/">2.0</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/ko/1.11/misc/api-stability/">1.11</a>
+          </li>
+        
+      
+    </ul>
+    <ul id="backtotop-link">
+      <li class="current-link">
+        <a href="#top" aria-label="Back to top" class="icon-chevron-up-align"><i class="icon icon-chevron-up"></i></a>
+      </li>
+    </ul>
+  </div>
+
+  
+    <article id="docs-content">
+      <div class="section" id="s-api-stability">
+<span id="api-stability"></span><h1>API 안정성<a class="headerlink" href="#api-stability" title="제목 주소">¶</a></h1>
+<p>Django는 API의 안정성과 다음버젼의 호환성을 보장하고 있습니다. 요컨대, 새로 업데이트되는 Django 버전에서도 기존에 작성한 코드는 문제 없이 돌아갈 것이라는 뜻입니다. 하지만 업데이트후 프로젝트 별 소소한 변경 작업들은 해줘야 할 수 있습니다. 이에 대해서는 《이전 버전과 호환되지 않는 변경사항》 섹션에서 <a class="reference internal" href="../../releases/"><span class="doc">릴리스 노트</span></a> 기존 버전 혹은 업그레이드 대상 버전의 문서를 참조하시기 바랍니다.</p>
+<p>At the same time as making API stability a very high priority, Django is also
+committed to continual improvement, along with aiming for 《one way to do it》
+(eventually) in the APIs we provide. This means that when we discover clearly
+superior ways to do things, we will deprecate and eventually remove the old
+ways. Our aim is to provide a modern, dependable web framework of the highest
+quality that encourages best practices in all projects that use it. By using
+incremental improvements, we try to avoid both stagnation and large breaking
+upgrades.</p>
+<div class="section" id="s-what-stable-means">
+<span id="what-stable-means"></span><h2>《안정적인 것》의 의미<a class="headerlink" href="#what-stable-means" title="제목 주소">¶</a></h2>
+<p>이 문맥에서, 안정적인 것은 다음을 의미합니다.</p>
+<ul>
+<li><p class="first">공개된 모든 API(이 문서에 있든 모든것)들이 이전 버전과 호환되는 별명을 제공하지 않고 이동되거나 이름이 바뀌지 않을 것 입니다.</p>
+</li>
+<li><p class="first">이 API들에 새로운 기능이 추가된다면, 이 기능들은 이미 존재하는 메소드들의 의미를 바꾸거나 중단시키지 않을 것 입니다. 다시 말하면 《안정적인 것》의 의미는 (어쩔 수 없이) 《완벽한 것》이 아닙니다.</p>
+</li>
+<li><p class="first">만약 어떤 이유로 안정적인 것에 선언된 API가 삭제되야 하거나 대체되야 한다면, 이것은 사용 금지로 선언될 것 입니다 그러나 이것은 앞으로 두번의 릴리스에서 API에 포함될 것 입니다. 사용이 금지된 메소드가 호출될 때 경고들이 발생될 것 입니다.</p>
+<p><a class="reference internal" href="../../internals/release-process/#official-releases"><span class="std std-ref">Official releases</span></a>에 Django 버전 번호를 붙이는 기준과, 어떻게 기능들이 비활성화 되는지에 대한 자세한 설명이 있습니다.</p>
+</li>
+<li><p class="first">저희는 버그나 보안상 문제가 발생하지 않는 이상 이전 버전 호환성을 지킵니다.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="s-stable-apis">
+<span id="stable-apis"></span><h2>안정적인 API들<a class="headerlink" href="#stable-apis" title="제목 주소">¶</a></h2>
+<p>일반적으로 모든 것을 문서에서 다루되 <a class="reference internal" href="../../internals/"><span class="doc">내부 영역</span></a>에 있는 것은 안정적이라고 간주합니다.</p>
+</div>
+<div class="section" id="s-exceptions">
+<span id="exceptions"></span><h2>예외<a class="headerlink" href="#exceptions" title="제목 주소">¶</a></h2>
+<p>이러한 안정성과 하위 호환성 보장에 대한 몇 가지 예외가 있습니다.</p>
+<div class="section" id="s-security-fixes">
+<span id="security-fixes"></span><h3>보안 픽스<a class="headerlink" href="#security-fixes" title="제목 주소">¶</a></h3>
+<p>우리가 <a class="reference internal" href="../../internals/security/#reporting-security-issues"><span class="std std-ref">보안 보고 정책</span></a>에 따라 보안 문제를 인지하게 되면, 그것을 해결하기 위해 무엇이든 할 것입니다. 이것은 하위 호환성을 깰 수도 있다는 말입니다. 보안이 호환성 보장보다 우선이기 때문입니다.</p>
+</div>
+<div class="section" id="s-apis-marked-as-internal">
+<span id="apis-marked-as-internal"></span><h3>API들은 내부것으로 표시됩니다.<a class="headerlink" href="#apis-marked-as-internal" title="제목 주소">¶</a></h3>
+<p>어떤 API들은 다양한 방법으로 《internal》로 표시됩니다.</p>
+<ul class="simple">
+<li>몇몇 문서에서 internal이라고 언급한 경우. 문서에 어떤 것이 internal이라고 되어 있을 경우, 우리는 그것을 변경할 권한이 있습니다.</li>
+<li>밑줄(<code class="docutils literal notranslate"><span class="pre">_</span></code>)로 시작하는 함수, 메서드, 그외 객체. 이것은 Python에서 어떤 것이 비공개(private)임을 표시하는 표준 방식입니다. <code class="docutils literal notranslate"><span class="pre">_</span></code>로 시작하는 메서드는 내부 API입니다.</li>
+</ul>
+</div>
+</div>
+</div>
+
+    </article>
+  
+
+  
+    <nav class="browse-horizontal" aria-labelledby="browse-horizontal-header">
+      <span id="browse-horizontal-header" class="visuallyhidden">Previous page and next page</span>
+      
+        <div class="left"><a rel="prev" href="../"><i class="icon icon-chevron-left"></i> 메타 문서 및 기타</a></div>
+      
+      
+        <div class="right"><a rel="next" href="../design-philosophies/">설계 철학 <i class="icon icon-chevron-right"></i></a></div>
+      
+    </nav>
+  
+
+
+        <a href="#top" class="backtotop"><i class="icon icon-chevron-up"></i> Back to Top</a>
+      </main>
+
+      
+  <div role="complementary">
+    <h2 class="visuallyhidden" id="aside-header">추가 정보</h2>
+
+    
+
+
+  <div class="fundraising-sidebar">
+    <h3>Support Django!</h3>
+
+    <div class="small-heart">
+      <img src="https://static.djangoproject.com/img/fundraising-heart.cd6bb84ffd33.svg" alt="Support Django!" />
+    </div>
+
+    <div class="small-cta">
+      <ul class="list-links-small">
+        <li><a href="https://www.djangoproject.com/fundraising/">
+          Kay Beudeker donated to the Django Software Foundation to support Django development. Donate today!
+        </a></li>
+      </ul>
+    </div>
+  </div>
+
+
+
+    
+      <h3>목차</h3>
+      
+        <ul>
+<li><a class="reference internal" href="#">API 안정성</a><ul>
+<li><a class="reference internal" href="#what-stable-means">《안정적인 것》의 의미</a></li>
+<li><a class="reference internal" href="#stable-apis">안정적인 API들</a></li>
+<li><a class="reference internal" href="#exceptions">예외</a><ul>
+<li><a class="reference internal" href="#security-fixes">보안 픽스</a></li>
+<li><a class="reference internal" href="#apis-marked-as-internal">API들은 내부것으로 표시됩니다.</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    
+
+    
+      <nav aria-labelledby="browse-header">
+        <h3 id="browse-header">탐색</h3>
+        <ul>
+          
+            
+              <li>이전: <a rel="prev" href="../">메타 문서 및 기타</a></li>
+            
+            
+              <li>다음: <a rel="next" href="../design-philosophies/">설계 철학</a></li>
+            
+            <li><a href="https://docs.djangoproject.com/ko/3.1/contents/">목차</a></li>
+            
+              <li><a href="https://docs.djangoproject.com/ko/3.1/genindex/">전체 색인</a></li>
+            
+              <li><a href="https://docs.djangoproject.com/ko/3.1/py-modindex/">Python 모듈 목록</a></li>
+            
+          
+        </ul>
+      </nav>
+    
+
+    
+      <nav aria-labelledby="breadcrumbs-header">
+        <h3 id="breadcrumbs-header">현재 위치:</h3>
+        <ul>
+          <li>
+            <a href="https://docs.djangoproject.com/ko/3.1/">Django 3.1 문서</a>
+            
+              <ul><li><a href="../">메타 문서 및 기타</a>
+            
+            <ul><li>API 안정성</li></ul>
+            </li></ul>
+          </li>
+        </ul>
+      </nav>
+    
+
+    
+      <section aria-labelledby="getting-help-sidebar">
+        <h3 id="getting-help-sidebar">도움말</h3>
+        <dl class="list-links">
+          <dt><a href="https://docs.djangoproject.com/ko/3.1/faq/">자주 묻는 질문</a></dt>
+          <dd>공통적인 질문에 대한 답을 FAQ에서 찾아보세요.</dd>
+
+          <dt><a href="https://docs.djangoproject.com/en/stable/genindex/">색인</a>, <a href="https://docs.djangoproject.com/en/stable/py-modindex/">모듈 색인</a>, or <a href="https://docs.djangoproject.com/en/stable/contents/">목차</a></dt>
+          <dd>특정한 주제에 대한 정보를 찾는데 유용합니다.</dd>
+
+          <dt><a href="https://chat.djangoproject.com">Django Discord Server</a></dt>
+          <dd>Join the Django Discord Community.</dd>
+
+          <dt><a href="https://forum.djangoproject.com/">Official Django Forum</a></dt>
+          <dd>Join the community on the Django Forum.</dd>
+
+          <dt><a href="https://code.djangoproject.com/">Ticket tracker</a></dt>
+          <dd>티켓 트래커를 통해 Django 혹은 Django 문서의 버그를 신고해주세요.</dd>
+        </dl>
+      </section>
+    
+
+    
+      <section aria-labelledby="links-wrapper-header">
+        <h3 id="links-wrapper-header">다운로드:</h3>
+        <p>
+          오프라인(Django 3.1):
+          <a href="https://media.djangoproject.com/docs/django-docs-3.1-ko.zip">HTML</a> |
+          <a href="https://media.readthedocs.org/pdf/django/3.1.x/django.pdf">PDF</a> |
+          <a href="https://media.readthedocs.org/epub/django/3.1.x/django.epub">ePub</a>
+          <br>
+          <span class="quiet">
+            <a href="https://readthedocs.org/">Read the Docs</a> 제공.
+          </span>
+        </p>
+      </section>
+    
+
+    
+  <div class="corporate-members">
+    <h3>Diamond and Platinum Members</h3>
+    
+      <div class="clearfix">
+        <div class="member-logo">
+          <a href="https://jb.gg/ybja10" title="JetBrains">
+            <img src="https://media.djangoproject.com/cache/c0/ea/c0ea128467983e64aab91cd27e7918c0.png" alt="JetBrains" />
+          </a>
+        </div>
+        <div class="small-cta">
+          <ul class="list-links-small">
+            <li><strong>JetBrains</strong></li>
+            <li><a href="https://jb.gg/ybja10" title="JetBrains">
+              JetBrains delivers intelligent software solutions that make developers more productive by simplifying their challenging tasks, automating the routine, and helping them adopt the best development practices. PyCharm is the Python IDE for Professional Developers by JetBrains providing a complete set of tools for productive Python, Web and scientific development.
+            </a></li>
+          </ul>
+        </div>
+      </div>
+    
+      <div class="clearfix">
+        <div class="member-logo">
+          <a href="https://sentry.io/for/django/" title="Sentry">
+            <img src="https://media.djangoproject.com/cache/7a/f9/7af9c770dc49465739a82c91a0eb3d51.png" alt="Sentry" />
+          </a>
+        </div>
+        <div class="small-cta">
+          <ul class="list-links-small">
+            <li><strong>Sentry</strong></li>
+            <li><a href="https://sentry.io/for/django/" title="Sentry">
+              Monitor your Django Code
+Resolve performance bottlenecks and errors using monitoring, replays, logs and Seer an AI agent for debugging.
+            </a></li>
+          </ul>
+        </div>
+      </div>
+    
+      <div class="clearfix">
+        <div class="member-logo">
+          <a href="https://kraken.tech" title="Kraken Tech">
+            <img src="https://media.djangoproject.com/cache/71/4b/714b3473ed0cf3665f6b894d3be9491e.png" alt="Kraken Tech" />
+          </a>
+        </div>
+        <div class="small-cta">
+          <ul class="list-links-small">
+            <li><strong>Kraken Tech</strong></li>
+            <li><a href="https://kraken.tech" title="Kraken Tech">
+              Kraken is the most-loved operating system for energy. Powered by our Utility-Grade AI™ and deep industry know-how, we help utilities transform their technology and operations so they can lead the energy transition. Delivering better outcomes from generation through distribution to supply, Kraken powers 70+ million accounts worldwide, and is on a mission to make a big, green dent in the universe.
+            </a></li>
+          </ul>
+        </div>
+      </div>
+    
+  </div>
+
+
+  </div>
+
+      
+
+    </div>
+
+     
+     
+
+    
+    
+    
+
+    <!-- SVGs -->
+    <svg xmlns="http://www.w3.org/2000/svg">
+      <symbol viewBox="0 0 24 24" id="icon-auto"><path d="M0 0h24v24H0z" fill="currentColor"/><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2V4a8 8 0 1 0 0 16z"/></symbol>
+      <symbol viewBox="0 0 24 24" id="icon-moon"><path d="M0 0h24v24H0z" fill="currentColor"/><path d="M10 7a7 7 0 0 0 12 4.9v.1c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2h.1A6.979 6.979 0 0 0 10 7zm-6 5a8 8 0 0 0 15.062 3.762A9 9 0 0 1 8.238 4.938 7.999 7.999 0 0 0 4 12z"/></symbol>
+      <symbol viewBox="0 0 24 24" id="icon-sun"><path d="M0 0h24v24H0z" fill="currentColor"/><path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/></symbol>
+    </svg>
+    <!-- END SVGs -->
+
+    
+      
+
+<footer>
+  <div class="subfooter">
+    <div class="container">
+      <h2 class="visuallyhidden">Django Links</h2>
+      <div class="column-container">
+        <div class="col-learn-more">
+          <h3>Learn More</h3>
+          <ul>
+            <li><a href="https://www.djangoproject.com/start/overview/">About Django</a></li>
+            
+            <li><a href="https://www.djangoproject.com/start/">Getting Started with Django</a></li>
+            <li><a href="https://www.djangoproject.com/foundation/teams/">Team Organization</a></li>
+            <li><a href="https://www.djangoproject.com/foundation/">Django Software Foundation</a></li>
+            <li><a href="https://www.djangoproject.com/conduct/">Code of Conduct</a></li>
+            <li><a href="https://www.djangoproject.com/diversity/">Diversity Statement</a></li>
+          </ul>
+        </div>
+
+        <div class="col-get-involved">
+          <h3>Get Involved</h3>
+          <ul>
+            <li><a href="https://www.djangoproject.com/community/">Join a Group</a></li>
+            <li><a href="https://docs.djangoproject.com/en/dev/internals/contributing/">Contribute
+              to Django</a></li>
+            <li><a
+              href="https://docs.djangoproject.com/en/dev/internals/contributing/bugs-and-features/">Submit
+              a Bug</a></li>
+            <li><a
+              href="https://docs.djangoproject.com/en/dev/internals/security/#reporting-security-issues">Report
+              a Security Issue</a></li>
+            <li><a href="https://www.djangoproject.com/foundation/individual-members/">Individual membership</a></li>
+          </ul>
+        </div>
+
+        <div class="col-get-help">
+          <h3>Get Help</h3>
+          <ul>
+            <li><a href="https://docs.djangoproject.com/en/stable/faq/">Getting Help FAQ</a>
+            </li>
+            <li><a href="https://chat.djangoproject.com" target="_blank">Django Discord</a></li>
+            <li><a href="https://forum.djangoproject.com/" target="_blank">Official Django Forum</a></li>
+          </ul>
+        </div>
+
+        <div class="col-follow-us">
+          <h3>Follow Us</h3>
+          <ul>
+            <li><a href="https://github.com/django">GitHub</a></li>
+            <li><a href="https://x.com/djangoproject">X</a></li>
+            <li><a href="https://fosstodon.org/@django" rel="me">Fediverse (Mastodon)</a></li>
+            <li><a href="https://bsky.app/profile/djangoproject.com">Bluesky</a></li>
+            <li><a href="https://www.linkedin.com/company/django-software-foundation">LinkedIn</a></li>
+            <li><a href="https://www.djangoproject.com/rss/weblog/">News RSS</a></li>
+          </ul>
+        </div>
+
+        <div class="col-support-us">
+          <h3>Support Us</h3>
+          <ul>
+            <li><a href="https://www.djangoproject.com/fundraising/">Sponsor Django</a></li>
+            <li><a href="https://www.djangoproject.com/foundation/corporate-members/">Corporate membership</a></li>
+            <li><a href="https://django.threadless.com/" target="_blank">Official merchandise store</a></li>
+            <li><a href="https://www.djangoproject.com/fundraising/#benevity-giving">Benevity Workplace Giving Program</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="container">
+      <div class="footer-logo">
+        <a class="logo" href="https://www.djangoproject.com/">Django</a>
+      </div>
+      <ul class="thanks">
+        <li>
+          <span>Hosting by</span> <a class="in-kind-donors" href="https://www.djangoproject.com/fundraising/#in-kind-donors">In-kind
+            donors</a>
+        </li>
+        <li class="design"><span>Design by</span> <a class="threespot" href="https://www.threespot.com">Threespot</a>
+          <span class="ampersand">&amp;</span> <a class="andrevv" href="http://andrevv.com/">andrevv</a></li>
+      </ul>
+      <p class="copyright">&copy; 2005-2026
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+          Foundation</a> and individual contributors. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+          trademark</a> of the Django Software Foundation.
+      </p>
+    </div>
+  </div>
+
+</footer>
+
+    
+
+    
+      
+      <script>
+        function extless(input) {
+          return input.replace(/(.*)\.[^.]+$/, '$1');
+        }
+        var require = {
+          shim: {
+            'jquery': [],
+            'stripe': {
+              exports: 'Stripe'
+            }
+          },
+          paths: {
+            "jquery": extless("https://static.djangoproject.com/js/lib/jquery.min.5790ead7ad3b.js"),
+            "mod/list-collapsing": extless("https://static.djangoproject.com/js/mod/list-collapsing.2d844151b2ec.js"),
+            "mod/stripe-change-card": extless("https://static.djangoproject.com/js/mod/stripe-change-card.eaa0afc324e9.js"),
+            "mod/switch-dark-mode": extless("https://static.djangoproject.com/js/mod/switch-dark-mode.139625c684db.js"),
+            "stripe-checkout": "https://checkout.stripe.com/checkout",
+            "stripe": "https://js.stripe.com/v3/?" // ? needed due to require.js
+          }
+        };
+      </script>
+      <script data-main="https://static.djangoproject.com/js/main.8677b21133eb.js" src="https://static.djangoproject.com/js/lib/require.177879fbe7dd.js"></script>
+      <script src="https://static.djangoproject.com/js/djangoproject.6e389ef71ec2.js"></script>
+    
+  </body>
+</html>

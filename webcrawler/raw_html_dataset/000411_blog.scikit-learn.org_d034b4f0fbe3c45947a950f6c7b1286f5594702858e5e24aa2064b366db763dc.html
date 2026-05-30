@@ -1,0 +1,1286 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Update on array API adoption in scikit-learn - scikit-learn Blog</title>
+<meta name="description" content="Author:         Lucy Liu           Note: this blog post is a cross-post of a Quansight Labs blog post.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="scikit-learn Blog">
+<meta property="og:title" content="Update on array API adoption in scikit-learn">
+<meta property="og:url" content="https://labs.quansight.org/blog/array-api-scikit-learn-2026">
+
+
+  <meta property="og:description" content="Author:         Lucy Liu           Note: this blog post is a cross-post of a Quansight Labs blog post.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2026-03-05T00:00:00+00:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://labs.quansight.org/blog/array-api-scikit-learn-2026">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": null,
+      "url": "https://blog.scikit-learn.org/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="scikit-learn Blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+<link rel="manifest" href="/assets/images/site.webmanifest">
+<link rel="mask-icon" href="/assets/images/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/images/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" content="/assets/images/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- Load MathJax only in the pages with `usemathjax: true` -->
+
+
+
+<link rel="canonical" href="https://labs.quansight.org/blog/array-api-scikit-learn-2026" />
+
+
+    <script defer data-domain="blog.scikit-learn.org" src="https://views.scientific-python.org/js/script.js"></script>
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/scikit-learn-logo.png" alt="scikit-learn Blog"></a>
+        
+        <a class="site-title" href="/">
+          scikit-learn Blog
+          
+        </a>
+        <ul class="visible-links">
+                
+                
+                    <li class="masthead__menu-item">
+                        <a href="https://scikit-learn.org/stable/">scikit-learn.org</a>
+                    </li>
+                
+            
+                
+                
+                    <li class="masthead__menu-item">
+                        <a href="/calendar">Calendar</a>
+                    </li>
+                
+            
+                
+                
+                    <li class="masthead__menu-item">
+                        <a href="/resources">Resources</a>
+                    </li>
+                
+            
+                
+                
+                    <li class="masthead__menu-item">
+                        <a href="/sprints">Sprints</a>
+                    </li>
+                
+            
+                
+                
+                    <li class="dropdown ">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More    <i class="fa fa-caret-down fa-sm" aria-hidden="true"></i><span class="caret"></span></a>
+                        <ul class="dropdown-content">
+                            
+                                <li>
+                                    <a href="https://scikit-learn.org/stable/install">    Install</a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://scikit-learn.org/stable/user_guide">    User Guide</a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://scikit-learn.org/stable/api/index">    API</a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://scikit-learn.org/stable/auto_examples/index">    Examples</a>
+                                </li>
+                            
+                        </ul>
+                    </li>
+                
+            
+        </ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="https://blog.scikit-learn.org/" itemprop="url"></a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>Open source library for machine learning in Python.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="https://github.com/scikit-learn" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-github-square" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://linkedin.com/company/scikit-learn/" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">LinkedIn</span></a></li>
+          
+        
+          
+            <li><a href="https://bsky.app/profile/scikit-learn.org" rel="nofollow noopener noreferrer me"><i class="fas fa-link" aria-hidden="true"></i><span class="label">Bluesky</span></a></li>
+          
+        
+          
+            <li><a href="https://fosstodon.org/@sklearn" rel="nofollow noopener noreferrer me"><i class="fab fa-brands fa-mastodon" aria-hidden="true"></i><span class="label">Mastodon</span></a></li>
+          
+        
+          
+            <li><a href="https://www.youtube.com/@scikit-learn" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-youtube" aria-hidden="true"></i><span class="label">YouTube</span></a></li>
+          
+        
+          
+            <li><a href="https://facebook.com/scikitlearnofficial/" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i><span class="label">Facebook</span></a></li>
+          
+        
+          
+            <li><a href="https://instagram.com/scikitlearnofficial/" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-instagram" aria-hidden="true"></i><span class="label">Instagram</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">Archives</span>
+        
+
+        
+        <ul>
+          
+            <li><a href="/categories/">Category</a></li>
+          
+            <li><a href="/tags/">Tag</a></li>
+          
+            <li><a href="/years/">Year</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">scikit-learn</span>
+        
+
+        
+        <ul>
+          
+            <li><a href="https://scikit-learn.org/stable/about">About Us</a></li>
+          
+            <li><a href="https://scikit-learn.org/stable/faq">FAQ</a></li>
+          
+            <li><a href="https://python.org/psf/conduct/">Code of Conduct</a></li>
+          
+            <li><a href="https://scikit-learn.org/stable/developers/contributing.html">Contribute to scikit-learn</a></li>
+          
+            <li><a href="https://github.com/scikit-learn/blog">Contribute to the blog</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Community</span>
+        
+
+        
+        <ul>
+          
+            <li><a href="https://github.com/scikit-learn/administrative/tree/master/monthly_meetings">Monthly Meeting Minutes</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Mailing List</span>
+        
+
+        
+        <ul>
+          
+            <li><a href="https://mail.python.org/mailman/listinfo/scikit-learn">Subscribe</a></li>
+          
+            <li><a href="https://mail.python.org/pipermail/scikit-learn/">Archive</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Update on array API adoption in scikit-learn">
+    <meta itemprop="description" content="                Author:        Lucy Liu     Note: this blog post is a cross-post of a Quansight Labs blog post.">
+    <meta itemprop="datePublished" content="2026-03-05T00:00:00+00:00">
+    
+    <meta property="og:image" content="https://blog.scikit-learn.org/array-api-scikit-learn-2026-feature.png">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="https://blog.scikit-learn.org/updates/update-array-api/" class="u-url" itemprop="url">Update on array API adoption in scikit-learn
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-03-05T00:00:00+00:00">2026-03-05</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          10 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+        <div>
+  <img src="/assets/images/posts_images/array-api-scikit-learn-2026-feature.png" alt="" />
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+Author:  
+      <a itemprop="sameAs" content="https://github.com/lucyleeow" href="https://github.com/lucyleeow" rel="me noopener noreferrer" style="vertical-align:top;"><img src="/assets/images/author_images/lucyliu.jpeg" style="width:1em;margin-right:.5em;border-radius: 50%;" alt="Author Icon" class="orcid-icon" />Lucy Liu</a>
+     
+
+<br /><br />
+
+</div>
+<p><em>Note: this blog post is a cross-post of a <a href="https://labs.quansight.org/blog/array-api-scikit-learn-2026">Quansight Labs blog post</a>.</em></p>
+
+<p>The <a href="https://data-apis.org/">Consortium for Python Data API Standards</a>
+developed the <a href="https://data-apis.org/array-api/">Python array API standard</a>
+to define a consistent interface for array libraries, specifing core
+operations, data types, and behaviours. This enables ‘array-consuming’
+libraries (such as scikit-learn) to write array-agnostic code that can
+be run on any array API compliant backend. Adopting array API support in scikit-learn
+means that users can pass arrays from any array API compliant library to
+functions that have been converted to be array-agnostic. This is useful because it
+allows users to take advantage of array library features, such as hardware
+acceleration, most notably via GPUs.</p>
+
+<p>Indeed, GPU support in scikit-learn has been of interest for a long time - 11 years
+ago, we added an entry to our FAQ page explaining that we had no plans to add GPU
+support in the near future due to the software dependencies and platform specific
+issues it would introduce. By relying on the array API standard, however, these
+concerns can now be avoided.</p>
+
+<p>In this blog post, I will provide an update to the array API adoption work in
+scikit-learn, since it’s initial introduction in version 1.3 two years ago.
+Thomas Fan’s <a href="https://labs.quansight.org/blog/array-api-support-scikit-learn">blog post</a>
+provides details on the status when array API support was initially added.</p>
+
+<h2 id="current-status">Current status</h2>
+
+<p>Since the introduction of array API support in version 1.3 of scikit-learn,
+several key developments have followed.</p>
+
+<h3 id="vendoring-array-api-compat-and-array-api-extra">Vendoring <code class="language-plaintext highlighter-rouge">array-api-compat</code> and <code class="language-plaintext highlighter-rouge">array-api-extra</code></h3>
+
+<p>Scikit-learn now vendors both
+<a href="https://data-apis.org/array-api-compat/"><code class="language-plaintext highlighter-rouge">array-api-compat</code></a> and
+<a href="https://data-apis.org/array-api-extra/"><code class="language-plaintext highlighter-rouge">array-api-extra</code></a>.
+<code class="language-plaintext highlighter-rouge">array-api-compat</code> is a wrapper around common array libraries (e.g., PyTorch,
+CuPy, JAX) that bridges gaps to ensure compatibility with the standard. It
+enables adoption of backwards incompatible changes while still allowing array
+libraries time to adopt the standard slowly. <code class="language-plaintext highlighter-rouge">array-api-extra</code> provides array
+functions not included in the standard but deemed useful for array-consuming
+libraries.</p>
+
+<p>We chose to vendor these now much more mature libraries in order to avoid the
+complexity of conditionally handling optional dependencies throughout the
+codebase. This approach also follows precedent, as SciPy also vendors these
+packages.</p>
+
+<h3 id="array-libraries-supported">Array libraries supported</h3>
+
+<p>Scikit-learn currently supports CuPy ndarrays, PyTorch tensors (testing
+against all devices: ‘cpu’, ‘cuda’, ‘mps’ and ‘xpu’) and NumPy arrays. JAX
+support is also on the horizon. The main focus of this work is addressing
+in-place mutations in the codebase. Follow
+<a href="https://github.com/scikit-learn/scikit-learn/pull/29647">PR #29647</a> for
+updates.</p>
+
+<p>Beyond these libraries, scikit-learn also tests against <code class="language-plaintext highlighter-rouge">array-api-strict</code>, a
+reference implementation that strictly adheres to the array API specification.
+The purpose of <code class="language-plaintext highlighter-rouge">array-api-strict</code> is to help automate compliance checks for
+consuming libraries and to enable development and testing of array
+API functionality without the need for GPU or other specialized hardware.
+Array libraries that conform to the standard and pass the <code class="language-plaintext highlighter-rouge">array-api-tests</code> suite
+should be accepted by scikit-learn and SciPy, without any additional modifications
+from maintainers.</p>
+
+<h3 id="estimators-and-metrics-with-array-api-support">Estimators and metrics with array API support</h3>
+
+<p>The full list of metrics and estimators that now support array API can be
+found in our
+<a href="https://scikit-learn.org/dev/modules/array_api.html#">Array API support</a>
+documentation page. The majority of high impact metrics have now been
+converted to be array API compatible. Many transformers are also now
+supported, notably <code class="language-plaintext highlighter-rouge">LabelBinarizer</code> which is widely used internally and
+simplifies other conversions.</p>
+
+<p>Conversion of estimators is much more complicated as it often involves
+benchmarking different variations of code or consensus gathering on
+implementation choices. It generally requires many months of work by several
+maintainers. Nonetheless, support for <code class="language-plaintext highlighter-rouge">LogisticRegression</code>, <code class="language-plaintext highlighter-rouge">GaussianNB</code>,
+<code class="language-plaintext highlighter-rouge">GaussianMixture</code>, <code class="language-plaintext highlighter-rouge">Ridge</code> (and family: <code class="language-plaintext highlighter-rouge">RidgeCV</code>, <code class="language-plaintext highlighter-rouge">RidgeClassifier</code>,
+<code class="language-plaintext highlighter-rouge">RidgeClassifierCV</code>), <code class="language-plaintext highlighter-rouge">Nystroem</code> and <code class="language-plaintext highlighter-rouge">PCA</code> has been added. Work on
+<code class="language-plaintext highlighter-rouge">GaussianProcessRegressor</code> is also underway (follow at
+<a href="https://github.com/scikit-learn/scikit-learn/pull/33096">PR #33096</a>).</p>
+
+<h3 id="handling-mixed-array-namespaces-and-devices">Handling mixed array namespaces and devices</h3>
+
+<p>scikit-learn takes a unique approach among ‘array-consuming’ libraries by
+supporting mixed array namespace and device inputs. This design choice enables
+the framework to handle the practical complexities of end-to-end machine
+learning pipelines.</p>
+
+<p>String-valued class labels are common in classification tasks and enable users
+to work with interpretable categories rather than integer codes. NumPy is
+currently the only array library with string array support, meaning that any
+workflow involving both GPU-accelerated computation and string labels
+necessarily involves mixed array type inputs.</p>
+
+<p>Mixed array input support also enables flexible pipeline workflows. Pipelines
+provide significant value by chaining preprocessing steps and estimators into
+reusable workflows that prevent data leakage and ensure consistent
+preprocessing. However, they have an intentional design limitation: pipeline
+steps can transform feature arrays (<code class="language-plaintext highlighter-rouge">X</code>) but cannot modify target arrays
+(<code class="language-plaintext highlighter-rouge">y</code>). Allowing mixed array inputs means a pipeline can include a
+<code class="language-plaintext highlighter-rouge">FunctionTransformer</code> step that moves feature data from CPU to GPU to leverage
+hardware acceleration, while allowing the target array, which cannot be
+modified, to remain on CPU.</p>
+
+<p>For example, mixed array inputs enable a pipeline where string classification
+features are encoded on CPU (as only NumPy supports string arrays), converted
+to torch CUDA tensors, then passed to the array API-compatible
+<code class="language-plaintext highlighter-rouge">RidgeClassifier</code> for GPU-accelerated computation:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">RidgeClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">FunctionTransformer</span><span class="p">,</span> <span class="n">TargetEncoder</span>
+
+<span class="n">pipeline</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+    <span class="c1"># Encode string categories with average target values
+</span>    <span class="n">TargetEncoder</span><span class="p">(),</span>
+    <span class="c1"># Convert feature array `X` to Torch CUDA device
+</span>    <span class="n">FunctionTransformer</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">asarray</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">"float32"</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s">"cuda"</span><span class="p">))</span>
+    <span class="n">RidgeClassifier</span><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="s">"svd"</span><span class="p">),</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p>Work on adding mixed array type inputs for metrics and estimators is underway
+and expected to progress quickly. This work includes developing a robust
+testing framework, including for pipelines using mixed array types (follow
+<a href="https://github.com/scikit-learn/scikit-learn/pull/32755">PR #32755</a> for details).</p>
+
+<p>Finally, we have also revived our work to support the ability to fit and
+predict on different namespaces/devices. This allows users to train models on
+GPU hardware but deploy predictions on CPU hardware, optimizing costs and
+accommodating different resource availability between training and production
+environments. Follow
+<a href="https://github.com/scikit-learn/scikit-learn/pull/33076">PR #33076</a> for
+details.</p>
+
+<h2 id="challenges">Challenges</h2>
+
+<p>The challenges of array API adoption remain largely unchanged from when this
+work began. These are also common to other array-consuming libraries, with a
+notable addition: the need to handle array movement between namespaces and
+devices to support mixed array type inputs.</p>
+
+<h3 id="array-api-standard-is-a-subset-of-numpys-api">Array API Standard is a subset of NumPy’s API</h3>
+
+<p>The array API standard only includes widely-used functions implemented across
+most array libraries, meaning many NumPy functions are absent. When such a
+function is encountered while adding array API support, we have the following
+options:</p>
+
+<ul>
+  <li>add the function to <code class="language-plaintext highlighter-rouge">array-api-extra</code> - this allows other array-consuming
+libraries to benefit and allows sharing of maintenance burden, but is only
+relevant for more widely used functions</li>
+  <li>add our own implementation in scikit-learn - these functions live in
+<code class="language-plaintext highlighter-rouge">sklearn/utils/_array_api.py</code></li>
+  <li>check if SciPy implements an array API compatible version of the function</li>
+</ul>
+
+<p>The <code class="language-plaintext highlighter-rouge">quantile</code> function illustrates this decision-making process. <code class="language-plaintext highlighter-rouge">quantile</code>
+is not included in the standard as it is not widely used (outside of
+scikit-learn) and while it is implemented in most array libraries, the
+set of quantile methods supported and their APIs vary. Currently, scikit-learn maintains its
+own array API compatible version that supports both weights and NaNs, but due
+to the maintenance burden we decided to investigate alternatives. SciPy has an
+array API compatible implementation, but it did not support weights. We thus
+investigated adding <code class="language-plaintext highlighter-rouge">quantile</code> to <code class="language-plaintext highlighter-rouge">array-api-extra</code>; however, during this
+effort, SciPy decided to add weight support. Thus, we ultimately decided to
+transition to the SciPy implementation once our minimum SciPy version allows.</p>
+
+<h3 id="compiled-code">Compiled code</h3>
+
+<p>Many performance-critical parts of scikit-learn are written using compiled
+code extensions in Cython, C or C++. These directly access the underlying
+memory buffers of NumPy arrays and are thus restricted to CPU.</p>
+
+<p>Metrics and estimators, with compiled code, handle this in one of two ways:
+convert arrays to NumPy first or maintain two parallel branches of code, one
+for NumPy (compiled) and one for other array types (array API compatible).
+When performance is less critical or array API conversion provides no gains
+(e.g., <code class="language-plaintext highlighter-rouge">confusion_matrix</code>), we convert to NumPy. When performance gains are
+significant, we accept the maintenance burden of dual code paths. This was the case for
+<code class="language-plaintext highlighter-rouge">LogisticRegression</code> and the extensive process required for making such implementation
+decisions can be seen in the
+<a href="https://github.com/scikit-learn/scikit-learn/pull/32644">PR #32644</a>.</p>
+
+<h3 id="unspecified-behaviour-in-the-standard">Unspecified behaviour in the standard</h3>
+
+<p>The array API standard intentionally leaves some function behaviors
+unspecified, permitting implementation differences across array libraries. For
+example, the order of unique elements is not specified for the <code class="language-plaintext highlighter-rouge">unique_*</code>
+functions and as of NumPy version 2.3, some <code class="language-plaintext highlighter-rouge">unique_*</code> functions no longer
+return sorted values. This will require code amendments in cases where sorted
+output was relied upon.</p>
+
+<p>Similarly, NaN handing is also unspecified for <code class="language-plaintext highlighter-rouge">sort</code>; however, in this case, all
+array libraries currently supported by scikit-learn follow NumPy’s NaN
+semantics, placing NaNs at the end. This consistency eliminates the need for
+special handling code, though comprehensive testing remains essential when
+adding support for new array libraries.</p>
+
+<h3 id="device-transfer">Device transfer</h3>
+
+<p>Mixed array namespace and device inputs necessitates conversion of arrays
+between different namespaces and devices. This presented a number of
+considerations and challenges.</p>
+
+<p>The array API standard adopted DLPack as the recommended
+<a href="https://data-apis.org/array-api/latest/design_topics/data_interchange.html#data-interchange">data interchange</a>
+protocol. This protocol is widely implemented in array libraries and offers an
+efficient, C ABI compatible protocol for array conversion. While this provided
+us with an easy way to implement these transfers, there were limitations.
+Cross-device transfer capability was only introduced in DLPack v1, released in
+September 2024. This meant that only the latest PyTorch and CuPy versions have
+support for DLPack v1. Moreover, not all array libraries have adopted support
+yet. We therefore implemented a ‘manual’ fallback; however, this requires
+conversion via NumPy when the transfer involves two non-NumPy arrays.
+Additionally, there are no DLPack tests in
+<a href="https://github.com/data-apis/array-api-tests">array-api-tests</a>, a testing
+suite to verify standard compliance, leaving DLPack implementation bugs easier
+to overlook. Despite these challenges, scikit-learn will benefit from future
+improvements, such as addition of a C-level API for DLPack exchange that
+bypasses Python function calls, offering significant benefit for GPU
+applications.</p>
+
+<p>Beyond the technical considerations, there were also user interface
+considerations. How should we inform users that these conversions, which incur
+memory and performance cost, are occurring? We decided against warnings, which
+risk being ignored or becoming a nuisance, and to instead clearly document this
+behaviour. Additionally, different devices have different data type limitations;
+for example, Apple MPS only supports float32. How best to handle these differences
+when performing conversions while ensuring users are informed of precision
+impacts is an ongoing consideration.</p>
+
+<h2 id="a-quick-benchmark">A quick benchmark</h2>
+
+<p>Array API support for <code class="language-plaintext highlighter-rouge">Ridge</code> regression was added in version 1.5, enabling
+GPU-accelerated linear models in scikit-learn. Combined with support of
+several transformers, this allows for complete preprocessing and estimation
+pipelines on GPU.</p>
+
+<p>The following benchmark shows the use of the <code class="language-plaintext highlighter-rouge">MaxAbsScaler</code> transformed
+followed by <code class="language-plaintext highlighter-rouge">Ridge</code> regression using randomly generated data with 500,000
+samples and 300 features. The benchmarks were run on AMD Ryzen Threadripper
+2970WX CPU, NVIDIA Quadro RTX 8000 GPU and Apple M4 GPU (Metal 3).</p>
+
+<p>The figure below shows the performance speed up on CuPy, Torch CPU and Torch
+GPU relative to NumPy.</p>
+
+<p><img src="/assets/images/posts_images/array_api_timings.png" alt="Benchmarking of MaxAbsScaler/Ridge pipeline" title="Benchmarking of MaxAbsScaler/Ridge pipeline" /></p>
+
+<p><em>Performance speedup relative to NumPy across different backends.</em></p>
+
+<p>The observed speedups are representative of performance gains achievable with
+sufficiently large datasets on datacenter-grade GPUs for linear
+algebra-intensive workloads. Mobile GPUs, such as those in laptops, would
+typically yield more modest improvements.</p>
+
+<p>Note that scikit-learn’s <code class="language-plaintext highlighter-rouge">Ridge</code> regressor currently only supports ‘svd’
+solver. We selected this solver for initial implementation as it exclusively
+uses standard-compliant functions available across all backends and is the
+most stable solver. Support for the ‘cholesky’ solver is also underway (see
+details in <a href="https://github.com/scikit-learn/scikit-learn/pull/29318">PR #29318</a>).</p>
+
+<h2 id="looking-forward">Looking forward</h2>
+
+<p>As of version 1.8, array API support is still in experimental mode and thus
+not enabled by default. However, we welcome early adopters and interested
+users to try it and report any
+<a href="https://github.com/scikit-learn/scikit-learn/issues">issues</a>. See
+<a href="https://scikit-learn.org/dev/modules/array_api.html#enabling-array-api-support">our documentation</a>
+for details on enabling array API support.</p>
+
+<p>Before removing experimental status, we would like to:</p>
+
+<ul>
+  <li>develop a system for automatically documenting functions and classes that
+support array API, potentially with the ability to add relevant details</li>
+  <li>mixed array type input support</li>
+  <li>support fit and predict on different hardware by allowing conversion of
+fitted estimators between namespaces/devices using utility functions</li>
+  <li>improved testing, in particular for the new mixed array type
+functionalities</li>
+  <li>improved documentation, including adding an example to our gallery</li>
+  <li>decide on the minimal dependency versions required</li>
+  <li>get real world user feedback</li>
+</ul>
+
+<p>Alongside these infrastructure and framework improvements, we look forward to
+adding support for more estimators. These improvements will deliver
+production-ready GPU support and flexible deployment options to scikit-learn
+users. We welcome community involvement through testing and feedback
+throughout this development phase.</p>
+
+<h2 id="acknowledgements">Acknowledgements</h2>
+
+<p>Work on array API in scikit-learn has been a combined effort from many
+contributors. This work was partly funded by CZI and NASA Roses.</p>
+
+<p>I would like to thank <a href="https://github.com/ogrisel">Olivier Grisel</a>,
+<a href="https://github.com/betatim">Tim Head</a> and
+<a href="https://github.com/ev-br">Evgeni Burovski</a> for helping me with my array API
+questions.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#array-api" class="page__taxonomy-item p-category" rel="tag">Array API</a><span class="sep">, </span>
+    
+      <a href="/tags/#machine-learning" class="page__taxonomy-item p-category" rel="tag">Machine Learning</a><span class="sep">, </span>
+    
+      <a href="/tags/#open-source" class="page__taxonomy-item p-category" rel="tag">Open Source</a><span class="sep">, </span>
+    
+      <a href="/tags/#performance" class="page__taxonomy-item p-category" rel="tag">Performance</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#updates" class="page__taxonomy-item p-category" rel="tag">Updates</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2026-03-05T00:00:00+00:00">2026-03-05</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+    <h4 class="page__share-title">Share on</h4>
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fblog.scikit-learn.org%2Fupdates%2Fupdate-array-api%2F&text=Update+on+array+API+adoption+in+scikit-learn" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+
+    <a href="https://bsky.app/intent/compose?text=Update+on+array+API+adoption+in+scikit-learn https%3A%2F%2Fblog.scikit-learn.org%2Fupdates%2Fupdate-array-api%2F" class="btn btn--bluesky" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Bluesky"><i class="fab fa-brands fa-bluesky" aria-hidden="true"></i><span> Bluesky</span></a>
+
+    <a href="https://mastodonshare.com/?url=https%3A%2F%2Fblog.scikit-learn.org%2Fupdates%2Fupdate-array-api%2F&text=Update+on+array+API+adoption+in+scikit-learn" class="btn btn--mastodon" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Mastodon"><i class="fab fa-brands fa-mastodon" aria-hidden="true"></i><span> Mastodon</span></a>
+
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fblog.scikit-learn.org%2Fupdates%2Fupdate-array-api%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  
+
+  </section>
+
+      
+  <nav class="pagination">
+    
+      <a href="/updates/enhancing-user-experience/" class="pagination--pager" title="Enhancing user experience through interactive inspection
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">You May Also Enjoy</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/updates/enhancing-user-experience/" rel="permalink">Enhancing user experience through interactive inspection
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-01-06T00:00:00+00:00">2026-01-06</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+Author:  
+      Dea María Léon
+      
+        
+      
+
+
+
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/team/virgil-chan-interview/" rel="permalink">Interview with Virgil Chan, scikit-learn Team Member
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2025-11-26T00:00:00+00:00">2025-11-26</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          5 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+Author:  
+      Reshama Shaikh
+     , 
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+
+      Virgil Chan
+     
+
+
+
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/press/gh-sosf/" rel="permalink">scikit-learn Completes the GitHub Secure Open Source Training
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2025-08-16T00:00:00+00:00">2025-08-16</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+Author:  
+      Reshama Shaikh
+     
+
+
+
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/updates/probabl-skolar/" rel="permalink">Skolar: an open-source initiative to democratize open data science
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2025-06-30T00:00:00+00:00">2025-06-30</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+Author:  
+      Skolar
+     , 
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+
+      Pénélope Gittos
+     
+
+
+
+
+
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/scikit-learn" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github-square" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://linkedin.com/company/scikit-learn/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
+        
+      
+        
+          <li><a href="https://bsky.app/profile/scikit-learn.org" rel="nofollow noopener noreferrer"><i class="fas fa-link" aria-hidden="true"></i> Bluesky</a></li>
+        
+      
+        
+          <li><a href="https://fosstodon.org/@sklearn" rel="nofollow noopener noreferrer"><i class="fab fa-brands fa-mastodon" aria-hidden="true"></i> Mastodon</a></li>
+        
+      
+        
+          <li><a href="https://www.youtube.com/@scikit-learn" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-youtube" aria-hidden="true"></i> YouTube</a></li>
+        
+      
+        
+          <li><a href="https://facebook.com/scikitlearnofficial/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+        
+      
+        
+          <li><a href="https://instagram.com/scikitlearnofficial/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-instagram" aria-hidden="true"></i> Instagram</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2026 scikit-learn Blog. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+  <script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22606712-3']);
+  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

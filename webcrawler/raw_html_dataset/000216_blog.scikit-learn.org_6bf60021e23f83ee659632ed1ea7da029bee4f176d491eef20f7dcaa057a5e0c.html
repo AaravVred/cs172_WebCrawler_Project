@@ -1,0 +1,1333 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>The Value of Open Source Sprints, the scikit-learn Experience - scikit-learn Blog</title>
+<meta name="description" content="Author:         Reshama Shaikh">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="scikit-learn Blog">
+<meta property="og:title" content="The Value of Open Source Sprints, the scikit-learn Experience">
+<meta property="og:url" content="https://blog.scikit-learn.org/events/sprints-value/">
+
+
+  <meta property="og:description" content="Author:         Reshama Shaikh">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-07-13T00:00:00+00:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://blog.scikit-learn.org/events/sprints-value/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": null,
+      "url": "https://blog.scikit-learn.org/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="scikit-learn Blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+<link rel="manifest" href="/assets/images/site.webmanifest">
+<link rel="mask-icon" href="/assets/images/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/images/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" content="/assets/images/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- Load MathJax only in the pages with `usemathjax: true` -->
+
+
+
+
+    <script defer data-domain="blog.scikit-learn.org" src="https://views.scientific-python.org/js/script.js"></script>
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/scikit-learn-logo.png" alt="scikit-learn Blog"></a>
+        
+        <a class="site-title" href="/">
+          scikit-learn Blog
+          
+        </a>
+        <ul class="visible-links">
+                
+                
+                    <li class="masthead__menu-item">
+                        <a href="https://scikit-learn.org/stable/">scikit-learn.org</a>
+                    </li>
+                
+            
+                
+                
+                    <li class="masthead__menu-item">
+                        <a href="/calendar">Calendar</a>
+                    </li>
+                
+            
+                
+                
+                    <li class="masthead__menu-item">
+                        <a href="/resources">Resources</a>
+                    </li>
+                
+            
+                
+                
+                    <li class="masthead__menu-item">
+                        <a href="/sprints">Sprints</a>
+                    </li>
+                
+            
+                
+                
+                    <li class="dropdown ">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More    <i class="fa fa-caret-down fa-sm" aria-hidden="true"></i><span class="caret"></span></a>
+                        <ul class="dropdown-content">
+                            
+                                <li>
+                                    <a href="https://scikit-learn.org/stable/install">    Install</a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://scikit-learn.org/stable/user_guide">    User Guide</a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://scikit-learn.org/stable/api/index">    API</a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://scikit-learn.org/stable/auto_examples/index">    Examples</a>
+                                </li>
+                            
+                        </ul>
+                    </li>
+                
+            
+        </ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="https://blog.scikit-learn.org/" itemprop="url"></a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>Open source library for machine learning in Python.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="https://github.com/scikit-learn" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-github-square" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://linkedin.com/company/scikit-learn/" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">LinkedIn</span></a></li>
+          
+        
+          
+            <li><a href="https://bsky.app/profile/scikit-learn.org" rel="nofollow noopener noreferrer me"><i class="fas fa-link" aria-hidden="true"></i><span class="label">Bluesky</span></a></li>
+          
+        
+          
+            <li><a href="https://fosstodon.org/@sklearn" rel="nofollow noopener noreferrer me"><i class="fab fa-brands fa-mastodon" aria-hidden="true"></i><span class="label">Mastodon</span></a></li>
+          
+        
+          
+            <li><a href="https://www.youtube.com/@scikit-learn" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-youtube" aria-hidden="true"></i><span class="label">YouTube</span></a></li>
+          
+        
+          
+            <li><a href="https://facebook.com/scikitlearnofficial/" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i><span class="label">Facebook</span></a></li>
+          
+        
+          
+            <li><a href="https://instagram.com/scikitlearnofficial/" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-instagram" aria-hidden="true"></i><span class="label">Instagram</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">Archives</span>
+        
+
+        
+        <ul>
+          
+            <li><a href="/categories/">Category</a></li>
+          
+            <li><a href="/tags/">Tag</a></li>
+          
+            <li><a href="/years/">Year</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">scikit-learn</span>
+        
+
+        
+        <ul>
+          
+            <li><a href="https://scikit-learn.org/stable/about">About Us</a></li>
+          
+            <li><a href="https://scikit-learn.org/stable/faq">FAQ</a></li>
+          
+            <li><a href="https://python.org/psf/conduct/">Code of Conduct</a></li>
+          
+            <li><a href="https://scikit-learn.org/stable/developers/contributing.html">Contribute to scikit-learn</a></li>
+          
+            <li><a href="https://github.com/scikit-learn/blog">Contribute to the blog</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Community</span>
+        
+
+        
+        <ul>
+          
+            <li><a href="https://github.com/scikit-learn/administrative/tree/master/monthly_meetings">Monthly Meeting Minutes</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Mailing List</span>
+        
+
+        
+        <ul>
+          
+            <li><a href="https://mail.python.org/mailman/listinfo/scikit-learn">Subscribe</a></li>
+          
+            <li><a href="https://mail.python.org/pipermail/scikit-learn/">Archive</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="The Value of Open Source Sprints, the scikit-learn Experience">
+    <meta itemprop="description" content="                Author:        Reshama Shaikh     ">
+    <meta itemprop="datePublished" content="2022-07-13T00:00:00+00:00">
+    
+    <meta property="og:image" content="https://blog.scikit-learn.org/sprints-value2.png">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="https://blog.scikit-learn.org/events/sprints-value/" class="u-url" itemprop="url">The Value of Open Source Sprints, the scikit-learn Experience
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-07-13T00:00:00+00:00">2022-07-13</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          16 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+        <div>
+  <img src="/assets/images/posts_images/sprints-value2.png" alt="" />
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+Author:  
+      <a itemprop="sameAs" content="https://reshamas.github.io" href="https://reshamas.github.io" rel="me noopener noreferrer" style="vertical-align:top;"><img src="/assets/images/author_images/reshama_shaikh.jpeg" style="width:1em;margin-right:.5em;border-radius: 50%;" alt="Author Icon" class="orcid-icon" />Reshama Shaikh</a>
+     
+
+<br /><br />
+
+</div>
+
+<p>With contributions from: Gaël Varoquaux, Andreas Mueller, Olivier Grisel, Julien Jerphanion, Guillaume LeMaitre</p>
+
+<h2 id="top-line-summary">Top Line Summary</h2>
+
+<p>Sprints are <strong>working sessions to contribute to an open source library</strong>. The goals and achievements differ between Developer and Community sprints.  The long-term impact of open source sprints, particularly community events, is not easily quantifiable or measurable.  Positive outcomes of sprints have slowly been emerging, and for that reason, to realize the value of open source sprints requires playing the “long game”.</p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>The <a href="https://scikit-learn.org/dev/index.html">scikit-learn</a> project has a long and extraordinary legacy of open source sprints.  Since 2010, when its <a href="https://en.wikipedia.org/wiki/Scikit-learn">first public version</a> was released, there have been as many as <a href="https://blog.scikit-learn.org/sprints/">45 sprints organized</a>. The number 45 is a lower bound, since there are likely more sprints that have not been listed.</p>
+
+<p>To date, more than 2400 people have contributed to <a href="https://github.com/scikit-learn/scikit-learn">scikit-learn</a>.  The number of contributors to scikit-learn exceeds those of other related libraries such as numpy, scipy and matplotlib, with the exception of <a href="https://github.com/pandas-dev/pandas">pandas</a>, which has a greater number of contributors (See Appendix A).</p>
+
+<p>The public discourse on open source has expanded to explore topics of sustainability, funding models, and diversity and inclusion, to name a few.  A <em>reasonable</em>, yet <em>difficult to answer</em> question that has been posed is:</p>
+<blockquote>
+  <p><em><span style="background-color: #CAE9F5;">
+What is the effectiveness of sprint models and what is the long-term engagement as a result of these sprints?
+</span></em></p>
+</blockquote>
+
+<p>Due to technological limitations of GitHub and privacy concerns, we do not hold precise data on how many scikit-learn contributors connected to the project via a sprint. We have no formal data collection process which records statistics on how many sprint participants are recurring or information on their contributions to other open source projects or other long term positive ripple effects.  A scientific look at the correlation between the number of sprints and contributors is beyond the scope of this article.  What we <em>will examine</em> in this article are the <strong>objectives, results and aspirations</strong> of running the scikit-learn sprints.</p>
+
+<p><span style="background-color: #CAE9F5;">The queries from other open-source projects requesting guidance on sprints and diversity and inclusion have been increasing.</span> We share these experiences and lessons learned with the community, potential funders and open source project maintainers, particularly those projects which are nascent in their quest to build community, sustainability and diversity and inclusion.</p>
+
+<h2 id="outline">Outline</h2>
+
+<p>In this article we examine the following:</p>
+<ul>
+  <li>What is a “sprint”?</li>
+  <li>What are the differences between “Developer” and “Community” sprints?</li>
+  <li>What are the goals of the open source sprints?</li>
+  <li>What value do open source sprints bring to the project and community?</li>
+  <li>What are the aspirations of the scikit-learn project, in terms of connecting with the community?</li>
+</ul>
+
+<h2 id="definition-of-a-scikit-learn-sprint">Definition of a scikit-learn Sprint</h2>
+
+<p>A scikit-learn sprint has traditionally been an event where contributors come together to work on issues in the scikit-learn repository.  A sprint can be as short as a few hours, or last over several days, even a week or longer.  They may be in-person, online, hybrid or partially asynchronous.  Sprints may be organized by the developers of the library, community groups (such as Meetups), scheduled alongside scientific or Python conferences, or even at home with a few friends.  They can more simply and less dauntingly be described as
+<span style="background-color: #CAE9F5;">
+working sessions to contribute to the open source library.          <br />
+</span></p>
+
+<h2 id="developer-vs-community-sprint">Developer vs Community Sprint</h2>
+
+<p>We distinguish between a Developer (Dev) and Community sprint because the goals and results differ significantly between the two.</p>
+
+<p><strong>Developer (Dev) Sprint</strong></p>
+
+<p>A Developer, or “Dev”, sprint is one that is typically organized by the maintainers of the library.  A Dev sprint is one where the developers or maintainers of the library gather to work on issues and to discuss the resolution of ongoing complex issues. This also provides the team an opportunity to focus on tasks related to the long-term roadmap of the project.</p>
+
+<p>The first early Dev sprints were organized at Inria. The first <a href="https://github.com/scikit-learn/scikit-learn/wiki/Past-sprints#granada-19th-21th-dec-2011">major Dev sprint</a> was held in Granada after the NIPS 2011 conference (now renamed NeurIPS). It was the first time that most of the team had met in real life after months or years of online collaboration, and over a dozen developers participated.   Later, Dev sprints were often hosted in the offices of partnering tech companies, typically from 3 to 7 days, once a year, in pre-COVID times.</p>
+
+<p><strong>Community Sprint</strong></p>
+
+<p>A Community sprint can be a collaboration by individuals, by affinity communities such as Meetup Groups (Data Umbrella, PyLadies, etc.), by conferences (SciPy, PyCon, PyData Global, JupyterCon, etc.).  A Community sprint is one that is with the general public and it may be beginners, experts, or a combination of both.</p>
+
+<p>For scikit-learn, the early Community sprints were alongside the <a href="https://conference.scipy.org">SciPy conferences</a> and the practice has continued for over a decade.</p>
+
+<p>At a Developer sprint, a contributor may work on a PR that has been ongoing for three months.  Conversely, Community sprints require curated issues which newcomers can complete in a shorter period of time (such as 1 day, or 1 day with 1-2 months follow-up).</p>
+
+<p>The landscape of Dev and Community sprints with other <a href="https://scientific-python.org/calendars/">scientific python</a> libraries is unknown.</p>
+
+<h2 id="goals-of-the-sprints">Goals of the Sprints</h2>
+
+<h3 id="goals-of-dev-sprints">Goals of Dev Sprints</h3>
+<ul>
+  <li>To get maintainers in one room to efficiently discuss open issues and pull requests</li>
+  <li>To move along contributions in a synchronous fashion</li>
+  <li>To foster existing collaborations with external developers synchronously</li>
+  <li>To build rapport: Maintainers reside in various continents and the in-person sprints build rapport within the team. Social interactions are critical in having a productive team.</li>
+  <li>To foster collaborations with the project’s corporate sponsors (members of the <a href="https://scikit-learn.org/stable/about.html#funding">scikit-learn Consortium</a>)</li>
+</ul>
+
+<h3 id="goals-of-community--beginner-sprints">Goals of Community &amp; Beginner Sprints</h3>
+
+<ul>
+  <li>To broaden the project’s contributor base</li>
+  <li>To build community and connect the project maintainers with its users</li>
+  <li>To obtain interactive feedback from new scikit-learn users and contributors</li>
+  <li>To onboard new contributors to scikit-learn and PyData generally</li>
+  <li>To onboard new contributors who would become recurring contributors</li>
+  <li>To collaborate with community groups to increase diversity of contributor base with intentional outreach</li>
+  <li>To strengthen and support existing contributors in order to maintain recurring community contributors</li>
+</ul>
+
+<h2 id="scikit-learn-team-members-who-connected-to-the-project-via-a-sprint">scikit-learn Team Members Who Connected to the Project Via a Sprint</h2>
+
+<p>It is notable that a number of the current maintainers of the library found their way to the project via a sprint.  Additionally, some members of the Contributor Experience Team connected to the scikit-learn project via the sprints.</p>
+
+<h3 id="olivier-grisel">Olivier Grisel</h3>
+
+<p><a href="https://github.com/ogrisel">Olivier Grisel</a> has been a contributor and maintainer for more than 12 years. Olivier met <a href="https://github.com/GaelVaroquaux">Gaël Varoquaux</a> at a local conference organized in Paris by the French speaking Python users group <a href="https://www.afpy.org">AFPy.org</a>.  After chatting 5 minutes about toy ML experiments in Python, Gaël invited Olivier to join the <a href="https://web.archive.org/web/20101118052247/http://fseoane.net/blog/2010/scikitslearn-coding-spring-in-paris/">first sprint organized at Inria</a> in March 2010:</p>
+
+<p>Olivier shares:</p>
+<blockquote>
+  <p>At the time, scikit-learn coding sprints gathered only 6 people sitting around a table with some wifi and a coffee machine :)</p>
+</blockquote>
+
+<figure>
+ <img src="/assets/images/posts_images/2010sprint.jpg" alt="5 men sitting around a table coding on their computers" max-width="20%" max-height="20%" /> 
+ <figcaption>
+ First scikit-learn sprint, Paris, March 2010; Photo credit: <a href="https://fa.bianp.net/pages/about.html">Fabian Pedregosa</a>; (from left to right): Fabian Pedregosa, Gael Varoquaux, Olivier Grisel, Alexandre Gramfort
+ </figcaption>
+</figure>
+
+<h3 id="andreas-mueller">Andreas Mueller</h3>
+<p><a href="https://github.com/amueller">Andreas Mueller</a> has been a maintainer of the project since 2011. He joined a sprint at a conference because he was a user and wanted to contribute.  He <a href="https://mlconf.com/blog/interview-andreas-muller-lecturer-columbia-university-core-contributor-scikit-learn-reshama-shaikh/">shares in a 2017 interview</a>:</p>
+<blockquote>
+  <p>While working on my Ph.D. in computer vision and learning, the scikit-learn library became an essential part of my toolkit.  My initial participation in open source began in 2011 at the NeurIPS conference in Granada, Spain, where I had attended a <a href="https://github.com/scikit-learn/scikit-learn/wiki/Past-sprints#granada-19th-21th-dec-2011">scikit-learn sprint</a>. The scikit-learn release manager at the time had to leave, and the project leads asked me to become release manager; that’s how it all got started.</p>
+</blockquote>
+
+<figure>
+ <img src="/assets/images/posts_images/sprint-neurips-2011.jpeg" alt="men at a happy hour" max-width="20%" max-height="20%" /> 
+ <figcaption>
+ NeurIPS Granada, Spain scikit-learn sprint, March 2011; Photo credit: <a href="http://gael-varoquaux.info">Gael Varoquaux</a>; (from left to right): Vlad Niculae, Mathieu Blondel, Bertrand Thirion, James Bergtra, Jake VanderPlas, Andreas Mueller, Alexandre Gramfort
+ </figcaption>
+</figure>
+
+<h3 id="julien-jerphanion">Julien Jerphanion</h3>
+<p><a href="https://github.com/jjerphan">Julien Jerphanion</a> participated in a <a href="https://scikit-learn.fondation-inria.fr/scikit-learn-sprint-in-paris/">sprint in February 2019 at AXA</a> as a first time contributor while interning at Dataiku. The sprint provided Julien an opportunity to experience scikit-learn and meet the maintainers.  Prior to the sprint, he had only used the library in a few projects. He contributed code, reviews, and documentation since March 2021, joined Inria in April 2021 and in October 2021, Julien became a core developer.</p>
+
+<h3 id="vlad-niculae">Vlad Niculae</h3>
+<p>Vlad Niculae’s path to a maintainer was via first a scikit-learn mailing list post, then GSoC (Google Summer of Code) internship, and then the <a href="https://fa.bianp.net/blog/2011/scikit-learn-euroscipy-2011-coding-sprint-day-one/">EuroSciPy 2011</a> sprint.</p>
+
+<blockquote>
+  <p>The team encouraged me to attend and helped me arrange it. The sprint was instrumental in broadening my focus from the small module I was contributing to the entire library. Co-locating the sprint and the conference this way was great – it gave me a chance to meet not just the scikit-learn team (small at the time, and incredibly welcoming to me!) but also the broader SciPy ecosystem, including NumPy, IPython [Jupyter Notebook] devs. It helped me understand the scientific Python world a lot better.</p>
+</blockquote>
+
+<h3 id="other-maintainers">Other Maintainers</h3>
+<p>There are <a href="https://scikit-learn.org/dev/about.html#people">other maintainers</a> and emeritus contributors who had participated in a Developer or Community sprint along their journey with the scikit-learn team, such as emeriti Gilles Loupe and Thouis (Ray) Jones.</p>
+
+<h3 id="reshama-shaikh">Reshama Shaikh</h3>
+<p><a href="https://github.com/reshamas">Reshama Shaikh</a> has organized nine scikit-learn <a href="https://www.dataumbrella.org/sprints">community sprints</a> from 2017 to 2021. She first contributed code and documentation fixes to scikit-learn in September 2018. In September 2020, she was invited to join the scikit-learn team.</p>
+
+<p>In her PyConDE  PyData Berlin keynote from April 2022, <a href="https://blog.dataumbrella.org/pyconde-keynote-reshama">5 Years, 10 Sprints, a scikit-learn Open Source Journey</a>, she shares a history and progression of the Community sprints.</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ZUqJaCWPvmk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<h3 id="juan-martín-loyola">Juan Martín Loyola</h3>
+<p><a href="https://github.com/jmloyola">Juan Martín Loyola</a> started <a href="https://blog.scikit-learn.org/team/jml-interview/">contributing to scikit-learn</a> as preparation for the <a href="https://blog.dataumbrella.org/data-umbrella-afme2-2021-scikit-learn-sprint-report">Data Umbrella Latin America, June 2021</a> sprint.  He continued to contribute prolifically after the sprint, and he was invited to join the team in December 2021.  Given his location in Argentina, he will be providing support at the <a href="https://www.scipy.lat/es/scipycon.html">2022 SciPy Latin America</a> sprint.</p>
+
+<h3 id="second-degree-impact">Second Degree Impact</h3>
+<p><a href="https://github.com/laurburke">Lauren Burke</a> joined the scikit-learn Communications Team in November 2021 at the recommendation of Reshama Shaikh, and this can be considered a network effect. This demonstrates that sprints can result in valuable contributions other than code.</p>
+
+<h2 id="sprints-observed-impact-and-lessons-learned">Sprints: Observed Impact and Lessons Learned</h2>
+
+<p>There are a number of observed favorable outcomes from the sprints for both the project and contributors.</p>
+
+<p><strong>Onboarding</strong></p>
+
+<p>The sprints help the community discover the open source process and get started with contributing.</p>
+
+<p><strong>Building community</strong></p>
+
+<p>Sprint participants, whether one-time or recurring, become ambassadors for the project.</p>
+
+<p><strong>Open source workflow knowledge</strong></p>
+
+<p>Users learn a range of tools such as: virtual environment setup, version control systems (i.e. Git), testing (flake8, pytest, continuous integration) and unit tests.  They also learn software development best practices.  For many users of scikit-learn, the sprint is the first time they navigate through the codebase and structure of scikit-learn, dig into functions and learn about errors.  They develop experience in collaborative open source workflow.  For employers, letting their team contribute to open-source might be a plus as they learn how to collaborate properly and learn about the internals of the library.  The sprint experience assists contributors in developing a <a href="https://academiccommons.columbia.edu/doi/10.7916/D89G70BS">wider set of technical skills</a> that can be shared across projects, networking, on to jobs and more.</p>
+
+<p><strong>Overcoming barriers to entry</strong></p>
+
+<p>The sprints, as a “hands-on working session”, provide an avenue for potential contributors to overcome common barriers to entry, particularly “getting started”, and moving from the <em>possibility</em> to an <em>actuality</em> stage.</p>
+
+<p><strong>Providing an avenue for advanced contributions</strong></p>
+
+<p>As sprints provide an on-ramp for new contributors, it similarly provides an opportunity for returning contributors to advance their contributing skills to the next level in a structured environment and with mentorship.</p>
+
+<p><strong>Building confidence</strong></p>
+
+<p>The sprints help to build <span style="background-color: #CAE9F5;">confidence</span> for both new and returning contributors.</p>
+
+<p>Gaël shares:</p>
+<blockquote>
+  <p>I believe those sprints helped resourceful people (like Juan Martín) to gain confidence and provide valuable contributions (especially reviews).</p>
+</blockquote>
+
+<p><strong>Increase open-source literacy</strong></p>
+
+<p>The sprints are a forum for users to gain a greater understanding of how an open source project functions and for the user/contributor to learn of an actual contribution, from start to finish.</p>
+
+<p><strong>Value of synchronous interaction</strong></p>
+
+<p>Typically, open source contributions to scikit-learn occur on the GitHub repository in asynchronous fashion, over several weeks or months. The sprints provide real-time synchronous interaction.  This experience provides more direct access to technical assistance and feedback to the contributor, which is more efficient and engagin.</p>
+
+<p>Julien shares:</p>
+<blockquote>
+  <p>I think having a setup like this [beginner/community sprint] is valuable for first time contributors because they can synchronously get specific information they would hardly have got otherwise. To me, this allow giving feedback which is immediate, specific and exact, making contributing to open-source enjoyable and preventing frustration: giving such feedback is what we should aim for and in this regard this setup is convenient.</p>
+</blockquote>
+
+<h3 id="online-sprints">Online Sprints</h3>
+
+<p>Since the start of the pandemic, Data Umbrella has organized <a href="https://blog.dataumbrella.org/tags/#sprint-report">4 online sprints</a>.  Additionally, there were 2 online sprints with <a href="https://www.scipy2020.scipy.org/sprints-schedule">SciPy</a> and <a href="https://wiki.python.org/moin/EuroPython2020/Sprints">EuroPython</a>.</p>
+
+<p>These have been the observed benefits of the online sprints, which began in 2020 due to the global pandemic:</p>
+
+<p><strong>Networking</strong></p>
+
+<p>Online sprints make it easier to meet new people with different backgrounds.</p>
+
+<p><strong>International collaboration</strong></p>
+
+<p>Collaborating with affinity communities can attract more candidates from various backgrounds. In particular, online sprints help break geographical barriers.</p>
+
+<p><strong>Pair programming</strong></p>
+
+<p>The pairing of contributors seems to work well. Pair programming was consistently ranked as a positive experience by online sprint participants.</p>
+
+<p><strong>Increases accessibility</strong></p>
+
+<p>The use of online tools makes it possible to interact with people
+who would not have joined community events traditionally organized in
+North America or western Europe e.g. because of the travel costs and
+complexity of obtaining a visa in time.  Attending the online events is probably also less disruptive for people with young children.</p>
+
+<p>For the scikit-learn project itself, it made it possible to “recruit” a couple of new recurring  contributors who attend regular office hours after the original sprints.</p>
+
+<p><strong>Office Hours</strong></p>
+
+<p>The scikit-learn project has regular office hours which are hosted on Discord.</p>
+
+<p>Olivier shares:</p>
+<blockquote>
+  <p>Actually the fact that we now have community office hours on Discord is probably a consequence of us attending the Data Umbrella online sprints.</p>
+</blockquote>
+
+<blockquote>
+  <p>I think they [the sprints] were the most interesting online events I attended during
+the COVID-19 crisis when all traditional on-site tech events were canceled. In particular the active planning by the Data Umbrella team for participants to work in pairs with audio rooms on Discord + a central help desk audio room worked really well.</p>
+</blockquote>
+
+<blockquote>
+  <p>The pre-sprint and post-sprint office hours also made it possible to limit the time spent on helping fix setup issues compared to what we experience in traditional sprints. They also forced us as maintainers to review and fix our documentation before the event.</p>
+</blockquote>
+
+<p><strong>Creation of supplementary resources in different media types</strong></p>
+
+<p>Data Umbrella coordinated the creation of a series of videos and transcripts that provided learning materials for the community to prepare for the sprint.  These resources are available to the public and have a wide reach:</p>
+
+<p>This is the <a href="https://www.youtube.com/playlist?list=PLBKcU7Ik-ir-b1fwjNabO3b8ebs9ez5ga">Contributing to scikit-learn</a> list of videos that were created for the sprints:</p>
+<ul>
+  <li>Andreas Mueller: <a href="https://youtu.be/5OL8XoMMOfA">Crash Course in Contributing to scikit-learn</a></li>
+  <li>Reshama Shaikh:  <a href="https://youtu.be/PU1WyDPGePI">Example of scikit-learn Pull Request</a></li>
+  <li>Andreas Mueller: <a href="https://youtu.be/p_2Uw2BxdhA">Sprint FAQs</a></li>
+  <li>Thomas Fan: <a href="https://youtu.be/dyxS9KKCNzA">3 Components for Reviewing a Pull Request</a></li>
+  <li>Melissa Weber Mendonca: <a href="https://youtu.be/tXWscUSYdBs">Sphinx for Python Documentation</a></li>
+</ul>
+
+<figure>
+<a href="https://www.youtube.com/playlist?list=PLBKcU7Ik-ir-b1fwjNabO3b8ebs9ez5ga"></a>
+ <img src="/assets/images/posts_images/sprint-videos.png" alt="list of videos" max-width="30%" max-height="30%" /> 
+ <figcaption>
+ Photo credit: <a href="https://reshamas.github.io">Reshama Shaikh</a>
+ </figcaption>
+</figure>
+
+<h2 id="aspirations-for-future-scikit-learn-sprints">Aspirations for Future scikit-learn Sprints</h2>
+<p><span style="background-color: #CAE9F5;">
+One of the primary goals of the Community sprints was to onboard new contributors who would become recurring contributors.  This goal has generally not been realized.  scikit-learn is a complex and advanced project, and a one-time sprint does not provide sufficient opportunity and support to sprint participants to become recurring contributors.</span> A few sprint participants have progressed to become returning contributors, and it is a very small number relative to the number of sprint participants.</p>
+
+<p>Onboarding a first-time contributor takes time. People who are contributing for the first time need to go through a lot of information simultaneously regarding both technical and organizational aspects of contributions.  People may run into unexpected issues at the start depending on their
+setup and experience, might get frustrated and or discouraged and might not
+report the problem they are having (thinking it is their fault). Pre-event office hours have been successful at alleviating some of these roadblocks, for those sprint participants who have completed their pre-work.</p>
+
+<p>Here are some adjustments that can be made in the future to reach the goal of recruiting recurring contributors:</p>
+<ul>
+  <li>Provide mentoring</li>
+  <li>Improve onboarding process</li>
+  <li>Improve issues definitions</li>
+  <li>Have sprints alongside tutorials</li>
+  <li>Expand types of contributions that new contributors can make</li>
+  <li>Have smaller sprint events</li>
+</ul>
+
+<p><strong>Mentoring</strong><br />
+Sprints may not be sufficient for onboarding people. Mentoring is needed to take to the next level, and mentoring relationships can be established during sprint events.</p>
+
+<p><strong>Improve the onboarding process</strong></p>
+
+<p>While the scikit-learn project has improved significantly in the past few years as a result of feedback and learnings from the sprints, there is still room for improvement.</p>
+
+<p>The scikit-learn project is complex, the contributor learning curve is steeper, and it has been getting more difficult to contribute to scikit-learn.</p>
+
+<p><strong>Improve issues definitions</strong></p>
+
+<p>There are 1600+ <a href="https://github.com/scikit-learn/scikit-learn/issues">issues</a> in the GitHub repository.  Issues can be better defined and it would be valuable to break the issues into smaller steps which would be more approachable.</p>
+
+<p><strong>Sprints alongside tutorials</strong></p>
+
+<p>Scheduling sprints alongside tutorial sessions would be conducive in allowing users to connect the open source tool use cases with the motivation and product vision of scikit-learn.</p>
+
+<p><strong>Expand types of contributions</strong></p>
+
+<p>While the sprints have typically focused on documentation and code contributions, the project needs support in other areas. There is a backlog of <a href="https://github.com/scikit-learn/scikit-learn/issues">open issues</a> (1600+ !) and <a href="https://github.com/scikit-learn/scikit-learn/pulls">open pull requests</a> (650+).  The project needs support in triaging issues and reviewing pull requests.  It would be beneficial to have sprint contributors work on increasingly complex issues.</p>
+
+<p>Julien shares from personal experience:</p>
+<blockquote>
+  <p>In particular and in my opinion, reviewing pull requests is as valuable as authoring them. I also find it a preferable way to learn about scikit-learn internals rather than solving issues.</p>
+</blockquote>
+
+<p><strong>Have smaller sprints</strong></p>
+
+<p>Julien suggests:</p>
+<blockquote>
+  <p>Would sprints with a really small number of people (e.g. 2 mentees per mentor) be
+more valuable in the long term? Personally, I would prefer mentoring one or two
+people closely instead (ideally in-person) as I think it is more achievable, enjoyable
+and fruitful experience (this is something I am trying to do at the moment when I can
+get some time but I currently have limited of it).</p>
+</blockquote>
+
+<blockquote>
+  <p>Finally, I would also really treasure having in-person sprints [in Paris] with external (recurring)
+contributors (with a specific expertise) on advanced subjects when it is possible in the future.</p>
+</blockquote>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<h3 id="connecting-and-supporting-scikit-learn">Connecting and Supporting scikit-learn</h3>
+
+<p>To connect with the scikit-learn project, these are the most active social media platforms:</p>
+<ul>
+  <li>LinkedIn:  <a href="https://www.linkedin.com/company/scikit-learn/">@scikit-learn</a></li>
+  <li>Bluesky: <a href="https://bsky.app/profile/scikit-learn.org">@scikit-learn.org</a></li>
+</ul>
+
+<p>It is most welcome for users to “star” the code repository on GitHub: <a href="https://github.com/scikit-learn/scikit-learn">scikit-learn/scikit-learn</a></p>
+
+<p>Our office hours, in addition to public developers and triage meetings are all posted on our <a href="https://blog.scikit-learn.org/calendar/">Community Calendar</a>.</p>
+
+<p>The next Community sprint may be held at <a href="https://www.euroscipy.org/2022/index.html">EuroScipy 2022</a> in Basel Switzerland in early September.   Information on past and <a href="https://blog.scikit-learn.org/sprints/">upcoming sprints</a> are shared on our community site.</p>
+
+<h3 id="contributing-to-scikit-learn">Contributing to scikit-learn</h3>
+
+<p>To contribute to scikit-learn, we have resources available here:</p>
+<ul>
+  <li><a href="https://scikit-learn.org/dev/developers/contributing.html">English</a></li>
+  <li><a href="https://qu4nt.github.io/sklearn-doc-es/">Spanish</a></li>
+</ul>
+
+<p>There are additional resources for contributing:</p>
+<ul>
+  <li><a href="https://www.youtube.com/playlist?list=PLM-1QqX7UksT6tREbR-n9Mhup0OoRBU34">Contributing Videos</a></li>
+  <li><a href="https://github.com/data-umbrella/data-umbrella-scikit-learn-sprint">English, Spanish and some Portuguese language transcripts</a></li>
+</ul>
+
+<h2 id="appendix-a-github-contributors-comparison-of-libraries">Appendix A: GitHub Contributors Comparison of Libraries</h2>
+
+<p>A comparison of the contributor base to other related libraries in the same space (updated July 2022):</p>
+<ul>
+  <li><a href="https://github.com/pandas-dev/pandas">pandas</a>: ~2600</li>
+  <li><a href="https://github.com/scikit-learn/scikit-learn">scikit-learn</a>: ~2400 contributors</li>
+  <li><a href="https://github.com/numpy/numpy">numpy</a>: ~1300 contributors</li>
+  <li><a href="https://github.com/matplotlib/matplotlib">matplotlib</a>:  ~1150</li>
+  <li><a href="https://github.com/scipy/scipy">scipy</a>: ~1170</li>
+</ul>
+
+<h2 id="references">References</h2>
+
+<ul>
+  <li><a href="https://eventfund.codeforscience.org/behind-the-scenes-what-it-takes-to-run-data-umbrellas-scikit-learn-open-source-sprints/">Behind the Scenes: What It Takes to Run Data Umbrella’s scikit-learn Open Source Sprints</a></li>
+  <li>Data Umbrella <a href="https://blog.dataumbrella.org/tags/#sprint-report">sprint reports</a></li>
+  <li>Data Umbrella community <a href="https://blog.dataumbrella.org/tags/#sprint-blog">sprint blogs</a></li>
+  <li><a href="https://blog.dataumbrella.org/mwestermann-sprints-experience">Interview with Maren Westermann: Extending the Impact of the scikit-learn Sprints to the Community</a></li>
+  <li><a href="https://blog.dataumbrella.org/jmloyola-opensource-experience">Interview with scikit-learn Triage Team Member: Juan Martín Loyola</a></li>
+  <li>Emily Thompson: <a href="https://medium.com/@ethompso28/planning-a-beginner-open-source-sprint-day-for-data-scientists-163b6aa7087f">Planning a beginner open source sprint day for data scientists
+</a></li>
+  <li>Adrin Jalali: <a href="https://adrin.info/scikit-learn-sprint-at-nairobi-kenya.html">scikit-learn Sprint at Nairobi, Kenya (2019)</a></li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#community" class="page__taxonomy-item p-category" rel="tag">Community</a><span class="sep">, </span>
+    
+      <a href="/tags/#open-source" class="page__taxonomy-item p-category" rel="tag">Open Source</a><span class="sep">, </span>
+    
+      <a href="/tags/#sprints" class="page__taxonomy-item p-category" rel="tag">Sprints</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#events" class="page__taxonomy-item p-category" rel="tag">Events</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2022-07-13T00:00:00+00:00">2022-07-13</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+    <h4 class="page__share-title">Share on</h4>
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fblog.scikit-learn.org%2Fevents%2Fsprints-value%2F&text=The+Value+of+Open+Source+Sprints%2C+the+scikit-learn+Experience" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+
+    <a href="https://bsky.app/intent/compose?text=The+Value+of+Open+Source+Sprints%2C+the+scikit-learn+Experience https%3A%2F%2Fblog.scikit-learn.org%2Fevents%2Fsprints-value%2F" class="btn btn--bluesky" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Bluesky"><i class="fab fa-brands fa-bluesky" aria-hidden="true"></i><span> Bluesky</span></a>
+
+    <a href="https://mastodonshare.com/?url=https%3A%2F%2Fblog.scikit-learn.org%2Fevents%2Fsprints-value%2F&text=The+Value+of+Open+Source+Sprints%2C+the+scikit-learn+Experience" class="btn btn--mastodon" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Mastodon"><i class="fab fa-brands fa-mastodon" aria-hidden="true"></i><span> Mastodon</span></a>
+
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fblog.scikit-learn.org%2Fevents%2Fsprints-value%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  
+
+  </section>
+
+      
+  <nav class="pagination">
+    
+      <a href="/team/norbert-interview/" class="pagination--pager" title="Interview with Norbert Preining, scikit-learn Team Member
+">Previous</a>
+    
+    
+      <a href="/events/salta-sprint/" class="pagination--pager" title="scikit-learn Sprint in Salta, Argentina
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">You May Also Enjoy</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/updates/update-array-api/" rel="permalink">Update on array API adoption in scikit-learn
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-03-05T00:00:00+00:00">2026-03-05</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          10 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+Author:  
+      Lucy Liu
+     
+
+
+
+
+Note: this blog post is a cross-post of a Quansight Labs blog post.
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/updates/enhancing-user-experience/" rel="permalink">Enhancing user experience through interactive inspection
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-01-06T00:00:00+00:00">2026-01-06</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+Author:  
+      Dea María Léon
+      
+        
+      
+
+
+
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/team/virgil-chan-interview/" rel="permalink">Interview with Virgil Chan, scikit-learn Team Member
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2025-11-26T00:00:00+00:00">2025-11-26</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          5 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+Author:  
+      Reshama Shaikh
+     , 
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+
+      Virgil Chan
+     
+
+
+
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/press/gh-sosf/" rel="permalink">scikit-learn Completes the GitHub Secure Open Source Training
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2025-08-16T00:00:00+00:00">2025-08-16</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+Author:  
+      Reshama Shaikh
+     
+
+
+
+
+
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/scikit-learn" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github-square" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://linkedin.com/company/scikit-learn/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
+        
+      
+        
+          <li><a href="https://bsky.app/profile/scikit-learn.org" rel="nofollow noopener noreferrer"><i class="fas fa-link" aria-hidden="true"></i> Bluesky</a></li>
+        
+      
+        
+          <li><a href="https://fosstodon.org/@sklearn" rel="nofollow noopener noreferrer"><i class="fab fa-brands fa-mastodon" aria-hidden="true"></i> Mastodon</a></li>
+        
+      
+        
+          <li><a href="https://www.youtube.com/@scikit-learn" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-youtube" aria-hidden="true"></i> YouTube</a></li>
+        
+      
+        
+          <li><a href="https://facebook.com/scikitlearnofficial/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+        
+      
+        
+          <li><a href="https://instagram.com/scikitlearnofficial/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-instagram" aria-hidden="true"></i> Instagram</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2026 scikit-learn Blog. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+  <script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22606712-3']);
+  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="ROBOTS" content="ALL" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="" />
+    <meta name="fediverse:creator" content="@django@fosstodon.org" />
+    
+  
+    
+      
+    
+  
+  <link rel="canonical" href="https://docs.djangoproject.com/zh-hans/6.0/internals/security/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="el"
+          href="https://docs.djangoproject.com/el/5.1/internals/security/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="en"
+          href="https://docs.djangoproject.com/en/5.1/internals/security/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="es"
+          href="https://docs.djangoproject.com/es/5.1/internals/security/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="fr"
+          href="https://docs.djangoproject.com/fr/5.1/internals/security/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="id"
+          href="https://docs.djangoproject.com/id/5.1/internals/security/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="it"
+          href="https://docs.djangoproject.com/it/5.1/internals/security/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="ja"
+          href="https://docs.djangoproject.com/ja/5.1/internals/security/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="ko"
+          href="https://docs.djangoproject.com/ko/5.1/internals/security/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="pl"
+          href="https://docs.djangoproject.com/pl/5.1/internals/security/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="pt-br"
+          href="https://docs.djangoproject.com/pt-br/5.1/internals/security/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="zh-hans"
+          href="https://docs.djangoproject.com/zh-hans/5.1/internals/security/">
+  
+
+  <link rel="search"
+        type="application/opensearchdescription+xml"
+        href="https://docs.djangoproject.com/zh-hans/5.1/search/description/"
+        title="Django 文档">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="https://static.djangoproject.com/img/icon-touch.e4872c4da341.png">
+    <link rel="icon" sizes="192x192" href="https://static.djangoproject.com/img/icon-touch.e4872c4da341.png">
+    <link rel="shortcut icon" href="https://static.djangoproject.com/img/favicon.6dbf28c0650e.ico">
+    <meta name="msapplication-TileColor" content="#113228">
+    <meta name="msapplication-TileImage" content="https://static.djangoproject.com/img/icon-tile.b01ac0ef9f67.png">
+    <meta name="theme-color" content="#0C4B33">
+
+    
+      <meta property="og:title" content="Django 的安全策略 | Django 文档" />
+      <meta property="og:description" content="The web framework for perfectionists with deadlines." />
+      <meta property="og:image" content="https://static.djangoproject.com/img/logos/django-logo-negative.1d528e2cb5fb.png" />
+      <meta property="og:image:alt" content="Django logo" />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="546" />
+      <meta property="og:image:type" content="image/png"/>
+      <meta property="og:url" content="https://docs.djangoproject.com/zh-hans/5.1/internals/security/" />
+      <meta property="og:site_name" content="Django Project" />
+
+      <meta property="twitter:creator" content="djangoproject" />
+      <meta property="twitter:site" content="djangoproject" />
+      <meta property="twitter:card" content="summary">
+    
+
+    <title>Django 的安全策略 | Django 文档 | Django</title>
+
+    <link rel="stylesheet" href="https://static.djangoproject.com/css/output.33b5c879d992.css" >
+
+    <script src="https://static.djangoproject.com/js/mod/switch-dark-mode.139625c684db.js"></script>
+    
+  </head>
+
+  <body id="generic" class="">
+    
+  
+    <div id="outdated-warning" class="doc-floating-warning">
+      这份文档只适用于一个不安全的 Django 版本，并且这个版本不再被支持了。请升级到更新的发行版。
+    </div>
+  
+
+
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+
+<header id="top">
+  <div class="container container--flex--wrap--mobile">
+    <a class="logo" href="https://www.djangoproject.com/">Django</a>
+    <p class="meta">The web framework for perfectionists with deadlines.</p>
+    <button class="menu-button">
+      <i class="icon icon-reorder" aria-hidden="true"></i>
+      <span class="visuallyhidden">Menu</span>
+    </button>
+    <nav aria-labelledby="navigation-header">
+      <span id="navigation-header" class="visuallyhidden">Main navigation</span>
+      <ul>
+        <li>
+          <a href="https://www.djangoproject.com/start/overview/">Overview</a>
+        </li>
+        <li>
+          <a href="https://www.djangoproject.com/download/">Download</a>
+        </li>
+        <li class="active">
+          <a href="https://docs.djangoproject.com/">Documentation</a>
+        </li>
+        <li>
+          <a href="https://www.djangoproject.com/weblog/">News</a>
+        </li>
+        <li>
+          <a href="https://github.com/django/django" target="_blank" rel="noopener">Code</a>
+        </li>
+        <li>
+          <a href="https://code.djangoproject.com/">Issues</a>
+        </li>
+        <li>
+          <a href="https://www.djangoproject.com/community/">Community</a>
+        </li>
+        <li>
+          <a href="https://www.djangoproject.com/foundation/">Foundation</a>
+        </li>
+        <li>
+          <a href="https://www.djangoproject.com/fundraising/">&#9829; Donate</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="header-tools">
+      
+<search class="search form-input" aria-labelledby="docs-search-label">
+  <form action="https://docs.djangoproject.com/zh-hans/5.1/search/">
+    <label id="docs-search-label" class="visuallyhidden" for="id_q">Search</label>
+    <input type="search" name="q" placeholder="Search" id="id_q">
+    <input type="hidden" name="category" value="">
+
+    <button type="submit">
+      <i class="icon icon-search" aria-hidden="true"></i>
+      <span class="visuallyhidden">提交</span>
+    </button>
+  </form>
+</search>
+
+      
+
+<button class="theme-toggle">
+  <div class="visually-hidden theme-label-when-auto">切换主题（当前主题：自动）</div>
+  <div class="visually-hidden theme-label-when-light">切换主题（当前主题：浅色）</div>
+  <div class="visually-hidden theme-label-when-dark">切换主题（当前主题：深色）</div>
+
+  <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+  <svg aria-hidden="true" class="theme-icon-when-auto">
+    <use xlink:href="#icon-auto" />
+  </svg>
+  <svg aria-hidden="true" class="theme-icon-when-dark">
+    <use xlink:href="#icon-moon" />
+  </svg>
+  <svg aria-hidden="true" class="theme-icon-when-light">
+    <use xlink:href="#icon-sun" />
+  </svg>
+</button>
+
+    </div>
+  </div>
+</header>
+
+    
+
+    <section class="copy-banner">
+      <div class="container 
+  container--flex container--flex--wrap--mobile
+">
+        
+  <p><a href="https://docs.djangoproject.com/zh-hans/5.1/">文档</a></p>
+
+      </div>
+    </section>
+
+    <div id="billboard">
+      
+  <div class="banner">
+    <h2>Until May 1, 2026, get PyCharm for 30% off!</h2>
+    Get 💸✨30%✨💸 off a new <em>or renewal</em> annual PyCharm Professional license while supporting the <em>Django Software Foundation</em>. <br/>
+🎁 Now includes renewals, and every purchase helps fund the DSF.
+    
+      <a id="banner-cta" class="cta" href="https://www.jetbrains.com/pycharm/promo/support-django/">Get PyCharm for 30% off</a>
+    
+  </div>
+
+
+    </div>
+
+    <div class="container sidebar-right">
+      <main id="main-content">
+
+        
+          
+        
+
+        
+  <div id="version-switcher">
+    <ul id="faq-link">
+      <li class="current-link">
+        <a href="https://docs.djangoproject.com/zh-hans/5.1/faq/help/">
+          <span>Getting Help</span>
+        </a>
+      </li>
+    </ul>
+    <ul id="doc-languages" class="language-switcher doc-switcher">
+      <li class="current">
+        <button>语言： <strong>zh-hans</strong></button>
+      </li>
+      
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/pt-br/5.1/internals/security/">pt-br</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/pl/5.1/internals/security/">pl</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/ko/5.1/internals/security/">ko</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/ja/5.1/internals/security/">ja</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/it/5.1/internals/security/">it</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/id/5.1/internals/security/">id</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/fr/5.1/internals/security/">fr</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/es/5.1/internals/security/">es</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/en/5.1/internals/security/">en</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/el/5.1/internals/security/">el</a>
+          </li>
+        
+      
+    </ul>
+
+    
+    <ul id="doc-versions" class="version-switcher doc-switcher">
+      <li class="current ">
+        <button>文档版本：
+          <strong>5.1</strong>
+        </button>
+      </li>
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/zh-hans/dev/internals/security/">dev</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/zh-hans/6.0/internals/security/">6.0</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/zh-hans/5.2/internals/security/">5.2</a>
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/zh-hans/5.0/internals/security/">5.0</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/zh-hans/4.2/internals/security/">4.2</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/zh-hans/4.1/internals/security/">4.1</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/zh-hans/4.0/internals/security/">4.0</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/zh-hans/3.2/internals/security/">3.2</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/zh-hans/3.1/internals/security/">3.1</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/zh-hans/3.0/internals/security/">3.0</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/zh-hans/2.2/internals/security/">2.2</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/zh-hans/2.1/internals/security/">2.1</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/zh-hans/2.0/internals/security/">2.0</a>
+          </li>
+        
+      
+    </ul>
+    <ul id="backtotop-link">
+      <li class="current-link">
+        <a href="#top" aria-label="Back to top" class="icon-chevron-up-align"><i class="icon icon-chevron-up"></i></a>
+      </li>
+    </ul>
+  </div>
+
+  
+    <article id="docs-content">
+      <section id="s-django-s-security-policies">
+<span id="django-s-security-policies"></span><h1>Django 的安全策略<a class="headerlink" href="#django-s-security-policies" title="Link to this heading">¶</a></h1>
+<p>Django的开发团队致力于负责地报告和披露与安全相关的问题。因此，我们采用并遵循了一套符合这种理想的策略，以便及时向Django的官方发行版和第三方发行版发布安全更新。</p>
+<section id="s-reporting-security-issues">
+<span id="s-id1"></span><span id="reporting-security-issues"></span><span id="id1"></span><h2>报告安全问题<a class="headerlink" href="#reporting-security-issues" title="Link to this heading">¶</a></h2>
+<p><strong>简而言之:请通过电子邮件security&#64;djangoproject.com报告安全问题</strong>。</p>
+<p>Django 中的大多数普通错误都会报告到 <a class="reference external" href="https://code.djangoproject.com/query">我们的公共 Trac 实例</a>，但由于安全问题的敏感性质，我们要求不要以这种方式公开报告它们。</p>
+<p>相反，如果您认为在 Django 中发现了具有安全影响的问题，请通过电子邮件发送问题描述至 <code class="docutils literal notranslate"><span class="pre">security&#64;djangoproject.com</span></code>。发送到该地址的邮件将会传达给 <a class="reference external" href="https://www.djangoproject.com/foundation/teams/#security-team">安全团队</a>。</p>
+<p>Once you've submitted an issue via email, you should receive an acknowledgment
+from a member of the security team within 3 working days. After that, the
+security team will begin their analysis. Depending on the action to be taken,
+you may receive followup emails. It can take several weeks before the security
+team comes to a conclusion. There is no need to chase the security team unless
+you discover new, relevant information. All reports aim to be resolved within
+the industry-standard 90 days. Confirmed vulnerabilities with a
+<a class="reference internal" href="#severity-levels"><span class="std std-ref">high severity level</span></a> will be addressed promptly.</p>
+<div class="admonition-sending-encrypted-reports admonition">
+<p class="admonition-title">发送加密报告</p>
+<p>如果您想发送加密邮件（<em>可选</em>），<code class="docutils literal notranslate"><span class="pre">security&#64;djangoproject.com</span></code> 的公钥 ID 是 <code class="docutils literal notranslate"><span class="pre">0xfcb84b8d1d17f80b</span></code>，并且这个公钥可以从大多数常用的密钥服务器获取。</p>
+</div>
+<section id="s-reporting-guidelines">
+<span id="reporting-guidelines"></span><h3>Reporting guidelines<a class="headerlink" href="#reporting-guidelines" title="Link to this heading">¶</a></h3>
+<section id="s-include-a-runnable-proof-of-concept">
+<span id="include-a-runnable-proof-of-concept"></span><h4>Include a runnable proof of concept<a class="headerlink" href="#include-a-runnable-proof-of-concept" title="Link to this heading">¶</a></h4>
+<p>Please privately share a minimal Django project or code snippet that
+demonstrates the potential vulnerability. Include clear instructions on how to
+set up, run, and reproduce the issue.</p>
+<p>Please do not attach screenshots of code.</p>
+</section>
+<section id="s-user-input-must-be-sanitized">
+<span id="user-input-must-be-sanitized"></span><h4>User input must be sanitized<a class="headerlink" href="#user-input-must-be-sanitized" title="Link to this heading">¶</a></h4>
+<p>Reports based on a failure to sanitize user input are not valid security
+vulnerabilities. It is the developer's responsibility to properly handle user
+input. This principle is explained in our <a class="reference internal" href="../../topics/security/#sanitize-user-input"><span class="std std-ref">security documentation</span></a>.</p>
+<p>For example, the following is <strong>not considered valid</strong> because <code class="docutils literal notranslate"><span class="pre">email</span></code> has
+not been sanitized:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">django.core.mail</span><span class="w"> </span><span class="kn">import</span> <span class="n">send_mail</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">django.http</span><span class="w"> </span><span class="kn">import</span> <span class="n">JsonResponse</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">my_proof_of_concept</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">email</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;email&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">send_mail</span><span class="p">(</span><span class="s2">&quot;Email subject&quot;</span><span class="p">,</span> <span class="s2">&quot;Email body&quot;</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;admin@example.com&quot;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Developers must <strong>always validate and sanitize input</strong> before using it. The
+correct approach would be to use a Django form to ensure <code class="docutils literal notranslate"><span class="pre">email</span></code> is properly
+validated:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">django</span><span class="w"> </span><span class="kn">import</span> <span class="n">forms</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">django.core.mail</span><span class="w"> </span><span class="kn">import</span> <span class="n">send_mail</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">django.http</span><span class="w"> </span><span class="kn">import</span> <span class="n">JsonResponse</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">EmailForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+    <span class="n">email</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">EmailField</span><span class="p">()</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">my_proof_of_concept</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">form</span> <span class="o">=</span> <span class="n">EmailForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+        <span class="n">send_mail</span><span class="p">(</span>
+            <span class="s2">&quot;Email subject&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Email body&quot;</span><span class="p">,</span>
+            <span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s2">&quot;email&quot;</span><span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;admin@example.com&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">errors</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Similarly, as Django's raw SQL constructs (such as <a class="reference internal" href="../../ref/models/querysets/#django.db.models.query.QuerySet.extra" title="django.db.models.query.QuerySet.extra"><code class="xref py py-meth docutils literal notranslate"><span class="pre">extra()</span></code></a> and
+<a class="reference internal" href="../../ref/models/expressions/#django.db.models.expressions.RawSQL" title="django.db.models.expressions.RawSQL"><code class="xref py py-class docutils literal notranslate"><span class="pre">RawSQL</span></code></a> expression) provide developers with full control over the
+query, they are insecure if user input is not properly handled. As explained in
+our <a class="reference internal" href="../../topics/security/#sql-injection-protection"><span class="std std-ref">security documentation</span></a>, it is the
+developer's responsibility to safely process user input for these functions.</p>
+<p>For instance, the following is <strong>not considered valid</strong> because <code class="docutils literal notranslate"><span class="pre">query</span></code> has
+not been sanitized:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">django.shortcuts</span><span class="w"> </span><span class="kn">import</span> <span class="n">HttpResponse</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">MyModel</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">my_proof_of_concept</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">query</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;query&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">MyModel</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">extra</span><span class="p">(</span><span class="n">select</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">query</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">q</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+</pre></div>
+</div>
+</section>
+<section id="s-request-headers-and-urls-must-be-under-8k-bytes">
+<span id="request-headers-and-urls-must-be-under-8k-bytes"></span><h4>Request headers and URLs must be under 8K bytes<a class="headerlink" href="#request-headers-and-urls-must-be-under-8k-bytes" title="Link to this heading">¶</a></h4>
+<p>To prevent denial-of-service (DoS) attacks, production-grade servers impose
+limits on request header and URL sizes. For example, by default Gunicorn allows
+up to roughly:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.gunicorn.org/en/stable/settings.html#limit-request-line">4k bytes for a URL</a></p></li>
+<li><p><a class="reference external" href="https://docs.gunicorn.org/en/stable/settings.html#limit-request-field-size">8K bytes for a request header</a></p></li>
+</ul>
+<p>Other web servers, such as Nginx and Apache, have similar restrictions to
+prevent excessive resource consumption.</p>
+<p>Consequently, the Django security team will not consider reports that rely on
+request headers or URLs exceeding 8K bytes, as such inputs are already
+mitigated at the server level in production environments.</p>
+<div class="admonition-djadmin-runserver-should-never-be-used-in-production admonition">
+<p class="admonition-title"><a class="reference internal" href="../../ref/django-admin/#django-admin-runserver"><code class="xref std std-djadmin docutils literal notranslate"><span class="pre">runserver</span></code></a> should never be used in production</p>
+<p>Django's built-in development server does not enforce these limits because
+it is not designed to be a production server.</p>
+</div>
+</section>
+<section id="s-the-request-body-must-be-under-2-5-mb">
+<span id="the-request-body-must-be-under-2-5-mb"></span><h4>The request body must be under 2.5 MB<a class="headerlink" href="#the-request-body-must-be-under-2-5-mb" title="Link to this heading">¶</a></h4>
+<p>The <a class="reference internal" href="../../ref/settings/#std-setting-DATA_UPLOAD_MAX_MEMORY_SIZE"><code class="xref std std-setting docutils literal notranslate"><span class="pre">DATA_UPLOAD_MAX_MEMORY_SIZE</span></code></a> setting limits the default maximum
+request body size to 2.5 MB.</p>
+<p>As this is enforced on all production-grade Django projects by default, a proof
+of concept must not exceed 2.5 MB in the request body to be considered valid.</p>
+<p>Issues resulting from large, but potentially reasonable setting values, should
+be reported using the <a class="reference external" href="https://code.djangoproject.com/">public ticket tracker</a> for hardening.</p>
+</section>
+<section id="s-code-under-test-must-feasibly-exist-in-a-django-project">
+<span id="code-under-test-must-feasibly-exist-in-a-django-project"></span><h4>Code under test must feasibly exist in a Django project<a class="headerlink" href="#code-under-test-must-feasibly-exist-in-a-django-project" title="Link to this heading">¶</a></h4>
+<p>The proof of concept must plausibly occur in a production-grade Django
+application, reflecting real-world scenarios and following standard development
+practices.</p>
+<p>Django contains many private and undocumented functions that are not part of
+its public API. If a vulnerability depends on directly calling these internal
+functions in an unsafe way, it will not be considered a valid security issue.</p>
+</section>
+<section id="s-content-displayed-by-the-django-template-language-must-be-under-100-kb">
+<span id="content-displayed-by-the-django-template-language-must-be-under-100-kb"></span><h4>Content displayed by the Django Template Language must be under 100 KB<a class="headerlink" href="#content-displayed-by-the-django-template-language-must-be-under-100-kb" title="Link to this heading">¶</a></h4>
+<p>The Django Template Language (DTL) is designed for building the content needed
+to display web pages. In particular its text filters are meant for that kind of
+usage.</p>
+<p>For reference, the complete works of Shakespeare have about 3.5 million bytes
+in plain-text ASCII encoding. Displaying such in a single request is beyond the
+scope of almost all websites, and so outside the scope of the DTL too.</p>
+<p>Text processing is expensive. Django makes no guarantee that DTL text filters
+are never subject to degraded performance if passed deliberately crafted,
+sufficiently large inputs. Under default configurations, Django makes it
+difficult for sites to accidentally accept such payloads from untrusted
+sources, but, if it is necessary to display large amounts of user-provided
+content, it’s important that basic security measures are taken.</p>
+<p>User-provided content should always be constrained to known maximum length. It
+should be filtered to remove malicious content, and validated to match expected
+formats. It should then be processed offline, if necessary, before being
+displayed.</p>
+<p>Proof of concepts which use over 100 KB of data to be processed by the DTL will
+be considered invalid.</p>
+</section>
+</section>
+</section>
+<section id="s-how-does-django-evaluate-a-report">
+<span id="s-security-report-evaluation"></span><span id="how-does-django-evaluate-a-report"></span><span id="security-report-evaluation"></span><h2>Django 如何评估报告<a class="headerlink" href="#how-does-django-evaluate-a-report" title="Link to this heading">¶</a></h2>
+<p>以下是安全团队在评估报告是否需要安全发布时使用的标准：</p>
+<ul class="simple">
+<li><p>漏洞在 Django 的 <a class="reference internal" href="#security-support"><span class="std std-ref">受支持版本</span></a> 中。</p></li>
+<li><p>The vulnerability does not depend on manual actions that rely on code
+external to Django. This includes actions performed by a project's developer
+or maintainer using developer tools or the Django CLI. For example, attacks
+that require running management commands with uncommon or insecure options
+do not qualify.</p></li>
+<li><p>The vulnerability applies to a production-grade Django application. This
+means the following scenarios do not require a security release:</p>
+<ul>
+<li><p>仅影响本地开发的漏洞，例如使用 <a class="reference internal" href="../../ref/django-admin/#django-admin-runserver"><code class="xref std std-djadmin docutils literal notranslate"><span class="pre">runserver</span></code></a> 时。</p></li>
+<li><p>未遵循安全最佳实践的漏洞，例如未对用户输入进行清理。其他示例，请参阅我们的 <a class="reference internal" href="../../topics/security/#cross-site-scripting"><span class="std std-ref">安全文档</span></a>。</p></li>
+<li><p>AI 生成的代码中未遵循安全最佳实践的漏洞。</p></li>
+</ul>
+</li>
+</ul>
+<p>安全团队可能会得出结论，漏洞的根源在于 Python 标准库，在这种情况下，报告者将被要求向 Python 核心团队报告漏洞。更多详细信息，请参阅 <a class="reference external" href="https://www.python.org/dev/security/">Python 安全指南</a>。</p>
+<p>有时，可能会发布安全版本来帮助解决流行第三方包中的安全漏洞。这些报告应来自包维护者。</p>
+<p>如果你不确定你的发现是否符合这些标准，请仍然 <a class="reference internal" href="#reporting-security-issues"><span class="std std-ref">通过电子邮件 security&#64;djangoproject.com 私下报告</span></a>。安全团队将审查你的报告并推荐正确的行动方案。</p>
+</section>
+<section id="s-supported-versions">
+<span id="s-security-support"></span><span id="supported-versions"></span><span id="security-support"></span><h2>支持的版本<a class="headerlink" href="#supported-versions" title="Link to this heading">¶</a></h2>
+<p>Django团队在任何时候都会为几个版本的Django提供官方安全支持。</p>
+<ul class="simple">
+<li><p>在 GitHub 上托管的 <a class="reference external" href="https://github.com/django/django/">主开发分支</a>，将成为 Django 的下一个主要版本，会接收安全支持。仅影响主开发分支而不影响任何稳定发布版本的安全问题将在公开中修复，无需经过 <a class="reference internal" href="#security-disclosure"><span class="std std-ref">披露流程</span></a>。</p></li>
+<li><p>两个最新的Django发行版系列都提供了安全支持。例如，在Django 1.5发布之前的开发周期中，将支持Django 1.4和Django 1.3。在Django 1.5发布后，Django 1.3的安全支持将结束。</p></li>
+<li><p><span class="xref std std-term">长期支持版本</span> 将在指定的期限内接收安全更新。</p></li>
+</ul>
+<p>当出于安全原因发布新版本时，附带的通知将包括受影响的版本列表。此列表仅包含*支持*的Django版本:旧版本也可能受到影响，但我们不会调查这一点，也不会为这些版本发布补丁或新版本。</p>
+</section>
+<section id="s-security-issue-severity-levels">
+<span id="s-severity-levels"></span><span id="security-issue-severity-levels"></span><span id="severity-levels"></span><h2>Security issue severity levels<a class="headerlink" href="#security-issue-severity-levels" title="Link to this heading">¶</a></h2>
+<p>The severity level of a security vulnerability is determined by the attack
+type.</p>
+<p>Severity levels are:</p>
+<ul class="simple">
+<li><p><strong>高</strong></p>
+<ul>
+<li><p>远程代码执行</p></li>
+<li><p>SQL 注入</p></li>
+</ul>
+</li>
+<li><p><strong>中等</strong></p>
+<ul>
+<li><p>跨站脚本攻击（XSS）</p></li>
+<li><p>跨站请求伪造（CSRF）</p></li>
+<li><p>拒绝服务攻击</p></li>
+<li><p>损坏的认证</p></li>
+</ul>
+</li>
+<li><p><strong>低</strong></p>
+<ul>
+<li><p>敏感数据暴露</p></li>
+<li><p>会话管理损坏</p></li>
+<li><p>未验证重定向</p></li>
+<li><p>需要不常见的配置选项的问题</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="s-how-django-discloses-security-issues">
+<span id="s-security-disclosure"></span><span id="how-django-discloses-security-issues"></span><span id="security-disclosure"></span><h2>Django 如何披露安全问题<a class="headerlink" href="#how-django-discloses-security-issues" title="Link to this heading">¶</a></h2>
+<p>我们将一个安全问题从私下讨论到公开披露的过程涉及多个步骤。</p>
+<p>在公开披露前大约一周，我们会发送两个通知：</p>
+<p>First, we notify <a class="reference internal" href="../mailing-lists/#django-announce-mailing-list"><span class="std std-ref">django-announce</span></a> of the date and approximate time of the
+upcoming security release, as well as the severity of the issues. This is to
+aid organizations that need to ensure they have staff available to handle
+triaging our announcement and upgrade Django as needed.</p>
+<p>其次，我们会通知一份 <a class="reference internal" href="#security-notifications"><span class="std std-ref">个人和组织名单</span></a>，主要由操作系统供应商和其他 Django 分发商组成。此电子邮件由 <a class="reference external" href="https://www.djangoproject.com/foundation/teams/#releasers-team">Django 发布团队</a> 的某人使用 PGP 密钥签名，内容包括：</p>
+<ul class="simple">
+<li><p>问题的完整描述以及受影响的Django版本</p></li>
+<li><p>我们将采取的补救措施。</p></li>
+<li><p>补丁(如果有的话)将应用于Django。</p></li>
+<li><p>Django 团队将应用这些补丁、发布新版本并公开披露问题的日期。</p></li>
+</ul>
+<p>在披露当天，我们将采取以下步骤：</p>
+<ol class="arabic simple">
+<li><p>将相关的补丁应用到 Django 的代码库中。</p></li>
+<li><p>发布相关版本，将新的软件包放在 <a class="extlink-pypi reference external" href="https://pypi.org/project/Django/">Python Package Index</a> 和 <a class="reference external" href="https://www.djangoproject.com/download/">djangoproject.com 网站</a> 上，并在 Django 的 Git 存储库中标记新版本。</p></li>
+<li><p>在 <a class="reference external" href="https://www.djangoproject.com/weblog/">官方 Django 开发博客</a> 上发布一篇公开文章，详细描述问题及其解决方案，指向相关的补丁和新版本，并署名问题的报告者（如果报告者希望公开身份）。</p></li>
+<li><p>在 <a class="reference internal" href="../mailing-lists/#django-announce-mailing-list"><span class="std std-ref">django-announce</span></a> 和 <a class="reference external" href="mailto:oss-security&#37;&#52;&#48;lists&#46;openwall&#46;com">oss-security<span>&#64;</span>lists<span>&#46;</span>openwall<span>&#46;</span>com</a> 邮件列表上发布一则通知，其中包含指向博客文章的链接。</p></li>
+</ol>
+<p>如果认为报告的问题特别紧急——例如，由于已知有野外利用，提前通知和公开披露之间的时间可能会大大缩短。</p>
+<p>此外，如果我们有理由相信报告给我们的问题影响了 Python/web 生态系统中的其他框架或工具，我们可能会与适当的维护者私下联系并讨论这些问题，并协调我们自己的披露和解决方案与他们的一起进行。</p>
+<p>Django 团队还维护着一个 <a class="reference internal" href="../../releases/security/"><span class="doc">Django 中披露的安全问题的档案</span></a>。</p>
+</section>
+<section id="s-who-receives-advance-notification">
+<span id="s-security-notifications"></span><span id="who-receives-advance-notification"></span><span id="security-notifications"></span><h2>谁会收到提前通知<a class="headerlink" href="#who-receives-advance-notification" title="Link to this heading">¶</a></h2>
+<p>接收安全问题提前通知的个人和组织的完整名单不会被公开。</p>
+<p>我们还希望将这个列表尽可能保持较小的规模，以更好地管理披露前的机密信息流动。因此，我们的通知列表并不仅仅是 Django 用户的列表，成为 Django 用户并不足以理由放置在通知列表上。</p>
+<p>广义上来说，安全通知的接收者分为三类：</p>
+<ol class="arabic simple">
+<li><p>操作系统供应商和其他 Django 分发商，他们提供了一个适合报告他们的 Django 包的问题或用于一般安全报告的通用（即不是个人的个人电子邮件地址）联系地址。在任何情况下，这些地址 <strong>不得</strong> 转发到公共邮件列表或 bug 跟踪器。转发到个人维护人员或安全响应联系人的私人电子邮件的地址是可以接受的，尽管私人安全跟踪器或安全响应组更可取。</p></li>
+<li><p>根据具体情况，已经表现出对回应和负责任地采取行动的个别包维护者。</p></li>
+<li><p>根据具体情况，根据 Django 开发团队的判断，其他需要了解即将到来的安全问题的实体。通常，该组成员将包括一些最大的和/或最有可能受到严重影响的已知 Django 用户或分发商，他们需要表现出负责任地接收、保密和采取行动的能力。</p></li>
+</ol>
+<div class="admonition-security-audit-and-scanning-entities admonition">
+<p class="admonition-title">安全审计和扫描实体</p>
+<p>作为政策，我们不会将这些类型的实体添加到通知列表中。</p>
+</div>
+</section>
+<section id="s-requesting-notifications">
+<span id="requesting-notifications"></span><h2>请求通知<a class="headerlink" href="#requesting-notifications" title="Link to this heading">¶</a></h2>
+<p>如果您认为自己或您有授权代表的组织属于上述任何一组，您可以通过发送电子邮件至 <code class="docutils literal notranslate"><span class="pre">security&#64;djangoproject.com</span></code> 来请求加入 Django 的通知列表。请在主题行中使用 &quot;Security notification request&quot;。</p>
+<p>您的请求 <strong>必须</strong> 包含以下信息：</p>
+<ul class="simple">
+<li><p>您的全名和您所代表的组织的名称（如果适用），以及您在该组织中的角色。</p></li>
+<li><p>详细解释您或您的组织如何符合上述至少一组标准。</p></li>
+<li><p>详细解释您为什么要请求安全通知。请再次注意，这并不仅仅是给 Django 用户使用的列表，绝大多数用户应该订阅 <a class="reference internal" href="../mailing-lists/#django-announce-mailing-list"><span class="std std-ref">django-announce</span></a> 以提前收到安全发布的通知，而不是请求详细的通知。</p></li>
+<li><p>您希望添加到我们通知列表的电子邮件地址。</p></li>
+<li><p>解释谁将接收/审查发送到该地址的邮件，以及关于将采取的任何自动操作的信息（例如，在 bug 跟踪器中提出机密问题）。</p></li>
+<li><p>对于个人，与您的地址关联的可用于验证从您那里接收的电子邮件和根据需要加密发送给您的电子邮件的公钥的 ID。</p></li>
+</ul>
+<p>提交后，您的请求将由 Django 开发团队考虑；您将在30天内收到回复，通知您请求的结果。</p>
+<p>请您也要记住，对于任何个人或组织来说，接收安全通知是由 Django 开发团队完全自行决定的特权，而且这个特权可以在任何时候被撤销，有或无需解释。</p>
+<div class="admonition-provide-all-required-information admonition">
+<p class="admonition-title">提供所有必要的信息</p>
+<p>如果您在初始联系中未提供所需的信息，将影响我们是否批准您的请求的决定。</p>
+</div>
+</section>
+</section>
+
+    </article>
+  
+
+  
+    <nav class="browse-horizontal" aria-labelledby="browse-horizontal-header">
+      <span id="browse-horizontal-header" class="visuallyhidden">Previous page and next page</span>
+      
+        <div class="left"><a rel="prev" href="../organization/"><i class="icon icon-chevron-left"></i> Django 项目的组织</a></div>
+      
+      
+        <div class="right"><a rel="next" href="../release-process/">Django 的发行流程 <i class="icon icon-chevron-right"></i></a></div>
+      
+    </nav>
+  
+
+
+        <a href="#top" class="backtotop"><i class="icon icon-chevron-up"></i> Back to Top</a>
+      </main>
+
+      
+  <div role="complementary">
+    <h2 class="visuallyhidden" id="aside-header">附加信息</h2>
+
+    
+
+
+  <div class="fundraising-sidebar">
+    <h3>Support Django!</h3>
+
+    <div class="small-heart">
+      <img src="https://static.djangoproject.com/img/fundraising-heart.cd6bb84ffd33.svg" alt="Support Django!" />
+    </div>
+
+    <div class="small-cta">
+      <ul class="list-links-small">
+        <li><a href="https://www.djangoproject.com/fundraising/">
+          Unwired Learning donated to the Django Software Foundation to support Django development. Donate today!
+        </a></li>
+      </ul>
+    </div>
+  </div>
+
+
+
+    
+      <h3>内容</h3>
+      
+        <ul>
+<li><a class="reference internal" href="#">Django 的安全策略</a><ul>
+<li><a class="reference internal" href="#reporting-security-issues">报告安全问题</a><ul>
+<li><a class="reference internal" href="#reporting-guidelines">Reporting guidelines</a><ul>
+<li><a class="reference internal" href="#include-a-runnable-proof-of-concept">Include a runnable proof of concept</a></li>
+<li><a class="reference internal" href="#user-input-must-be-sanitized">User input must be sanitized</a></li>
+<li><a class="reference internal" href="#request-headers-and-urls-must-be-under-8k-bytes">Request headers and URLs must be under 8K bytes</a></li>
+<li><a class="reference internal" href="#the-request-body-must-be-under-2-5-mb">The request body must be under 2.5 MB</a></li>
+<li><a class="reference internal" href="#code-under-test-must-feasibly-exist-in-a-django-project">Code under test must feasibly exist in a Django project</a></li>
+<li><a class="reference internal" href="#content-displayed-by-the-django-template-language-must-be-under-100-kb">Content displayed by the Django Template Language must be under 100 KB</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#how-does-django-evaluate-a-report">Django 如何评估报告</a></li>
+<li><a class="reference internal" href="#supported-versions">支持的版本</a></li>
+<li><a class="reference internal" href="#security-issue-severity-levels">Security issue severity levels</a></li>
+<li><a class="reference internal" href="#how-django-discloses-security-issues">Django 如何披露安全问题</a></li>
+<li><a class="reference internal" href="#who-receives-advance-notification">谁会收到提前通知</a></li>
+<li><a class="reference internal" href="#requesting-notifications">请求通知</a></li>
+</ul>
+</li>
+</ul>
+
+      
+    
+
+    
+      <nav aria-labelledby="browse-header">
+        <h3 id="browse-header">浏览</h3>
+        <ul>
+          
+            
+              <li>上一个： <a rel="prev" href="../organization/">Django 项目的组织</a></li>
+            
+            
+              <li>下一个： <a rel="next" href="../release-process/">Django 的发行流程</a></li>
+            
+            <li><a href="https://docs.djangoproject.com/zh-hans/5.1/contents/">目录</a></li>
+            
+              <li><a href="https://docs.djangoproject.com/zh-hans/5.1/genindex/">General Index</a></li>
+            
+              <li><a href="https://docs.djangoproject.com/zh-hans/5.1/py-modindex/">Python Module Index</a></li>
+            
+          
+        </ul>
+      </nav>
+    
+
+    
+      <nav aria-labelledby="breadcrumbs-header">
+        <h3 id="breadcrumbs-header">当前位置：</h3>
+        <ul>
+          <li>
+            <a href="https://docs.djangoproject.com/zh-hans/5.1/">Django 5.1 文档</a>
+            
+              <ul><li><a href="../">Django内部</a>
+            
+            <ul><li>Django 的安全策略</li></ul>
+            </li></ul>
+          </li>
+        </ul>
+      </nav>
+    
+
+    
+      <section aria-labelledby="getting-help-sidebar">
+        <h3 id="getting-help-sidebar">获取帮助</h3>
+        <dl class="list-links">
+          <dt><a href="https://docs.djangoproject.com/zh-hans/5.1/faq/">常见问题</a></dt>
+          <dd>尝试查看 FAQ — 它包括了很多常见问题的答案</dd>
+
+          <dt><a href="https://docs.djangoproject.com/en/stable/genindex/">索引</a>, <a href="https://docs.djangoproject.com/en/stable/py-modindex/">模块索引</a>, or <a href="https://docs.djangoproject.com/en/stable/contents/">目录</a></dt>
+          <dd>查找特定信息时比较容易</dd>
+
+          <dt><a href="https://chat.djangoproject.com">Django Discord Server</a></dt>
+          <dd>Join the Django Discord Community.</dd>
+
+          <dt><a href="https://forum.djangoproject.com/">Official Django Forum</a></dt>
+          <dd>Join the community on the Django Forum.</dd>
+
+          <dt><a href="https://code.djangoproject.com/">Ticket tracker</a></dt>
+          <dd>在我们的 `ticket tracker`_ 中报告 Django 或 Django 文档的 Bug。</dd>
+        </dl>
+      </section>
+    
+
+    
+      <section aria-labelledby="links-wrapper-header">
+        <h3 id="links-wrapper-header">下载：</h3>
+        <p>
+          离线（Django 5.1）：
+          <a href="https://media.djangoproject.com/docs/django-docs-5.1-zh-hans.zip">HTML</a> |
+          <a href="https://media.readthedocs.org/pdf/django/5.1.x/django.pdf">PDF</a> |
+          <a href="https://media.readthedocs.org/epub/django/5.1.x/django.epub">ePub</a>
+          <br>
+          <span class="quiet">
+            由 <a href="https://readthedocs.org/"> Read the Docs </a> 提供。
+          </span>
+        </p>
+      </section>
+    
+
+    
+  <div class="corporate-members">
+    <h3>Diamond and Platinum Members</h3>
+    
+      <div class="clearfix">
+        <div class="member-logo">
+          <a href="https://jb.gg/ybja10" title="JetBrains">
+            <img src="https://media.djangoproject.com/cache/c0/ea/c0ea128467983e64aab91cd27e7918c0.png" alt="JetBrains" />
+          </a>
+        </div>
+        <div class="small-cta">
+          <ul class="list-links-small">
+            <li><strong>JetBrains</strong></li>
+            <li><a href="https://jb.gg/ybja10" title="JetBrains">
+              JetBrains delivers intelligent software solutions that make developers more productive by simplifying their challenging tasks, automating the routine, and helping them adopt the best development practices. PyCharm is the Python IDE for Professional Developers by JetBrains providing a complete set of tools for productive Python, Web and scientific development.
+            </a></li>
+          </ul>
+        </div>
+      </div>
+    
+      <div class="clearfix">
+        <div class="member-logo">
+          <a href="https://sentry.io/for/django/" title="Sentry">
+            <img src="https://media.djangoproject.com/cache/7a/f9/7af9c770dc49465739a82c91a0eb3d51.png" alt="Sentry" />
+          </a>
+        </div>
+        <div class="small-cta">
+          <ul class="list-links-small">
+            <li><strong>Sentry</strong></li>
+            <li><a href="https://sentry.io/for/django/" title="Sentry">
+              Monitor your Django Code
+Resolve performance bottlenecks and errors using monitoring, replays, logs and Seer an AI agent for debugging.
+            </a></li>
+          </ul>
+        </div>
+      </div>
+    
+      <div class="clearfix">
+        <div class="member-logo">
+          <a href="https://kraken.tech" title="Kraken Tech">
+            <img src="https://media.djangoproject.com/cache/71/4b/714b3473ed0cf3665f6b894d3be9491e.png" alt="Kraken Tech" />
+          </a>
+        </div>
+        <div class="small-cta">
+          <ul class="list-links-small">
+            <li><strong>Kraken Tech</strong></li>
+            <li><a href="https://kraken.tech" title="Kraken Tech">
+              Kraken is the most-loved operating system for energy. Powered by our Utility-Grade AI™ and deep industry know-how, we help utilities transform their technology and operations so they can lead the energy transition. Delivering better outcomes from generation through distribution to supply, Kraken powers 70+ million accounts worldwide, and is on a mission to make a big, green dent in the universe.
+            </a></li>
+          </ul>
+        </div>
+      </div>
+    
+  </div>
+
+
+  </div>
+
+      
+
+    </div>
+
+     
+     
+
+    
+    
+    
+
+    <!-- SVGs -->
+    <svg xmlns="http://www.w3.org/2000/svg">
+      <symbol viewBox="0 0 24 24" id="icon-auto"><path d="M0 0h24v24H0z" fill="currentColor"/><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2V4a8 8 0 1 0 0 16z"/></symbol>
+      <symbol viewBox="0 0 24 24" id="icon-moon"><path d="M0 0h24v24H0z" fill="currentColor"/><path d="M10 7a7 7 0 0 0 12 4.9v.1c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2h.1A6.979 6.979 0 0 0 10 7zm-6 5a8 8 0 0 0 15.062 3.762A9 9 0 0 1 8.238 4.938 7.999 7.999 0 0 0 4 12z"/></symbol>
+      <symbol viewBox="0 0 24 24" id="icon-sun"><path d="M0 0h24v24H0z" fill="currentColor"/><path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/></symbol>
+    </svg>
+    <!-- END SVGs -->
+
+    
+      
+
+<footer>
+  <div class="subfooter">
+    <div class="container">
+      <h2 class="visuallyhidden">Django Links</h2>
+      <div class="column-container">
+        <div class="col-learn-more">
+          <h3>Learn More</h3>
+          <ul>
+            <li><a href="https://www.djangoproject.com/start/overview/">About Django</a></li>
+            
+            <li><a href="https://www.djangoproject.com/start/">Getting Started with Django</a></li>
+            <li><a href="https://www.djangoproject.com/foundation/teams/">Team Organization</a></li>
+            <li><a href="https://www.djangoproject.com/foundation/">Django Software Foundation</a></li>
+            <li><a href="https://www.djangoproject.com/conduct/">Code of Conduct</a></li>
+            <li><a href="https://www.djangoproject.com/diversity/">Diversity Statement</a></li>
+          </ul>
+        </div>
+
+        <div class="col-get-involved">
+          <h3>Get Involved</h3>
+          <ul>
+            <li><a href="https://www.djangoproject.com/community/">Join a Group</a></li>
+            <li><a href="https://docs.djangoproject.com/en/dev/internals/contributing/">Contribute
+              to Django</a></li>
+            <li><a
+              href="https://docs.djangoproject.com/en/dev/internals/contributing/bugs-and-features/">Submit
+              a Bug</a></li>
+            <li><a
+              href="https://docs.djangoproject.com/en/dev/internals/security/#reporting-security-issues">Report
+              a Security Issue</a></li>
+            <li><a href="https://www.djangoproject.com/foundation/individual-members/">Individual membership</a></li>
+          </ul>
+        </div>
+
+        <div class="col-get-help">
+          <h3>Get Help</h3>
+          <ul>
+            <li><a href="https://docs.djangoproject.com/en/stable/faq/">Getting Help FAQ</a>
+            </li>
+            <li><a href="https://chat.djangoproject.com" target="_blank">Django Discord</a></li>
+            <li><a href="https://forum.djangoproject.com/" target="_blank">Official Django Forum</a></li>
+          </ul>
+        </div>
+
+        <div class="col-follow-us">
+          <h3>Follow Us</h3>
+          <ul>
+            <li><a href="https://github.com/django">GitHub</a></li>
+            <li><a href="https://x.com/djangoproject">X</a></li>
+            <li><a href="https://fosstodon.org/@django" rel="me">Fediverse (Mastodon)</a></li>
+            <li><a href="https://bsky.app/profile/djangoproject.com">Bluesky</a></li>
+            <li><a href="https://www.linkedin.com/company/django-software-foundation">LinkedIn</a></li>
+            <li><a href="https://www.djangoproject.com/rss/weblog/">News RSS</a></li>
+          </ul>
+        </div>
+
+        <div class="col-support-us">
+          <h3>Support Us</h3>
+          <ul>
+            <li><a href="https://www.djangoproject.com/fundraising/">Sponsor Django</a></li>
+            <li><a href="https://www.djangoproject.com/foundation/corporate-members/">Corporate membership</a></li>
+            <li><a href="https://django.threadless.com/" target="_blank">Official merchandise store</a></li>
+            <li><a href="https://www.djangoproject.com/fundraising/#benevity-giving">Benevity Workplace Giving Program</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="container">
+      <div class="footer-logo">
+        <a class="logo" href="https://www.djangoproject.com/">Django</a>
+      </div>
+      <ul class="thanks">
+        <li>
+          <span>Hosting by</span> <a class="in-kind-donors" href="https://www.djangoproject.com/fundraising/#in-kind-donors">In-kind
+            donors</a>
+        </li>
+        <li class="design"><span>Design by</span> <a class="threespot" href="https://www.threespot.com">Threespot</a>
+          <span class="ampersand">&amp;</span> <a class="andrevv" href="http://andrevv.com/">andrevv</a></li>
+      </ul>
+      <p class="copyright">&copy; 2005-2026
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+          Foundation</a> and individual contributors. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+          trademark</a> of the Django Software Foundation.
+      </p>
+    </div>
+  </div>
+
+</footer>
+
+    
+
+    
+      
+      <script>
+        function extless(input) {
+          return input.replace(/(.*)\.[^.]+$/, '$1');
+        }
+        var require = {
+          shim: {
+            'jquery': [],
+            'stripe': {
+              exports: 'Stripe'
+            }
+          },
+          paths: {
+            "jquery": extless("https://static.djangoproject.com/js/lib/jquery.min.5790ead7ad3b.js"),
+            "mod/list-collapsing": extless("https://static.djangoproject.com/js/mod/list-collapsing.2d844151b2ec.js"),
+            "mod/stripe-change-card": extless("https://static.djangoproject.com/js/mod/stripe-change-card.eaa0afc324e9.js"),
+            "mod/switch-dark-mode": extless("https://static.djangoproject.com/js/mod/switch-dark-mode.139625c684db.js"),
+            "stripe-checkout": "https://checkout.stripe.com/checkout",
+            "stripe": "https://js.stripe.com/v3/?" // ? needed due to require.js
+          }
+        };
+      </script>
+      <script data-main="https://static.djangoproject.com/js/main.8677b21133eb.js" src="https://static.djangoproject.com/js/lib/require.177879fbe7dd.js"></script>
+      <script src="https://static.djangoproject.com/js/djangoproject.6e389ef71ec2.js"></script>
+    
+  </body>
+</html>

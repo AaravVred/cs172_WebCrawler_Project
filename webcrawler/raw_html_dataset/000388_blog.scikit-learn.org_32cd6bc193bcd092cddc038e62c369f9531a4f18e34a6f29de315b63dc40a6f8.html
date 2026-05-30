@@ -1,0 +1,1110 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>scikit-learn Completes the GitHub Secure Open Source Training - scikit-learn Blog</title>
+<meta name="description" content="Author:         Reshama Shaikh">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="scikit-learn Blog">
+<meta property="og:title" content="scikit-learn Completes the GitHub Secure Open Source Training">
+<meta property="og:url" content="https://blog.scikit-learn.org/press/gh-sosf/">
+
+
+  <meta property="og:description" content="Author:         Reshama Shaikh">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-08-16T00:00:00+00:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://blog.scikit-learn.org/press/gh-sosf/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": null,
+      "url": "https://blog.scikit-learn.org/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="scikit-learn Blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+<link rel="manifest" href="/assets/images/site.webmanifest">
+<link rel="mask-icon" href="/assets/images/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/images/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" content="/assets/images/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- Load MathJax only in the pages with `usemathjax: true` -->
+
+
+
+
+    <script defer data-domain="blog.scikit-learn.org" src="https://views.scientific-python.org/js/script.js"></script>
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/scikit-learn-logo.png" alt="scikit-learn Blog"></a>
+        
+        <a class="site-title" href="/">
+          scikit-learn Blog
+          
+        </a>
+        <ul class="visible-links">
+                
+                
+                    <li class="masthead__menu-item">
+                        <a href="https://scikit-learn.org/stable/">scikit-learn.org</a>
+                    </li>
+                
+            
+                
+                
+                    <li class="masthead__menu-item">
+                        <a href="/calendar">Calendar</a>
+                    </li>
+                
+            
+                
+                
+                    <li class="masthead__menu-item">
+                        <a href="/resources">Resources</a>
+                    </li>
+                
+            
+                
+                
+                    <li class="masthead__menu-item">
+                        <a href="/sprints">Sprints</a>
+                    </li>
+                
+            
+                
+                
+                    <li class="dropdown ">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More    <i class="fa fa-caret-down fa-sm" aria-hidden="true"></i><span class="caret"></span></a>
+                        <ul class="dropdown-content">
+                            
+                                <li>
+                                    <a href="https://scikit-learn.org/stable/install">    Install</a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://scikit-learn.org/stable/user_guide">    User Guide</a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://scikit-learn.org/stable/api/index">    API</a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://scikit-learn.org/stable/auto_examples/index">    Examples</a>
+                                </li>
+                            
+                        </ul>
+                    </li>
+                
+            
+        </ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="https://blog.scikit-learn.org/" itemprop="url"></a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>Open source library for machine learning in Python.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="https://github.com/scikit-learn" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-github-square" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://linkedin.com/company/scikit-learn/" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">LinkedIn</span></a></li>
+          
+        
+          
+            <li><a href="https://bsky.app/profile/scikit-learn.org" rel="nofollow noopener noreferrer me"><i class="fas fa-link" aria-hidden="true"></i><span class="label">Bluesky</span></a></li>
+          
+        
+          
+            <li><a href="https://fosstodon.org/@sklearn" rel="nofollow noopener noreferrer me"><i class="fab fa-brands fa-mastodon" aria-hidden="true"></i><span class="label">Mastodon</span></a></li>
+          
+        
+          
+            <li><a href="https://www.youtube.com/@scikit-learn" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-youtube" aria-hidden="true"></i><span class="label">YouTube</span></a></li>
+          
+        
+          
+            <li><a href="https://facebook.com/scikitlearnofficial/" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i><span class="label">Facebook</span></a></li>
+          
+        
+          
+            <li><a href="https://instagram.com/scikitlearnofficial/" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-instagram" aria-hidden="true"></i><span class="label">Instagram</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">Archives</span>
+        
+
+        
+        <ul>
+          
+            <li><a href="/categories/">Category</a></li>
+          
+            <li><a href="/tags/">Tag</a></li>
+          
+            <li><a href="/years/">Year</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">scikit-learn</span>
+        
+
+        
+        <ul>
+          
+            <li><a href="https://scikit-learn.org/stable/about">About Us</a></li>
+          
+            <li><a href="https://scikit-learn.org/stable/faq">FAQ</a></li>
+          
+            <li><a href="https://python.org/psf/conduct/">Code of Conduct</a></li>
+          
+            <li><a href="https://scikit-learn.org/stable/developers/contributing.html">Contribute to scikit-learn</a></li>
+          
+            <li><a href="https://github.com/scikit-learn/blog">Contribute to the blog</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Community</span>
+        
+
+        
+        <ul>
+          
+            <li><a href="https://github.com/scikit-learn/administrative/tree/master/monthly_meetings">Monthly Meeting Minutes</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Mailing List</span>
+        
+
+        
+        <ul>
+          
+            <li><a href="https://mail.python.org/mailman/listinfo/scikit-learn">Subscribe</a></li>
+          
+            <li><a href="https://mail.python.org/pipermail/scikit-learn/">Archive</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="scikit-learn Completes the GitHub Secure Open Source Training">
+    <meta itemprop="description" content="                Author:        Reshama Shaikh     ">
+    <meta itemprop="datePublished" content="2025-08-16T00:00:00+00:00">
+    
+    <meta property="og:image" content="https://blog.scikit-learn.org/assets/images/posts_images/gh-sosf/cover.png">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="https://blog.scikit-learn.org/press/gh-sosf/" class="u-url" itemprop="url">scikit-learn Completes the GitHub Secure Open Source Training
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2025-08-16T00:00:00+00:00">2025-08-16</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+        <div>
+  <img src="/assets/images/posts_images/gh-sosf/cover.png" alt="" />
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+Author:  
+      <a itemprop="sameAs" content="https://reshamas.github.io" href="https://reshamas.github.io" rel="me noopener noreferrer" style="vertical-align:top;"><img src="/assets/images/author_images/reshama_shaikh.jpeg" style="width:1em;margin-right:.5em;border-radius: 50%;" alt="Author Icon" class="orcid-icon" />Reshama Shaikh</a>
+     
+
+<br /><br />
+
+</div>
+
+<h2 id="summary">Summary</h2>
+
+<p>scikit-learn was honored to be selected to participate in Cohort 2 of the GitHub Secure Open Source Fund (OSF) Training Program. Cohort 1 took place earlier in 2025 with 19 projects, and Cohort 2 took place with 52 projects during June 2025.</p>
+
+<figure>
+ <img src="/assets/images/posts_images/gh-sosf/blog-title.png" alt="GitHub announcement of GH-S-OS Fund" style="border-width: thick" max-width="50%" max-height="50%" /> 
+ <figcaption>
+ Original post: <a href="https://github.blog/open-source/maintainers/securing-the-supply-chain-at-scale-starting-with-71-important-open-source-projects">GH Secure OSS Announcement</a>
+ </figcaption>
+</figure>
+
+<p>It was an intense 3-week training program, with over 90 open source maintainers joining the training. Read the announcement from GitHub: <a href="https://github.blog/open-source/maintainers/securing-the-supply-chain-at-scale-starting-with-71-important-open-source-projects">Securing the supply chain at scale: Starting with 71 important open source projects</a></p>
+
+<p>There were numerous workshops delivered by experts in the GitHub Security Lab. For many of these workshops, the learning materials are publicly available, and they are shared below.</p>
+
+<h3 id="github-security-lab">GitHub Security Lab</h3>
+<p>GitHub has its own security department, and GitHub Security Lab’s mission is to empower developers and secure open source.</p>
+<ul>
+  <li>GitHub Security Lab: <a href="https://securitylab.github.com/resources-os">Resources</a></li>
+</ul>
+
+<figure>
+ <img src="/assets/images/posts_images/gh-sosf/gh-security-lab.png" alt="GitHub Security Lab" style="padding:1px;border:solid black" max-width="50%" max-height="50%" />  
+ <figcaption>
+ Original post: <a href="https://github.com/GitHubSecurityLab">GitHub Security Lab</a>
+ </figcaption>
+</figure>
+
+<h2 id="resources-for-security-training">Resources for Security Training</h2>
+<p>The training provided many trainings by experts in the field. Below we share trainings that are available to the public.</p>
+
+<ul>
+  <li><a href="https://docs.github.com/en/code-security/security-advisories/working-with-repository-security-advisories/configuring-private-vulnerability-reporting-for-a-repository">Configuring private vulnerability reporting for a repository</a>
+    <blockquote>
+      <p>Owners and administrators of public repositories can allow security researchers to report vulnerabilities securely in the repository by enabling private vulnerability reporting.</p>
+    </blockquote>
+  </li>
+  <li><a href="https://securityscorecards.dev">OpenSSF Scorecard</a></li>
+  <li><a href="https://microsoft.design/articles/secure-by-design-a-ux-toolkit">Secure by design: A UX toolkit</a></li>
+</ul>
+
+<h4 id="codeql-from-zero-to-hero">CodeQL: From Zero to Hero</h4>
+
+<p>This workshop introduces fundamentals of security research and static analysis used when looking for vulnerabilities in software. They use an example of a simple vulnerability, walk through how CodeQL could detect it, and provide examples on how the audience could use CodeQL to find vulnerabilities themselves.</p>
+
+<p>slides: <a href="https://github.com/sylwia-budzynska/2025-soss-codeql-workshop/blob/main/SOSS-CodeQL-slides.pdf">Finding Vulnerabilities with CodeQL</a></p>
+
+<figure>
+ <img src="/assets/images/posts_images/gh-sosf/CodeQL.png" alt="CodeQL audience and topics covered" style="padding:1px;border:solid black" max-width="50%" max-height="50%" /> 
+ <figcaption>
+ Original post: <a href="https://github.com/sylwia-budzynska/2025-soss-codeql-workshop">Finding Vulnerabilities with CodeQL</a>
+ </figcaption>
+</figure>
+
+<h4 id="developing-secure-software">Developing Secure Software</h4>
+
+<p>This course includes specific tips on how to use and develop open source and other software securely. Learn the security basics to develop software that is hardened against attacks, and understand how you can reduce the damage and speed the response when a vulnerability is exploited.</p>
+
+<p>It was developed by the Open Source Security Foundation (OpenSSF), a cross-industry collaboration that brings together leaders to improve the security of open source software by building a broader community, targeted initiatives, and best practices.</p>
+
+<ul>
+  <li>Online, Self Paced</li>
+  <li>16-20 Hours of Course Material</li>
+  <li>Quizzes and Hands-on Labs</li>
+</ul>
+
+<figure>
+ <img src="/assets/images/posts_images/gh-sosf/dss-lfd121.png" alt="course: Developing Secure Software" style="padding:1px;border:solid black" max-width="50%" max-height="50%" /> 
+ <figcaption>
+ Original post: <a href="https://training.linuxfoundation.org/training/developing-secure-software-lfd121">LFD121: Developing Secure Software</a>
+ </figcaption>
+</figure>
+
+<h4 id="oss-fuzz">OSS-Fuzz</h4>
+<p><a href="https://en.wikipedia.org/wiki/Fuzzing">Fuzz testing</a> is a well-known technique for uncovering programming errors in software.</p>
+
+<figure>
+ <img src="/assets/images/posts_images/gh-sosf/oss-fuzz.png" alt="OSS-Fuzz" style="padding:1px;border:solid black" max-width="50%" max-height="50%" /> 
+ <figcaption>
+ Original post: <a href="https://github.com/google/oss-fuzz">OSS-Fuzz</a>
+ </figcaption>
+</figure>
+
+<h3 id="secure-code-game">Secure Code Game</h3>
+<p>Secure Code Game is a GitHub Security Lab initiative, providing an in-repo learning experience, where learners to secure intentionally vulnerable code. At the same time, this is an open source project that welcomes your contributions as a way to give back to the community.</p>
+
+<figure>
+ <img src="/assets/images/posts_images/gh-sosf/secure-code-game.png" alt="Secure Code Game" style="padding:1px;border:solid black" max-width="50%" max-height="50%" /> 
+ <figcaption>
+ Original post: <a href="https://github.com/skills/secure-code-game">Secure Code Game</a>
+ </figcaption>
+</figure>
+
+<h3 id="participate-in-future-cohorts-of-the-github-secure-open-source-training">Participate in Future Cohorts of the GitHub Secure Open Source Training</h3>
+<p>If you are a maintainer of an open source project, this training is an excellent opportunity to secure your project with guidance from highly trained experts in the security field. <a href="https://docs.google.com/forms/d/e/1FAIpQLScDBalom0XhmJrvyI3kwD7dZ-dD4_uhmLNysVXtA8fH_WUKoA/viewform">Applications are open</a>.</p>
+
+<h3 id="references">References</h3>
+<ul>
+  <li><a href="https://github.blog/open-source/maintainers/securing-the-supply-chain-at-scale-starting-with-71-important-open-source-projects">Securing the supply chain at scale: Starting with 71 important open source projects</a> (11-Aug-2025)</li>
+  <li>TechCrunch: <a href="https://techcrunch.com/2024/11/19/github-launches-1-25m-open-source-fund-with-a-focus-on-security">GitHub launches $1.25M open source fund with a focus on security</a> (19-Nov-2024)</li>
+  <li><a href="https://resources.github.com/github-secure-open-source-fund/">GitHub Secure Open Source Fund</a></li>
+  <li><a href="https://www.eclipse.org/security/policy">Eclipse Foundation Security Policy</a></li>
+  <li><a href="https://www.linuxfoundation.org/security">Linux Foundation Security Policy</a></li>
+</ul>
+
+<h3 id="blogs-from-participating-open-source-projects">Blogs from Participating Open Source Projects</h3>
+<ul>
+  <li>OpenCV: <a href="https://opencv.org/blog/opencvs-participation-in-the-github-secure-open-source-fund">OpenCV’s Participation in the GitHub Secure Open Source Fund</a></li>
+  <li>Bootstrap: <a href="https://www.linkedin.com/pulse/bootstrap-github-secure-open-source-fund-julien-d%2525C3%2525A9ramond-cvjie">Bootstrap at GitHub Secure Open Source Fund</a></li>
+  <li>Cobra &amp; Viper: <a href="https://spf13.com/p/cobra-viper-fortify-security-as-part-of-github-secure-open-source-fund">Cobra &amp; Viper Fortify Security as Part of GitHub Secure Open Source Fund</a></li>
+  <li>Zitadel: <a href="https://zitadel.com/blog/github-secure-open-source-fund">A Leap Forward in Security: Our Journey with the GitHub Secure Open Source Fund</a></li>
+</ul>
+
+<h2 id="acknowledgments">Acknowledgments</h2>
+
+<p>Thank you to the funders and ecosystem partners of the GitHub Secure Open Source Fund.</p>
+
+<p><strong>Funding Partners:</strong> Alfred P. Sloan Foundation, American Express, Chainguard, Datadog, Herodevs, Kraken, Mayfield, Microsoft, Shopify, Stripe, Superbloom, Vercel, Zerodha, 1Password</p>
+
+<figure>
+ <img src="/assets/images/posts_images/gh-sosf/funders2.png" alt="Sponsors" style="padding:1px;border:solid black" max-width="50%" max-height="50%" /> 
+ <figcaption>
+ <a href="https://github.blog/open-source/maintainers/securing-the-supply-chain-at-scale-starting-with-71-important-open-source-projects"></a>
+ </figcaption>
+</figure>
+
+<p><strong>Ecosystem Partners:</strong> Ecosyste.ms, CURIOSS, Digital Data Design Institute Lab for Innovation Science, Digital Infrastructure Insights Fund, Microsoft for Startups, Mozilla, OpenForum Europe, Open Source Collective, OpenUK, Open Technology Fund, OpenSSF, Open Source Initiative, OpenJS Foundation, University of California, Santa Cruz OSPO, Sovereign Tech Agency, SustainOSS</p>
+
+<figure>
+ <img src="/assets/images/posts_images/gh-sosf/ecosystem.png" alt="Ecosystem Partners" style="padding:1px;border:solid black" max-width="50%" max-height="50%" /> 
+ <figcaption>
+ <a href="https://github.blog/open-source/maintainers/securing-the-supply-chain-at-scale-starting-with-71-important-open-source-projects"></a>
+ </figcaption>
+</figure>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#open-source" class="page__taxonomy-item p-category" rel="tag">Open Source</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#press" class="page__taxonomy-item p-category" rel="tag">Press</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-08-16T00:00:00+00:00">2025-08-16</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+    <h4 class="page__share-title">Share on</h4>
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fblog.scikit-learn.org%2Fpress%2Fgh-sosf%2F&text=scikit-learn+Completes+the+GitHub+Secure+Open+Source+Training" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+
+    <a href="https://bsky.app/intent/compose?text=scikit-learn+Completes+the+GitHub+Secure+Open+Source+Training https%3A%2F%2Fblog.scikit-learn.org%2Fpress%2Fgh-sosf%2F" class="btn btn--bluesky" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Bluesky"><i class="fab fa-brands fa-bluesky" aria-hidden="true"></i><span> Bluesky</span></a>
+
+    <a href="https://mastodonshare.com/?url=https%3A%2F%2Fblog.scikit-learn.org%2Fpress%2Fgh-sosf%2F&text=scikit-learn+Completes+the+GitHub+Secure+Open+Source+Training" class="btn btn--mastodon" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Mastodon"><i class="fab fa-brands fa-mastodon" aria-hidden="true"></i><span> Mastodon</span></a>
+
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fblog.scikit-learn.org%2Fpress%2Fgh-sosf%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  
+
+  </section>
+
+      
+  <nav class="pagination">
+    
+      <a href="/updates/probabl-skolar/" class="pagination--pager" title="Skolar: an open-source initiative to democratize open data science
+">Previous</a>
+    
+    
+      <a href="/team/virgil-chan-interview/" class="pagination--pager" title="Interview with Virgil Chan, scikit-learn Team Member
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">You May Also Enjoy</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/updates/update-array-api/" rel="permalink">Update on array API adoption in scikit-learn
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-03-05T00:00:00+00:00">2026-03-05</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          10 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+Author:  
+      Lucy Liu
+     
+
+
+
+
+Note: this blog post is a cross-post of a Quansight Labs blog post.
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/updates/enhancing-user-experience/" rel="permalink">Enhancing user experience through interactive inspection
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-01-06T00:00:00+00:00">2026-01-06</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+Author:  
+      Dea María Léon
+      
+        
+      
+
+
+
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/team/virgil-chan-interview/" rel="permalink">Interview with Virgil Chan, scikit-learn Team Member
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2025-11-26T00:00:00+00:00">2025-11-26</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          5 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+Author:  
+      Reshama Shaikh
+     , 
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+
+      Virgil Chan
+     
+
+
+
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/updates/probabl-skolar/" rel="permalink">Skolar: an open-source initiative to democratize open data science
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2025-06-30T00:00:00+00:00">2025-06-30</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+Author:  
+      Skolar
+     , 
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+
+      Pénélope Gittos
+     
+
+
+
+
+
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/scikit-learn" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github-square" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://linkedin.com/company/scikit-learn/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
+        
+      
+        
+          <li><a href="https://bsky.app/profile/scikit-learn.org" rel="nofollow noopener noreferrer"><i class="fas fa-link" aria-hidden="true"></i> Bluesky</a></li>
+        
+      
+        
+          <li><a href="https://fosstodon.org/@sklearn" rel="nofollow noopener noreferrer"><i class="fab fa-brands fa-mastodon" aria-hidden="true"></i> Mastodon</a></li>
+        
+      
+        
+          <li><a href="https://www.youtube.com/@scikit-learn" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-youtube" aria-hidden="true"></i> YouTube</a></li>
+        
+      
+        
+          <li><a href="https://facebook.com/scikitlearnofficial/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+        
+      
+        
+          <li><a href="https://instagram.com/scikitlearnofficial/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-instagram" aria-hidden="true"></i> Instagram</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2026 scikit-learn Blog. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+  <script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22606712-3']);
+  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

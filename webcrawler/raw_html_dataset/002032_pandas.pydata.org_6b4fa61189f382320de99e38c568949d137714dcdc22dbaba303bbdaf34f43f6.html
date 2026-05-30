@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script defer data-domain="pandas.pydata.org" src="https://views.scientific-python.org/js/script.js"></script>
+        <title>pandas - Python Data Analysis Library</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel='shortcut icon' type='image/x-icon' id='favicon-tag' href='../static/img/favicon.ico'/>
+        <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+              integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+              crossorigin="anonymous">
+        
+            <link rel="stylesheet"
+                  href="../static/css/pandas.css">
+        
+            <link rel="stylesheet"
+                  href="../static/css/codehilite.css">
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-content" aria-controls="nav-content" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <a class="navbar-brand" href="../."><img alt="" src="../static/img/pandas_white.svg"/></a>
+
+                    <div class="collapse navbar-collapse" id="nav-content">   
+                        <ul class="navbar-nav ms-auto">
+                            
+                                
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle"
+                                           data-bs-toggle="dropdown"
+                                           id="about-us"
+                                           href="#"
+                                           role="button"
+                                           aria-haspopup="true"
+                                           aria-expanded="false">About us</a>
+                                        <div class="dropdown-menu" aria-labelledby="about-us">
+                                        
+                                            <a class="dropdown-item" href="../about/">About pandas</a>
+                                        
+                                            <a class="dropdown-item" href="../about/roadmap.html">Project roadmap</a>
+                                        
+                                            <a class="dropdown-item" href="../about/governance.html">Governance</a>
+                                        
+                                            <a class="dropdown-item" href="../about/team.html">Team</a>
+                                        
+                                            <a class="dropdown-item" href="../about/sponsors.html">Sponsors</a>
+                                        
+                                            <a class="dropdown-item" href="../about/citing.html">Citing and logo</a>
+                                        
+                                        </div>
+                                    </li>
+                                
+                            
+                                
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="../getting_started.html">Getting started</a>
+                                    </li>
+                                
+                            
+                                
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="../docs/">Documentation</a>
+                                    </li>
+                                
+                            
+                                
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle"
+                                           data-bs-toggle="dropdown"
+                                           id="community"
+                                           href="#"
+                                           role="button"
+                                           aria-haspopup="true"
+                                           aria-expanded="false">Community</a>
+                                        <div class="dropdown-menu" aria-labelledby="community">
+                                        
+                                            <a class="dropdown-item" href="../community/blog/">Blog</a>
+                                        
+                                            <a class="dropdown-item" href="https://stackoverflow.com/questions/tagged/pandas">Ask a question (StackOverflow)</a>
+                                        
+                                            <a class="dropdown-item" href="../community/coc.html">Code of conduct</a>
+                                        
+                                            <a class="dropdown-item" href="../community/ecosystem.html">Ecosystem</a>
+                                        
+                                            <a class="dropdown-item" href="../community/benchmarks.html">Benchmarks</a>
+                                        
+                                        </div>
+                                    </li>
+                                
+                            
+                                
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="../contribute.html">Contribute</a>
+                                    </li>
+                                
+                            
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main">
+            
+            <div class="container container-main">
+                <h1 id="pdep-9-allow-third-party-projects-to-register-pandas-connectors-with-a-standard-api">PDEP-9: Allow third-party projects to register pandas connectors with a standard API<a class="headerlink" href="#pdep-9-allow-third-party-projects-to-register-pandas-connectors-with-a-standard-api" title="Permanent link"> #</a></h1>
+<ul>
+<li>Created: 5 March 2023</li>
+<li>Status: Rejected</li>
+<li>Discussion: <a href="https://github.com/pandas-dev/pandas/pull/51799">#51799</a>
+              <a href="https://github.com/pandas-dev/pandas/pull/53005">#53005</a></li>
+<li>Author: <a href="https://github.com/datapythonista">Marc Garcia</a></li>
+<li>Revision: 1</li>
+</ul>
+<div class="toc"><span class="toctitle">Table of Contents</span><ul>
+<li><a href="#pdep-summary">PDEP Summary</a></li>
+<li><a href="#current-state">Current state</a><ul>
+<li><a href="#supported-formats">Supported formats</a></li>
+</ul>
+</li>
+<li><a href="#proposal">Proposal</a><ul>
+<li><a href="#proposal-implementation">Proposal implementation</a></li>
+<li><a href="#connector-examples">Connector examples</a></li>
+<li><a href="#limitations">Limitations</a></li>
+</ul>
+</li>
+<li><a href="#future-plans">Future plans</a></li>
+<li><a href="#pdep-9-history">PDEP-9 History</a></li>
+</ul>
+</div>
+<h2 id="pdep-summary">PDEP Summary<a class="headerlink" href="#pdep-summary" title="Permanent link"> #</a></h2>
+<p>This document proposes that third-party projects implementing I/O or memory
+connectors to pandas can register them using Python's entrypoint system,
+and make them available to pandas users with the usual pandas I/O interface.
+For example, packages independent from pandas could implement readers from
+DuckDB and writers to Delta Lake, and when installed in the user environment
+the user would be able to use them as if they were implemented in pandas.
+For example:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span>
+
+<span class="n">pandas</span><span class="o">.</span><span class="n">load_io_plugins</span><span class="p">()</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">read_duckdb</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM &#39;my_dataset.parquet&#39;;&quot;</span><span class="p">)</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">to_deltalake</span><span class="p">(</span><span class="s1">&#39;/delta/my_dataset&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>This would allow to easily extend the existing number of connectors, adding
+support to new formats and database engines, data lake technologies,
+out-of-core connectors, the new ADBC interface, and others, and at the
+same time reduce the maintenance cost of the pandas code base.</p>
+<h2 id="current-state">Current state<a class="headerlink" href="#current-state" title="Permanent link"> #</a></h2>
+<p>pandas supports importing and exporting data from different formats using
+I/O connectors, currently implemented in <code>pandas/io</code>, as well as connectors
+to in-memory structures like Python structures or other library formats.
+In many cases, those connectors wrap an existing Python library, while in
+some others, pandas implements the logic to read and write to a particular
+format.</p>
+<p>In some cases, different engines exist for the same format. The API to use
+those connectors is <code>pandas.read_&lt;format&gt;(engine='&lt;engine-name&gt;', ...)</code> to
+import data, and <code>DataFrame.to_&lt;format&gt;(engine='&lt;engine-name&gt;', ...)</code> to
+export data.</p>
+<p>For objects exported to memory (like a Python dict) the API is the same as
+for I/O, <code>DataFrame.to_&lt;format&gt;(...)</code>. For formats imported from objects in
+memory, the API is different using the <code>from_</code> prefix instead of <code>read_</code>,
+<code>DataFrame.from_&lt;format&gt;(...)</code>.</p>
+<p>In some cases, the pandas API provides <code>DataFrame.to_*</code> methods that are not
+used to export the data to a disk or memory object, but instead to transform
+the index of a <code>DataFrame</code>: <code>DataFrame.to_period</code> and <code>DataFrame.to_timestamp</code>.</p>
+<p>Dependencies of the connectors are not loaded by default, and are
+imported when the connector is used. If the dependencies are not installed
+an <code>ImportError</code> is raised.</p>
+<div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_gbq</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="o">...</span>
+<span class="ne">ImportError</span><span class="p">:</span> <span class="n">Missing</span> <span class="n">optional</span> <span class="n">dependency</span> <span class="s1">&#39;pandas-gbq&#39;</span><span class="o">.</span>
+<span class="n">pandas</span><span class="o">-</span><span class="n">gbq</span> <span class="ow">is</span> <span class="n">required</span> <span class="n">to</span> <span class="n">load</span> <span class="n">data</span> <span class="kn">from</span><span class="w"> </span><span class="nn">Google</span> <span class="n">BigQuery</span><span class="o">.</span>
+<span class="n">See</span> <span class="n">the</span> <span class="n">docs</span><span class="p">:</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">pandas</span><span class="o">-</span><span class="n">gbq</span><span class="o">.</span><span class="n">readthedocs</span><span class="o">.</span><span class="n">io</span><span class="o">.</span>
+<span class="n">Use</span> <span class="n">pip</span> <span class="ow">or</span> <span class="n">conda</span> <span class="n">to</span> <span class="n">install</span> <span class="n">pandas</span><span class="o">-</span><span class="n">gbq</span><span class="o">.</span>
+</code></pre></div>
+
+<h3 id="supported-formats">Supported formats<a class="headerlink" href="#supported-formats" title="Permanent link"> #</a></h3>
+<p>The list of formats can be found in the
+<a href="https://pandas.pydata.org/docs/dev/user_guide/io.html">IO guide</a>.
+A more detailed table, including in memory objects, and I/O connectors in the
+DataFrame styler is presented next:</p>
+<table class="table table-bordered">
+<thead>
+<tr>
+<th>Format</th>
+<th>Reader</th>
+<th>Writer</th>
+<th>Engines</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CSV</td>
+<td>X</td>
+<td>X</td>
+<td><code>c</code>, <code>python</code>, <code>pyarrow</code></td>
+</tr>
+<tr>
+<td>FWF</td>
+<td>X</td>
+<td></td>
+<td><code>c</code>, <code>python</code>, <code>pyarrow</code></td>
+</tr>
+<tr>
+<td>JSON</td>
+<td>X</td>
+<td>X</td>
+<td><code>ujson</code>, <code>pyarrow</code></td>
+</tr>
+<tr>
+<td>HTML</td>
+<td>X</td>
+<td>X</td>
+<td><code>lxml</code>, <code>bs4/html5lib</code> (parameter <code>flavor</code>)</td>
+</tr>
+<tr>
+<td>LaTeX</td>
+<td></td>
+<td>X</td>
+<td></td>
+</tr>
+<tr>
+<td>XML</td>
+<td>X</td>
+<td>X</td>
+<td><code>lxml</code>, <code>etree</code> (parameter <code>parser</code>)</td>
+</tr>
+<tr>
+<td>Clipboard</td>
+<td>X</td>
+<td>X</td>
+<td></td>
+</tr>
+<tr>
+<td>Excel</td>
+<td>X</td>
+<td>X</td>
+<td><code>xlrd</code>, <code>openpyxl</code>, <code>odf</code>, <code>pyxlsb</code> (each engine supports different file formats)</td>
+</tr>
+<tr>
+<td>HDF5</td>
+<td>X</td>
+<td>X</td>
+<td></td>
+</tr>
+<tr>
+<td>Feather</td>
+<td>X</td>
+<td>X</td>
+<td></td>
+</tr>
+<tr>
+<td>Parquet</td>
+<td>X</td>
+<td>X</td>
+<td><code>pyarrow</code>, <code>fastparquet</code></td>
+</tr>
+<tr>
+<td>ORC</td>
+<td>X</td>
+<td>X</td>
+<td></td>
+</tr>
+<tr>
+<td>Stata</td>
+<td>X</td>
+<td>X</td>
+<td></td>
+</tr>
+<tr>
+<td>SAS</td>
+<td>X</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>SPSS</td>
+<td>X</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Pickle</td>
+<td>X</td>
+<td>X</td>
+<td></td>
+</tr>
+<tr>
+<td>SQL</td>
+<td>X</td>
+<td>X</td>
+<td><code>sqlalchemy</code>, <code>dbapi2</code> (inferred from the type of the <code>con</code> parameter)</td>
+</tr>
+<tr>
+<td>BigQuery</td>
+<td>X</td>
+<td>X</td>
+<td></td>
+</tr>
+<tr>
+<td>dict</td>
+<td>X</td>
+<td>X</td>
+<td></td>
+</tr>
+<tr>
+<td>records</td>
+<td>X</td>
+<td>X</td>
+<td></td>
+</tr>
+<tr>
+<td>string</td>
+<td></td>
+<td>X</td>
+<td></td>
+</tr>
+<tr>
+<td>markdown</td>
+<td></td>
+<td>X</td>
+<td></td>
+</tr>
+<tr>
+<td>xarray</td>
+<td></td>
+<td>X</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>At the time of writing this document, the <code>io/</code> module contains
+close to 100,000 lines of Python, C and Cython code.</p>
+<p>There is no objective criteria for when a format is included
+in pandas, and the list above is mostly the result of a developer
+being interested in implementing the connectors for a certain
+format in pandas.</p>
+<p>The number of existing formats available for data that can be processed with
+pandas is constantly increasing, and its difficult for pandas to keep up to
+date even with popular formats. It possibly makes sense to have connectors
+to PyArrow, PySpark, Iceberg, DuckDB, Hive, Polars, and many others.</p>
+<p>At the same time, some of the formats are not frequently used as shown in the
+<a href="https://pandas.pydata.org//community/blog/2019-user-survey.html">2019 user survey</a>.
+Those less popular formats include SPSS, SAS, Google BigQuery and
+Stata. Note that only I/O formats (and not memory formats like records or xarray)
+were included in the survey.</p>
+<p>The maintenance cost of supporting all formats is not only in maintaining the
+code and reviewing pull requests, but also it has a significant cost in time
+spent on CI systems installing dependencies, compiling code, running tests, etc.</p>
+<p>In some cases, the main maintainers of some of the connectors are not part of
+the pandas core development team, but people specialized in one of the formats.</p>
+<h2 id="proposal">Proposal<a class="headerlink" href="#proposal" title="Permanent link"> #</a></h2>
+<p>While the current pandas approach has worked reasonably well, it is difficult
+to find a stable solution where the maintenance incurred in pandas is not
+too big, while at the same time users can interact with all different formats
+and representations they are interested in, in an easy and intuitive way.</p>
+<p>Third-party packages are already able to implement connectors to pandas, but
+there are some limitations to it:</p>
+<ul>
+<li>Given the large number of formats supported by pandas itself, third-party
+  connectors are likely seen as second class citizens, not important enough
+  to be used, or not well supported.</li>
+<li>There is no standard API for external I/O connectors, and users need
+  to learn each of them individually. Since the pandas I/O API is inconsistent
+  by using read/to instead of read/write or from/to, developers in many cases
+  ignore the convention. Also, even if developers follow the pandas convention
+  the namespaces would be different, since developers of connectors will rarely
+  monkeypatch their functions into the <code>pandas</code> or <code>DataFrame</code> namespace.</li>
+<li>Method chaining is not possible with third-party I/O connectors to export
+  data, unless authors monkey patch the <code>DataFrame</code> class, which should not
+  be encouraged.</li>
+</ul>
+<p>This document proposes to open the development of pandas I/O connectors to
+third-party libraries in a standard way that overcomes those limitations.</p>
+<h3 id="proposal-implementation">Proposal implementation<a class="headerlink" href="#proposal-implementation" title="Permanent link"> #</a></h3>
+<p>Implementing this proposal would not require major changes to pandas, and
+the API defined next would be used.</p>
+<h4 id="user-api">User API<a class="headerlink" href="#user-api" title="Permanent link"> #</a></h4>
+<p>Users will be able to install third-party packages implementing pandas
+connectors using the standard packaging tools (pip, conda, etc.). These
+connectors should implement entrypoints that pandas will use to
+automatically create the corresponding methods <code>pandas.read_*</code>,
+<code>pandas.DataFrame.to_*</code> and <code>pandas.Series.to_*</code>. Arbitrary function or
+method names will not be created by this interface, only the <code>read_*</code>
+and <code>to_*</code> pattern will be allowed.</p>
+<p>By simply installing the appropriate packages and calling the function
+<code>pandas.load_io_plugins()</code> users will be able to use code like this:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span>
+
+<span class="n">pandas</span><span class="o">.</span><span class="n">load_io_plugins</span><span class="p">()</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_duckdb</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM &#39;dataset.parquet&#39;;&quot;</span><span class="p">)</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">to_hive</span><span class="p">(</span><span class="n">hive_conn</span><span class="p">,</span> <span class="s2">&quot;hive_table&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>This API allows for method chaining:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">(</span><span class="n">pandas</span><span class="o">.</span><span class="n">read_duckdb</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM &#39;dataset.parquet&#39;;&quot;</span><span class="p">)</span>
+       <span class="o">.</span><span class="n">to_hive</span><span class="p">(</span><span class="n">hive_conn</span><span class="p">,</span> <span class="s2">&quot;hive_table&quot;</span><span class="p">))</span>
+</code></pre></div>
+
+<p>The total number of I/O functions and methods is expected to be small, as users
+in general use only a small subset of formats. The number could actually be
+reduced from the current state if the less popular formats (such as SAS, SPSS,
+BigQuery, etc.) are removed from the pandas core into third-party packages.
+Moving these connectors is not part of this proposal, and could be discussed
+later in a separate proposal.</p>
+<h4 id="plugin-registration">Plugin registration<a class="headerlink" href="#plugin-registration" title="Permanent link"> #</a></h4>
+<p>Third-party packages would implement
+<a href="https://setuptools.pypa.io/en/latest/userguide/entry_point.html#entry-points-for-plugins">entrypoints</a>
+to define the connectors that they implement, under a group <code>dataframe.io</code>.</p>
+<p>For example, a hypothetical project <code>pandas_duckdb</code> implementing a <code>read_duckdb</code>
+function, could use <code>pyproject.toml</code> to define the next entry point:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">[project.entry-points.</span><span class="s2">&quot;dataframe.io&quot;</span><span class="k">]</span>
+<span class="n">reader_duckdb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;pandas_duckdb:read_duckdb&quot;</span>
+</code></pre></div>
+
+<p>When the user calls <code>pandas.load_io_plugins()</code>, it would read the entrypoint registry for the
+<code>dataframe.io</code> group, and would dynamically create methods in the <code>pandas</code>,
+<code>pandas.DataFrame</code> and <code>pandas.Series</code> namespaces for them. Only entrypoints with
+name starting by <code>reader_</code> or <code>writer_</code> would be processed by pandas, and the functions
+registered in the entrypoint would be made available to pandas users in the corresponding
+pandas namespaces. The text after the keywords <code>reader_</code> and <code>writer_</code> would be used
+for the name of the function. In the example above, the entrypoint name <code>reader_duckdb</code>
+would create <code>pandas.read_duckdb</code>. An entrypoint with name <code>writer_hive</code> would create
+the methods <code>DataFrame.to_hive</code> and <code>Series.to_hive</code>.</p>
+<p>Entrypoints not starting with <code>reader_</code> or <code>writer_</code> would be ignored by this interface,
+but will not raise an exception since they can be used for future extensions of this
+API, or other related dataframe I/O interfaces.</p>
+<h4 id="internal-api">Internal API<a class="headerlink" href="#internal-api" title="Permanent link"> #</a></h4>
+<p>Connectors will use the dataframe interchange API to provide data to pandas. When
+data is read from a connector, and before returning it to the user as a response
+to <code>pandas.read_&lt;format&gt;</code>, data will be parsed from the data interchange interface
+and converted to a pandas DataFrame. In practice, connectors are likely to return
+a pandas DataFrame or a PyArrow Table, but the interface will support any object
+implementing the dataframe interchange API.</p>
+<h4 id="connector-guidelines">Connector guidelines<a class="headerlink" href="#connector-guidelines" title="Permanent link"> #</a></h4>
+<p>In order to provide a better and more consistent experience to users, guidelines
+will be created to unify terminology and behavior. Some of the topics to unify are
+defined next.</p>
+<p><strong>Guidelines to avoid name conflicts</strong>. Since it is expected that more than one
+implementation exists for certain formats, as it already happens, guidelines on
+how to name connectors would be created. The easiest approach is probably to use
+as the format a string of the type <code>to_&lt;format&gt;_&lt;implementation-id&gt;</code> if it is
+expected that more than one connector can exist. For example, for LanceDB it is likely
+that only one connector exist, and the name <code>lance</code> can be used (which would create
+<code>pandas.read_lance</code> or <code>DataFrame.to_lance</code>. But if a new <code>csv</code> reader based in the
+Arrow2 Rust implementation, the guidelines can recommend to use <code>csv_arrow2</code> to
+create <code>pandas.read_csv_arrow2</code>, etc.</p>
+<p><strong>Existence and naming of parameters</strong>, since many connectors are likely to provide
+similar features, like loading only a subset of columns in the data, or dealing
+with paths. Examples of recommendations to connector developers could be:</p>
+<ul>
+<li><code>columns</code>: Use this argument to let the user load a subset of columns. Allow a
+  list or tuple.</li>
+<li><code>path</code>: Use this argument if the dataset is a file in the file disk. Allow a string,
+  a <code>pathlib.Path</code> object, or a file descriptor. For a string object, allow URLs that
+  will be automatically download, compressed files that will be automatically
+  uncompressed, etc. Specific libraries can be recommended to deal with those in an
+  easier and more consistent way.</li>
+<li><code>schema</code>: For datasets that don't have a schema (e.g. <code>csv</code>), allow providing an
+  Apache Arrow schema instance, and automatically infer types if not provided.</li>
+</ul>
+<p>Note that the above are only examples of guidelines for illustration, and not
+a proposal of the guidelines, which would be developed independently after this
+PDEP is approved.</p>
+<p><strong>Connector registry and documentation</strong>. To simplify the discovery of connectors
+and its documentation, connector developers can be encourage to register their
+projects in a central location, and to use a standard structure for documentation.
+This would allow the creation of a unified website to find the available
+connectors, and their documentation. It would also allow to customize the
+documentation for specific implementations, and include their final API.</p>
+<h3 id="connector-examples">Connector examples<a class="headerlink" href="#connector-examples" title="Permanent link"> #</a></h3>
+<p>This section lists specific examples of connectors that could immediately
+benefit from this proposal.</p>
+<p><strong>PyArrow</strong> currently provides <code>Table.from_pandas</code> and <code>Table.to_pandas</code>.
+With the new interface, it could also register <code>DataFrame.from_pyarrow</code>
+and <code>DataFrame.to_pyarrow</code>, so pandas users can use the converters with
+the interface they are used to, when PyArrow is installed in the environment.
+Better integration with PyArrow tables was discussed in
+<a href="https://github.com/pandas-dev/pandas/issues/51760">#51760</a>.</p>
+<p><em>Current API</em>:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">pyarrow</span><span class="o">.</span><span class="n">Table</span><span class="o">.</span><span class="n">from_pandas</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
+                               <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;my_col &gt; 0&#39;</span><span class="p">))</span>
+</code></pre></div>
+
+<p><em>Proposed API</em>:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">(</span><span class="n">pandas</span><span class="o">.</span><span class="n">read_pyarrow</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+       <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;my_col &gt; 0&#39;</span><span class="p">)</span>
+       <span class="o">.</span><span class="n">to_pyarrow</span><span class="p">())</span>
+</code></pre></div>
+
+<p><strong>Polars</strong>, <strong>Vaex</strong> and other dataframe frameworks could benefit from
+third-party projects that make the interoperability with pandas use a
+more explicitly API. Integration with Polars was requested in
+<a href="https://github.com/pandas-dev/pandas/issues/47368">#47368</a>.</p>
+<p><em>Current API</em>:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">polars</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
+                   <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;my_col &gt; 0&#39;</span><span class="p">))</span>
+</code></pre></div>
+
+<p><em>Proposed API</em>:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">(</span><span class="n">pandas</span><span class="o">.</span><span class="n">read_polars</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+       <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;my_col &gt; 0&#39;</span><span class="p">)</span>
+       <span class="o">.</span><span class="n">to_polars</span><span class="p">())</span>
+</code></pre></div>
+
+<p><strong>DuckDB</strong> provides an out-of-core engine able to push predicates before
+the data is loaded, making much better use of memory and significantly
+decreasing loading time. pandas, because of its eager nature is not able
+to easily implement this itself, but could benefit from a DuckDB loader.
+The loader can already be implemented inside pandas (it has already been
+proposed in <a href="https://github.com/pandas-dev/pandas/issues/45678">#45678</a>,
+or as a third-party extension with an arbitrary API. But this proposal would
+let the creation of a third-party extension with a standard and intuitive API:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">pandas</span><span class="o">.</span><span class="n">read_duckdb</span><span class="p">(</span><span class="s2">&quot;SELECT *</span>
+                    <span class="n">FROM</span> <span class="s1">&#39;dataset.parquet&#39;</span>
+                    <span class="n">WHERE</span> <span class="n">my_col</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="s2">&quot;)</span>
+</code></pre></div>
+
+<p><strong>Out-of-core algorithms</strong> push some operations like filtering or grouping
+to the loading of the data. While this is not currently possible, connectors
+implementing out-of-core algorithms could be developed using this interface.</p>
+<p><strong>Big data</strong> systems such as Hive, Iceberg, Presto, etc. could benefit
+from a standard way to load data to pandas. Also regular <strong>SQL databases</strong>
+that can return their query results as Arrow, would benefit from better
+and faster connectors than the existing ones based on SQL Alchemy and
+Python structures.</p>
+<p>Any other format, including <strong>domain-specific formats</strong> could easily
+implement pandas connectors with a clear and intuitive API.</p>
+<h3 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link"> #</a></h3>
+<p>The implementation of this proposal has some limitations discussed here:</p>
+<ul>
+<li><strong>Lack of support for multiple engines.</strong> The current pandas I/O API
+  supports multiple engines for the same format (for the same function or
+  method name). For example <code>read_csv(engine='pyarrow', ...)</code>. Supporting
+  engines requires that all engines for a particular format use the same
+  signature (the same parameters), which is not ideal. Different connectors
+  are likely to have different parameters and using <code>*args</code> and <code>**kwargs</code>
+  provides users with a more complex and difficult experience. For this
+  reason this proposal prefers that function and method names are unique
+  instead of supporting an option for engines.</li>
+<li><strong>Lack of support for type checking of connectors.</strong> This PDEP proposes
+  creating functions and methods dynamically, and those are not supported
+  for type checking using stubs. This is already the case for other
+  dynamically created components of pandas, such as custom accessors.</li>
+<li><strong>No improvements to the current I/O API</strong>. In the discussions of this
+  proposal it has been considered to improve the current pandas I/O API to
+  fix the inconsistency of using <code>read</code> / <code>to</code> (instead of for example
+  <code>read</code> / <code>write</code>), avoid using <code>to_</code> prefixed methods for non-I/O
+  operations, or using a dedicated namespace (e.g. <code>DataFrame.io</code>) for
+  the connectors. All of these changes are out of scope for this PDEP.</li>
+</ul>
+<h2 id="future-plans">Future plans<a class="headerlink" href="#future-plans" title="Permanent link"> #</a></h2>
+<p>This PDEP is exclusively to support a better API for existing of future
+connectors. It is out of scope for this PDEP to implement changes to any
+connectors existing in the pandas code base.</p>
+<p>Some ideas for future discussion related to this PDEP include:</p>
+<ul>
+<li>
+<p>Automatically loading of I/O plugins when pandas is imported.</p>
+</li>
+<li>
+<p>Removing from the pandas code base some of the least frequently used connectors,
+such as SAS, SPSS or Google BigQuery, and move them to third-party connectors
+registered with this interface.</p>
+</li>
+<li>
+<p>Discussing a better API for pandas connectors. For example, using <code>read_*</code>
+methods instead of <code>from_*</code> methods, renaming <code>to_*</code> methods not used as I/O
+connectors, using a consistent terminology like from/to, read/write, load/dump, etc.
+or using a dedicated namespace for connectors (e.g. <code>pandas.io</code> instead of the
+general <code>pandas</code> namespace).</p>
+</li>
+<li>
+<p>Implement as I/O connectors some of the formats supported by the <code>DataFrame</code>
+constructor.</p>
+</li>
+</ul>
+<h2 id="pdep-9-history">PDEP-9 History<a class="headerlink" href="#pdep-9-history" title="Permanent link"> #</a></h2>
+<ul>
+<li>5 March 2023: Initial version</li>
+<li>30 May 2023: Major refactoring to use the pandas existing API,
+  the dataframe interchange API and to make the user be explicit to load
+  the plugins</li>
+<li>13 June 2023: The PDEP did not get any support after several iterations,
+  and its been closed as rejected by the author</li>
+</ul>
+            </div>
+            
+        </main>
+        <footer class="container pt-4 pt-md-5 border-top">
+            <ul class="list-inline social-buttons float-end">
+                <li class="list-inline-item">
+                    <a href="https://t.me/s/pandas_dev">
+                        <i class="fab bi bi-telegram"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="https://fosstodon.org/@pandas_dev" rel="me">
+                        <i class="fab bi bi-mastodon"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="https://x.com/pandas_dev">
+                        <i class="fab bi bi-twitter-x"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="https://github.com/pandas-dev/pandas">
+                        <i class="fab bi bi-github"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="https://stackoverflow.com/questions/tagged/pandas">
+                        <i class="fab bi bi-stack-overflow"></i>
+                    </a>
+                </li>
+            </ul>
+            <p>
+                &copy; 2026 pandas via <a href="https://numfocus.org">NumFOCUS, Inc.</a> Hosted by <a href="https://www.ovhcloud.com">OVHcloud</a>.
+            </p>
+        </footer>
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" 
+                integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" 
+                crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            const faviconTag = document.getElementById('favicon-tag');
+            const matcher = window.matchMedia('(prefers-color-scheme:dark)');
+            
+            const onUpdate = () => {
+                if (matcher.matches) faviconTag.href = "..//static/img/favicon_white.ico";
+                else faviconTag.href = "..//static/img/favicon.ico";
+            };
+            
+            onUpdate();
+            
+            matcher.addEventListener('change', onUpdate);
+        </script>
+    </body>
+</html>

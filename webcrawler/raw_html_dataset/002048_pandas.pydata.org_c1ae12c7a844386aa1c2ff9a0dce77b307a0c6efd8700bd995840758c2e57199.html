@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script defer data-domain="pandas.pydata.org" src="https://views.scientific-python.org/js/script.js"></script>
+        <title>pandas - Python Data Analysis Library</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel='shortcut icon' type='image/x-icon' id='favicon-tag' href='../static/img/favicon.ico'/>
+        <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+              integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+              crossorigin="anonymous">
+        
+            <link rel="stylesheet"
+                  href="../static/css/pandas.css">
+        
+            <link rel="stylesheet"
+                  href="../static/css/codehilite.css">
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-content" aria-controls="nav-content" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <a class="navbar-brand" href="../."><img alt="" src="../static/img/pandas_white.svg"/></a>
+
+                    <div class="collapse navbar-collapse" id="nav-content">   
+                        <ul class="navbar-nav ms-auto">
+                            
+                                
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle"
+                                           data-bs-toggle="dropdown"
+                                           id="about-us"
+                                           href="#"
+                                           role="button"
+                                           aria-haspopup="true"
+                                           aria-expanded="false">About us</a>
+                                        <div class="dropdown-menu" aria-labelledby="about-us">
+                                        
+                                            <a class="dropdown-item" href="../about/">About pandas</a>
+                                        
+                                            <a class="dropdown-item" href="../about/roadmap.html">Project roadmap</a>
+                                        
+                                            <a class="dropdown-item" href="../about/governance.html">Governance</a>
+                                        
+                                            <a class="dropdown-item" href="../about/team.html">Team</a>
+                                        
+                                            <a class="dropdown-item" href="../about/sponsors.html">Sponsors</a>
+                                        
+                                            <a class="dropdown-item" href="../about/citing.html">Citing and logo</a>
+                                        
+                                        </div>
+                                    </li>
+                                
+                            
+                                
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="../getting_started.html">Getting started</a>
+                                    </li>
+                                
+                            
+                                
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="../docs/">Documentation</a>
+                                    </li>
+                                
+                            
+                                
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle"
+                                           data-bs-toggle="dropdown"
+                                           id="community"
+                                           href="#"
+                                           role="button"
+                                           aria-haspopup="true"
+                                           aria-expanded="false">Community</a>
+                                        <div class="dropdown-menu" aria-labelledby="community">
+                                        
+                                            <a class="dropdown-item" href="../community/blog/">Blog</a>
+                                        
+                                            <a class="dropdown-item" href="https://stackoverflow.com/questions/tagged/pandas">Ask a question (StackOverflow)</a>
+                                        
+                                            <a class="dropdown-item" href="../community/coc.html">Code of conduct</a>
+                                        
+                                            <a class="dropdown-item" href="../community/ecosystem.html">Ecosystem</a>
+                                        
+                                            <a class="dropdown-item" href="../community/benchmarks.html">Benchmarks</a>
+                                        
+                                        </div>
+                                    </li>
+                                
+                            
+                                
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="../contribute.html">Contribute</a>
+                                    </li>
+                                
+                            
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main">
+            
+            <div class="container container-main">
+                <h1 id="pdep-6-ban-upcasting-in-setitem-like-operations">PDEP-6: Ban upcasting in setitem-like operations<a class="headerlink" href="#pdep-6-ban-upcasting-in-setitem-like-operations" title="Permanent link"> #</a></h1>
+<ul>
+<li>Created: 23 December 2022</li>
+<li>Status: Implemented</li>
+<li>Discussion: <a href="https://github.com/pandas-dev/pandas/pull/50424">#50424</a></li>
+<li>Author: <a href="https://github.com/MarcoGorelli">Marco Gorelli</a> (<a href="https://github.com/pandas-dev/pandas/issues/39584">original issue</a> by <a href="https://github.com/jorisvandenbossche">Joris Van den Bossche</a>)</li>
+<li>Revision: 1</li>
+</ul>
+<div class="toc"><span class="toctitle">Table of Contents</span><ul>
+<li><a href="#abstract">Abstract</a></li>
+<li><a href="#motivation-and-scope">Motivation and Scope</a></li>
+<li><a href="#detailed-description">Detailed description</a><ul>
+<li><a href="#ban-upcasting-altogether-or-just-upcasting-to-object">Ban upcasting altogether, or just upcasting to object?</a></li>
+</ul>
+</li>
+<li><a href="#usage-and-impact">Usage and Impact</a></li>
+<li><a href="#out-of-scope">Out of scope</a></li>
+<li><a href="#faq">F.A.Q.</a></li>
+<li><a href="#timeline">Timeline</a><ul>
+<li><a href="#pdep-history">PDEP History</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="abstract">Abstract<a class="headerlink" href="#abstract" title="Permanent link"> #</a></h2>
+<p>The suggestion is that setitem-like operations would
+not change a <code>Series</code>' dtype (nor that of a <code>DataFrame</code>'s column).</p>
+<p>Current behaviour:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">ser</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;int64&#39;</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">ser</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;potage&#39;</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">ser</span>  <span class="c1"># dtype changed to &#39;object&#39;!</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
+<span class="mi">0</span>         <span class="mi">1</span>
+<span class="mi">1</span>         <span class="mi">2</span>
+<span class="mi">2</span>    <span class="n">potage</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="nb">object</span>
+</code></pre></div>
+
+<p>Suggested behaviour:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">ser</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">ser</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;potage&#39;</span>  <span class="c1"># raises!</span>
+<span class="o">---------------------------------------------------------------------------</span>
+<span class="ne">ValueError</span><span class="p">:</span> <span class="n">Invalid</span> <span class="n">value</span> <span class="s1">&#39;potage&#39;</span> <span class="k">for</span> <span class="n">dtype</span> <span class="n">int64</span>
+</code></pre></div>
+
+<h2 id="motivation-and-scope">Motivation and Scope<a class="headerlink" href="#motivation-and-scope" title="Permanent link"> #</a></h2>
+<p>Currently, pandas is extremely flexible in handling different dtypes.
+However, this can potentially hide bugs, break user expectations, and copy data
+in what looks like it should be an inplace operation.</p>
+<p>An example of it hiding a bug is:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">In</span><span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="n">ser</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;2000&quot;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
+
+<span class="n">In</span><span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="n">ser</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;2000-01-04&quot;</span>  <span class="c1"># works, is converted to datetime64</span>
+
+<span class="n">In</span><span class="p">[</span><span class="mi">11</span><span class="p">]:</span> <span class="n">ser</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;2000-01-04x&quot;</span>  <span class="c1"># typo - but pandas does not error, it upcasts to object</span>
+</code></pre></div>
+
+<p>The scope of this PDEP is limited to setitem-like operations on Series (and DataFrame columns).
+For example, starting with:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">],</span> <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]})</span>
+<span class="n">ser</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</code></pre></div>
+
+<p>then the following would all raise:</p>
+<ul>
+<li>
+<p>setitem-like operations:</p>
+<ul>
+<li><code>ser.fillna('foo', inplace=True)</code></li>
+<li><code>ser.where(ser.isna(), 'foo', inplace=True)</code></li>
+<li><code>ser.fillna('foo', inplace=False)</code></li>
+<li><code>ser.where(ser.isna(), 'foo', inplace=False)</code></li>
+</ul>
+</li>
+<li>
+<p>setitem indexing operations (where <code>indexer</code> could be a slice, a mask,
+  a single value, a list or array of values, or any other allowed indexer):</p>
+<ul>
+<li><code>ser.iloc[indexer] = 'foo'</code></li>
+<li><code>ser.loc[indexer] = 'foo'</code></li>
+<li><code>df.iloc[indexer, 0] = 'foo'</code></li>
+<li><code>df.loc[indexer, 'a'] = 'foo'</code></li>
+<li><code>ser[indexer] = 'foo'</code></li>
+</ul>
+</li>
+</ul>
+<p>It may be desirable to expand the top list to <code>Series.replace</code> and <code>Series.update</code>,
+but to keep the scope of the PDEP down, they are excluded for now.</p>
+<p>Examples of operations which would not raise are:</p>
+<ul>
+<li><code>ser.diff()</code></li>
+<li><code>pd.concat([ser, ser.astype(object)])</code></li>
+<li><code>ser.mean()</code></li>
+<li><code>ser[0] = 3</code>  # same dtype</li>
+<li><code>ser[0] = 3.</code>  # 3.0 is a 'round' float and so compatible with 'int64' dtype</li>
+<li><code>df['a'] = pd.date_range(datetime(2020, 1, 1), periods=3)</code></li>
+<li><code>df.index.intersection(ser.index)</code></li>
+</ul>
+<h2 id="detailed-description">Detailed description<a class="headerlink" href="#detailed-description" title="Permanent link"> #</a></h2>
+<p>Concretely, the suggestion is:</p>
+<ul>
+<li>If a <code>Series</code> is of a given dtype, then a <code>setitem</code>-like operation should not change its dtype.</li>
+<li>If a <code>setitem</code>-like operation would previously have changed a <code>Series</code>' dtype, it would now raise.</li>
+</ul>
+<p>For a start, this would involve:</p>
+<ol>
+<li>
+<p>changing <code>Block.setitem</code> such that it does not have an <code>except</code> block in:</p>
+<!-- language: python -->
+<div class="codehilite"><pre><span></span><code><span class="nx">value</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">extract_array</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span><span class="w"> </span><span class="nx">extract_numpy</span><span class="p">=</span><span class="nx">True</span><span class="p">)</span>
+<span class="nx">try</span><span class="p">:</span>
+<span class="w">    </span><span class="nx">casted</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">np_can_hold_element</span><span class="p">(</span><span class="nx">values</span><span class="p">.</span><span class="nx">dtype</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">)</span>
+<span class="nx">except</span><span class="w"> </span><span class="nx">LossSetitiemError</span><span class="p">:</span>
+<span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="nx">current</span><span class="w"> </span><span class="nx">dtype</span><span class="w"> </span><span class="nx">cannot</span><span class="w"> </span><span class="nx">store</span><span class="w"> </span><span class="nx">value</span><span class="p">,</span><span class="w"> </span><span class="nx">coerce</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">common</span><span class="w"> </span><span class="nx">dtype</span>
+<span class="w">    </span><span class="nx">nb</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kp">self</span><span class="p">.</span><span class="nx">coerce_to_target_dtype</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">nb</span><span class="p">.</span><span class="nx">setitem</span><span class="p">(</span><span class="nx">index</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+</code></pre></div>
+
+</li>
+<li>
+<p>making a similar change in:</p>
+<ul>
+<li><code>Block.where</code></li>
+<li><code>Block.putmask</code></li>
+<li><code>EABackedBlock.setitem</code></li>
+<li><code>EABackedBlock.where</code></li>
+<li><code>EABackedBlock.putmask</code></li>
+</ul>
+</li>
+</ol>
+<p>The above would already require several hundreds of tests to be adjusted. Note that once
+implementation starts, the list of locations to change may turn out to be slightly
+different.</p>
+<h3 id="ban-upcasting-altogether-or-just-upcasting-to-object">Ban upcasting altogether, or just upcasting to <code>object</code>?<a class="headerlink" href="#ban-upcasting-altogether-or-just-upcasting-to-object" title="Permanent link"> #</a></h3>
+<p>The trickiest part of this proposal concerns what to do when setting a float in an integer column:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">ser</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">ser</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+<span class="mi">0</span>    <span class="mi">1</span>
+<span class="mi">1</span>    <span class="mi">2</span>
+<span class="mi">2</span>    <span class="mi">3</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
+
+<span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">ser</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.5</span>  <span class="c1"># what should this do?</span>
+</code></pre></div>
+
+<p>The current behaviour is to upcast to 'float64':</p>
+<div class="codehilite"><pre><span></span><code><span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">ser</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span>
+<span class="mi">0</span>    <span class="mf">1.5</span>
+<span class="mi">1</span>    <span class="mf">2.0</span>
+<span class="mi">2</span>    <span class="mf">3.0</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">float64</span>
+</code></pre></div>
+
+<p>This is not necessarily a sign of a bug, because the user might just be thinking of their <code>Series</code> as being
+numeric (without much regard for <code>int</code> vs <code>float</code>) - <code>'int64'</code> is just what pandas happened to infer
+when constructing it.</p>
+<p>Possible options could be:</p>
+<ol>
+<li>Only accept round floats (e.g. <code>1.0</code>) and raise on anything else (e.g. <code>1.01</code>).</li>
+<li>Convert the float value to <code>int</code> before setting it (i.e. silently round all float values).</li>
+<li>Limit "banning upcasting" to when the upcasted dtype is <code>object</code> (i.e. preserve current behavior of upcasting the int64 Series to float64).</li>
+</ol>
+<p>Let us compare with what other libraries do:</p>
+<ul>
+<li><code>numpy</code>: option 2</li>
+<li><code>cudf</code>: option 2</li>
+<li><code>polars</code>: option 2</li>
+<li><code>R data.frame</code>: just upcasts (like pandas does now for non-nullable dtypes);</li>
+<li><code>pandas</code> (nullable dtypes): option 1</li>
+<li><code>datatable</code>: option 1</li>
+<li><code>DataFrames.jl</code>: option 1</li>
+</ul>
+<p>Option <code>2</code> would be a breaking behaviour change in pandas. Further,
+if the objective of this PDEP is to prevent bugs, then this is also not desirable:
+someone might set <code>1.5</code> and later be surprised to learn that they actually set <code>1</code>.</p>
+<p>There are several downsides to option <code>3</code>:</p>
+<ul>
+<li>It would be inconsistent with the nullable dtypes' behaviour.</li>
+<li>It would also add complexity to the codebase and to tests.</li>
+<li>It would be hard to teach, as instead of being able to teach a simple rule,
+  There would be a rule with exceptions.</li>
+<li>There would be a risk of loss of precision and or overflow.</li>
+<li>It opens the door to other exceptions, such as not upcasting <code>'int8'</code> to <code>'int16'</code>.</li>
+</ul>
+<p>Option <code>1</code> is the maximally safe one in terms of protecting users from bugs, being
+consistent with the current behaviour of nullable dtypes, and in being simple to teach.
+Therefore, the option chosen by this PDEP is option 1.</p>
+<h2 id="usage-and-impact">Usage and Impact<a class="headerlink" href="#usage-and-impact" title="Permanent link"> #</a></h2>
+<p>This would make pandas stricter, so there should not be any risk of introducing bugs. If anything, this would help prevent bugs.</p>
+<p>Unfortunately, it would also risk annoying users who might have been intentionally upcasting.</p>
+<p>Given that users could still get the current behaviour by first explicitly casting the Series
+to float, it would be more beneficial to the community at large to err on the side
+of strictness.</p>
+<h2 id="out-of-scope">Out of scope<a class="headerlink" href="#out-of-scope" title="Permanent link"> #</a></h2>
+<p>Enlargement. For example:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">ser</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">ser</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">ser</span><span class="p">)]</span> <span class="o">=</span> <span class="mf">4.5</span>
+</code></pre></div>
+
+<p>There is arguably a larger conversation to be had about whether that should be allowed
+at all. To keep this proposal focused, it is intentionally excluded from the scope.</p>
+<h2 id="faq">F.A.Q.<a class="headerlink" href="#faq" title="Permanent link"> #</a></h2>
+<p><strong>Q: What happens if setting <code>1.0</code> in an <code>int8</code> Series?</strong></p>
+<p><strong>A</strong>: The current behavior would be to insert <code>1.0</code> as <code>1</code> and keep the dtype
+  as <code>int8</code>. So, this would not change.</p>
+<p><strong>Q: What happens if setting <code>1_000_000.0</code> in an <code>int8</code> Series?</strong></p>
+<p><strong>A</strong>: The current behavior would be to upcast to <code>int32</code>. So under this PDEP,
+  it would instead raise.</p>
+<p><strong>Q: What happens in setting <code>16.000000000000001</code> in an <code>int8</code> Series?</strong></p>
+<p><strong>A</strong>: As far as Python is concerned, <code>16.000000000000001</code> and <code>16.0</code> are the
+  same number. So, it would be inserted as <code>16</code> and the dtype would not change
+  (just like what happens now, there would be no change here).</p>
+<p><strong>Q: What if I want <code>1.0000000001</code> to be inserted as <code>1.0</code> in an <code>int8</code> Series?</strong></p>
+<p><strong>A</strong>: You may want to define your own helper function, such as:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">maybe_convert_to_int</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span><span class="p">,</span> <span class="n">tolerance</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="nb">round</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="o">&lt;</span> <span class="n">tolerance</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span>
+</code></pre></div>
+
+<p>which you could adapt according to your needs.</p>
+<h2 id="timeline">Timeline<a class="headerlink" href="#timeline" title="Permanent link"> #</a></h2>
+<p>Deprecate sometime in the 2.x releases (after 2.0.0 has already been released), and enforce in 3.0.0.</p>
+<h3 id="pdep-history">PDEP History<a class="headerlink" href="#pdep-history" title="Permanent link"> #</a></h3>
+<ul>
+<li>23 December 2022: Initial draft</li>
+<li>4 July 2024: Change status to "implemented"</li>
+</ul>
+            </div>
+            
+        </main>
+        <footer class="container pt-4 pt-md-5 border-top">
+            <ul class="list-inline social-buttons float-end">
+                <li class="list-inline-item">
+                    <a href="https://t.me/s/pandas_dev">
+                        <i class="fab bi bi-telegram"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="https://fosstodon.org/@pandas_dev" rel="me">
+                        <i class="fab bi bi-mastodon"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="https://x.com/pandas_dev">
+                        <i class="fab bi bi-twitter-x"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="https://github.com/pandas-dev/pandas">
+                        <i class="fab bi bi-github"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="https://stackoverflow.com/questions/tagged/pandas">
+                        <i class="fab bi bi-stack-overflow"></i>
+                    </a>
+                </li>
+            </ul>
+            <p>
+                &copy; 2026 pandas via <a href="https://numfocus.org">NumFOCUS, Inc.</a> Hosted by <a href="https://www.ovhcloud.com">OVHcloud</a>.
+            </p>
+        </footer>
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" 
+                integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" 
+                crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            const faviconTag = document.getElementById('favicon-tag');
+            const matcher = window.matchMedia('(prefers-color-scheme:dark)');
+            
+            const onUpdate = () => {
+                if (matcher.matches) faviconTag.href = "..//static/img/favicon_white.ico";
+                else faviconTag.href = "..//static/img/favicon.ico";
+            };
+            
+            onUpdate();
+            
+            matcher.addEventListener('change', onUpdate);
+        </script>
+    </body>
+</html>

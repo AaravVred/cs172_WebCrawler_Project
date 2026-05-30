@@ -1,0 +1,1062 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Interview with Norbert Preining, scikit-learn Team Member - scikit-learn Blog</title>
+<meta name="description" content="Author:         Reshama Shaikh      ,                                Norbert Preining">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="scikit-learn Blog">
+<meta property="og:title" content="Interview with Norbert Preining, scikit-learn Team Member">
+<meta property="og:url" content="https://blog.scikit-learn.org/team/norbert-interview/">
+
+
+  <meta property="og:description" content="Author:         Reshama Shaikh      ,                                Norbert Preining">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-05-22T00:00:00+00:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://blog.scikit-learn.org/team/norbert-interview/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": null,
+      "url": "https://blog.scikit-learn.org/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="scikit-learn Blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+<link rel="manifest" href="/assets/images/site.webmanifest">
+<link rel="mask-icon" href="/assets/images/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/images/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" content="/assets/images/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- Load MathJax only in the pages with `usemathjax: true` -->
+
+
+
+
+    <script defer data-domain="blog.scikit-learn.org" src="https://views.scientific-python.org/js/script.js"></script>
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/scikit-learn-logo.png" alt="scikit-learn Blog"></a>
+        
+        <a class="site-title" href="/">
+          scikit-learn Blog
+          
+        </a>
+        <ul class="visible-links">
+                
+                
+                    <li class="masthead__menu-item">
+                        <a href="https://scikit-learn.org/stable/">scikit-learn.org</a>
+                    </li>
+                
+            
+                
+                
+                    <li class="masthead__menu-item">
+                        <a href="/calendar">Calendar</a>
+                    </li>
+                
+            
+                
+                
+                    <li class="masthead__menu-item">
+                        <a href="/resources">Resources</a>
+                    </li>
+                
+            
+                
+                
+                    <li class="masthead__menu-item">
+                        <a href="/sprints">Sprints</a>
+                    </li>
+                
+            
+                
+                
+                    <li class="dropdown ">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More    <i class="fa fa-caret-down fa-sm" aria-hidden="true"></i><span class="caret"></span></a>
+                        <ul class="dropdown-content">
+                            
+                                <li>
+                                    <a href="https://scikit-learn.org/stable/install">    Install</a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://scikit-learn.org/stable/user_guide">    User Guide</a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://scikit-learn.org/stable/api/index">    API</a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://scikit-learn.org/stable/auto_examples/index">    Examples</a>
+                                </li>
+                            
+                        </ul>
+                    </li>
+                
+            
+        </ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="https://blog.scikit-learn.org/" itemprop="url"></a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>Open source library for machine learning in Python.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="https://github.com/scikit-learn" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-github-square" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://linkedin.com/company/scikit-learn/" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">LinkedIn</span></a></li>
+          
+        
+          
+            <li><a href="https://bsky.app/profile/scikit-learn.org" rel="nofollow noopener noreferrer me"><i class="fas fa-link" aria-hidden="true"></i><span class="label">Bluesky</span></a></li>
+          
+        
+          
+            <li><a href="https://fosstodon.org/@sklearn" rel="nofollow noopener noreferrer me"><i class="fab fa-brands fa-mastodon" aria-hidden="true"></i><span class="label">Mastodon</span></a></li>
+          
+        
+          
+            <li><a href="https://www.youtube.com/@scikit-learn" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-youtube" aria-hidden="true"></i><span class="label">YouTube</span></a></li>
+          
+        
+          
+            <li><a href="https://facebook.com/scikitlearnofficial/" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i><span class="label">Facebook</span></a></li>
+          
+        
+          
+            <li><a href="https://instagram.com/scikitlearnofficial/" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-instagram" aria-hidden="true"></i><span class="label">Instagram</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">Archives</span>
+        
+
+        
+        <ul>
+          
+            <li><a href="/categories/">Category</a></li>
+          
+            <li><a href="/tags/">Tag</a></li>
+          
+            <li><a href="/years/">Year</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">scikit-learn</span>
+        
+
+        
+        <ul>
+          
+            <li><a href="https://scikit-learn.org/stable/about">About Us</a></li>
+          
+            <li><a href="https://scikit-learn.org/stable/faq">FAQ</a></li>
+          
+            <li><a href="https://python.org/psf/conduct/">Code of Conduct</a></li>
+          
+            <li><a href="https://scikit-learn.org/stable/developers/contributing.html">Contribute to scikit-learn</a></li>
+          
+            <li><a href="https://github.com/scikit-learn/blog">Contribute to the blog</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Community</span>
+        
+
+        
+        <ul>
+          
+            <li><a href="https://github.com/scikit-learn/administrative/tree/master/monthly_meetings">Monthly Meeting Minutes</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Mailing List</span>
+        
+
+        
+        <ul>
+          
+            <li><a href="https://mail.python.org/mailman/listinfo/scikit-learn">Subscribe</a></li>
+          
+            <li><a href="https://mail.python.org/pipermail/scikit-learn/">Archive</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Interview with Norbert Preining, scikit-learn Team Member">
+    <meta itemprop="description" content="                Author:        Reshama Shaikh     ,                   Norbert Preining     ">
+    <meta itemprop="datePublished" content="2022-05-22T00:00:00+00:00">
+    
+    <meta property="og:image" content="https://blog.scikit-learn.org/norbert-interview.png">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="https://blog.scikit-learn.org/team/norbert-interview/" class="u-url" itemprop="url">Interview with Norbert Preining, scikit-learn Team Member
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-05-22T00:00:00+00:00">2022-05-22</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          7 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+        <div>
+  <img src="/assets/images/posts_images/norbert-interview.png" alt="" />
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+Author:  
+      <a itemprop="sameAs" content="https://reshamas.github.io" href="https://reshamas.github.io" rel="me noopener noreferrer" style="vertical-align:top;"><img src="/assets/images/author_images/reshama_shaikh.jpeg" style="width:1em;margin-right:.5em;border-radius: 50%;" alt="Author Icon" class="orcid-icon" />Reshama Shaikh</a>
+     , 
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+
+      <a itemprop="sameAs" content="https://www.preining.info" href="https://www.preining.info" rel="me noopener noreferrer" style="vertical-align:top;"><img src="/assets/images/author_images/norbert.jpeg" style="width:1em;margin-right:.5em;border-radius: 50%;" alt="Author Icon" class="orcid-icon" />Norbert Preining</a>
+     
+
+<br /><br />
+
+</div>
+
+<p>Norbert Preining joined the scikit-learn Team in June 2021. In this interview, learn more about Norbert’s journey, immersion and passion in open source.  His contributions to open source span a lifetime – see where scikit-learn fits into all this.</p>
+
+<ol>
+  <li>
+    <p><strong>Tell us about yourself.</strong></p>
+
+    <p>I have lived in a few countries, but for about 13 years I call Japan my home. Within Japan I am not in one of the big cities, but in the countryside. For most of my life I have worked in academics, doing research on mathematical logic. For 7 years now I have been in research and development (R&amp;D) teams of companies here in Japan. First Accelia, then Fujitsu, now Mercari. My main research topics are mathematical logic, in particular proof theory and many-valued logics, computability, and software specification and verification. Within my current work areas I am mostly concerned with machine learning in a variety of facets, but mostly in unsupervised learning and most recently in search.</p>
+
+    <ul>
+      <li>GitHub: <a href="https://github.com/norbusan">@norbusan</a></li>
+      <li>Twitter:  <a href="https://twitter.com/norbusan">@norbusan</a></li>
+      <li>LinkedIn: <a href="https://www.linkedin.com/in/norbertpreining/">@norbertpreining</a></li>
+      <li>Website: <a href="https://www.preining.info">preining.info</a></li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>How did you first become involved in open source?</strong></p>
+
+    <p>I got my first computer when I was writing my master thesis, and back then a friend installed Linux on it for me. Since then I am a near-exclusive Linux user and learned to love the advantages of open source.</p>
+  </li>
+  <li>
+    <p><strong>We would love to learn of your open source journey.</strong></p>
+
+    <p>I started contributing to OSS projects first within <a href="https://www.tug.org/texlive/">TeX Live</a> (the biggest distribution of TeX &amp; friends, available for all major and many minor operating systems) by providing builds for an arcane architecture (alpha-linux). Later on I departed on an adventure to bring TeX Live to Debian. For nearly 20 years I maintained TeX Live and many other packages related (and unrelated) to TeX in Debian (all the versions of TeX Live since 2005 till 2021 have been packaged by me), until this year I passed on the torch to Hilmar Preuße, who has helped me over the last years a lot. During all these years I have also contributed to and headed quite a few other OSS projects.</p>
+  </li>
+  <li>
+    <p><strong>How did you get involved in scikit-learn?</strong></p>
+
+    <p>I have been using scikit-learn on and off for my AI/ML projects. During my time at Fujitsu I was the representative of Fujitsu in the scikit-learn Consortium, and started to organize development sprints in Japan, as well as contributing myself code to scikit-learn.</p>
+  </li>
+  <li>
+    <p><strong>Can you share your experience with open source sprints that you have organized or participated in?  Any lessons learned?</strong></p>
+
+    <p>I have organized two scikit-learn development sprints in Japan (<a href="https://www.fujitsu.com/jp/about/research/article/202104-devsprint.html">Spring 2021</a> and <a href="https://www.fujitsu.com/jp/about/research/article/202111-devsprint2021a.html">Autumn 2021</a>), and participated in similar events a few times. For me the biggest problem is the “advertising part” - where/how to motivate people to participate. Having organized scientific conferences with hundreds to thousands of participants, the actual sprint organization was always rather relaxed a job for me, though. What I liked a lot during development sprints are pair programming options - sitting together with someone else and working on a project together. There is always to learn from someone else, and having access to different perspectives or opinions usually shapes up the coding considerably.</p>
+  </li>
+  <li>
+    <p><strong>To which OSS projects and communities do you contribute?</strong></p>
+
+    <p>The biggest contribution was to the TeX Live project, where I am the responsible author for the whole infrastructure, the TeX Live manager, and large parts of the server-sided tooling. Another considerable part is for the Japanese TeX Developer Community, where I have contributed several tools to make life for Japanese users of LaTeX more convenient. Within <a href="https://fossasia.org">FOSSASIA</a>, a global organization dedicated to open source and open hardware with base in Asia, I have worked and led the SUSI.AI project (privacy aware smart assistant and smart speaker based on Raspi). For Debian I have packaged practically everything related to TeX, several other packages, and in the last years I renovated the complete KDE/Plasma stack which was lacking behind. Other contributions of larger parts are to the Shotwell photo editor (the whole comment system), the Linux Onedrive client, and a few more things here and there.</p>
+  </li>
+  <li>
+    <p><strong>What advice or tips you have for people starting out in your field of work?</strong></p>
+
+    <p>I am not sure what “my field of work” is, though ;-) If you want to start doing OSS, find a project you are using, and a pain point you want to fix, and start coding. Even without knowing the language in the beginning, one can soon contribute. I never heard of ObjC before, but contributed quite some code to <a href="https://wiki.gnome.org/Apps/Shotwell">Shotwell</a>. I never heard about D before until I started developing features for Onedrive. Just get started and learn on the way.</p>
+  </li>
+  <li>
+    <p><strong>What do you find alluring about OSS?</strong></p>
+
+    <p>What I find alluring about OSS is that I can fix things I don’t like. I also like the “give and take” attitude: I receive a lot of things for free, excellent programs often surpassing their commercial counterparts by far. But I can also give back to the community: there are many ways to do this, even as a non-programmer, giving back is possible: improvement of documentation, community work, resource management, good bug reports, …</p>
+  </li>
+  <li>
+    <p><strong>What pain points do you observe in community-led OSS?</strong></p>
+
+    <p>Politics has taken a far too great hold in many communities, where protecting stakeholders is more important than protecting the developers. This has the effect that the diversity of opinions is badly strangled in many places. But I guess that is a consequence of the growing importance of OSS, and also reflects the general tendencies in societies.</p>
+
+    <p>Another pain point is the well known discrepancy between “<em>take</em> and give” from big companies. Often core components are developed by small groups in their spare time and huge infrastructures rely on that, without sufficiently honoring this fact.</p>
+  </li>
+  <li>
+    <p><strong>If we discuss how far OS has evolved in 10 years, what would you like to see happen?</strong></p>
+
+    <p>I would like to see a more robust development system: things like malware injection into Python library or Javascript library repositories need to be dealt with, otherwise trust in open source as a viable and stable alternative will not grow.</p>
+
+    <p>Another wish for the next few years - related to scikit-learn in the sense that it is a Python library - is a better development experience with Python. Tooling is still a pain, version incompatibilities between Python releases (even between point releases), loads of tools that all try to do similar things, to name two main pain points. Juggling every day with 3 versions of Python via pyenv, several venvs for projects, and three different tools to install/maintain is what I would like to see disappear.</p>
+  </li>
+  <li>
+    <p><strong>What are your favorite resources, books, courses, conferences, etc?</strong></p>
+
+    <p>I love to learn from books, so I have accumulated a lot of technical books, most of mine are from <a href="https://www.manning.com">Manning Publications</a> (I am not affiliated with them!). There are two books I come back to again and again: <a href="https://en.wikipedia.org/wiki/Structure_and_Interpretation_of_Computer_Programs#:~:text=Structure%20and%20Interpretation%20of%20Computer%20Programs%20(SICP)%20is%20a%20computer,Wizard%20Book&quot;%20in%20hacker%20culture.">Structure and Interpretation of Computer Programs</a> (Abelson/Sussman) and the <a href="https://pragprog.com/titles/tpp20/the-pragmatic-programmer-20th-anniversary-edition/">Pragmatic Programmer</a> (Thomas/Hunt). I think the two are pearls to be read again and again. On the more practical side, Knuth’s <a href="https://en.wikipedia.org/wiki/The_Art_of_Computer_Programming">Art of Computer Programming</a> is a great treasure.</p>
+
+    <p>I have tried online video courses, but this is less of a format for me. Q&amp;A sites on the net are of course a great resource, but be aware that simply copy paste will lead in most cases to bad bugs (or even worse, bed bugs). Only if I have understood the code from there, I will reuse it in my own programs.</p>
+
+    <p>Comment from Reshama:<br />
+     &gt;When I was first learning Python, I made the painful and <em>very time-consuming</em> mistake of doing that, copying version 2 code into my version 3 script and not understanding why it did not work, initially. Unfortunately, StackOverflow answers do not include versions of libraries.</p>
+  </li>
+  <li>
+    <p><strong>What are your hobbies, outside of work and open source?</strong></p>
+
+    <p>I love to go to the mountains, and that is serious mountaineering. I have worked as a professional mountain guide (UIAGM) for some years, mostly in France and Switzerland, and I also do some professional guiding work here in Japan. Besides that, going out with friends into the mountains (rock climbing, ice climbing, ski touring, traditional mountaineering, and the discipline special to Japan/Taiwan/Korea: shower climbing, …) gives my head breathing room. Of course, with a small kid at home the mountains have become a bit smaller, and less present, though. So now with my family there is a lot of camping, going to the seaside, skiing in winter, and traveling (hopefully again soon also outside of Japan!).</p>
+  </li>
+</ol>
+
+<figure>
+ <img src="/assets/images/posts_images/norbert-japan.png" alt="photo of a man hiking" max-width="50%" max-height="50%" /> 
+ <figcaption>
+ Photo credit: <a href="https://www.preining.info">Norbert Preining</a>
+ </figcaption>
+</figure>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#open-source" class="page__taxonomy-item p-category" rel="tag">Open Source</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#team" class="page__taxonomy-item p-category" rel="tag">Team</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2022-05-22T00:00:00+00:00">2022-05-22</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+    <h4 class="page__share-title">Share on</h4>
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fblog.scikit-learn.org%2Fteam%2Fnorbert-interview%2F&text=Interview+with+Norbert+Preining%2C+scikit-learn+Team+Member" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+
+    <a href="https://bsky.app/intent/compose?text=Interview+with+Norbert+Preining%2C+scikit-learn+Team+Member https%3A%2F%2Fblog.scikit-learn.org%2Fteam%2Fnorbert-interview%2F" class="btn btn--bluesky" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Bluesky"><i class="fab fa-brands fa-bluesky" aria-hidden="true"></i><span> Bluesky</span></a>
+
+    <a href="https://mastodonshare.com/?url=https%3A%2F%2Fblog.scikit-learn.org%2Fteam%2Fnorbert-interview%2F&text=Interview+with+Norbert+Preining%2C+scikit-learn+Team+Member" class="btn btn--mastodon" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Mastodon"><i class="fab fa-brands fa-mastodon" aria-hidden="true"></i><span> Mastodon</span></a>
+
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fblog.scikit-learn.org%2Fteam%2Fnorbert-interview%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  
+
+  </section>
+
+      
+  <nav class="pagination">
+    
+      <a href="/events/pyconde-keynote-reshama/" class="pagination--pager" title="5 Years, 10 Sprints, A scikit-learn Open Source Journey
+">Previous</a>
+    
+    
+      <a href="/events/sprints-value/" class="pagination--pager" title="The Value of Open Source Sprints, the scikit-learn Experience
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">You May Also Enjoy</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/updates/update-array-api/" rel="permalink">Update on array API adoption in scikit-learn
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-03-05T00:00:00+00:00">2026-03-05</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          10 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+Author:  
+      Lucy Liu
+     
+
+
+
+
+Note: this blog post is a cross-post of a Quansight Labs blog post.
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/updates/enhancing-user-experience/" rel="permalink">Enhancing user experience through interactive inspection
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-01-06T00:00:00+00:00">2026-01-06</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+Author:  
+      Dea María Léon
+      
+        
+      
+
+
+
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/team/virgil-chan-interview/" rel="permalink">Interview with Virgil Chan, scikit-learn Team Member
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2025-11-26T00:00:00+00:00">2025-11-26</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          5 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+Author:  
+      Reshama Shaikh
+     , 
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+
+      Virgil Chan
+     
+
+
+
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/press/gh-sosf/" rel="permalink">scikit-learn Completes the GitHub Secure Open Source Training
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2025-08-16T00:00:00+00:00">2025-08-16</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+Author:  
+      Reshama Shaikh
+     
+
+
+
+
+
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/scikit-learn" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github-square" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://linkedin.com/company/scikit-learn/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
+        
+      
+        
+          <li><a href="https://bsky.app/profile/scikit-learn.org" rel="nofollow noopener noreferrer"><i class="fas fa-link" aria-hidden="true"></i> Bluesky</a></li>
+        
+      
+        
+          <li><a href="https://fosstodon.org/@sklearn" rel="nofollow noopener noreferrer"><i class="fab fa-brands fa-mastodon" aria-hidden="true"></i> Mastodon</a></li>
+        
+      
+        
+          <li><a href="https://www.youtube.com/@scikit-learn" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-youtube" aria-hidden="true"></i> YouTube</a></li>
+        
+      
+        
+          <li><a href="https://facebook.com/scikitlearnofficial/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+        
+      
+        
+          <li><a href="https://instagram.com/scikitlearnofficial/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-instagram" aria-hidden="true"></i> Instagram</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2026 scikit-learn Blog. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+  <script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22606712-3']);
+  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script defer data-domain="pandas.pydata.org" src="https://views.scientific-python.org/js/script.js"></script>
+        <title>pandas - Python Data Analysis Library</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel='shortcut icon' type='image/x-icon' id='favicon-tag' href='../static/img/favicon.ico'/>
+        <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+              integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+              crossorigin="anonymous">
+        
+            <link rel="stylesheet"
+                  href="../static/css/pandas.css">
+        
+            <link rel="stylesheet"
+                  href="../static/css/codehilite.css">
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-content" aria-controls="nav-content" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <a class="navbar-brand" href="../."><img alt="" src="../static/img/pandas_white.svg"/></a>
+
+                    <div class="collapse navbar-collapse" id="nav-content">   
+                        <ul class="navbar-nav ms-auto">
+                            
+                                
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle"
+                                           data-bs-toggle="dropdown"
+                                           id="about-us"
+                                           href="#"
+                                           role="button"
+                                           aria-haspopup="true"
+                                           aria-expanded="false">About us</a>
+                                        <div class="dropdown-menu" aria-labelledby="about-us">
+                                        
+                                            <a class="dropdown-item" href="../about/">About pandas</a>
+                                        
+                                            <a class="dropdown-item" href="../about/roadmap.html">Project roadmap</a>
+                                        
+                                            <a class="dropdown-item" href="../about/governance.html">Governance</a>
+                                        
+                                            <a class="dropdown-item" href="../about/team.html">Team</a>
+                                        
+                                            <a class="dropdown-item" href="../about/sponsors.html">Sponsors</a>
+                                        
+                                            <a class="dropdown-item" href="../about/citing.html">Citing and logo</a>
+                                        
+                                        </div>
+                                    </li>
+                                
+                            
+                                
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="../getting_started.html">Getting started</a>
+                                    </li>
+                                
+                            
+                                
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="../docs/">Documentation</a>
+                                    </li>
+                                
+                            
+                                
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle"
+                                           data-bs-toggle="dropdown"
+                                           id="community"
+                                           href="#"
+                                           role="button"
+                                           aria-haspopup="true"
+                                           aria-expanded="false">Community</a>
+                                        <div class="dropdown-menu" aria-labelledby="community">
+                                        
+                                            <a class="dropdown-item" href="../community/blog/">Blog</a>
+                                        
+                                            <a class="dropdown-item" href="https://stackoverflow.com/questions/tagged/pandas">Ask a question (StackOverflow)</a>
+                                        
+                                            <a class="dropdown-item" href="../community/coc.html">Code of conduct</a>
+                                        
+                                            <a class="dropdown-item" href="../community/ecosystem.html">Ecosystem</a>
+                                        
+                                            <a class="dropdown-item" href="../community/benchmarks.html">Benchmarks</a>
+                                        
+                                        </div>
+                                    </li>
+                                
+                            
+                                
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="../contribute.html">Contribute</a>
+                                    </li>
+                                
+                            
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main">
+            
+            <div class="container container-main">
+                <h1 id="pdep-10-pyarrow-as-a-required-dependency-for-default-string-inference-implementation">PDEP-10: PyArrow as a required dependency for default string inference implementation<a class="headerlink" href="#pdep-10-pyarrow-as-a-required-dependency-for-default-string-inference-implementation" title="Permanent link"> #</a></h1>
+<ul>
+<li>Created: 17 April 2023</li>
+<li>Status: Accepted</li>
+<li>Discussion: <a href="https://github.com/pandas-dev/pandas/pull/52711">#52711</a>
+              <a href="https://github.com/pandas-dev/pandas/issues/52509">#52509</a></li>
+<li>Author: <a href="https://github.com/mroeschke">Matthew Roeschke</a>
+          <a href="https://github.com/phofl">Patrick Hoefler</a></li>
+<li>Revision: 1</li>
+</ul>
+<div class="toc"><span class="toctitle">Table of Contents</span><ul>
+<li><a href="#abstract">Abstract</a></li>
+<li><a href="#background">Background</a></li>
+<li><a href="#motivation">Motivation</a><ul>
+<li><a href="#immediate-user-benefit-1-pyarrow-strings">Immediate User Benefit 1: pyarrow strings</a></li>
+<li><a href="#immediate-user-benefit-2-nested-datatypes">Immediate User Benefit 2: Nested Datatypes</a></li>
+<li><a href="#immediate-user-benefit-3-interoperability">Immediate User Benefit 3: Interoperability</a></li>
+<li><a href="#future-user-benefits">Future User Benefits:</a></li>
+</ul>
+</li>
+<li><a href="#drawbacks">Drawbacks</a></li>
+<li><a href="#faq">F.A.Q.</a><ul>
+<li><a href="#pdep-10-history">PDEP-10 History</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While this PDEP mentions adding pyarrow as a required dependency in
+pandas 3.0, this aspect has been delayed until after pandas 3.0 (see the
+abstract of <a href="https://pandas.pydata.org/pdeps/0014-string-dtype.html">PDEP-14</a>).
+Therefore, pandas 3.0 will <em>not</em> have a hard requirement on pyarrow but still use
+pyarrow by default (for the new string dtype) when installed.</p>
+</div>
+<h2 id="abstract">Abstract<a class="headerlink" href="#abstract" title="Permanent link"> #</a></h2>
+<p>This PDEP proposes that:</p>
+<ul>
+<li>PyArrow becomes a required runtime dependency starting with pandas 3.0</li>
+<li>The minimum version of PyArrow supported starting with pandas 3.0 is version 7 of PyArrow.</li>
+<li>When the minimum version of PyArrow is bumped, PyArrow will be bumped to the highest version that has
+  been released for at least 2 years.</li>
+<li>The pandas 2.1 release notes will have a big warning that PyArrow will become a required dependency starting
+  with pandas 3.0. We will pin a feedback issue on the pandas issue tracker. The note in the release notes will point
+  to that issue.</li>
+<li>Starting in pandas 2.2, pandas raises a <code>FutureWarning</code> when PyArrow is not installed in the users
+  environment when pandas is imported. This will ensure that only one warning is raised and users can
+  easily silence it if necessary. This warning will point to the feedback issue.</li>
+<li>Starting in pandas 3.0, the default type inferred for string data will be <code>ArrowDtype</code> with <code>pyarrow.string</code>
+  instead of <code>object</code>. Additionally, we will infer all dtypes that are listed below as well instead of storing as object.</li>
+</ul>
+<p>This will bring <strong>immediate benefits to users</strong>, as well as opening up the door for significant further
+benefits in the future.</p>
+<h2 id="background">Background<a class="headerlink" href="#background" title="Permanent link"> #</a></h2>
+<p>PyArrow is an optional dependency of pandas that provides a wide range of supplemental features to pandas:</p>
+<ul>
+<li>Since pandas 0.21.0, PyArrow provided I/O reading functionality for Parquet</li>
+<li>Since pandas 1.2.0, pandas integrated PyArrow into the <code>ExtensionArray</code> interface to provide an
+  optional string data type backed by PyArrow</li>
+<li>Since pandas 1.4.0, PyArrow provided I/0 reading functionality for CSV</li>
+<li>Since pandas 1.5.0, pandas provided an <code>ArrowExtensionArray</code> and <code>ArrowDtype</code> to support all PyArrow
+  data types within the <code>ExtensionArray</code> interface</li>
+<li>Since pandas 2.0.0, all I/O readers have the option to return PyArrow-backed data types, and many methods
+  now utilize PyArrow compute functions to
+accelerate PyArrow-backed data in pandas, notably string and datetime types.</li>
+</ul>
+<p>As of pandas 2.0, one can feasibly utilize PyArrow as an alternative data representation to NumPy with advantages such as:</p>
+<ol>
+<li>Consistent <code>NA</code> support for all data types;</li>
+<li>Broader support of data types such as <code>decimal</code>, <code>date</code> and nested types;</li>
+<li>Better interoperability with other dataframe libraries based on Arrow.</li>
+</ol>
+<h2 id="motivation">Motivation<a class="headerlink" href="#motivation" title="Permanent link"> #</a></h2>
+<p>While all the functionality described in the previous paragraph is currently optional, PyArrow has significant
+integration into many areas of pandas. With our roadmap noting that pandas strives for better Apache Arrow
+interoperability [^1] and many projects [^2], within or beyond the Python ecosystem, adopting or interacting with
+the Arrow format, making PyArrow a required dependency provides an additional signal of confidence in the Arrow
+ecosystem (as well as improving interoperability with it).</p>
+<h3 id="immediate-user-benefit-1-pyarrow-strings">Immediate User Benefit 1: pyarrow strings<a class="headerlink" href="#immediate-user-benefit-1-pyarrow-strings" title="Permanent link"> #</a></h3>
+<p>Currently, when users pass string data into pandas constructors without specifying a data type, the resulting data type
+is <code>object</code>, which has significantly much worse memory usage and performance as compared to pyarrow strings.
+With pyarrow string support available since 1.2.0, requiring pyarrow for 3.0 will allow pandas to default
+the inferred type to the more efficient pyarrow string type.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s2">&quot;a&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">dtype</span>
+<span class="c1"># Current behavior</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;O&#39;</span><span class="p">)</span>
+
+<span class="c1"># Future behavior in 3.0</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">string</span><span class="p">[</span><span class="n">pyarrow</span><span class="p">]</span>
+</code></pre></div>
+
+<p>Dask developers investigated performance and memory of pyarrow strings <a href="https://www.coiled.io/blog/pyarrow-strings-in-dask-dataframes">here</a>,
+and found them to be a significant improvement over the current <code>object</code> dtype.</p>
+<p>Little demo:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">string</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">random_string</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">printable</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)))</span>
+
+
+<span class="n">ser_object</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="n">random_string</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1_000_000</span><span class="p">)])</span>
+<span class="n">ser_string</span> <span class="o">=</span> <span class="n">ser_object</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;string[pyarrow]&quot;</span><span class="p">)</span>\
+</code></pre></div>
+
+<p>PyArrow backed strings are significantly faster than NumPy object strings:</p>
+<p><em>str.len</em></p>
+<div class="codehilite"><pre><span></span><code><span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="o">%</span><span class="n">timeit</span> <span class="n">ser_object</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span>
+<span class="mi">118</span> <span class="n">ms</span> <span class="err">±</span> <span class="mi">260</span> <span class="n">µs</span> <span class="n">per</span> <span class="n">loop</span> <span class="p">(</span><span class="n">mean</span> <span class="err">±</span> <span class="n">std</span><span class="o">.</span> <span class="n">dev</span><span class="o">.</span> <span class="n">of</span> <span class="mi">7</span> <span class="n">runs</span><span class="p">,</span> <span class="mi">10</span> <span class="n">loops</span> <span class="n">each</span><span class="p">)</span>
+
+<span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="o">%</span><span class="n">timeit</span> <span class="n">ser_string</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span>
+<span class="mf">24.2</span> <span class="n">ms</span> <span class="err">±</span> <span class="mi">187</span> <span class="n">µs</span> <span class="n">per</span> <span class="n">loop</span> <span class="p">(</span><span class="n">mean</span> <span class="err">±</span> <span class="n">std</span><span class="o">.</span> <span class="n">dev</span><span class="o">.</span> <span class="n">of</span> <span class="mi">7</span> <span class="n">runs</span><span class="p">,</span> <span class="mi">10</span> <span class="n">loops</span> <span class="n">each</span><span class="p">)</span>
+</code></pre></div>
+
+<p><em>str.startswith</em></p>
+<div class="codehilite"><pre><span></span><code><span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="o">%</span><span class="n">timeit</span> <span class="n">ser_object</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<span class="mi">136</span> <span class="n">ms</span> <span class="err">±</span> <span class="mi">300</span> <span class="n">µs</span> <span class="n">per</span> <span class="n">loop</span> <span class="p">(</span><span class="n">mean</span> <span class="err">±</span> <span class="n">std</span><span class="o">.</span> <span class="n">dev</span><span class="o">.</span> <span class="n">of</span> <span class="mi">7</span> <span class="n">runs</span><span class="p">,</span> <span class="mi">10</span> <span class="n">loops</span> <span class="n">each</span><span class="p">)</span>
+
+<span class="n">In</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="o">%</span><span class="n">timeit</span> <span class="n">ser_string</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<span class="mi">11</span> <span class="n">ms</span> <span class="err">±</span> <span class="mf">19.8</span> <span class="n">µs</span> <span class="n">per</span> <span class="n">loop</span> <span class="p">(</span><span class="n">mean</span> <span class="err">±</span> <span class="n">std</span><span class="o">.</span> <span class="n">dev</span><span class="o">.</span> <span class="n">of</span> <span class="mi">7</span> <span class="n">runs</span><span class="p">,</span> <span class="mi">100</span> <span class="n">loops</span> <span class="n">each</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="immediate-user-benefit-2-nested-datatypes">Immediate User Benefit 2: Nested Datatypes<a class="headerlink" href="#immediate-user-benefit-2-nested-datatypes" title="Permanent link"> #</a></h3>
+<p>Currently, if you try storing <code>dict</code>s in a pandas <code>Series</code>, you will again get the horrendous <code>object</code> dtype:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">99</span><span class="p">}])</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span>
+<span class="mi">0</span>     <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="mi">1</span>    <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">99</span><span class="p">}</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="nb">object</span>
+</code></pre></div>
+
+<p>If <code>pyarrow</code> were required, this could have been auto-inferred to be <code>pyarrow.struct</code>, which again
+would come with memory and performance improvements.</p>
+<h3 id="immediate-user-benefit-3-interoperability">Immediate User Benefit 3: Interoperability<a class="headerlink" href="#immediate-user-benefit-3-interoperability" title="Permanent link"> #</a></h3>
+<p>Other Arrow-backed dataframe libraries are growing in popularity. Having the same memory representation
+would improve interoperability with them, as operations such as:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">polars</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pl</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+  <span class="p">{</span>
+    <span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Billy&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Bob&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">}],</span>
+  <span class="p">}</span>
+<span class="p">)</span>
+<span class="n">pl</span><span class="o">.</span><span class="n">from_pandas</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</code></pre></div>
+
+<p>could be zero-copy. Users making use of multiple dataframe libraries would more easily be able to
+switch between them.</p>
+<h3 id="future-user-benefits">Future User Benefits:<a class="headerlink" href="#future-user-benefits" title="Permanent link"> #</a></h3>
+<p>Requiring PyArrow would simplify the related development within pandas and potentially improve NumPy
+functionality that would be better suited by PyArrow including:</p>
+<ul>
+<li>
+<p>Avoiding runtime checking if PyArrow is available to perform PyArrow object inference during constructor or indexing operations</p>
+</li>
+<li>
+<p>NumPy object dtype will be avoided as much as possible. This means that every dtype that has a PyArrow equivalent is inferred automatically as such. This includes:</p>
+</li>
+<li>decimal</li>
+<li>binary</li>
+<li>nested types (list or dict data)</li>
+<li>strings</li>
+<li>time</li>
+<li>date</li>
+</ul>
+<h4 id="developer-benefits">Developer benefits<a class="headerlink" href="#developer-benefits" title="Permanent link"> #</a></h4>
+<p>First, this would simplify development of pyarrow-backed datatypes, as it would avoid
+optional dependency checks.</p>
+<p>Second, it could potentially remove redundant functionality:
+- fastparquet engine in <code>read_parquet</code>;
+- potentially simplifying the <code>read_csv</code> logic (needs more investigation);
+- factorization;
+- datetime/timezone ops.</p>
+<h2 id="drawbacks">Drawbacks<a class="headerlink" href="#drawbacks" title="Permanent link"> #</a></h2>
+<p>Including PyArrow would naturally increase the installation size of pandas. For example, installing pandas and PyArrow
+using pip from wheels, numpy and pandas requires about <code>70MB</code>, and including PyArrow requires an additional <code>120MB</code>.
+An increase of installation size would have negative implication using pandas in space-constrained development or deployment environments
+such as AWS Lambda.</p>
+<p>Additionally, if a user is installing pandas in an environment where wheels are not available through a <code>pip install</code> or <code>conda install</code>,
+the user will need to also build Arrow C++ and related dependencies when installing from source. These environments include</p>
+<ul>
+<li>Alpine linux (commonly used as a base for Docker containers)</li>
+<li>Python development versions</li>
+</ul>
+<p>Lastly, pandas development and releases will need to be mindful of PyArrow's development and release cadance. For example when
+supporting a newly released Python version, pandas will also need to be mindful of PyArrow's wheel support for that Python version
+before releasing a new pandas version.</p>
+<h2 id="faq">F.A.Q.<a class="headerlink" href="#faq" title="Permanent link"> #</a></h2>
+<p><strong>Q: Why can't pandas just use numpy string and numpy void datatypes instead of pyarrow string and pyarrow struct?</strong></p>
+<p><strong>A</strong>: NumPy strings aren't yet available, whereas pyarrow strings are. NumPy void datatype would be different to pyarrow struct,
+  not bringing the same interoperabitlity benefit with other arrow-based dataframe libraries.</p>
+<p><strong>Q: Are all pyarrow dtypes ready? Isn't it too soon to make them the default?</strong></p>
+<p><strong>A</strong>: They will likely be ready by 3.0 - however, we're not making them the default (yet).
+  For example, <code>pd.Series([1, 2, 3])</code> will continue to be auto-inferred to be
+  <code>np.int64</code>.  We will only change the default for dtypes which currently have no <code>numpy</code>-backed equivalent and which are
+  stored as <code>object</code> dtype, such as strings and nested datatypes.</p>
+<h3 id="pdep-10-history">PDEP-10 History<a class="headerlink" href="#pdep-10-history" title="Permanent link"> #</a></h3>
+<ul>
+<li>17 April 2023: Initial version</li>
+<li>8 May 2023: Changed proposal to make pyarrow required in pandas 3.0 instead of 2.1</li>
+</ul>
+<p>[^1] <a href="https://pandas.pydata.org/docs/development/roadmap.html#apache-arrow-interoperability">https://pandas.pydata.org/docs/development/roadmap.html#apache-arrow-interoperability</a>
+[^2] <a href="https://arrow.apache.org/powered_by/">https://arrow.apache.org/powered_by/</a></p>
+            </div>
+            
+        </main>
+        <footer class="container pt-4 pt-md-5 border-top">
+            <ul class="list-inline social-buttons float-end">
+                <li class="list-inline-item">
+                    <a href="https://t.me/s/pandas_dev">
+                        <i class="fab bi bi-telegram"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="https://fosstodon.org/@pandas_dev" rel="me">
+                        <i class="fab bi bi-mastodon"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="https://x.com/pandas_dev">
+                        <i class="fab bi bi-twitter-x"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="https://github.com/pandas-dev/pandas">
+                        <i class="fab bi bi-github"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="https://stackoverflow.com/questions/tagged/pandas">
+                        <i class="fab bi bi-stack-overflow"></i>
+                    </a>
+                </li>
+            </ul>
+            <p>
+                &copy; 2026 pandas via <a href="https://numfocus.org">NumFOCUS, Inc.</a> Hosted by <a href="https://www.ovhcloud.com">OVHcloud</a>.
+            </p>
+        </footer>
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" 
+                integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" 
+                crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            const faviconTag = document.getElementById('favicon-tag');
+            const matcher = window.matchMedia('(prefers-color-scheme:dark)');
+            
+            const onUpdate = () => {
+                if (matcher.matches) faviconTag.href = "..//static/img/favicon_white.ico";
+                else faviconTag.href = "..//static/img/favicon.ico";
+            };
+            
+            onUpdate();
+            
+            matcher.addEventListener('change', onUpdate);
+        </script>
+    </body>
+</html>

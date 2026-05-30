@@ -1,0 +1,2972 @@
+<!DOCTYPE html>
+<html lang="en" class="h-screen" xmlns="http://www.w3.org/1999/html">
+<head hx-head="merge">
+		<meta charset="utf-8">
+	<title>Create an Integration | Create an Integration</title>
+	<meta name="description" content="This section provides the guidance you&#x27;ll need to be able to create, manage, and optimize integrations with Elastic products. Begin by understanding what...">
+		<link rel="preload" href="/docs/_static/InterVariable.e6ec8b96.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/MierB-Regular.efa24115.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/MierB-Bold.01af95ca.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/MierB-Demi.845945e0.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_AMS-Regular.4cd18550.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_AMS-Regular.250082d1.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Caligraphic-Bold.7d84fcea.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Caligraphic-Bold.5d7c4d00.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Caligraphic-Regular.7e34eae2.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Caligraphic-Regular.d4de5f30.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Fraktur-Bold.db0fea8b.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Fraktur-Bold.4d449c5d.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Fraktur-Regular.7a216293.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Fraktur-Regular.ab0bff81.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Main-Bold.88cef7b1.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Main-Bold.95836a30.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Main-BoldItalic.c09d0cf1.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Main-BoldItalic.26f3c4f3.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Main-Italic.de0e580d.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Main-Italic.c6e95937.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Main-Regular.e2dbd876.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Main-Regular.cd9ba532.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Math-BoldItalic.6cf39e99.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Math-BoldItalic.df285d77.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Math-Italic.0470e72d.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Math-Italic.ffea941f.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_SansSerif-Bold.b444b1f5.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_SansSerif-Bold.67ea3185.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_SansSerif-Italic.6a451fb7.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_SansSerif-Italic.75326218.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_SansSerif-Regular.e52904c3.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_SansSerif-Regular.51b8a34d.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Script-Regular.9f85c0f7.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Script-Regular.964126b9.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Size1-Regular.263f0826.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Size1-Regular.9e7bb2db.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Size2-Regular.7ddce1f2.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Size2-Regular.16a5807b.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Size3-Regular.8e605720.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Size3-Regular.347ba5e0.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Size4-Regular.595ce6e5.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Size4-Regular.f41b14d6.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Typewriter-Regular.21beea8e.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Typewriter-Regular.ffbe21f7.ttf" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet preload" as="style" type="text/css" href="/docs/_static/styles.css?v=b8ea9182986507ea" crossorigin/>
+			<link rel="stylesheet preload" as="style" type="text/css" href="/docs/_static/assembler.css?v=2ae664c341b19715" crossorigin/>
+	<script>window.__DOCS_CONFIG__={"buildType":"assembler","serviceName":"docs-frontend","telemetryEnabled":true,"rootPath":"/docs","apiBasePath":"/docs/_api","airGapped":false};</script>
+	<script src="/docs/_static/main.js?v=d246cbf3f414c908" defer></script>
+		<link rel="canonical" href="https://www.elastic.co/docs/extend/integrations" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+					new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+				j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+				'https://www.googletagmanager.com/gtm.js?id='+i+dl+'';f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-KNJMG2M');
+		</script>
+	<link rel="icon" href="/favicon.ico" sizes="32x32"/> 
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180"/>
+
+	<meta name="robots" content="index, follow">
+	<meta name="htmx-config" content='{"selfRequestsOnly": true}'>
+	<meta property="og:type" content="website"/>
+	<meta property="og:title" content="Create an Integration | Create an Integration"/>
+	<meta property="og:description" content="This section provides the guidance you&#x27;ll need to be able to create, manage, and optimize integrations with Elastic products. Begin by understanding what..."/>
+	<meta property="og:image" content="https://www.elastic.co/static-res/images/social_media_default.png"/>
+	<meta property="og:image:alt" content="Elastic | The Search AI Company"/>
+		<meta property="og:url" content="https://www.elastic.co/docs/extend/integrations" />
+
+					<meta class="elastic" name="product_version" content="9.0+"/>
+				<meta name="DC.identifier" content="9.0+"/>
+			<link rel="alternate" type="text/markdown" href="/docs/extend/integrations.md" title="Markdown export"/>
+			<script type="application/ld+json">
+	    	{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Elastic Docs",
+      "item": "https://www.elastic.co/docs"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Extend and contribute",
+      "item": "https://www.elastic.co/docs/extend"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Create an Integration"
+    }
+  ]
+}
+	    	</script>
+			<meta class="elastic" name="product_name" content="Elastic integrations"/>
+			<meta name="DC.subject" content="Elastic integrations"/>
+
+</head>
+
+<body
+	hx-history="false"
+	hx-indicator="#htmx-indicator"
+	class="group/body text-ink has-[#primary-nav-hamburger:checked]:overflow-hidden min-h-screen build-type-assembler"
+	hx-ext="preload, head-support"
+	data-docs-builder-version="E9E6C558"
+	data-root-path="/docs/"
+	hx-boost="true" hx-swap="none" hx-push-url="true" hx-indicator="#htmx-indicator"
+	>
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KNJMG2M"
+	                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<div class="w-full fixed top-(--offset-top) left-0 right-0 htmx-indicator" id="htmx-indicator" role="status">
+	<div class="h-px w-full overflow-hidden">
+		<div class="progress w-full h-full bg-pink-70 left-right"></div>
+	</div>
+	<div class="sr-only">Loading</div>
+</div>
+
+
+	<div id="elastic-nav-wrapper">
+		<div id="elastic-nav" hx-disable="true"></div>
+		<script src="https://www.elastic.co/elastic-nav.js" async></script>
+	</div>
+<div class="md:sticky md:top-0 md:z-30 bg-grey-10">
+	<ask-ai></ask-ai>
+	<nav id="secondary-nav" hx-select-oob="#main-container" hx-swap="none"
+	     class="bg-grey-10 border-b border-grey-20">
+		<div class="
+					w-full
+					max-w-(--max-layout-width) flex mx-auto justify-between items-center
+					px-4 py-6">
+			<div class="flex gap-2 flex-nowrap items-center font-sans font-semibold text-sm text-ink-light md:text-base">
+				<a href="/docs/"
+				   class="text-lg leading-[1em] hover:text-blue-elastic active:text-blue-elastic-100">Docs</a>
+			</div>
+			<ul class="flex gap-6 font-sans font-semibold text-sm text-ink-light md:text-base">
+				<li class="text-nowrap hover:text-blue-elastic active:text-blue-elastic-100">
+					<a
+						href="/docs/release-notes"
+						 hx-select-oob=#main-container,#secondary-nav preload=mousedown
+					>
+						Release notes
+					</a>
+				</li>
+				<li class="text-nowrap hover:text-blue-elastic active:text-blue-elastic-100">
+					<a
+						href="/docs/troubleshoot"
+						 hx-select-oob=#main-container,#secondary-nav preload=mousedown
+					>
+						Troubleshoot
+					</a>
+				</li>
+				<li class="text-nowrap hover:text-blue-elastic active:text-blue-elastic-100">
+					<a
+						href="/docs/reference"
+						 hx-select-oob=#main-container,#secondary-nav preload=mousedown
+					>
+						Reference
+					</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+</div>
+<div id="main-container">
+		<div class="relative">
+			
+			<div class="min-h-screen
+						w-full
+						max-w-(--max-layout-width)
+						mx-auto
+						md:px-4
+			">
+				<div class="min-h-screen grid grid-cols-1 md:grid-cols-[var(--max-sidebar-width)_1fr] gap-4">
+					<aside class="sidebar font-sans bg-white fixed md:sticky shadow-2xl md:shadow-none left-full group-has-[#pages-nav-hamburger:checked]/body:left-0 bottom-0 md:left-auto top-[calc(var(--offset-top)+1px)] w-[80%] md:w-auto shrink-0 border-r border-r-grey-20 z-40 md:z-auto transition-[top,max-height] duration-300">
+	<nav
+		id="pages-nav"
+		class="sidebar-nav h-full simple-scrollbar">
+		
+<div class="pb-9 pl-3 md:pl-0 font-body">
+	<div class="sticky top-0 z-10 bg-white">
+			<navigation-search></navigation-search>
+		<div id="nav-dropdown">
+				<div class="py-4 bg-white border-grey-20 pr-4">
+					<div tabindex="0" id="pages-dropdown" class="block group border border-grey-20 rounded-sm font-sans relative">
+						<button class="w-full text-left grid grid-cols-[1fr_auto] cursor-pointer font-semibold gap-1 hover:text-black pl-4 pr-2 py-2 group-open:border-b-1 border-grey-20">
+							<div>
+								<a
+									class="pages-dropdown_active hover:underline text-blue-elastic hover:text-blue-elastic-100"
+									href="/docs/extend"
+									 hx-select-oob=#content-container,#toc-nav preload=mousedown>
+									Extend and contribute
+								</a>
+							</div>
+							<div class="flex items-center justify-center size-6 hover:bg-grey-20 rounded-sm">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke-width="1.5"
+									stroke="currentColor"
+									class="w-4 group-open:rotate-180">
+									<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+								</svg>
+							</div>
+						</button>
+					<div class="hidden group-focus-within:block left-0 right-0 absolute top-full">
+						<ul class="mt-1 py-2 bg-white border-1 border-grey-20 rounded-sm shadow-md">
+								<li class="block">
+									<a
+										class="block py-2 px-4 hover:underline hover:text-black hover:bg-grey-10 active:bg-blue-elastic-70 active:text-white font-semibold "
+										href="/docs/get-started"
+										 hx-select-oob=#content-container,#toc-nav,#nav-tree,#nav-dropdown preload=mouseover>
+							Elastic fundamentals
+						</a>
+					</li>
+								<li class="block">
+									<a
+										class="block py-2 px-4 hover:underline hover:text-black hover:bg-grey-10 active:bg-blue-elastic-70 active:text-white font-semibold "
+										href="/docs/solutions"
+										 hx-select-oob=#content-container,#toc-nav,#nav-tree,#nav-dropdown preload=mouseover>
+							Solutions and use cases
+						</a>
+					</li>
+								<li class="block">
+									<a
+										class="block py-2 px-4 hover:underline hover:text-black hover:bg-grey-10 active:bg-blue-elastic-70 active:text-white font-semibold "
+										href="/docs/manage-data"
+										 hx-select-oob=#content-container,#toc-nav,#nav-tree,#nav-dropdown preload=mouseover>
+							Manage data
+						</a>
+					</li>
+								<li class="block">
+									<a
+										class="block py-2 px-4 hover:underline hover:text-black hover:bg-grey-10 active:bg-blue-elastic-70 active:text-white font-semibold "
+										href="/docs/explore-analyze"
+										 hx-select-oob=#content-container,#toc-nav,#nav-tree,#nav-dropdown preload=mouseover>
+							Explore and analyze
+						</a>
+					</li>
+								<li class="block">
+									<a
+										class="block py-2 px-4 hover:underline hover:text-black hover:bg-grey-10 active:bg-blue-elastic-70 active:text-white font-semibold "
+										href="/docs/deploy-manage"
+										 hx-select-oob=#content-container,#toc-nav,#nav-tree,#nav-dropdown preload=mouseover>
+							Deploy and manage
+						</a>
+					</li>
+								<li class="block">
+									<a
+										class="block py-2 px-4 hover:underline hover:text-black hover:bg-grey-10 active:bg-blue-elastic-70 active:text-white font-semibold "
+										href="/docs/cloud-account"
+										 hx-select-oob=#content-container,#toc-nav,#nav-tree,#nav-dropdown preload=mouseover>
+							Manage your Cloud account and preferences
+						</a>
+					</li>
+								<li class="block">
+									<a
+										class="block py-2 px-4 hover:underline hover:text-black hover:bg-grey-10 active:bg-blue-elastic-70 active:text-white font-semibold "
+										href="/docs/troubleshoot"
+										 hx-select-oob=#content-container,#toc-nav,#nav-tree,#nav-dropdown preload=mouseover>
+							Troubleshoot
+						</a>
+					</li>
+								<li class="block">
+									<a
+										class="block py-2 px-4 hover:underline hover:text-black hover:bg-grey-10 active:bg-blue-elastic-70 active:text-white font-semibold "
+										href="/docs/release-notes"
+										 hx-select-oob=#content-container,#toc-nav,#nav-tree,#nav-dropdown preload=mouseover>
+							Release notes
+						</a>
+					</li>
+								<li class="block">
+									<a
+										class="block py-2 px-4 hover:underline hover:text-black hover:bg-grey-10 active:bg-blue-elastic-70 active:text-white font-semibold "
+										href="/docs/reference"
+										 hx-select-oob=#content-container,#toc-nav,#nav-tree,#nav-dropdown preload=mouseover>
+							Reference
+						</a>
+					</li>
+								<li class="block">
+									<a
+										class="block py-2 px-4 hover:underline hover:text-black hover:bg-grey-10 active:bg-blue-elastic-70 active:text-white font-semibold text-blue-elastic"
+										href="/docs/extend"
+										 hx-select-oob=#content-container,#toc-nav,#nav-tree,#nav-dropdown preload=mouseover>
+							Extend and contribute
+						</a>
+					</li>
+								<li class="block">
+									<a
+										class="block py-2 px-4 hover:underline hover:text-black hover:bg-grey-10 active:bg-blue-elastic-70 active:text-white font-semibold "
+										href="/docs/contribute-docs"
+										 hx-select-oob=#content-container,#toc-nav,#nav-tree,#nav-dropdown preload=mouseover>
+							Contribute to the docs
+						</a>
+					</li>
+				</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<ul class="block px-4" id="nav-tree">
+				<li class="flex flex-wrap group-navigation mt-6 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/kibana"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center font-semibold group-[.current]/li:text-blue-elastic!">
+					Contribute to Kibana
+				</a>
+					<label for="FB74DF88" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="FB74DF88"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/kibana/development-getting-started"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Getting started
+				</a>
+					<label for="6ACD8477" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="6ACD8477"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/running-kibana-advanced"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Running Kibana
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/sample-data"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Installing sample data
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/kibana-debugging"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Debugging Kibana
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/building-kibana"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Building a Kibana distributable
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/development-plugin-resources"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Plugin Resources
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/monorepo-packages"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Kibana monorepo packages
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/kibana/development-best-practices"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Best practices
+				</a>
+					<label for="C19C9F46" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="C19C9F46"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/plugin-performance"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Keep Kibana fast
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/kibana-navigation"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Routing, Navigation and URL
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/stability"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Stability
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/security-best-practices"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Security best practices
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/typescript"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Typescript
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/kibana/kibana-architecture"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Architecture
+				</a>
+					<label for="C2B9F8BF" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="C2B9F8BF"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/kibana-platform-plugin-api"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Kibana Plugin API
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/kibana-platform-api"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Kibana Core API
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/application-service"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Application service
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/configuration-service"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Configuration service
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/elasticsearch-service"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Elasticsearch service
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/http-service"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				HTTP service
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/logging-service"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Logging service
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/logging-config-changes"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Logging configuration changes
+			</a>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/kibana/saved-objects"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Saved Objects
+				</a>
+					<label for="5B648B1A" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="5B648B1A"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/saved-objects/structure"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Structure
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/saved-objects/create"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Create a type
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/saved-objects/update"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Update a type
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/saved-objects/validate"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Validate type changes
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/saved-objects/delete"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Delete a type
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/saved-objects/use"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				CRUD operations
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/saved-objects/export"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Export and import
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/saved-objects/share"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Share across spaces
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/saved-objects/migrations"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Migrations
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/ui-settings-service"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				UI settings service
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/patterns"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Patterns
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/core-packages"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Core packages
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/development-security"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Security
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/add-data-tutorials"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Add data tutorials
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/development-visualize-index"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Developing Visualizations
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/reporting-integration"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Reporting integration
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/kibana/contributing"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Contributing
+				</a>
+					<label for="E933A042" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="E933A042"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/development-github"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				How we use Git and GitHub
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/development-tests"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Testing
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/interpreting-ci-failures"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Interpreting CI Failures
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/ci-metrics"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				CI Metrics
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/development-pull-request"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Submitting a pull request
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/kibana-issue-reporting"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Effective issue reporting in Kibana
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/pr-review"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Pull request review guidelines
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/kibana-linting"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Linting
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/kibana/scout"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Testing framework
+				</a>
+					<label for="8E2BBC09" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="8E2BBC09"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/kibana/scout/getting-started"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Getting started
+				</a>
+					<label for="E27C337A" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="E27C337A"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/scout/setup-plugin"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Set up plugin
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/scout/run-tests"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Run tests
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/scout/debugging"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Debugging
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/scout/best-practices"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Best practices
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/kibana/scout/core-concepts"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Core concepts
+				</a>
+					<label for="7D0C6177" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="7D0C6177"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/scout/fixtures"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Fixtures
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/scout/page-objects"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Page objects
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/scout/api-services"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				API services
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/scout/parallelism"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Parallelism
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/scout/global-setup-hook"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Global setup hook
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/scout/deployment-tags"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Deployment tags
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/scout/skip-tests"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Skip tests
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/scout/feature-flags"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Feature flags
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/kibana/scout/ui-testing"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					UI testing
+				</a>
+					<label for="87AEED08" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="87AEED08"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/scout/write-ui-tests"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Write UI tests
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/scout/ui-best-practices"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Best practices
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/scout/browser-auth"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Browser auth
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/scout/a11y-checks"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				A11y checks
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/kibana/scout/api-testing"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					API testing
+				</a>
+					<label for="6359D86D" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="6359D86D"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/scout/write-api-tests"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Write API tests
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/scout/api-best-practices"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Best practices
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/scout/api-auth"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				API auth
+			</a>
+		</li>
+
+				</ul>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/kibana/external-plugin-development"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					External plugin development
+				</a>
+					<label for="03055CA0" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="03055CA0"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/plugin-tooling"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Plugin tooling
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/external-plugin-functional-tests"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Functional Tests for Plugins outside the Kibana repo
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/external-plugin-localization"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Localization for plugins outside the Kibana repo
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/testing-kibana-plugin"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Testing Kibana Plugins
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/kibana/advanced"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Advanced
+				</a>
+					<label for="E14349F0" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="E14349F0"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/running-elasticsearch"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Running Elasticsearch during development
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/development-basepath"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Considerations for basepath
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/upgrading-nodejs"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Upgrading Node.js
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/legacy-url-aliases"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Legacy URL Aliases
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/kibana/plugin-list"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					List of Kibana plugins
+				</a>
+					<label for="B77B616A" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="B77B616A"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/kibana-dashboard-plugin"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Dashboard plugin
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/kibana-expressions-plugin"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				expressions plugin
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/uiactions-plugin"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				UI Actions
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/translations-plugin"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Translations plugin
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/dependencies-versions"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				List of dependencies
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/kibana/development-telemetry"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Development Telemetry
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-6 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/logstash"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center font-semibold group-[.current]/li:text-blue-elastic!">
+					Contribute to Logstash
+				</a>
+					<label for="2642B6EE" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="2642B6EE"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/logstash/input-new-plugin"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				How to write a Logstash input plugin
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/logstash/codec-new-plugin"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				How to write a Logstash codec plugin
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/logstash/filter-new-plugin"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				How to write a Logstash filter plugin
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/logstash/output-new-plugin"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				How to write a Logstash output plugin
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/logstash/community-maintainer"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Logstash Plugins Community Maintainer Guide
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/logstash/plugin-doc"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Document your plugin
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/logstash/publish-plugin"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Publish your plugin to RubyGems.org
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/logstash/plugin-listing"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				List your plugin
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/logstash/contributing-patch-plugin"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Contributing a patch to a Logstash plugin
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/logstash/contribute-to-core"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Extending Logstash core
+			</a>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/logstash/create-logstash-plugins"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Create Logstash plugins
+				</a>
+					<label for="ADF9185E" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="ADF9185E"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/logstash/java-input-plugin"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				How to write a Java input plugin
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/logstash/java-codec-plugin"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				How to write a Java codec plugin
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/logstash/java-filter-plugin"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				How to write a Java filter plugin
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/logstash/java-output-plugin"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				How to write a Java output plugin
+			</a>
+		</li>
+
+				</ul>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-6 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/beats"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center font-semibold group-[.current]/li:text-blue-elastic!">
+					Contribute to Beats
+				</a>
+					<label for="E5F2D15D" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="E5F2D15D"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/beats/pr-review"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Pull request review guidelines
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/beats/contributing-docs"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Contributing to the docs
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/beats/testing"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Testing
+			</a>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/beats/community-beats"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Community Beats
+				</a>
+					<label for="4547DAB0" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="4547DAB0"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/beats/event-fields-yml"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Defining field mappings
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/beats/event-conventions"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Naming Conventions
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/beats/python-beats"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Python in Beats
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/beats/new-dashboards"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Creating New Kibana Dashboards
+				</a>
+					<label for="175C835C" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="175C835C"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/beats/import-dashboards"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Importing Existing Beat Dashboards
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/beats/build-dashboards"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Building Your Own Beat Dashboards
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/beats/generate-index-pattern"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Generating the Beat Index Pattern
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/beats/export-dashboards"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Exporting New and Modified Beat Dashboards
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/beats/archive-dashboards"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Archiving Your Beat Dashboards
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/beats/share-beat-dashboards"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Sharing Your Beat Dashboards
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/beats/new-protocol"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Adding a New Protocol to Packetbeat
+				</a>
+					<label for="8F143F8B" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="8F143F8B"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/beats/getting-ready-new-protocol"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Getting Ready
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/beats/protocol-modules"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Protocol Modules
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/beats/protocol-testing"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Testing
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/beats/metricbeat-developer-guide"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Extending Metricbeat
+				</a>
+					<label for="40B086A4" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="40B086A4"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/beats/metricbeat-dev-overview"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Overview
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/beats/creating-metricsets"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Creating a Metricset
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/beats/metricset-details"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Metricset Details
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/beats/creating-metricbeat-module"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Creating a Metricbeat Module
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/beats/dev-faq"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Metricbeat Developer FAQ
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/beats/filebeat-modules-devguide"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Creating a New Filebeat Module
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/beats/_migrating_dashboards_from_kibana_5_x_to_6_x"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Migrating dashboards from Kibana 5.x to 6.x
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-6 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/elasticsearch"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center font-semibold group-[.current]/li:text-blue-elastic!">
+					Create Elasticsearch plugins
+				</a>
+					<label for="79B5412F" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="79B5412F"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/elasticsearch/creating-stable-plugins"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Creating text analysis plugins with the stable plugin API
+				</a>
+					<label for="FB30BB6B" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="FB30BB6B"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/elasticsearch/plugin-descriptor-file-stable"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				The plugin descriptor file for stable plugins
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/elasticsearch/example-text-analysis-plugin"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Example text analysis plugin
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/elasticsearch/creating-classic-plugins"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Creating classic plugins
+				</a>
+					<label for="1D502B31" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="1D502B31"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/elasticsearch/plugin-descriptor-file-classic"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				The plugin descriptor file for classic plugins
+			</a>
+		</li>
+
+				</ul>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-6 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/integrations"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center font-semibold group-[.current]/li:text-blue-elastic!">
+					Create an Integration
+				</a>
+					<label for="3E043A1E" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="3E043A1E"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/integrations/what-is-an-integration"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					What is an integration?
+				</a>
+					<label for="34C38468" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="34C38468"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/integration-definitions"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Definitions
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/otel-input-packages"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				OTel Input Packages
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/quick-start"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Quick start: Sample integration
+			</a>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/integrations/build-new-integration"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Build an integration
+				</a>
+					<label for="8079A153" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="8079A153"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/build-overview"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Overview and prerequisites
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/build-spin-stack"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Spin up the Elastic Stack
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/build-create-package"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Create a new package
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/add-data-stream"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Add a data stream
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/define-deployment-modes"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Define deployment modes
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/agent-version-conditions"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Agent version conditions
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/edit-ingest-pipeline"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Edit ingest pipelines
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/add-mapping"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Edit field mappings
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/create-dashboards"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Create and export dashboards
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/auto-install-content-packages"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Enable automatic installation for content packages
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/build-it"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Build
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/testing-validation"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Testing and validation
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/finishing-touches"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Finishing touches
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/tips-for-building"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Tips for building integrations
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/upload-new-integration"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Upload an integration
+			</a>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/integrations/testing"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Test an integration
+				</a>
+					<label for="3EF33524" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="3EF33524"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/asset-testing"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Asset testing
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/pipeline-testing"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Pipeline Testing Guide
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/policy-testing"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Policy testing
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/static-testing"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Static testing
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/system-testing"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				System Testing Guide
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/_publish_an_integration"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Publish an integration via Pull Request
+			</a>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/integrations/developer-workflows"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Developer workflows
+				</a>
+					<label for="6CB5D131" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="6CB5D131"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/developer-workflow-fleet-UI"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Development process for Fleet UI
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/developer-workflow-support-old-package"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Release a bug fix for supporting older package version
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/developer-workflow-import-beat"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Import integration from Beats modules
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/integrations/integrations-guidelines"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Integrations guidelines
+				</a>
+					<label for="22939DA3" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="22939DA3"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/general-guidelines"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				General guidelines
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/dashboard-guidelines"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Dashboard guidelines
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/documentation-guidelines"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Documentation guidelines
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/developer-tsds-guidelines"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				TSDS guidelines
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/integrations/integrations-tsds-synthetic-source"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Working with indexing features
+				</a>
+					<label for="DE41415D" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="DE41415D"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/testing-indexing-features"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				How to test indexing features
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/elastic-package"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				elastic-package reference
+			</a>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/extend/integrations/package-spec"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Package specification
+				</a>
+					<label for="C18CF5E7" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="C18CF5E7"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/dev-spec"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				_dev
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/data-stream-spec"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				data_stream
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/docs-spec"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				docs
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/kibana-spec"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				kibana
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/changelog-spec"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				changelog.yml
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/extend/integrations/manifest-spec"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				manifest.yml
+			</a>
+		</li>
+
+				</ul>
+		</li>
+
+				</ul>
+		</li>
+
+	</ul>
+</div>
+
+	</nav>
+	<label role="button" for="pages-nav-hamburger" class="absolute md:hidden top-7 -right-12 bg-white p-1 rounded-full border-1 border-grey-20 cursor-pointer z-99">
+		<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+			<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+		</svg>
+	</label>
+</aside>
+<label for="pages-nav-hamburger" aria-hidden="true" class="hidden group-has-[#pages-nav-hamburger:checked]/body:block md:hidden! fixed top-0 left-0 right-0 bottom-0 bg-black/50 z-30 ">
+	
+</label>
+
+					<main id="content-container" class="min-w-0 lg:grid lg:grid-cols-[minmax(0,var(--max-text-width))_minmax(0,var(--max-sidebar-width))] justify-end mx-4 gap-4">
+						<aside class="sidebar md:block w-full lg:max-w-65 md:order-2">
+	<nav id="toc-nav" class="sidebar-nav lg:h-full flex flex-row-reverse lg:block items-center justify-between md:justify-start gap-4 pb-3 md:pb-9 simple-scrollbar">
+			<div class="mt-4">
+				<version-dropdown current-version='9.0&#x2B;' items='null'>
+					<div class="h-8"></div>
+				</version-dropdown>
+			</div>
+
+			<label role="button" class="md:hidden cursor-pointer mt-3" for="pages-nav-hamburger">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+					stroke="currentColor" class="size-6">
+					<path stroke-linecap="round" stroke-linejoin="round"
+						d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"/>
+				</svg>
+			</label>
+		
+		<ul class="mt-4 hidden md:flex items-center lg:block gap-4">
+			<li class="view-as-markdown hidden lg:block lg:not-first:mt-1">
+				<a href="/docs/extend/integrations.md" class="link text-sm" target="_blank">
+					<svg class="link-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 -1 24 24">
+						<path fill="currentColor" d="M22.131725 19.247H1.9386225C1.0239525 19.247 0.25 18.47305 0.25 17.558375v-11.11675c0 -0.914675 0.7739525 -1.688625 1.6886225 -1.688625H22.061375c0.914675 0 1.688625 0.77395 1.688625 1.688625v11.11675c0 0.914675 -0.7036 1.688625 -1.618275 1.688625ZM1.9386225 5.87875c-0.2814375 0 -0.562875 0.281425 -0.562875 0.562875v11.11675c0 0.3518 0.2814375 0.562875 0.562875 0.562875H22.061375c0.3518 0 0.562875 -0.281425 0.562875 -0.562875v-11.11675c0 -0.3518 -0.281425 -0.562875 -0.562875 -0.562875l-20.1227525 0ZM3.62725 15.86975V8.130225h2.2515l2.2515 2.814375 2.251475 -2.814375h2.2515V15.86975h-2.2515V11.437125L8.13025 14.2515l-2.2515 -2.814375V15.86975h-2.2515Zm14.1422 0L14.392225 12.140725h2.251475v-4.0105h2.2515v3.940125h2.2515L17.76945 15.86975Z" stroke-width="0.25"></path>
+					</svg>
+					View as Markdown
+				</a>
+			</li>
+				<li class="report-an-issue lg:not-first:mt-1">
+					<a href="https://github.com/elastic/docs-content/issues/new?template=issue-report.yaml&amp;link=https://www.elastic.co/docs/extend/integrations&amp;labels=source:web" class="link text-sm" target="_blank">
+						<svg class="link-icon" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg">
+							<path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z" fill="currentColor"/>
+						</svg>
+						Report a docs issue
+					</a>
+				</li>
+				<li class="edit-this-page lg:not-first:mt-1 ">
+					<a href="https://github.com/elastic/integrations/edit/main/docs/extend/index.md" class="link text-sm" target="_blank">
+						<svg class="link-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"/>
+						</svg>
+						Edit this page
+					</a>
+				</li>
+				<li class="learn-how-to-contribute hidden lg:block lg:not-first:mt-1">
+					<a href="https://www.elastic.co/docs/contribute-docs/" class="link text-sm" target="_blank">
+						<svg class="link-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+							<path fill="currentColor" d="M8.8,0 C9.074,0 9.337,0.113 9.526,0.312 L12.726,3.74 C12.902,3.926 13,4.173 13,4.429 L13,13 C13,13.552 12.552,14 12,14 L2,14 C1.448,14 1,13.552 1,13 L1,1 C1,0.448 1.448,0 2,0 L8.8,0 Z M12,5 L8.5,5 C8.224,5 8,4.776 8,4.5 L8,1 L2,1 L2,13 L12,13 L12,5 Z M4.5,11 C4.22385763,11 4,10.7761424 4,10.5 C4,10.2238576 4.22385763,10 4.5,10 L9.5,10 C9.7761424,10 10,10.2238576 10,10.5 C10,10.7761424 9.7761424,11 9.5,11 L4.5,11 Z M4.5,8 C4.22385763,8 4,7.77614237 4,7.5 C4,7.22385763 4.22385763,7 4.5,7 L9.5,7 C9.7761424,7 10,7.22385763 10,7.5 C10,7.77614237 9.7761424,8 9.5,8 L4.5,8 Z M5.5,16 C5.22385763,16 5,15.7761424 5,15.5 C5,15.2238576 5.22385763,15 5.5,15 L14,15 L14,6.5 C14,6.22385763 14.2238576,6 14.5,6 C14.7761424,6 15,6.22385763 15,6.5 L15,15 C15,15.5522847 14.5522847,16 14,16 L5.5,16 Z"/>
+						</svg>
+						Learn how to contribute
+					</a>
+				</li>
+		</ul>
+		<div class="mt-4 hidden lg:block">
+			<div class="sidebar-trial-card">
+				<div class="sidebar-trial-card__inner">
+					<a href="https://cloud.elastic.co/registration?page=docs&placement=docs-siderail" class="w-full min-h-[30px] cursor-pointer text-white text-nowrap bg-blue-elastic hover:bg-blue-elastic-110 focus:ring-4 focus:outline-none focus:ring-blue-elastic-50 font-semibold font-sans rounded-sm px-6 py-2 text-center flex items-center justify-center leading-[30px]">
+					Get started free
+				</a>
+					<ul class="mt-4 list-none text-sm">
+						<li class="flex items-start gap-2 py-1 text-ink-light leading-[17px]">
+							<span class="sidebar-trial-card__icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8,16 C3.581722,16 0,12.418278 0,8 C0,3.581722 3.581722,0 8,0 C12.418278,0 16,3.581722 16,8 C16,12.418278 12.418278,16 8,16 Z M11.649646,5.14327592 L6.90909091,9.79917823 L4.35035401,7.28613306 C4.15334074,7.09263789 3.8367711,7.09548987 3.64327592,7.29250314 C3.44978074,7.4895164 3.45263272,7.80608605 3.64964599,7.99958122 L6.5587369,10.8567241 C6.75324482,11.0477586 7.064937,11.0477586 7.25944492,10.8567241 L12.350354,5.85672408 C12.5473673,5.6632289 12.5502193,5.34665926 12.3567241,5.14964599 C12.1632289,4.95263272 11.8466593,4.94978074 11.649646,5.14327592 Z"/>
+</svg>
+</span>
+							<span>14-day free trial</span>
+						</li>
+						<li class="flex items-start gap-2 py-1 text-ink-light leading-[17px]">
+							<span class="sidebar-trial-card__icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8,16 C3.581722,16 0,12.418278 0,8 C0,3.581722 3.581722,0 8,0 C12.418278,0 16,3.581722 16,8 C16,12.418278 12.418278,16 8,16 Z M11.649646,5.14327592 L6.90909091,9.79917823 L4.35035401,7.28613306 C4.15334074,7.09263789 3.8367711,7.09548987 3.64327592,7.29250314 C3.44978074,7.4895164 3.45263272,7.80608605 3.64964599,7.99958122 L6.5587369,10.8567241 C6.75324482,11.0477586 7.064937,11.0477586 7.25944492,10.8567241 L12.350354,5.85672408 C12.5473673,5.6632289 12.5502193,5.34665926 12.3567241,5.14964599 C12.1632289,4.95263272 11.8466593,4.94978074 11.649646,5.14327592 Z"/>
+</svg>
+</span>
+							<span>All features included</span>
+						</li>
+						<li class="flex items-start gap-2 py-1 text-ink-light leading-[17px]">
+							<span class="sidebar-trial-card__icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8,16 C3.581722,16 0,12.418278 0,8 C0,3.581722 3.581722,0 8,0 C12.418278,0 16,3.581722 16,8 C16,12.418278 12.418278,16 8,16 Z M11.649646,5.14327592 L6.90909091,9.79917823 L4.35035401,7.28613306 C4.15334074,7.09263789 3.8367711,7.09548987 3.64327592,7.29250314 C3.44978074,7.4895164 3.45263272,7.80608605 3.64964599,7.99958122 L6.5587369,10.8567241 C6.75324482,11.0477586 7.064937,11.0477586 7.25944492,10.8567241 L12.350354,5.85672408 C12.5473673,5.6632289 12.5502193,5.34665926 12.3567241,5.14964599 C12.1632289,4.95263272 11.8466593,4.94978074 11.649646,5.14327592 Z"/>
+</svg>
+</span>
+							<span>No setup required</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="pt-6 hidden lg:block">
+				<div class="font-sans">
+					<div class="font-bold mb-2">On this page</div>
+					<div class="relative toc-progress-container font-body">
+						<div class="toc-progress-indicator absolute top-0 h-0 w-[1px] bg-blue-elastic transition-all duration-200 ease-out "></div>
+						<ul class="block w-full">
+								<li class="has-[:hover]:border-l-grey-80 items-center px-4 border-l-1 border-l-grey-20 has-[.current]:border-l-blue-elastic!">
+									<a
+										class="sidebar-link inline-block my-1.5 "
+										href="#getting-started">
+										Getting Started
+									</a>
+								</li>
+								<li class="has-[:hover]:border-l-grey-80 items-center px-4 border-l-1 border-l-grey-20 has-[.current]:border-l-blue-elastic!">
+									<a
+										class="sidebar-link inline-block my-1.5 "
+										href="#building-integrations">
+										Building Integrations
+									</a>
+								</li>
+								<li class="has-[:hover]:border-l-grey-80 items-center px-4 border-l-1 border-l-grey-20 has-[.current]:border-l-blue-elastic!">
+									<a
+										class="sidebar-link inline-block my-1.5 "
+										href="#otel-input-packages">
+										OTel Input Packages
+									</a>
+								</li>
+								<li class="has-[:hover]:border-l-grey-80 items-center px-4 border-l-1 border-l-grey-20 has-[.current]:border-l-blue-elastic!">
+									<a
+										class="sidebar-link inline-block my-1.5 "
+										href="#testing-and-validation">
+										Testing and Validation
+									</a>
+								</li>
+								<li class="has-[:hover]:border-l-grey-80 items-center px-4 border-l-1 border-l-grey-20 has-[.current]:border-l-blue-elastic!">
+									<a
+										class="sidebar-link inline-block my-1.5 "
+										href="#packaging-and-deployment">
+										Packaging and Deployment
+									</a>
+								</li>
+						</ul>
+					</div>
+				</div>
+
+		</div>
+
+	</nav>
+</aside>
+
+						<div class="mb-9 mt-0 min-w-0 ">
+							
+<ol id="breadcrumbs" class="flex flex-wrap gap-1 items-center w-full py-6">
+		<li class="text-ink-light text-sm leading-[1.2em]">
+			<a
+				itemprop="item"
+				href="/docs"
+				hx-disable=true
+				 hx-select-oob=#content-container,#toc-nav,#nav-tree,#nav-dropdown preload=mousedown>
+				<span class="hover:text-black">Elastic Docs</span>
+			</a>
+				<span class="px-1">/</span>
+		</li>
+		<li class="text-ink-light text-sm leading-[1.2em]">
+			<a
+				itemprop="item"
+				href="/docs/extend"
+				
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown>
+				<span class="hover:text-black">Extend and contribute</span>
+			</a>
+		</li>
+</ol>
+
+							<article id="markdown-content" class="markdown-content min-w-0">
+								<input type="checkbox" class="hidden" id="pages-nav-hamburger">
+								<section id="elastic-docs-v3">
+	<h1>Create an Integration</h1>
+
+	<p>This section provides the guidance you'll need to be able to create, manage, and optimize integrations with Elastic products.</p>
+<div class="heading-wrapper" id="getting-started"><h2><a class="headerlink" href="#getting-started">Getting Started</a></h2>
+</div>
+<p>Begin by understanding what is an <a href="/docs/extend/integrations/what-is-an-integration" hx-select-oob="#content-container,#toc-nav,#nav-tree,#nav-dropdown" preload="mousedown">integration</a>.</p>
+<div class="heading-wrapper" id="building-integrations"><h2><a class="headerlink" href="#building-integrations">Building Integrations</a></h2>
+</div>
+<p>Dive deep into the technical aspects of building integrations with Elastic products. Our <a href="/docs/extend/integrations/build-new-integration" hx-select-oob="#content-container,#toc-nav,#nav-tree,#nav-dropdown" preload="mousedown">Building Integrations</a> guide covers everything from architecture and design principles to coding best practices and sample projects.</p>
+<div class="heading-wrapper" id="otel-input-packages"><h2><a class="headerlink" href="#otel-input-packages">OTel Input Packages</a></h2>
+</div>
+<p>Learn how to create <a href="/docs/extend/integrations/otel-input-packages" hx-select-oob="#content-container,#toc-nav,#nav-tree,#nav-dropdown" preload="mousedown">OTel Input Packages</a> that configure OpenTelemetry Collector receivers within EDOT (Elastic Distribution of OpenTelemetry).</p>
+<div class="heading-wrapper" id="testing-and-validation"><h2><a class="headerlink" href="#testing-and-validation">Testing and Validation</a></h2>
+</div>
+<p>Ensure your integrations work seamlessly by following our <a href="/docs/extend/integrations/testing-validation" hx-select-oob="#content-container,#toc-nav,#nav-tree,#nav-dropdown" preload="mousedown">Testing and Validation</a> guidelines. Learn about different testing methodologies, tools, and techniques to validate your integration's performance and reliability.</p>
+<div class="heading-wrapper" id="packaging-and-deployment"><h2><a class="headerlink" href="#packaging-and-deployment">Packaging and Deployment</a></h2>
+</div>
+<p>Once your integration is ready, our <a href="/docs/extend/integrations/package-spec" hx-select-oob="#content-container,#toc-nav,#nav-tree,#nav-dropdown" preload="mousedown">Packaging and Deployment</a> guide will help you package your integration and deploy it efficiently. This section includes instructions on creating distributable packages, setting up deployment environments, and more.</p>
+
+</section>
+
+							</article>
+							<footer id="prev-next-nav" class="content-container mt-20">
+	<div class="flex flex-wrap lg:flex-nowrap gap-2 mt-2">
+		<div class="w-full">
+				<a 
+					href="/docs/extend/elasticsearch/plugin-descriptor-file-classic"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="flex h-full items-center text-ink-light hover:black border-1 border-grey-20 hover:border-grey-80 rounded-lg p-6 shadow-md"
+				>
+					<svg class="size-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5"/>
+					</svg>
+					<div>
+						<div class="text-xs lg:text-sm">Previous</div>
+						<div class="text-base lg:text-xl text-black">The plugin descriptor file for classic plugins</div>
+					</div>
+				</a>
+		</div>
+		<div class="w-full">
+				<a 
+					href="/docs/extend/integrations/what-is-an-integration"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="flex h-full items-center justify-end text-ink-light hover:black border-1 border-grey-20 hover:border-grey-80 rounded-lg p-6 shadow-md text-right"
+				>
+					<div>
+						<div class="text-xs lg:text-sm">Next</div>
+						<div class="text-base lg:text-xl text-black">What is an integration?</div>
+					</div>
+					<svg class="size-6 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/>
+					</svg>
+				</a>
+		</div>
+	</div>
+</footer>
+
+						</div>
+					</main>
+				</div>
+			</div>
+		</div>
+</div>
+
+<footer class="py-12 px-6 w-full mx-auto bg-ink-dark">
+	<div class="max-w-(--max-layout-width) w-full mx-auto">
+	<div class="text-grey-20 text-[12px]">
+		<a href="https://www.elastic.co/">
+			<img class="block" loading="lazy" alt="Elastic logo" src="/docs/_static/logo-elastic-horizontal-white.svg?v=19bc4040eda89518" width="120" height="41"/>
+		</a>
+	</div>
+	<div class="text-grey-20 text-[12px] bg-ink-dark grid grid-cols-1 md:grid-cols-2 gap-2 items-center">
+		<div>
+			<ul class="mt-4 flex gap-3">
+				<li>
+					<a class="underline hover:text-white" href="https://www.elastic.co/legal/trademarks">Trademarks</a>
+				</li>
+				<li>
+					<a class="underline hover:text-white" href="https://www.elastic.co/legal/terms-of-use">Terms of Use</a>
+				</li>
+				<li>
+					<a class="underline hover:text-white" href="https://www.elastic.co/legal/privacy-statement">Privacy</a>
+				</li>
+				<li>
+					<a class="underline hover:text-white" href="https://www.elastic.co/sitemap">Sitemap</a>
+				</li>
+			</ul>
+			<p class="mt-4">
+				© 2026 Elasticsearch B.V. All Rights Reserved.
+			</p>
+		</div>
+		<div class="mt-4">
+			<p>
+				This content is available in different formats for convenience only. All original licensing terms apply.
+			</p>
+			<p class="mt-4">
+				Elasticsearch is a trademark of Elasticsearch B.V., registered in the U.S. and in other countries. Apache, Apache Lucene, Apache Hadoop, Hadoop, HDFS and the yellow elephant logo are trademarks of the Apache Software Foundation in the United States and/or other countries.
+			</p>
+		</div>
+	</div>
+	</div>
+</footer>
+
+
+</body>
+</html>

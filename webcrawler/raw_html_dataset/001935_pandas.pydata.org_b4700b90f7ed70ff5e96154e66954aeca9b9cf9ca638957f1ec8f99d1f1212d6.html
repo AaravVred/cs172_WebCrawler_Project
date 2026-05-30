@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script defer data-domain="pandas.pydata.org" src="https://views.scientific-python.org/js/script.js"></script>
+        <title>pandas - Python Data Analysis Library</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel='shortcut icon' type='image/x-icon' id='favicon-tag' href='../../static/img/favicon.ico'/>
+        <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+              integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+              crossorigin="anonymous">
+        
+            <link rel="stylesheet"
+                  href="../../static/css/pandas.css">
+        
+            <link rel="stylesheet"
+                  href="../../static/css/codehilite.css">
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-content" aria-controls="nav-content" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <a class="navbar-brand" href="../../."><img alt="" src="../../static/img/pandas_white.svg"/></a>
+
+                    <div class="collapse navbar-collapse" id="nav-content">   
+                        <ul class="navbar-nav ms-auto">
+                            
+                                
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle"
+                                           data-bs-toggle="dropdown"
+                                           id="about-us"
+                                           href="#"
+                                           role="button"
+                                           aria-haspopup="true"
+                                           aria-expanded="false">About us</a>
+                                        <div class="dropdown-menu" aria-labelledby="about-us">
+                                        
+                                            <a class="dropdown-item" href="../../about/">About pandas</a>
+                                        
+                                            <a class="dropdown-item" href="../../about/roadmap.html">Project roadmap</a>
+                                        
+                                            <a class="dropdown-item" href="../../about/governance.html">Governance</a>
+                                        
+                                            <a class="dropdown-item" href="../../about/team.html">Team</a>
+                                        
+                                            <a class="dropdown-item" href="../../about/sponsors.html">Sponsors</a>
+                                        
+                                            <a class="dropdown-item" href="../../about/citing.html">Citing and logo</a>
+                                        
+                                        </div>
+                                    </li>
+                                
+                            
+                                
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="../../getting_started.html">Getting started</a>
+                                    </li>
+                                
+                            
+                                
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="../../docs/">Documentation</a>
+                                    </li>
+                                
+                            
+                                
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle"
+                                           data-bs-toggle="dropdown"
+                                           id="community"
+                                           href="#"
+                                           role="button"
+                                           aria-haspopup="true"
+                                           aria-expanded="false">Community</a>
+                                        <div class="dropdown-menu" aria-labelledby="community">
+                                        
+                                            <a class="dropdown-item" href="../../community/blog/">Blog</a>
+                                        
+                                            <a class="dropdown-item" href="https://stackoverflow.com/questions/tagged/pandas">Ask a question (StackOverflow)</a>
+                                        
+                                            <a class="dropdown-item" href="../../community/coc.html">Code of conduct</a>
+                                        
+                                            <a class="dropdown-item" href="../../community/ecosystem.html">Ecosystem</a>
+                                        
+                                            <a class="dropdown-item" href="../../community/benchmarks.html">Benchmarks</a>
+                                        
+                                        </div>
+                                    </li>
+                                
+                            
+                                
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="../../contribute.html">Contribute</a>
+                                    </li>
+                                
+                            
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main">
+            
+            <div class="container container-main">
+                <h1 id="pandas-30-released">pandas 3.0 released!<a class="headerlink" href="#pandas-30-released" title="Permanent link"> #</a></h1>
+<p>We're excited to announce the release of pandas 3.0.0. This major
+long-awaited release brings significant improvements to pandas, but also
+features some potentially breaking changes.</p>
+<h2 id="highlights-of-pandas-30">Highlights of pandas 3.0<a class="headerlink" href="#highlights-of-pandas-30" title="Permanent link"> #</a></h2>
+<p>pandas 3.0 introduces several major enhancements:</p>
+<ul>
+<li><strong>Dedicated string data type by default</strong>: string columns are now inferred as
+  the new <code>str</code> dtype instead of <code>object</code>, providing better performance and type
+  safety</li>
+<li><strong>Consistent copy/view behaviour with Copy-on-Write (CoW)</strong> (a.k.a. getting
+  rid of the <code>SettingWithCopyWarning</code>): more predictable and consistent behavior
+  for all operations, with improved performance through avoiding unnecessary
+  copies</li>
+<li><strong>New default resolution for datetime-like data</strong>: no longer defaulting to
+  nanoseconds, but generally microseconds (or the resolution of the input), when
+  constructing datetime or timedelta data (avoiding out-of-bounds errors
+  for dates with a year before 1678 or after 2262)</li>
+<li><strong>New <code>pd.col</code> syntax</strong>: initial support for <code>pd.col()</code> as a simplified syntax
+  for creating callables in <code>DataFrame.assign</code></li>
+</ul>
+<p>Further, pandas 3.0 includes a lot of other improvements and bug fixes. You can
+find the complete list of changes in the
+<a href="https://pandas.pydata.org/docs/dev/whatsnew/v3.0.0.html">release notes</a>.</p>
+<h2 id="upgrading-to-pandas-30">Upgrading to pandas 3.0<a class="headerlink" href="#upgrading-to-pandas-30" title="Permanent link"> #</a></h2>
+<p>The pandas 3.0 release removed functionality that was deprecated in previous releases
+(see <a href="https://pandas.pydata.org/docs/whatsnew/v3.0.0.html#whatsnew-300-prior-deprecations">here</a>
+for an overview). It is recommended to first upgrade to pandas 2.3 and to ensure
+your code is working without warnings, before upgrading to pandas 3.0.</p>
+<p>Further, as a major release, pandas 3.0 includes some breaking changes that may
+require updates to your code. The two most significant changes are the new
+string dtype and the copy/view behaviour changes, detailed below. An overview of
+all potentially breaking changes can be found in the <a href="https://pandas.pydata.org/docs/whatsnew/v3.0.0.html#backwards-incompatible-api-changes">Backwards incompatible API
+changes</a>
+section of the release notes.</p>
+<h3 id="1-dedicated-string-data-type-by-default">1. Dedicated string data type by default<a class="headerlink" href="#1-dedicated-string-data-type-by-default" title="Permanent link"> #</a></h3>
+<p>Starting with pandas 3.0, string columns are automatically inferred as <code>str</code>
+dtype instead of the numpy <code>object</code> (which can store any Python object).</p>
+<p><strong>Example:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Old behavior (pandas &lt; 3.0)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ser</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ser</span>
+<span class="mi">0</span>    <span class="n">a</span>
+<span class="mi">1</span>    <span class="n">b</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="nb">object</span>  <span class="c1"># &lt;-- numpy object dtype</span>
+
+<span class="c1"># New behavior (pandas 3.0)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ser</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ser</span><span class="o">.</span><span class="n">dtype</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ser</span>
+<span class="mi">0</span>    <span class="n">a</span>
+<span class="mi">1</span>    <span class="n">b</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="nb">str</span>  <span class="c1"># &lt;-- new string dtype</span>
+</code></pre></div>
+
+<p>This change improves performance and type safety, but may require code updates,
+especially for library code that currently looks for "object" dtype when
+expecting string data.</p>
+<p>For more details, see the
+<a href="https://pandas.pydata.org/docs/dev/user_guide/migration.html#the-new-string-data-type">migration guide for the new string data type</a>.</p>
+<p>This new data type will use the <code>pyarrow</code> library under the hood, if installed,
+to provide the performance improvements. Therefore we strongly recommend to
+install <code>pyarrow</code> alongside pandas (but <code>pyarrow</code> is not a required dependency
+installed by default).</p>
+<h3 id="2-consistent-copyview-behaviour-with-copy-on-write-cow">2. Consistent copy/view behaviour with Copy-on-Write (CoW)<a class="headerlink" href="#2-consistent-copyview-behaviour-with-copy-on-write-cow" title="Permanent link"> #</a></h3>
+<p>Copy-on-Write is now the default and only mode in pandas 3.0. This makes
+behavior more consistent and predictable, and avoids a lot of defensive copying
+(improving performance), but requires updates to certain coding patterns.</p>
+<p>The most impactfull change is that <strong>chained assignment will no longer work</strong>.
+As a result, the <code>SettingWithCopyWarning</code> is also removed (since there is no
+longer ambiguity whether it would work or not), and defensive <code>.copy()</code> calls
+to silence the warning are no longer needed.</p>
+<p><strong>Example:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Old behavior (pandas &lt; 3.0) - chained assignment</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;foo&quot;</span><span class="p">][</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;bar&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">]</span> <span class="o">=</span>   <span class="c1"># This might modify df (unpredictable)</span>
+
+<span class="c1"># New behavior (pandas 3.0) - must do the modification in one step (e.g. with .loc)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;bar&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">,</span> <span class="s2">&quot;foo&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
+</code></pre></div>
+
+<p>In general, any result of an indexing operation or method now always behaves as
+if it were a copy, so modifications of the result won't affect the original
+DataFrame.</p>
+<p>For more details, see the</p>
+<p><a href="https://pandas.pydata.org/docs/dev/user_guide/migration.html#copy-on-write-cow">Copy-on-Write migration guide</a>.</p>
+<h2 id="obtaining-pandas-30">Obtaining pandas 3.0<a class="headerlink" href="#obtaining-pandas-30" title="Permanent link"> #</a></h2>
+<p>You can install the latest pandas 3.0 release from PyPI:</p>
+<div class="codehilite"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span><span class="nv">pandas</span><span class="o">==</span><span class="m">3</span>.0.*
+</code></pre></div>
+
+<p>Or from conda-forge using conda/mamba:</p>
+<div class="codehilite"><pre><span></span><code>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span><span class="nv">pandas</span><span class="o">=</span><span class="m">3</span>.0
+</code></pre></div>
+
+<h2 id="running-into-an-issue-or-regression">Running into an issue or regression?<a class="headerlink" href="#running-into-an-issue-or-regression" title="Permanent link"> #</a></h2>
+<p>Please report any problem you encounter with the release on the pandas <a href="https://github.com/pandas-dev/pandas/issues">issue tracker</a>.</p>
+<p>Thanks to all the contributors who made this release possible!</p>
+            </div>
+            
+        </main>
+        <footer class="container pt-4 pt-md-5 border-top">
+            <ul class="list-inline social-buttons float-end">
+                <li class="list-inline-item">
+                    <a href="https://t.me/s/pandas_dev">
+                        <i class="fab bi bi-telegram"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="https://fosstodon.org/@pandas_dev" rel="me">
+                        <i class="fab bi bi-mastodon"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="https://x.com/pandas_dev">
+                        <i class="fab bi bi-twitter-x"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="https://github.com/pandas-dev/pandas">
+                        <i class="fab bi bi-github"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="https://stackoverflow.com/questions/tagged/pandas">
+                        <i class="fab bi bi-stack-overflow"></i>
+                    </a>
+                </li>
+            </ul>
+            <p>
+                &copy; 2026 pandas via <a href="https://numfocus.org">NumFOCUS, Inc.</a> Hosted by <a href="https://www.ovhcloud.com">OVHcloud</a>.
+            </p>
+        </footer>
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" 
+                integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" 
+                crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            const faviconTag = document.getElementById('favicon-tag');
+            const matcher = window.matchMedia('(prefers-color-scheme:dark)');
+            
+            const onUpdate = () => {
+                if (matcher.matches) faviconTag.href = "../..//static/img/favicon_white.ico";
+                else faviconTag.href = "../..//static/img/favicon.ico";
+            };
+            
+            onUpdate();
+            
+            matcher.addEventListener('change', onUpdate);
+        </script>
+    </body>
+</html>

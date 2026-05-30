@@ -1,0 +1,3183 @@
+<!DOCTYPE html>
+<html lang="en" class="h-screen" xmlns="http://www.w3.org/1999/html">
+<head hx-head="merge">
+		<meta charset="utf-8">
+	<title>Troubleshoot an out-of-memory EDOT Collector | Elastic Docs</title>
+	<meta name="description" content="Diagnose and resolve out-of-memory issues in the EDOT Collector using Go&#x2019;s Performance Profiler.">
+		<link rel="preload" href="/docs/_static/InterVariable.e6ec8b96.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/MierB-Regular.efa24115.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/MierB-Bold.01af95ca.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/MierB-Demi.845945e0.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_AMS-Regular.4cd18550.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_AMS-Regular.250082d1.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Caligraphic-Bold.7d84fcea.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Caligraphic-Bold.5d7c4d00.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Caligraphic-Regular.7e34eae2.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Caligraphic-Regular.d4de5f30.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Fraktur-Bold.db0fea8b.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Fraktur-Bold.4d449c5d.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Fraktur-Regular.7a216293.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Fraktur-Regular.ab0bff81.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Main-Bold.88cef7b1.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Main-Bold.95836a30.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Main-BoldItalic.c09d0cf1.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Main-BoldItalic.26f3c4f3.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Main-Italic.de0e580d.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Main-Italic.c6e95937.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Main-Regular.e2dbd876.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Main-Regular.cd9ba532.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Math-BoldItalic.6cf39e99.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Math-BoldItalic.df285d77.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Math-Italic.0470e72d.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Math-Italic.ffea941f.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_SansSerif-Bold.b444b1f5.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_SansSerif-Bold.67ea3185.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_SansSerif-Italic.6a451fb7.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_SansSerif-Italic.75326218.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_SansSerif-Regular.e52904c3.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_SansSerif-Regular.51b8a34d.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Script-Regular.9f85c0f7.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Script-Regular.964126b9.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Size1-Regular.263f0826.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Size1-Regular.9e7bb2db.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Size2-Regular.7ddce1f2.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Size2-Regular.16a5807b.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Size3-Regular.8e605720.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Size3-Regular.347ba5e0.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Size4-Regular.595ce6e5.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Size4-Regular.f41b14d6.ttf" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Typewriter-Regular.21beea8e.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/docs/_static/KaTeX_Typewriter-Regular.ffbe21f7.ttf" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet preload" as="style" type="text/css" href="/docs/_static/styles.css?v=b8ea9182986507ea" crossorigin/>
+			<link rel="stylesheet preload" as="style" type="text/css" href="/docs/_static/assembler.css?v=2ae664c341b19715" crossorigin/>
+	<script>window.__DOCS_CONFIG__={"buildType":"assembler","serviceName":"docs-frontend","telemetryEnabled":true,"rootPath":"/docs","apiBasePath":"/docs/_api","airGapped":false};</script>
+	<script src="/docs/_static/main.js?v=d246cbf3f414c908" defer></script>
+		<link rel="canonical" href="https://www.elastic.co/docs/troubleshoot/ingest/opentelemetry/edot-collector/collector-oomkilled" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+					new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+				j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+				'https://www.googletagmanager.com/gtm.js?id='+i+dl+'';f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-KNJMG2M');
+		</script>
+	<link rel="icon" href="/favicon.ico" sizes="32x32"/> 
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180"/>
+
+	<meta name="robots" content="index, follow">
+	<meta name="htmx-config" content='{"selfRequestsOnly": true}'>
+	<meta property="og:type" content="website"/>
+	<meta property="og:title" content="Troubleshoot an out-of-memory EDOT Collector | Elastic Docs"/>
+	<meta property="og:description" content="Diagnose and resolve out-of-memory issues in the EDOT Collector using Go&#x2019;s Performance Profiler."/>
+	<meta property="og:image" content="https://www.elastic.co/static-res/images/social_media_default.png"/>
+	<meta property="og:image:alt" content="Elastic | The Search AI Company"/>
+		<meta property="og:url" content="https://www.elastic.co/docs/troubleshoot/ingest/opentelemetry/edot-collector/collector-oomkilled" />
+
+					<meta class="elastic" name="product_version" content="9.0+"/>
+				<meta name="DC.identifier" content="9.0+"/>
+			<link rel="alternate" type="text/markdown" href="/docs/troubleshoot/ingest/opentelemetry/edot-collector/collector-oomkilled.md" title="Markdown export"/>
+			<script type="application/ld+json">
+	    	{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Elastic Docs",
+      "item": "https://www.elastic.co/docs"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Troubleshoot",
+      "item": "https://www.elastic.co/docs/troubleshoot"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Ingest tools",
+      "item": "https://www.elastic.co/docs/troubleshoot/ingest"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Elastic Distributions of OpenTelemetry (EDOT)",
+      "item": "https://www.elastic.co/docs/troubleshoot/ingest/opentelemetry"
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "name": "EDOT Collector",
+      "item": "https://www.elastic.co/docs/troubleshoot/ingest/opentelemetry/edot-collector"
+    },
+    {
+      "@type": "ListItem",
+      "position": 6,
+      "name": "Troubleshoot an out-of-memory EDOT Collector"
+    }
+  ]
+}
+	    	</script>
+			<meta class="elastic" name="product_name" content="Elastic Distribution of OpenTelemetry Collector,Elastic Cloud Serverless,Elastic Observability"/>
+			<meta name="DC.subject" content="Elastic Distribution of OpenTelemetry Collector,Elastic Cloud Serverless,Elastic Observability"/>
+
+</head>
+
+<body
+	hx-history="false"
+	hx-indicator="#htmx-indicator"
+	class="group/body text-ink has-[#primary-nav-hamburger:checked]:overflow-hidden min-h-screen build-type-assembler"
+	hx-ext="preload, head-support"
+	data-docs-builder-version="E9E6C558"
+	data-root-path="/docs/"
+	hx-boost="true" hx-swap="none" hx-push-url="true" hx-indicator="#htmx-indicator"
+	>
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KNJMG2M"
+	                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<div class="w-full fixed top-(--offset-top) left-0 right-0 htmx-indicator" id="htmx-indicator" role="status">
+	<div class="h-px w-full overflow-hidden">
+		<div class="progress w-full h-full bg-pink-70 left-right"></div>
+	</div>
+	<div class="sr-only">Loading</div>
+</div>
+
+
+	<div id="elastic-nav-wrapper">
+		<div id="elastic-nav" hx-disable="true"></div>
+		<script src="https://www.elastic.co/elastic-nav.js" async></script>
+	</div>
+<div class="md:sticky md:top-0 md:z-30 bg-grey-10">
+	<ask-ai></ask-ai>
+	<nav id="secondary-nav" hx-select-oob="#main-container" hx-swap="none"
+	     class="bg-grey-10 border-b border-grey-20">
+		<div class="
+					w-full
+					max-w-(--max-layout-width) flex mx-auto justify-between items-center
+					px-4 py-6">
+			<div class="flex gap-2 flex-nowrap items-center font-sans font-semibold text-sm text-ink-light md:text-base">
+				<a href="/docs/"
+				   class="text-lg leading-[1em] hover:text-blue-elastic active:text-blue-elastic-100">Docs</a>
+			</div>
+			<ul class="flex gap-6 font-sans font-semibold text-sm text-ink-light md:text-base">
+				<li class="text-nowrap hover:text-blue-elastic active:text-blue-elastic-100">
+					<a
+						href="/docs/release-notes"
+						 hx-select-oob=#main-container,#secondary-nav preload=mousedown
+					>
+						Release notes
+					</a>
+				</li>
+				<li class="text-nowrap hover:text-blue-elastic active:text-blue-elastic-100">
+					<a
+						href="/docs/troubleshoot"
+						 hx-select-oob=#main-container,#secondary-nav preload=mousedown
+					>
+						Troubleshoot
+					</a>
+				</li>
+				<li class="text-nowrap hover:text-blue-elastic active:text-blue-elastic-100">
+					<a
+						href="/docs/reference"
+						 hx-select-oob=#main-container,#secondary-nav preload=mousedown
+					>
+						Reference
+					</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+</div>
+<div id="main-container">
+		<div class="relative">
+			
+			<div class="min-h-screen
+						w-full
+						max-w-(--max-layout-width)
+						mx-auto
+						md:px-4
+			">
+				<div class="min-h-screen grid grid-cols-1 md:grid-cols-[var(--max-sidebar-width)_1fr] gap-4">
+					<aside class="sidebar font-sans bg-white fixed md:sticky shadow-2xl md:shadow-none left-full group-has-[#pages-nav-hamburger:checked]/body:left-0 bottom-0 md:left-auto top-[calc(var(--offset-top)+1px)] w-[80%] md:w-auto shrink-0 border-r border-r-grey-20 z-40 md:z-auto transition-[top,max-height] duration-300">
+	<nav
+		id="pages-nav"
+		class="sidebar-nav h-full simple-scrollbar">
+		
+<div class="pb-9 pl-3 md:pl-0 font-body">
+	<div class="sticky top-0 z-10 bg-white">
+			<navigation-search></navigation-search>
+		<div id="nav-dropdown">
+				<div class="py-4 bg-white border-grey-20 pr-4">
+					<div tabindex="0" id="pages-dropdown" class="block group border border-grey-20 rounded-sm font-sans relative">
+						<button class="w-full text-left grid grid-cols-[1fr_auto] cursor-pointer font-semibold gap-1 hover:text-black pl-4 pr-2 py-2 group-open:border-b-1 border-grey-20">
+							<div>
+								<a
+									class="pages-dropdown_active hover:underline text-blue-elastic hover:text-blue-elastic-100"
+									href="/docs/troubleshoot"
+									 hx-select-oob=#content-container,#toc-nav preload=mousedown>
+									Troubleshoot
+								</a>
+							</div>
+							<div class="flex items-center justify-center size-6 hover:bg-grey-20 rounded-sm">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke-width="1.5"
+									stroke="currentColor"
+									class="w-4 group-open:rotate-180">
+									<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+								</svg>
+							</div>
+						</button>
+					<div class="hidden group-focus-within:block left-0 right-0 absolute top-full">
+						<ul class="mt-1 py-2 bg-white border-1 border-grey-20 rounded-sm shadow-md">
+								<li class="block">
+									<a
+										class="block py-2 px-4 hover:underline hover:text-black hover:bg-grey-10 active:bg-blue-elastic-70 active:text-white font-semibold "
+										href="/docs/get-started"
+										 hx-select-oob=#content-container,#toc-nav,#nav-tree,#nav-dropdown preload=mouseover>
+							Elastic fundamentals
+						</a>
+					</li>
+								<li class="block">
+									<a
+										class="block py-2 px-4 hover:underline hover:text-black hover:bg-grey-10 active:bg-blue-elastic-70 active:text-white font-semibold "
+										href="/docs/solutions"
+										 hx-select-oob=#content-container,#toc-nav,#nav-tree,#nav-dropdown preload=mouseover>
+							Solutions and use cases
+						</a>
+					</li>
+								<li class="block">
+									<a
+										class="block py-2 px-4 hover:underline hover:text-black hover:bg-grey-10 active:bg-blue-elastic-70 active:text-white font-semibold "
+										href="/docs/manage-data"
+										 hx-select-oob=#content-container,#toc-nav,#nav-tree,#nav-dropdown preload=mouseover>
+							Manage data
+						</a>
+					</li>
+								<li class="block">
+									<a
+										class="block py-2 px-4 hover:underline hover:text-black hover:bg-grey-10 active:bg-blue-elastic-70 active:text-white font-semibold "
+										href="/docs/explore-analyze"
+										 hx-select-oob=#content-container,#toc-nav,#nav-tree,#nav-dropdown preload=mouseover>
+							Explore and analyze
+						</a>
+					</li>
+								<li class="block">
+									<a
+										class="block py-2 px-4 hover:underline hover:text-black hover:bg-grey-10 active:bg-blue-elastic-70 active:text-white font-semibold "
+										href="/docs/deploy-manage"
+										 hx-select-oob=#content-container,#toc-nav,#nav-tree,#nav-dropdown preload=mouseover>
+							Deploy and manage
+						</a>
+					</li>
+								<li class="block">
+									<a
+										class="block py-2 px-4 hover:underline hover:text-black hover:bg-grey-10 active:bg-blue-elastic-70 active:text-white font-semibold "
+										href="/docs/cloud-account"
+										 hx-select-oob=#content-container,#toc-nav,#nav-tree,#nav-dropdown preload=mouseover>
+							Manage your Cloud account and preferences
+						</a>
+					</li>
+								<li class="block">
+									<a
+										class="block py-2 px-4 hover:underline hover:text-black hover:bg-grey-10 active:bg-blue-elastic-70 active:text-white font-semibold text-blue-elastic"
+										href="/docs/troubleshoot"
+										 hx-select-oob=#content-container,#toc-nav,#nav-tree,#nav-dropdown preload=mouseover>
+							Troubleshoot
+						</a>
+					</li>
+								<li class="block">
+									<a
+										class="block py-2 px-4 hover:underline hover:text-black hover:bg-grey-10 active:bg-blue-elastic-70 active:text-white font-semibold "
+										href="/docs/release-notes"
+										 hx-select-oob=#content-container,#toc-nav,#nav-tree,#nav-dropdown preload=mouseover>
+							Release notes
+						</a>
+					</li>
+								<li class="block">
+									<a
+										class="block py-2 px-4 hover:underline hover:text-black hover:bg-grey-10 active:bg-blue-elastic-70 active:text-white font-semibold "
+										href="/docs/reference"
+										 hx-select-oob=#content-container,#toc-nav,#nav-tree,#nav-dropdown preload=mouseover>
+							Reference
+						</a>
+					</li>
+								<li class="block">
+									<a
+										class="block py-2 px-4 hover:underline hover:text-black hover:bg-grey-10 active:bg-blue-elastic-70 active:text-white font-semibold "
+										href="/docs/extend"
+										 hx-select-oob=#content-container,#toc-nav,#nav-tree,#nav-dropdown preload=mouseover>
+							Extend and contribute
+						</a>
+					</li>
+								<li class="block">
+									<a
+										class="block py-2 px-4 hover:underline hover:text-black hover:bg-grey-10 active:bg-blue-elastic-70 active:text-white font-semibold "
+										href="/docs/contribute-docs"
+										 hx-select-oob=#content-container,#toc-nav,#nav-tree,#nav-dropdown preload=mouseover>
+							Contribute to the docs
+						</a>
+					</li>
+				</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<ul class="block px-4" id="nav-tree">
+				<li class="flex flex-wrap group-navigation mt-6 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/troubleshoot/elasticsearch"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center font-semibold group-[.current]/li:text-blue-elastic!">
+					Elasticsearch
+				</a>
+					<label for="D57F36E0" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="D57F36E0"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/troubleshoot/elasticsearch/clusters"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Clusters
+				</a>
+					<label for="89AE1862" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="89AE1862"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/troubleshoot/elasticsearch/fix-common-cluster-issues"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Common cluster issues
+				</a>
+					<label for="8807A609" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="8807A609"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/fix-watermark-errors"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Watermark errors
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/circuit-breaker-errors"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Circuit breaker errors
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/high-cpu-usage"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				High CPU usage
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/high-jvm-memory-pressure"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				High JVM memory pressure
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/red-yellow-cluster-status"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Red or yellow health status
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/rejected-requests"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Rejected requests
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/task-queue-backlog"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Task queue backlog
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/mapping-explosion"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Mapping explosion
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/hotspotting"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Hot spotting
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/troubleshooting-unstable-cluster"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Unstable clusters
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/troubleshooting-unbalanced-cluster"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Unbalanced clusters
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/remote-clusters"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Remote clusters
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/diagnose-unassigned-shards"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Unassigned shards
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/troubleshooting-shards-capacity-issues"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Shard capacity issues
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/cluster-allocation-api-examples"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Cluster allocation API examples
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/troubleshoot/elasticsearch/data"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Data
+				</a>
+					<label for="1B8859E2" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="1B8859E2"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/allow-all-cluster-allocation"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Data allocation
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/allow-all-index-allocation"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Index allocation
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/add-tier"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Preferred data tier
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/troubleshoot-migrate-to-tiers"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Incomplete migration to data tiers
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/increase-tier-capacity"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Not enough nodes to allocate shard replicas
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/increase-shard-limit"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Total number of shards for an index exceeded
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/increase-cluster-shard-limit"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Total number of shards per node reached
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/corruption-troubleshooting"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Data corruption
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/troubleshoot-ingest-pipelines"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Ingest Pipelines
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/troubleshoot/elasticsearch/capacity"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Capacity
+				</a>
+					<label for="88BB0C61" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="88BB0C61"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/troubleshoot/elasticsearch/fix-data-node-out-of-disk"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Data nodes out of disk
+				</a>
+					<label for="B4F4AB8E" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="B4F4AB8E"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/increase-capacity-data-node"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Increase disk capacity
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/decrease-disk-usage-data-node"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Decrease disk usage
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/fix-master-node-out-of-disk"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Master nodes out of disk
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/fix-other-node-out-of-disk"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Other nodes out of disk
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/troubleshoot/elasticsearch/snapshot-and-restore"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Snapshot and restore
+				</a>
+					<label for="9AEE8240" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="9AEE8240"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/restore-from-snapshot"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Restore from snapshot
+			</a>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/troubleshoot/elasticsearch/add-repository"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Broken repositories
+				</a>
+					<label for="03EC6812" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="03EC6812"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/diagnosing-corrupted-repositories"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Corrupted repositories
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/diagnosing-unknown-repositories"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Unknown repositories
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/diagnosing-invalid-repositories"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Invalid repositories
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/repeated-snapshot-failures"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Snapshot policy failures
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/troubleshooting-searches"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Searches
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/start-ilm"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Lifecycle management
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/index-lifecycle-management-errors"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Index lifecycle management errors
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/file-based-recovery"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				File-based access recovery
+			</a>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/troubleshoot/elasticsearch/security"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Security
+				</a>
+					<label for="9C9BD0CC" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="9C9BD0CC"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/security/security-trb-settings"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Nodes info API response
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/security/security-trb-roles"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Authorization errors
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/security/security-trb-extraargs"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Error: Extra arguments provided
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/security/trouble-shoot-active-directory"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Active Directory account lockout
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/security/trb-security-maccurl"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Certificate verification with curl on Mac
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/security/trb-security-sslhandshake"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				SSLHandshakeException
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/security/trb-security-ssl"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				SSL/TLS exceptions
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/security/trb-security-kerberos"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Kerberos
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/security/trb-security-saml"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				SAML
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/security/trb-security-internalserver"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Kibana internal server error
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/security/trb-security-setup"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Password setup failures
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/security/trb-security-path"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Configuration file locations
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/security/token-invalid-expired"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Error: Token invalid or expired
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/troubleshoot/elasticsearch/errors"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Error reference
+				</a>
+					<label for="AAC68195" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="AAC68195"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/all-shards-failed"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Error: All shards failed
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/failed-to-parse-field-of-type"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Error: Failed to parse field of type in document with id
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/unable-to-retrieve-node-fs-stats"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Error: Unable to retrieve node fs stats
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/unable-to-parse-response-body"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Error: Unable to parse response body
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/clients"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Clients
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/diagnostic"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Diagnostics
+			</a>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/troubleshoot/elasticsearch/more-topics"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					More topics
+				</a>
+					<label for="562F4F18" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="562F4F18"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/discovery-troubleshooting"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Discovery
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/monitoring-troubleshooting"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Monitoring
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/transform-troubleshooting"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Transforms
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/watcher-troubleshooting"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Watcher
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/elasticsearch/elasticsearch-hadoop/elasticsearch-for-apache-hadoop"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Apache Hadoop
+			</a>
+		</li>
+
+				</ul>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-6 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/troubleshoot/kibana"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center font-semibold group-[.current]/li:text-blue-elastic!">
+					Kibana
+				</a>
+					<label for="5DE3B208" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="5DE3B208"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/kibana/using-kibana-server-logs"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Server logs
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/kibana/access"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Server status
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/kibana/error-server-not-ready"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Error: Server not ready
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/kibana/trace-elasticsearch-query-to-the-origin-in-kibana"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Trace Elasticsearch query
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/kibana/monitoring"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Monitoring
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/kibana/alerts"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Alerts
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/kibana/reporting"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Reporting
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/kibana/task-manager"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Task Manager
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/kibana/maps"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Maps
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/kibana/graph"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Graph
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/kibana/migration-failures"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Migration and upgrades
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/kibana/capturing-diagnostics"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Diagnostics
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-6 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/troubleshoot/observability"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center font-semibold group-[.current]/li:text-blue-elastic!">
+					Observability
+				</a>
+					<label for="A7D72B39" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="A7D72B39"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/observability/explore-data"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Explore data
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/observability/inspect"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Inspect
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/observability/troubleshooting-synthetics"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Synthetics
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/observability/troubleshoot-mapping-issues"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Uptime
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/observability/troubleshoot-logs"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Logs
+			</a>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/troubleshoot/observability/apm"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					APM
+				</a>
+					<label for="3C313F72" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="3C313F72"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/observability/apm/common-problems"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Common problems
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/observability/apm/what-happens-when-apm-server-elasticsearch-is-down"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				APM Server or Elasticsearch is down
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/observability/apm/apm-server-response-codes"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				APM Server response codes
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/observability/apm/processing-performance"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Processing and performance
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/observability/apm/enable-apm-server-binary-debugging"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				APM Server binary debugging
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/observability/apm/apm-server-performance-diagnostic"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				APM Server performance diagnostic
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/observability/apm-agent-go/apm-go-agent"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				APM Go Agent
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/observability/apm-agent-java/apm-java-agent"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				APM Java Agent
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/observability/apm-agent-dotnet/apm-net-agent"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				APM .NET agent
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/observability/apm-agent-nodejs/apm-nodejs-agent"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				APM Node.js Agent
+			</a>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/troubleshoot/observability/apm-agent-php/apm-php-agent"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					APM PHP Agent
+				</a>
+					<label for="918CB026" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="918CB026"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/observability/apm/_agent_is_not_instrumenting_code"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Agent is not instrumenting code
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/observability/apm/_collection_of_diagnostic_information"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Collection of diagnostic information
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/observability/apm-agent-python/apm-python-agent"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				APM Python Agent
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/observability/apm-agent-ruby/apm-ruby-agent"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				APM Ruby Agent
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/observability/apm-agent-rum-js/apm-real-user-monitoring-javascript-agent"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				APM Real User Monitoring JavaScript Agent
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/observability/amazon-data-firehose"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Amazon Data Firehose
+			</a>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/troubleshoot/observability/troubleshoot-your-universal-profiling-agent-deployment"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Universal Profiling
+				</a>
+					<label for="8220236E" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="8220236E"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/observability/troubleshoot-your-universal-profiling-agent-deployment/troubleshoot-universal-profiling-backend"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Troubleshoot the backend
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/troubleshoot/observability/troubleshooting-infrastructure-monitoring"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Infrastructure monitoring
+				</a>
+					<label for="C181D850" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="C181D850"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/observability/troubleshooting-infrastructure-monitoring/understanding-no-results-found-message"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Understand &quot;no results found&quot; message
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/observability/troubleshoot-service-level-objectives-slos"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				SLOs
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-6 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/troubleshoot/security"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center font-semibold group-[.current]/li:text-blue-elastic!">
+					Security
+				</a>
+					<label for="45FFE770" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="45FFE770"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/security/detection-rules"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Detection rules
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/security/elastic-defend"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Elastic Defend
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/security/indicators-of-compromise"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Indicators of compromise
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/security/agentless-integrations"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Troubleshoot agentless integrations
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-6 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/troubleshoot/ingest"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center font-semibold group-[.current]/li:text-blue-elastic!">
+					Ingest tools
+				</a>
+					<label for="645CFC41" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="645CFC41"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/troubleshoot/ingest/opentelemetry"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Elastic Distributions of OpenTelemetry (EDOT)
+				</a>
+					<label for="FD2D4EBB" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="FD2D4EBB"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/troubleshoot/ingest/opentelemetry/edot-collector"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					EDOT Collector
+				</a>
+					<label for="36AAA07C" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="36AAA07C"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/opentelemetry/edot-collector/collector-oomkilled"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Collector out of memory
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/opentelemetry/edot-collector/insufficient-resources-kubestack"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Insufficient resources with Kube-Stack chart
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/opentelemetry/edot-collector/metadata"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Collector doesn&#x2019;t propagate metadata
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/opentelemetry/edot-collector/enable-debug-logging"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Enable debug logging
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/opentelemetry/edot-collector/collector-not-starting"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Collector doesn&#x27;t start
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/opentelemetry/edot-collector/misconfigured-sampling-collector"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Collector sampling issues
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/opentelemetry/edot-collector/trace-export-errors"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Export errors from the EDOT Collector
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/opentelemetry/edot-collector/c2c-resourceexhausted"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				ResourceExhausted errors in Collector-to-Collector pipelines
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/troubleshoot/ingest/opentelemetry/edot-sdks"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					EDOT SDKs
+				</a>
+					<label for="1AEB0FA7" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="1AEB0FA7"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/opentelemetry/edot-sdks/android"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				EDOT Android
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/opentelemetry/edot-sdks/dotnet"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				EDOT .NET
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/opentelemetry/edot-sdks/ios"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				EDOT iOS
+			</a>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/troubleshoot/ingest/opentelemetry/edot-sdks/java"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					EDOT Java
+				</a>
+					<label for="EEB0330D" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="EEB0330D"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/opentelemetry/edot-sdks/java/proxy-issues"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Proxy issues
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/opentelemetry/edot-sdks/nodejs"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				EDOT Node.js
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/opentelemetry/edot-sdks/php"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				EDOT PHP
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/opentelemetry/edot-sdks/python"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				EDOT Python
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/opentelemetry/edot-sdks/enable-debug-logging"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Enable debug logging for SDKs
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/opentelemetry/edot-sdks/missing-app-telemetry"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				No app-level telemetry in Kibana
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/opentelemetry/edot-sdks/proxy"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Proxy settings
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/opentelemetry/edot-sdks/misconfigured-sampling-sdk"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				SDK sampling issues
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/opentelemetry/edot-sdks/trace-context-propagation"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Trace context header propagation
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/opentelemetry/no-data-in-kibana"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				No data visible in Kibana
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/opentelemetry/connectivity"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Connectivity issues
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/opentelemetry/429-errors-motlp"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				429 errors when using the mOTLP endpoint
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/opentelemetry/contact-support"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Contact support
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/troubleshoot/ingest/logstash"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Logstash
+				</a>
+					<label for="44997855" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="44997855"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/troubleshoot/ingest/logstash/plugins"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Plugins
+				</a>
+					<label for="21E07284" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="21E07284"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/logstash/kafka"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Kafka
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/logstash/azure-event-hub"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Azure Event Hub
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/logstash/health-report-pipelines"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Health report pipelines
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/logstash/contribute"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Contribute and discuss
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/logstash/diagnostic"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Diagnostics
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/troubleshoot/ingest/fleet/fleet-elastic-agent"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Fleet and Elastic Agent
+				</a>
+					<label for="07AD9A3E" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="07AD9A3E"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/fleet/diagnostics"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Diagnostics
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/fleet/common-problems"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Common problems
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/fleet/frequently-asked-questions"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Frequently asked questions
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/beats-loggingplugin/elastic-logging-plugin-for-docker"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Elastic Logging Plugin for Docker
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/ingest/elastic-serverless-forwarder"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Elastic Serverless Forwarder
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-6 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/troubleshoot/deployments/elastic-cloud"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center font-semibold group-[.current]/li:text-blue-elastic!">
+					Elastic Cloud
+				</a>
+					<label for="EBDEBA1E" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="EBDEBA1E"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/deployments/serverless"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Serverless status
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/deployments/elastic-cloud/sso"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				SAML single sign-on (SSO)
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/monitoring/unavailable-nodes"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Unavailable nodes
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/monitoring/unavailable-shards"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Unavailable shards
+			</a>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-4 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/troubleshoot/monitoring/performance"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center  group-[.current]/li:text-blue-elastic!">
+					Performance
+				</a>
+					<label for="16047CE7" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="16047CE7"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/monitoring/high-memory-pressure"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				High memory pressure
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/monitoring/high-availability"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Cluster performance metrics
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/monitoring/cluster-response-time"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Cluster response time
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/monitoring/node-moves-outages"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Node moves and system maintenance
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/monitoring/deployment-health-warnings"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Deployment health warnings
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/monitoring/node-bootlooping"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Node bootlooping
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-6 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/troubleshoot/deployments/cloud-enterprise/cloud-enterprise"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center font-semibold group-[.current]/li:text-blue-elastic!">
+					Elastic Cloud Enterprise
+				</a>
+					<label for="53CF34D3" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="53CF34D3"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/deployments/cloud-enterprise/common-issues"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Common problems
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/deployments/cloud-enterprise/use-emergency-roles-token"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Emergency roles token
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/deployments/cloud-enterprise/remove-cloud-enterprise"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Removing containers
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/deployments/cloud-enterprise/troubleshooting-container-engines"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Container engines
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/deployments/cloud-enterprise/verify-zookeeper-sync-status"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				ZooKeeper sync status
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/deployments/cloud-enterprise/rebuilding-broken-zookeeper-quorum"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Zookeeper quorum
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/deployments/cloud-enterprise/deployment-health-warnings"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Deployment health warnings
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/monitoring/node-bootlooping"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Node bootlooping
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/deployments/cloud-enterprise/run-ece-diagnostics-tool"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Diagnostics
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/deployments/cloud-enterprise/heap-dumps"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Heap dumps
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/deployments/cloud-enterprise/thread-dumps"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Thread dumps
+			</a>
+		</li>
+
+				</ul>
+		</li>
+		<li class="flex flex-wrap group-navigation mt-6 relative">
+			<div class="peer grid grid-cols-[1fr_auto] w-full">
+				<a
+					href="/docs/troubleshoot/deployments/cloud-on-k8s/kubernetes"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="sidebar-link pr-2 content-center font-semibold group-[.current]/li:text-blue-elastic!">
+					Elastic Cloud on Kubernetes
+				</a>
+					<label for="37F3ED5A" class="group/label flex mr-2 items-start">
+						<div class="hover:bg-grey-20 rounded-sm p-1 cursor-pointer">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="shrink-0 -rotate-90 group-has-checked/label:rotate-0 w-3.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+							</svg>
+						</div>
+						<input
+							id="37F3ED5A"
+							type="checkbox"
+							class="hidden"
+							aria-hidden="true">
+					</label>
+			</div>
+				<ul class="w-full hidden peer-has-checked:block ml-4 relative before:content-[''] before:absolute before:-left-[calc(var(--spacing)*4-1px)] before:top-0 before:bottom-0 before:w-px before:bg-grey-20 before:peer-has-checked:block peer-has-[.current]:before:bg-grey-40 has-[.current]:before:bg-grey-40">
+							<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/deployments/cloud-on-k8s/common-problems"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Common issues
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/deployments/cloud-on-k8s/troubleshooting-methods"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Resources and logs
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/deployments/cloud-on-k8s/run-eck-diagnostics"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Diagnostics
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/deployments/cloud-on-k8s/jvm-heap-dumps"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				JVM heap dumps
+			</a>
+		</li>
+		<li class="flex group/li pr-8 mt-4">
+			<a
+				href="/docs/troubleshoot/monitoring/node-bootlooping"
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown
+				class="sidebar-link grow group-[.current]/li:text-blue-elastic!"
+			>
+				Node bootlooping
+			</a>
+		</li>
+
+				</ul>
+		</li>
+
+	</ul>
+</div>
+
+	</nav>
+	<label role="button" for="pages-nav-hamburger" class="absolute md:hidden top-7 -right-12 bg-white p-1 rounded-full border-1 border-grey-20 cursor-pointer z-99">
+		<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+			<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+		</svg>
+	</label>
+</aside>
+<label for="pages-nav-hamburger" aria-hidden="true" class="hidden group-has-[#pages-nav-hamburger:checked]/body:block md:hidden! fixed top-0 left-0 right-0 bottom-0 bg-black/50 z-30 ">
+	
+</label>
+
+					<main id="content-container" class="min-w-0 lg:grid lg:grid-cols-[minmax(0,var(--max-text-width))_minmax(0,var(--max-sidebar-width))] justify-end mx-4 gap-4">
+						<aside class="sidebar md:block w-full lg:max-w-65 md:order-2">
+	<nav id="toc-nav" class="sidebar-nav lg:h-full flex flex-row-reverse lg:block items-center justify-between md:justify-start gap-4 pb-3 md:pb-9 simple-scrollbar">
+			<div class="mt-4">
+				<version-dropdown current-version='9.0&#x2B;' items='null'>
+					<div class="h-8"></div>
+				</version-dropdown>
+			</div>
+
+			<label role="button" class="md:hidden cursor-pointer mt-3" for="pages-nav-hamburger">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+					stroke="currentColor" class="size-6">
+					<path stroke-linecap="round" stroke-linejoin="round"
+						d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"/>
+				</svg>
+			</label>
+		
+		<ul class="mt-4 hidden md:flex items-center lg:block gap-4">
+			<li class="view-as-markdown hidden lg:block lg:not-first:mt-1">
+				<a href="/docs/troubleshoot/ingest/opentelemetry/edot-collector/collector-oomkilled.md" class="link text-sm" target="_blank">
+					<svg class="link-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 -1 24 24">
+						<path fill="currentColor" d="M22.131725 19.247H1.9386225C1.0239525 19.247 0.25 18.47305 0.25 17.558375v-11.11675c0 -0.914675 0.7739525 -1.688625 1.6886225 -1.688625H22.061375c0.914675 0 1.688625 0.77395 1.688625 1.688625v11.11675c0 0.914675 -0.7036 1.688625 -1.618275 1.688625ZM1.9386225 5.87875c-0.2814375 0 -0.562875 0.281425 -0.562875 0.562875v11.11675c0 0.3518 0.2814375 0.562875 0.562875 0.562875H22.061375c0.3518 0 0.562875 -0.281425 0.562875 -0.562875v-11.11675c0 -0.3518 -0.281425 -0.562875 -0.562875 -0.562875l-20.1227525 0ZM3.62725 15.86975V8.130225h2.2515l2.2515 2.814375 2.251475 -2.814375h2.2515V15.86975h-2.2515V11.437125L8.13025 14.2515l-2.2515 -2.814375V15.86975h-2.2515Zm14.1422 0L14.392225 12.140725h2.251475v-4.0105h2.2515v3.940125h2.2515L17.76945 15.86975Z" stroke-width="0.25"></path>
+					</svg>
+					View as Markdown
+				</a>
+			</li>
+				<li class="report-an-issue lg:not-first:mt-1">
+					<a href="https://github.com/elastic/docs-content/issues/new?template=issue-report.yaml&amp;link=https://www.elastic.co/docs/troubleshoot/ingest/opentelemetry/edot-collector/collector-oomkilled&amp;labels=source:web" class="link text-sm" target="_blank">
+						<svg class="link-icon" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg">
+							<path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z" fill="currentColor"/>
+						</svg>
+						Report a docs issue
+					</a>
+				</li>
+				<li class="edit-this-page lg:not-first:mt-1 ">
+					<a href="https://github.com/elastic/docs-content/edit/main/./troubleshoot/ingest/opentelemetry/edot-collector/collector-oomkilled.md" class="link text-sm" target="_blank">
+						<svg class="link-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"/>
+						</svg>
+						Edit this page
+					</a>
+				</li>
+				<li class="learn-how-to-contribute hidden lg:block lg:not-first:mt-1">
+					<a href="https://www.elastic.co/docs/contribute-docs/" class="link text-sm" target="_blank">
+						<svg class="link-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+							<path fill="currentColor" d="M8.8,0 C9.074,0 9.337,0.113 9.526,0.312 L12.726,3.74 C12.902,3.926 13,4.173 13,4.429 L13,13 C13,13.552 12.552,14 12,14 L2,14 C1.448,14 1,13.552 1,13 L1,1 C1,0.448 1.448,0 2,0 L8.8,0 Z M12,5 L8.5,5 C8.224,5 8,4.776 8,4.5 L8,1 L2,1 L2,13 L12,13 L12,5 Z M4.5,11 C4.22385763,11 4,10.7761424 4,10.5 C4,10.2238576 4.22385763,10 4.5,10 L9.5,10 C9.7761424,10 10,10.2238576 10,10.5 C10,10.7761424 9.7761424,11 9.5,11 L4.5,11 Z M4.5,8 C4.22385763,8 4,7.77614237 4,7.5 C4,7.22385763 4.22385763,7 4.5,7 L9.5,7 C9.7761424,7 10,7.22385763 10,7.5 C10,7.77614237 9.7761424,8 9.5,8 L4.5,8 Z M5.5,16 C5.22385763,16 5,15.7761424 5,15.5 C5,15.2238576 5.22385763,15 5.5,15 L14,15 L14,6.5 C14,6.22385763 14.2238576,6 14.5,6 C14.7761424,6 15,6.22385763 15,6.5 L15,15 C15,15.5522847 14.5522847,16 14,16 L5.5,16 Z"/>
+						</svg>
+						Learn how to contribute
+					</a>
+				</li>
+		</ul>
+		<div class="mt-4 hidden lg:block">
+			<div class="sidebar-trial-card">
+				<div class="sidebar-trial-card__inner">
+					<a href="https://cloud.elastic.co/registration?page=docs&placement=docs-siderail" class="w-full min-h-[30px] cursor-pointer text-white text-nowrap bg-blue-elastic hover:bg-blue-elastic-110 focus:ring-4 focus:outline-none focus:ring-blue-elastic-50 font-semibold font-sans rounded-sm px-6 py-2 text-center flex items-center justify-center leading-[30px]">
+					Get started free
+				</a>
+					<ul class="mt-4 list-none text-sm">
+						<li class="flex items-start gap-2 py-1 text-ink-light leading-[17px]">
+							<span class="sidebar-trial-card__icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8,16 C3.581722,16 0,12.418278 0,8 C0,3.581722 3.581722,0 8,0 C12.418278,0 16,3.581722 16,8 C16,12.418278 12.418278,16 8,16 Z M11.649646,5.14327592 L6.90909091,9.79917823 L4.35035401,7.28613306 C4.15334074,7.09263789 3.8367711,7.09548987 3.64327592,7.29250314 C3.44978074,7.4895164 3.45263272,7.80608605 3.64964599,7.99958122 L6.5587369,10.8567241 C6.75324482,11.0477586 7.064937,11.0477586 7.25944492,10.8567241 L12.350354,5.85672408 C12.5473673,5.6632289 12.5502193,5.34665926 12.3567241,5.14964599 C12.1632289,4.95263272 11.8466593,4.94978074 11.649646,5.14327592 Z"/>
+</svg>
+</span>
+							<span>14-day free trial</span>
+						</li>
+						<li class="flex items-start gap-2 py-1 text-ink-light leading-[17px]">
+							<span class="sidebar-trial-card__icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8,16 C3.581722,16 0,12.418278 0,8 C0,3.581722 3.581722,0 8,0 C12.418278,0 16,3.581722 16,8 C16,12.418278 12.418278,16 8,16 Z M11.649646,5.14327592 L6.90909091,9.79917823 L4.35035401,7.28613306 C4.15334074,7.09263789 3.8367711,7.09548987 3.64327592,7.29250314 C3.44978074,7.4895164 3.45263272,7.80608605 3.64964599,7.99958122 L6.5587369,10.8567241 C6.75324482,11.0477586 7.064937,11.0477586 7.25944492,10.8567241 L12.350354,5.85672408 C12.5473673,5.6632289 12.5502193,5.34665926 12.3567241,5.14964599 C12.1632289,4.95263272 11.8466593,4.94978074 11.649646,5.14327592 Z"/>
+</svg>
+</span>
+							<span>All features included</span>
+						</li>
+						<li class="flex items-start gap-2 py-1 text-ink-light leading-[17px]">
+							<span class="sidebar-trial-card__icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8,16 C3.581722,16 0,12.418278 0,8 C0,3.581722 3.581722,0 8,0 C12.418278,0 16,3.581722 16,8 C16,12.418278 12.418278,16 8,16 Z M11.649646,5.14327592 L6.90909091,9.79917823 L4.35035401,7.28613306 C4.15334074,7.09263789 3.8367711,7.09548987 3.64327592,7.29250314 C3.44978074,7.4895164 3.45263272,7.80608605 3.64964599,7.99958122 L6.5587369,10.8567241 C6.75324482,11.0477586 7.064937,11.0477586 7.25944492,10.8567241 L12.350354,5.85672408 C12.5473673,5.6632289 12.5502193,5.34665926 12.3567241,5.14964599 C12.1632289,4.95263272 11.8466593,4.94978074 11.649646,5.14327592 Z"/>
+</svg>
+</span>
+							<span>No setup required</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="pt-6 hidden lg:block">
+				<div class="font-sans">
+					<div class="font-bold mb-2">On this page</div>
+					<div class="relative toc-progress-container font-body">
+						<div class="toc-progress-indicator absolute top-0 h-0 w-[1px] bg-blue-elastic transition-all duration-200 ease-out "></div>
+						<ul class="block w-full">
+								<li class="has-[:hover]:border-l-grey-80 items-center px-4 border-l-1 border-l-grey-20 has-[.current]:border-l-blue-elastic!">
+									<a
+										class="sidebar-link inline-block my-1.5 "
+										href="#symptoms">
+										Symptoms
+									</a>
+								</li>
+								<li class="has-[:hover]:border-l-grey-80 items-center px-4 border-l-1 border-l-grey-20 has-[.current]:border-l-blue-elastic!">
+									<a
+										class="sidebar-link inline-block my-1.5 "
+										href="#resolution">
+										Resolution
+									</a>
+								</li>
+								<li class="has-[:hover]:border-l-grey-80 items-center px-4 border-l-1 border-l-grey-20 has-[.current]:border-l-blue-elastic!">
+									<a
+										class="sidebar-link inline-block my-1.5 ml-4"
+										href="#enable-pprof-in-the-collector">
+										Enable `pprof` in the Collector
+									</a>
+								</li>
+								<li class="has-[:hover]:border-l-grey-80 items-center px-4 border-l-1 border-l-grey-20 has-[.current]:border-l-blue-elastic!">
+									<a
+										class="sidebar-link inline-block my-1.5 ml-4"
+										href="#access-the-affected-pod-and-collect-a-heap-dump">
+										Access the affected pod and collect a heap dump
+									</a>
+								</li>
+								<li class="has-[:hover]:border-l-grey-80 items-center px-4 border-l-1 border-l-grey-20 has-[.current]:border-l-blue-elastic!">
+									<a
+										class="sidebar-link inline-block my-1.5 ml-4"
+										href="#copy-the-heap-file-from-the-pod">
+										Copy the heap file from the pod
+									</a>
+								</li>
+								<li class="has-[:hover]:border-l-grey-80 items-center px-4 border-l-1 border-l-grey-20 has-[.current]:border-l-blue-elastic!">
+									<a
+										class="sidebar-link inline-block my-1.5 ml-4"
+										href="#convert-the-heap-profile-for-analysis">
+										Convert the heap profile for analysis
+									</a>
+								</li>
+								<li class="has-[:hover]:border-l-grey-80 items-center px-4 border-l-1 border-l-grey-20 has-[.current]:border-l-blue-elastic!">
+									<a
+										class="sidebar-link inline-block my-1.5 "
+										href="#best-practices">
+										Best practices
+									</a>
+								</li>
+								<li class="has-[:hover]:border-l-grey-80 items-center px-4 border-l-1 border-l-grey-20 has-[.current]:border-l-blue-elastic!">
+									<a
+										class="sidebar-link inline-block my-1.5 "
+										href="#resources">
+										Resources
+									</a>
+								</li>
+						</ul>
+					</div>
+				</div>
+
+		</div>
+
+	</nav>
+</aside>
+
+						<div class="mb-9 mt-0 min-w-0 ">
+							
+<ol id="breadcrumbs" class="flex flex-wrap gap-1 items-center w-full py-6">
+		<li class="text-ink-light text-sm leading-[1.2em]">
+			<a
+				itemprop="item"
+				href="/docs"
+				hx-disable=true
+				 hx-select-oob=#content-container,#toc-nav,#nav-tree,#nav-dropdown preload=mousedown>
+				<span class="hover:text-black">Elastic Docs</span>
+			</a>
+				<span class="px-1">/</span>
+		</li>
+		<li class="text-ink-light text-sm leading-[1.2em]">
+			<a
+				itemprop="item"
+				href="/docs/troubleshoot"
+				
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown>
+				<span class="hover:text-black">Troubleshoot</span>
+			</a>
+				<span class="px-1">/</span>
+		</li>
+		<li class="text-ink-light text-sm leading-[1.2em]">
+			<a
+				itemprop="item"
+				href="/docs/troubleshoot/ingest"
+				
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown>
+				<span class="hover:text-black">Ingest tools</span>
+			</a>
+				<span class="px-1">/</span>
+		</li>
+		<li class="text-ink-light text-sm leading-[1.2em]">
+			<a
+				itemprop="item"
+				href="/docs/troubleshoot/ingest/opentelemetry"
+				
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown>
+				<span class="hover:text-black">Elastic Distributions of OpenTelemetry (EDOT)</span>
+			</a>
+				<span class="px-1">/</span>
+		</li>
+		<li class="text-ink-light text-sm leading-[1.2em]">
+			<a
+				itemprop="item"
+				href="/docs/troubleshoot/ingest/opentelemetry/edot-collector"
+				
+				 hx-select-oob=#content-container,#toc-nav preload=mousedown>
+				<span class="hover:text-black">EDOT Collector</span>
+			</a>
+		</li>
+</ol>
+
+							<article id="markdown-content" class="markdown-content min-w-0">
+								<input type="checkbox" class="hidden" id="pages-nav-hamburger">
+								<section id="elastic-docs-v3">
+	<h1>Troubleshoot an out-of-memory EDOT Collector</h1>
+
+		<p class="applies applies-block">
+		
+	<applies-to-popover
+		badge-key="Serverless Observability"
+		lifecycle-class="ga"
+		lifecycle-name="GA"
+		show-lifecycle-name="false"
+		show-version="false"
+		has-multiple-lifecycles="false"
+		popover-data='{"productDescription":"\u003Cstrong\u003EElastic Cloud Serverless\u003C/strong\u003E projects are autoscaled environments, fully managed by Elastic and available on Elastic Cloud.","availabilityItems":[{"text":"Generally available","lifecycleDescription":"This functionality is generally available and ready for production usage."}],"additionalInfo":null,"showVersionNote":false,"versionNote":null}'
+		show-popover="true"
+		is-inline="false"
+	></applies-to-popover>
+	<applies-to-popover
+		badge-key="Stack"
+		lifecycle-class="ga"
+		lifecycle-name="GA"
+		show-lifecycle-name="false"
+		show-version="false"
+		has-multiple-lifecycles="false"
+		popover-data='{"productDescription":"The \u003Cstrong\u003EElastic Stack\u003C/strong\u003E includes Elastic\u0027s core products such as Elasticsearch, Kibana, Logstash, and Beats.","availabilityItems":[{"text":"Generally available","lifecycleDescription":"This functionality is generally available and ready for production usage."}],"additionalInfo":"Unless stated otherwise on the page, this functionality is available when your Elastic Stack is deployed on Elastic Cloud Hosted, Elastic Cloud Enterprise, Elastic Cloud on Kubernetes, and self-managed environments.","showVersionNote":true,"versionNote":"This documentation corresponds to the latest patch available for each minor version. If you\u0027re not using the latest patch, check the \u003Ca href=\u0022https://www.elastic.co/docs/release-notes\u0022\u003Erelease notes\u003C/a\u003E for changes."}'
+		show-popover="true"
+		is-inline="false"
+	></applies-to-popover>
+	<applies-to-popover
+		badge-key="EDOT Collector"
+		lifecycle-class="ga"
+		lifecycle-name="GA"
+		show-lifecycle-name="false"
+		show-version="false"
+		has-multiple-lifecycles="false"
+		popover-data='{"productDescription":"The \u003Cstrong\u003EElastic Distribution of OpenTelemetry (EDOT) Collector\u003C/strong\u003E retrieves traces, metrics, and logs from your infrastructure and applications, and forwards them to Elastic Observability.","availabilityItems":[{"text":"Generally available","lifecycleDescription":"This functionality is generally available and ready for production usage."}],"additionalInfo":null,"showVersionNote":true,"versionNote":"This documentation corresponds to the latest patch available for each minor version. If you\u0027re not using the latest patch, check the \u003Ca href=\u0022https://www.elastic.co/docs/release-notes\u0022\u003Erelease notes\u003C/a\u003E for changes."}'
+		show-popover="true"
+		is-inline="false"
+	></applies-to-popover>
+
+		</p>
+	<p>If your EDOT Collector pods terminate with an <code>OOMKilled</code> status, this usually indicates sustained memory pressure or potentially a memory leak due to an introduced regression or a bug. You can use the Performance Profiler (<code>pprof</code>) extension to collect and analyze memory profiles, helping you identify the root cause of the issue.</p>
+<p>If you're running the Collector in Kubernetes and experiencing resource allocation issues, refer to <a href="/docs/troubleshoot/ingest/opentelemetry/edot-collector/insufficient-resources-kubestack" hx-select-oob="#content-container,#toc-nav" preload="mousedown">Insufficient resources in Kubernetes</a> for troubleshooting steps.</p>
+<div class="heading-wrapper" id="symptoms"><h2><a class="headerlink" href="#symptoms">Symptoms</a></h2>
+</div>
+<p>These symptoms typically indicate that the EDOT Collector is experiencing a memory-related failure:</p>
+<ul>
+<li>EDOT Collector pod restarts with an <code>OOMKilled</code> status in Kubernetes.</li>
+<li>Memory usage steadily increases before the crash.</li>
+<li>The Collector's logs don't show clear errors before termination.</li>
+</ul>
+<p>For more detailed diagnostics, refer to <a href="/docs/troubleshoot/ingest/opentelemetry/edot-collector/enable-debug-logging" hx-select-oob="#content-container,#toc-nav" preload="mousedown">Enable debug logging</a>.</p>
+<div class="heading-wrapper" id="resolution"><h2><a class="headerlink" href="#resolution">Resolution</a></h2>
+</div>
+<p>Turn on runtime profiling using the <code>pprof</code> extension and then gather memory heap profiles from the affected pod:</p>
+<div class="stepper">
+	<ol>
+		<li class="step">
+				<h3 id="enable-pprof-in-the-collector">
+					<a href="#enable-pprof-in-the-collector">Enable <code>pprof</code> in the Collector</a>
+				</h3>
+	<p>Edit the EDOT Collector Daemonset configuration and include the <code>pprof</code> extension:</p>
+<div class="highlight-yaml notranslate">
+	<div class="highlight">
+		<pre>
+<code class="language-yaml">exporters:
+  ...
+processors:
+  ...
+receivers:
+  ...
+extensions:
+  pprof:
+
+service:
+  extensions:
+   - pprof
+   - ...
+  pipelines:
+    metrics:
+      receivers: [ ... ]
+      processors: [ ... ]
+      exporters: [ ... ]
+</code>		</pre>
+	</div>
+</div>
+<p>Restart the Collector after applying these changes. When the Daemonset is deployed again, spot the pod that is getting restarted.</p>
+</li>
+<li class="step">
+				<h3 id="access-the-affected-pod-and-collect-a-heap-dump">
+					<a href="#access-the-affected-pod-and-collect-a-heap-dump">Access the affected pod and collect a heap dump</a>
+				</h3>
+	<p>When a pod starts exhibiting high memory usage or restarts due to OOM, run the following to enter a debug shell:</p>
+<div class="highlight-json notranslate">
+	<div class="highlight">
+		<pre>
+				<code class="language-apiheader"></code>
+					<code class="language-json">kubectl debug -it &lt;collector-pod-name&gt; --image=ubuntu:latest</code>
+		</pre>
+	</div>
+</div>
+<p>In the debug container:</p>
+<div class="highlight-json notranslate">
+	<div class="highlight">
+		<pre>
+				<code class="language-apiheader"></code>
+					<code class="language-json">apt update
+apt install -y curl
+curl http://localhost:1777/debug/pprof/heap &gt; heap.out</code>
+		</pre>
+	</div>
+</div>
+</li>
+<li class="step">
+				<h3 id="copy-the-heap-file-from-the-pod">
+					<a href="#copy-the-heap-file-from-the-pod">Copy the heap file from the pod</a>
+				</h3>
+	<p>From your local machine, copy the heap file using:</p>
+<div class="highlight-bash notranslate">
+	<div class="highlight">
+		<pre>
+<code class="language-bash">kubectl cp &lt;collector-pod-name&gt;:heap.out ./heap.out -c &lt;debug-container-name&gt;
+</code>		</pre>
+	</div>
+</div>
+<div class="admonition note">
+	<div class="admonition-header">
+		<span class="admonition-title">Note</span>
+	</div>
+	<div class="admonition-content"><p>Replace <code>&lt;debug-container-name&gt;</code> with the name assigned to the debug container. Without the <code>-c</code> flag, Kubernetes will show the list of available containers.</p></div>
+</div>
+</li>
+<li class="step">
+				<h3 id="convert-the-heap-profile-for-analysis">
+					<a href="#convert-the-heap-profile-for-analysis">Convert the heap profile for analysis</a>
+				</h3>
+	<p>You can now generate a visual representation, for example PNG:</p>
+<div class="highlight-bash notranslate">
+	<div class="highlight">
+		<pre>
+<code class="language-bash">go tool pprof -png heap.out &gt; heap.png
+</code>		</pre>
+	</div>
+</div>
+</li>
+	</ol>
+</div><div class="heading-wrapper" id="best-practices"><h2><a class="headerlink" href="#best-practices">Best practices</a></h2>
+</div>
+<p>To improve the effectiveness of memory diagnostics and reduce investigation time, consider the following:</p>
+<ul>
+<li><p>Collect multiple heap profiles over time (for example, every few minutes) to observe memory trends before the crash.</p>
+</li>
+<li><p>Automate heap profile collection at intervals to observe trends over time.</p>
+</li>
+</ul>
+<div class="heading-wrapper" id="resources"><h2><a class="headerlink" href="#resources">Resources</a></h2>
+</div>
+<ul>
+<li><a href="https://pkg.go.dev/net/http/pprof" target="_blank" rel="noopener noreferrer">Go's pprof documentation</a></li>
+<li><a href="https://opentelemetry.io/docs/collector/troubleshooting/#performance-profiler-pprof" target="_blank" rel="noopener noreferrer">OpenTelemetry Collector troubleshooting documentation</a></li>
+</ul>
+
+</section>
+
+							</article>
+							<footer id="prev-next-nav" class="content-container mt-20">
+	<div class="flex flex-wrap lg:flex-nowrap gap-2 mt-2">
+		<div class="w-full">
+				<a 
+					href="/docs/troubleshoot/ingest/opentelemetry/edot-collector"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="flex h-full items-center text-ink-light hover:black border-1 border-grey-20 hover:border-grey-80 rounded-lg p-6 shadow-md"
+				>
+					<svg class="size-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5"/>
+					</svg>
+					<div>
+						<div class="text-xs lg:text-sm">Previous</div>
+						<div class="text-base lg:text-xl text-black">EDOT Collector</div>
+					</div>
+				</a>
+		</div>
+		<div class="w-full">
+				<a 
+					href="/docs/troubleshoot/ingest/opentelemetry/edot-collector/insufficient-resources-kubestack"
+					 hx-select-oob=#content-container,#toc-nav preload=mousedown
+					class="flex h-full items-center justify-end text-ink-light hover:black border-1 border-grey-20 hover:border-grey-80 rounded-lg p-6 shadow-md text-right"
+				>
+					<div>
+						<div class="text-xs lg:text-sm">Next</div>
+						<div class="text-base lg:text-xl text-black">Insufficient resources with Kube-Stack chart</div>
+					</div>
+					<svg class="size-6 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/>
+					</svg>
+				</a>
+		</div>
+	</div>
+</footer>
+
+						</div>
+					</main>
+				</div>
+			</div>
+		</div>
+</div>
+
+<footer class="py-12 px-6 w-full mx-auto bg-ink-dark">
+	<div class="max-w-(--max-layout-width) w-full mx-auto">
+	<div class="text-grey-20 text-[12px]">
+		<a href="https://www.elastic.co/">
+			<img class="block" loading="lazy" alt="Elastic logo" src="/docs/_static/logo-elastic-horizontal-white.svg?v=19bc4040eda89518" width="120" height="41"/>
+		</a>
+	</div>
+	<div class="text-grey-20 text-[12px] bg-ink-dark grid grid-cols-1 md:grid-cols-2 gap-2 items-center">
+		<div>
+			<ul class="mt-4 flex gap-3">
+				<li>
+					<a class="underline hover:text-white" href="https://www.elastic.co/legal/trademarks">Trademarks</a>
+				</li>
+				<li>
+					<a class="underline hover:text-white" href="https://www.elastic.co/legal/terms-of-use">Terms of Use</a>
+				</li>
+				<li>
+					<a class="underline hover:text-white" href="https://www.elastic.co/legal/privacy-statement">Privacy</a>
+				</li>
+				<li>
+					<a class="underline hover:text-white" href="https://www.elastic.co/sitemap">Sitemap</a>
+				</li>
+			</ul>
+			<p class="mt-4">
+				© 2026 Elasticsearch B.V. All Rights Reserved.
+			</p>
+		</div>
+		<div class="mt-4">
+			<p>
+				This content is available in different formats for convenience only. All original licensing terms apply.
+			</p>
+			<p class="mt-4">
+				Elasticsearch is a trademark of Elasticsearch B.V., registered in the U.S. and in other countries. Apache, Apache Lucene, Apache Hadoop, Hadoop, HDFS and the yellow elephant logo are trademarks of the Apache Software Foundation in the United States and/or other countries.
+			</p>
+		</div>
+	</div>
+	</div>
+</footer>
+
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CS172 Search Engine</title>
+</head>
+<body>
+
+    <h1>CS172 Search Engine</h1>
+
+    <form method="POST">
+        <input type="text" name="query" value="{{ query }}" size="50">
+        <button type="submit">Search</button>
+    </form>
+
+    <hr>
+
+    {% for result in results %}
+        <div>
+            <h3>{{ result.title }}</h3>
+
+            <p>
+                <b>Score:</b> {{ result.score }}
+            </p>
+
+            <p>
+                <a href="{{ result.url }}" target="_blank">
+                    {{ result.url }}
+                </a>
+            </p>
+
+            <p>
+                {{ result.path }}
+            </p>
+
+            <hr>
+        </div>
+    {% endfor %}
+
+</body>
+</html>

@@ -1,0 +1,598 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Sprints - scikit-learn Blog</title>
+<meta name="description" content="The official blog of scikit-learn, an open source library for machine learning in Python.">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="scikit-learn Blog">
+<meta property="og:title" content="Sprints">
+<meta property="og:url" content="https://blog.scikit-learn.org/sprints/">
+
+
+  <meta property="og:description" content="The official blog of scikit-learn, an open source library for machine learning in Python.">
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="https://blog.scikit-learn.org/sprints/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": null,
+      "url": "https://blog.scikit-learn.org/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="scikit-learn Blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+<link rel="manifest" href="/assets/images/site.webmanifest">
+<link rel="mask-icon" href="/assets/images/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/images/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" content="/assets/images/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- Load MathJax only in the pages with `usemathjax: true` -->
+
+
+
+
+    <script defer data-domain="blog.scikit-learn.org" src="https://views.scientific-python.org/js/script.js"></script>
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/scikit-learn-logo.png" alt="scikit-learn Blog"></a>
+        
+        <a class="site-title" href="/">
+          scikit-learn Blog
+          
+        </a>
+        <ul class="visible-links">
+                
+                
+                    <li class="masthead__menu-item">
+                        <a href="https://scikit-learn.org/stable/">scikit-learn.org</a>
+                    </li>
+                
+            
+                
+                
+                    <li class="masthead__menu-item">
+                        <a href="/calendar">Calendar</a>
+                    </li>
+                
+            
+                
+                
+                    <li class="masthead__menu-item">
+                        <a href="/resources">Resources</a>
+                    </li>
+                
+            
+                
+                
+                    <li class="masthead__menu-item">
+                        <a href="/sprints">Sprints</a>
+                    </li>
+                
+            
+                
+                
+                    <li class="dropdown ">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More    <i class="fa fa-caret-down fa-sm" aria-hidden="true"></i><span class="caret"></span></a>
+                        <ul class="dropdown-content">
+                            
+                                <li>
+                                    <a href="https://scikit-learn.org/stable/install">    Install</a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://scikit-learn.org/stable/user_guide">    User Guide</a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://scikit-learn.org/stable/api/index">    API</a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://scikit-learn.org/stable/auto_examples/index">    Examples</a>
+                                </li>
+                            
+                        </ul>
+                    </li>
+                
+            
+        </ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">Archives</span>
+        
+
+        
+        <ul>
+          
+            <li><a href="/categories/">Category</a></li>
+          
+            <li><a href="/tags/">Tag</a></li>
+          
+            <li><a href="/years/">Year</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">scikit-learn</span>
+        
+
+        
+        <ul>
+          
+            <li><a href="https://scikit-learn.org/stable/about">About Us</a></li>
+          
+            <li><a href="https://scikit-learn.org/stable/faq">FAQ</a></li>
+          
+            <li><a href="https://python.org/psf/conduct/">Code of Conduct</a></li>
+          
+            <li><a href="https://scikit-learn.org/stable/developers/contributing.html">Contribute to scikit-learn</a></li>
+          
+            <li><a href="https://github.com/scikit-learn/blog">Contribute to the blog</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Community</span>
+        
+
+        
+        <ul>
+          
+            <li><a href="https://github.com/scikit-learn/administrative/tree/master/monthly_meetings">Monthly Meeting Minutes</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Mailing List</span>
+        
+
+        
+        <ul>
+          
+            <li><a href="https://mail.python.org/mailman/listinfo/scikit-learn">Subscribe</a></li>
+          
+            <li><a href="https://mail.python.org/pipermail/scikit-learn/">Archive</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Sprints">
+    
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="https://blog.scikit-learn.org/sprints/" class="u-url" itemprop="url">Sprints
+</a>
+          </h1>
+          
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+        <h2 id="listing-of-scikit-learn-sprints">Listing of Scikit-learn Sprints</h2>
+
+<ul>
+  <li>2025
+    <ul>
+      <li>Online: <a href="https://www.meetup.com/pyladies-berlin/events/305492587">PyLadies Berlin</a> (Feb 2025)</li>
+      <li>Berlin, Germany: <a href="https://www.meetup.com/pyladies-berlin/events/305397520/">PyLadies Berlin</a> (Feb 2025)</li>
+    </ul>
+  </li>
+  <li>2024
+    <ul>
+      <li>Paris, France: <a href="https://pydata.org/paris2024/sprints">PyData Paris</a> (Sep 2024)</li>
+    </ul>
+  </li>
+  <li>2023
+    <ul>
+      <li>Zurich, Switzerland: <a href="https://python-sprints.github.io/zurich/2023/11/07/scikit-learn-sprint.html">Python Sprints &amp; Zurich WiMLDS</a> (Nov 2023)</li>
+      <li>Berlin, Germany: <a href="https://www.meetup.com/pyladies-berlin/events/294785222/">PyLadies Berlin</a> (Aug 2023)</li>
+      <li>Berlin, Germany: <a href="https://www.meetup.com/pyladies-berlin/events/294784938/">PyLadies Berlin</a> (Jul 2023)</li>
+      <li>Paris, France: <a href="https://blog.scikit-learn.org/events/paris-dev-sprint/">scikit-learn Consortium</a> (Jun 2023)</li>
+      <li>Zurich, Switzerland: <a href="https://www.meetup.com/python-sprints-zurich/events/291718007/">Python Sprints Zurich</a> (Mar 2023)</li>
+      <li>Berlin, Germany: <a href="https://www.meetup.com/pyladies-berlin/events/291249163/">PyLadies Berlin</a> (Feb 2023)</li>
+      <li>Berlin, Germany: <a href="https://www.meetup.com/pyladies-berlin/events/291248660/">PyLadies Berlin</a> (Feb 2023)</li>
+    </ul>
+  </li>
+  <li>2022
+    <ul>
+      <li>Paris, France: <a href="https://www.meetup.com/pyladiesparis/events/290003585/">PyLadies Paris</a> (Dec 2022)</li>
+      <li>Paris, France: <a href="https://www.meetup.com/pyladiesparis/events/289652024/">PyLadies Paris</a> (Nov 2022)</li>
+      <li>Paris, France: <a href="https://www.meetup.com/pyladiesparis/events/289471009/">PyLadies Paris</a> (Nov 2022)</li>
+      <li>Paris, France: <a href="https://www.meetup.com/pyladiesparis/events/289012536/">PyLadies Paris</a> (Oct 2022)</li>
+      <li>Salta, Argentina: <a href="https://pythoncientifico.ar">SciPy Latin America</a> (Sep 2022)</li>
+      <li>Basel, Switzerland: <a href="https://www.euroscipy.org/2022/index.html">EuroSciPy 2022</a> (Sep 2022)</li>
+      <li>Dublin, Ireland: <a href="https://ep2022.europython.eu/mentored-sprint">EuroPython 2022</a> (Jul 2022)</li>
+      <li>Paris, France: <a href="https://scikit-learn.fondation-inria.fr/wimlds-paris-sprint-and-contribution-workshop/">WiMLDS Paris</a> (Mar 2022)</li>
+    </ul>
+  </li>
+  <li>2021
+    <ul>
+      <li>Japan: <a href="https://www.fujitsu.com/global/about/research/article/202111-devsprint2021a.html">Fujitsu Research</a> (Dec 2021)</li>
+      <li>Online: <a href="https://blog.dataumbrella.org/data-umbrella-afme2-2021-scikit-learn-sprint-report">Data Umbrella Africa &amp; Middle East Sprint</a> (Oct 2021)</li>
+      <li>Online: <a href="https://blog.dataumbrella.org/data-umbrella-latam-2021-scikit-learn-sprint-report">Data Umbrella Latin America Sprint</a>  (Jun 2021)</li>
+      <li>Online: <a href="https://blog.dataumbrella.org/data-umbrella-afme1-2021-scikit-learn-sprint-report">Data Umbrella Africa &amp; Middle East Sprint</a> (Feb 2021)</li>
+      <li>Japan: <a href="https://www.fujitsu.com/global/about/research/article/202104-devsprint.html">Fujitsu Research</a> (May 2021)</li>
+    </ul>
+  </li>
+  <li>2020
+    <ul>
+      <li>Online: <a href="https://wiki.python.org/moin/EuroPython2020/Sprints">EuroPython 2020 Sprints</a> (Jul 2020)</li>
+      <li>Online: <a href="https://www.scipy2020.scipy.org/sprints-schedule">SciPy 2020</a> (Jul 2020)</li>
+      <li>Online: <a href="https://tinyurl.com/sklearn-online">Data Umbrella First Online Global Sprint</a> (Jun 2020)</li>
+      <li>Paris, France:  <a href="https://github.com/scikit-learn/scikit-learn/wiki/Paris-scikit-learn-Sprint-of-the-Decade">Sprint of the Decade</a> (Jan 2020)</li>
+      <li>Berlin, Germany: <a href="https://github.com/WiMLDS/berlin-2020-scikit-sprint">WiMLDS sprint</a> (Jan 2020)</li>
+    </ul>
+  </li>
+  <li>2019
+    <ul>
+      <li>London, UK:  <a href="https://www.man.com/hackathon2019">ManAHL hackathon</a> (Nov 2, 2019)</li>
+      <li>San Francisco, CA:  <a href="http://wimlds.org/opensourcesprints-2/bay-area-scikit-sprint-2019/">WiMLDS sprint</a> (Nov 2019)</li>
+      <li>New York, NY:  <a href="http://wimlds.org/opensourcesprints-2/nyc-scikit-sprint-2019/">NYC WiMLDS</a> (Aug 24, 2019)</li>
+      <li>Austin, TX: <a href="https://www.scipy2019.scipy.org/sprints">SciPy</a> (Jul 13-14, 2019)</li>
+      <li>Nairobi, Kenya:  <a href="http://wimlds.org/nairobi-scikit-sprint-2019/">WiMLDS sprint</a> (Jun 22, 2019)</li>
+      <li>Paris, France:  <a href="https://scikit-learn.fondation-inria.fr/en/scikit-learn-sprint-in-paris/">core sprint, for advanced contributors</a> (Feb 2019)</li>
+    </ul>
+  </li>
+  <li>2018
+    <ul>
+      <li>New York, NY: <a href="https://reshamas.github.io/highlights-from-the-2018-NYC-WiMLDS-scikit-sprint">NYC WiMLDS</a> (Sep 2018)</li>
+      <li>Austin, TX: <a href="http://gael-varoquaux.info/programming/sprint-on-scikit-learn-in-paris-and-austin.html">SciPy</a> (open sprint, for new contributors) (Jul 2018)</li>
+      <li>Paris, France:  core sprint, for advanced contributors (Jul 2018)</li>
+      <li>New York, NY:  <a href="https://twitter.com/amuellerml/status/1007670849774784512">Two Sigma</a> (Jun 2018)</li>
+      <li>Berkeley, CA: <a href="https://github.com/scikit-image/scikit-image/wiki/UC-Berkeley-(BIDS)-sprint,-May-28-Jun-2-2018">UC Berkeley</a>(May 28 to Jun 2)</li>
+      <li>London, UK: ManAHL (April 21-22, 2018)</li>
+    </ul>
+  </li>
+  <li>2017
+    <ul>
+      <li><a href="http://gael-varoquaux.info/programming/scikit-learn-paris-sprint-2017.html">Paris, France</a> (Jun 2017)</li>
+      <li>New York, NY: <a href="https://github.com/WiMLDS/scikit-sprint-nyc-2017/blob/master/README.md">NYC WiMLDS</a> (Mar 2017)</li>
+    </ul>
+  </li>
+  <li>2016
+    <ul>
+      <li>SciPy:  <a href="https://scipy2016.scipy.org/ehome/146062/332969/index9a04.html?%26">Austin</a> (Jul 2016)</li>
+    </ul>
+  </li>
+  <li>2015
+    <ul>
+      <li>SciPy:  <a href="https://scipy2015.scipy.org/ehome/115969/292867/index9a04.html?%26">Austin</a> (Jul 2015)</li>
+      <li>ODSC:   San Francisco (Nov 2015)</li>
+      <li>Criteo:  <a href="https://twitter.com/GaelVaroquaux/status/656847270550310912">Paris</a> (Oct 2015)</li>
+      <li>PyData:  Paris (Apr 2015)</li>
+    </ul>
+  </li>
+  <li>2014
+    <ul>
+      <li>Euro SciPy, Cambridge (Aug 2014)</li>
+      <li>INRIA, Criteo, La paillasse, Tinyclues:  <a href="http://gael-varoquaux.info/programming/scikit-learn-2014-sprint-a-report.html">Paris</a> (Jul 2014)</li>
+      <li>Cloudera, SF (Feb 2014)</li>
+    </ul>
+  </li>
+  <li>2013
+    <ul>
+      <li><a href="https://github.com/scikit-learn/administrative/blob/master/sprint_paris_2013/proposal.rst">Paris, France</a> (Jul 2013)
+        <ul>
+          <li>Sponsors: <a href="https://www.telecom-paristech.fr/">Télécom Paristech</a>, <a href="https://www.tinyclues.com/">tinyclues</a>, <a href="https://www.afpy.org/">French Python Association</a>, <a href="https://www.frs-fnrs.be">Fonds de la Recherche Scientifique</a></li>
+        </ul>
+      </li>
+      <li>SciPy:  <a href="https://conference.scipy.org/scipy2013/sprint_detail.php?id=36">Austin</a> (Jun 2013)</li>
+    </ul>
+  </li>
+  <li>2012
+    <ul>
+      <li>EuroSciPy Bruxelles (Aug 2012)</li>
+      <li>PyCon France (Jul 2012)</li>
+      <li>SciPy:  <a href="http://conference.scipy.org/scipy2012/sprints/sprint_detail.php?id=15">Austin</a> (Jul 2012)</li>
+    </ul>
+  </li>
+  <li>2011
+    <ul>
+      <li>NeurIPS:  <a href="http://gael-varoquaux.info/programming/scikit-learn-nips-2011-sprint-international-thanks-to-our-sponsors.html">Granada, Spain</a> (Dec 2011)</li>
+      <li>Euro SciPy:  <a href="http://fa.bianp.net/blog/2011/scikit-learn-euroscipy-2011-coding-sprint-day-one/">Paris</a> (Aug 2011)</li>
+      <li>Austin SciPy (Jul 2011)</li>
+      <li>Paris, Logilab (Apr 2011)
+        <ul>
+          <li>Boston MIT</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>2010
+    <ul>
+      <li>Paris, France: (Sep 2010)</li>
+      <li>Paris, France: (Jun 2010)</li>
+      <li><a href="https://web.archive.org/web/20101118052247/http://fseoane.net/blog/2010/scikitslearn-coding-spring-in-paris/">Paris, France</a>: (Mar 2010)</li>
+      <li><strong>first release of scikit-learn</strong> (Feb 2010)</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="references">References</h2>
+<ul>
+  <li>scikit learn wiki: <a href="https://github.com/scikit-learn/scikit-learn/wiki/Upcoming-events">upcoming sprints</a></li>
+  <li>scikit learn wiki: <a href="https://github.com/scikit-learn/scikit-learn/wiki/Past-sprints">past sprints</a></li>
+  <li><a href="http://gael-varoquaux.info/tag/sprint.html">Gael Varoquaux website</a></li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+
+
+      </footer>
+
+      
+
+      
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/scikit-learn" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github-square" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://linkedin.com/company/scikit-learn/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
+        
+      
+        
+          <li><a href="https://bsky.app/profile/scikit-learn.org" rel="nofollow noopener noreferrer"><i class="fas fa-link" aria-hidden="true"></i> Bluesky</a></li>
+        
+      
+        
+          <li><a href="https://fosstodon.org/@sklearn" rel="nofollow noopener noreferrer"><i class="fab fa-brands fa-mastodon" aria-hidden="true"></i> Mastodon</a></li>
+        
+      
+        
+          <li><a href="https://www.youtube.com/@scikit-learn" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-youtube" aria-hidden="true"></i> YouTube</a></li>
+        
+      
+        
+          <li><a href="https://facebook.com/scikitlearnofficial/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+        
+      
+        
+          <li><a href="https://instagram.com/scikitlearnofficial/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-instagram" aria-hidden="true"></i> Instagram</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2026 scikit-learn Blog. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+  <script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22606712-3']);
+  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

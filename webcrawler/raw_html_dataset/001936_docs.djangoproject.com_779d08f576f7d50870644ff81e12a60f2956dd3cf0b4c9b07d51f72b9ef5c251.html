@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="ROBOTS" content="ALL" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="" />
+    <meta name="fediverse:creator" content="@django@fosstodon.org" />
+    
+  
+    
+      
+    
+  
+  <link rel="canonical" href="https://docs.djangoproject.com/fr/6.0/internals/contributing/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="el"
+          href="https://docs.djangoproject.com/el/5.0/internals/contributing/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="en"
+          href="https://docs.djangoproject.com/en/5.0/internals/contributing/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="es"
+          href="https://docs.djangoproject.com/es/5.0/internals/contributing/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="fr"
+          href="https://docs.djangoproject.com/fr/5.0/internals/contributing/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="id"
+          href="https://docs.djangoproject.com/id/5.0/internals/contributing/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="it"
+          href="https://docs.djangoproject.com/it/5.0/internals/contributing/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="ja"
+          href="https://docs.djangoproject.com/ja/5.0/internals/contributing/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="ko"
+          href="https://docs.djangoproject.com/ko/5.0/internals/contributing/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="pl"
+          href="https://docs.djangoproject.com/pl/5.0/internals/contributing/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="pt-br"
+          href="https://docs.djangoproject.com/pt-br/5.0/internals/contributing/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="zh-hans"
+          href="https://docs.djangoproject.com/zh-hans/5.0/internals/contributing/">
+  
+
+  <link rel="search"
+        type="application/opensearchdescription+xml"
+        href="https://docs.djangoproject.com/fr/5.0/search/description/"
+        title="Documentation de Django">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="https://static.djangoproject.com/img/icon-touch.e4872c4da341.png">
+    <link rel="icon" sizes="192x192" href="https://static.djangoproject.com/img/icon-touch.e4872c4da341.png">
+    <link rel="shortcut icon" href="https://static.djangoproject.com/img/favicon.6dbf28c0650e.ico">
+    <meta name="msapplication-TileColor" content="#113228">
+    <meta name="msapplication-TileImage" content="https://static.djangoproject.com/img/icon-tile.b01ac0ef9f67.png">
+    <meta name="theme-color" content="#0C4B33">
+
+    
+      <meta property="og:title" content="Contribuer à Django | Documentation de Django" />
+      <meta property="og:description" content="The web framework for perfectionists with deadlines." />
+      <meta property="og:image" content="https://static.djangoproject.com/img/logos/django-logo-negative.1d528e2cb5fb.png" />
+      <meta property="og:image:alt" content="Django logo" />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="546" />
+      <meta property="og:image:type" content="image/png"/>
+      <meta property="og:url" content="https://docs.djangoproject.com/fr/5.0/internals/contributing/" />
+      <meta property="og:site_name" content="Django Project" />
+
+      <meta property="twitter:creator" content="djangoproject" />
+      <meta property="twitter:site" content="djangoproject" />
+      <meta property="twitter:card" content="summary">
+    
+
+    <title>Contribuer à Django | Documentation de Django | Django</title>
+
+    <link rel="stylesheet" href="https://static.djangoproject.com/css/output.33b5c879d992.css" >
+
+    <script src="https://static.djangoproject.com/js/mod/switch-dark-mode.139625c684db.js"></script>
+    
+  </head>
+
+  <body id="generic" class="">
+    
+  
+    <div id="outdated-warning" class="doc-floating-warning">
+      Ce document concerne une version non sécurisée de Django qui n'est plus prise en charge. Merci de mettre à jour vers une version plus récente ! 
+    </div>
+  
+
+
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+
+<header id="top">
+  <div class="container container--flex--wrap--mobile">
+    <a class="logo" href="https://www.djangoproject.com/">Django</a>
+    <p class="meta">The web framework for perfectionists with deadlines.</p>
+    <button class="menu-button">
+      <i class="icon icon-reorder" aria-hidden="true"></i>
+      <span class="visuallyhidden">Menu</span>
+    </button>
+    <nav aria-labelledby="navigation-header">
+      <span id="navigation-header" class="visuallyhidden">Main navigation</span>
+      <ul>
+        <li>
+          <a href="https://www.djangoproject.com/start/overview/">Overview</a>
+        </li>
+        <li>
+          <a href="https://www.djangoproject.com/download/">Download</a>
+        </li>
+        <li class="active">
+          <a href="https://docs.djangoproject.com/">Documentation</a>
+        </li>
+        <li>
+          <a href="https://www.djangoproject.com/weblog/">News</a>
+        </li>
+        <li>
+          <a href="https://github.com/django/django" target="_blank" rel="noopener">Code</a>
+        </li>
+        <li>
+          <a href="https://code.djangoproject.com/">Issues</a>
+        </li>
+        <li>
+          <a href="https://www.djangoproject.com/community/">Community</a>
+        </li>
+        <li>
+          <a href="https://www.djangoproject.com/foundation/">Foundation</a>
+        </li>
+        <li>
+          <a href="https://www.djangoproject.com/fundraising/">&#9829; Donate</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="header-tools">
+      
+<search class="search form-input" aria-labelledby="docs-search-label">
+  <form action="https://docs.djangoproject.com/fr/5.0/search/">
+    <label id="docs-search-label" class="visuallyhidden" for="id_q">Search</label>
+    <input type="search" name="q" placeholder="Search" id="id_q">
+    <input type="hidden" name="category" value="">
+
+    <button type="submit">
+      <i class="icon icon-search" aria-hidden="true"></i>
+      <span class="visuallyhidden">Envoyer</span>
+    </button>
+  </form>
+</search>
+
+      
+
+<button class="theme-toggle">
+  <div class="visually-hidden theme-label-when-auto">Changer de thème (actuellement : automatique)</div>
+  <div class="visually-hidden theme-label-when-light">Changer de thème (actuellement : clair)</div>
+  <div class="visually-hidden theme-label-when-dark">Changer de thème (actuellement : sombre)</div>
+
+  <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+  <svg aria-hidden="true" class="theme-icon-when-auto">
+    <use xlink:href="#icon-auto" />
+  </svg>
+  <svg aria-hidden="true" class="theme-icon-when-dark">
+    <use xlink:href="#icon-moon" />
+  </svg>
+  <svg aria-hidden="true" class="theme-icon-when-light">
+    <use xlink:href="#icon-sun" />
+  </svg>
+</button>
+
+    </div>
+  </div>
+</header>
+
+    
+
+    <section class="copy-banner">
+      <div class="container 
+  container--flex container--flex--wrap--mobile
+">
+        
+  <p><a href="https://docs.djangoproject.com/fr/5.0/">Documentation</a></p>
+
+      </div>
+    </section>
+
+    <div id="billboard">
+      
+  <div class="banner">
+    <h2>Until May 1, 2026, get PyCharm for 30% off!</h2>
+    Get 💸✨30%✨💸 off a new <em>or renewal</em> annual PyCharm Professional license while supporting the <em>Django Software Foundation</em>. <br/>
+🎁 Now includes renewals, and every purchase helps fund the DSF.
+    
+      <a id="banner-cta" class="cta" href="https://www.jetbrains.com/pycharm/promo/support-django/">Get PyCharm for 30% off</a>
+    
+  </div>
+
+
+    </div>
+
+    <div class="container sidebar-right">
+      <main id="main-content">
+
+        
+          
+        
+
+        
+  <div id="version-switcher">
+    <ul id="faq-link">
+      <li class="current-link">
+        <a href="https://docs.djangoproject.com/fr/5.0/faq/help/">
+          <span>Getting Help</span>
+        </a>
+      </li>
+    </ul>
+    <ul id="doc-languages" class="language-switcher doc-switcher">
+      <li class="current">
+        <button>Langue : <strong>fr</strong></button>
+      </li>
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/zh-hans/5.0/internals/contributing/">zh-hans</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/pt-br/5.0/internals/contributing/">pt-br</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/pl/5.0/internals/contributing/">pl</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/ko/5.0/internals/contributing/">ko</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/ja/5.0/internals/contributing/">ja</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/it/5.0/internals/contributing/">it</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/id/5.0/internals/contributing/">id</a>
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/es/5.0/internals/contributing/">es</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/en/5.0/internals/contributing/">en</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/el/5.0/internals/contributing/">el</a>
+          </li>
+        
+      
+    </ul>
+
+    
+    <ul id="doc-versions" class="version-switcher doc-switcher">
+      <li class="current ">
+        <button>Version de la documentation :
+          <strong>5.0</strong>
+        </button>
+      </li>
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/fr/dev/internals/contributing/">dev</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/fr/6.0/internals/contributing/">6.0</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/fr/5.2/internals/contributing/">5.2</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/fr/5.1/internals/contributing/">5.1</a>
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/fr/4.2/internals/contributing/">4.2</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/fr/4.1/internals/contributing/">4.1</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/fr/4.0/internals/contributing/">4.0</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/fr/3.2/internals/contributing/">3.2</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/fr/3.1/internals/contributing/">3.1</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/fr/3.0/internals/contributing/">3.0</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/fr/2.2/internals/contributing/">2.2</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/fr/2.1/internals/contributing/">2.1</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/fr/2.0/internals/contributing/">2.0</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/fr/1.11/internals/contributing/">1.11</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/fr/1.10/internals/contributing/">1.10</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/fr/1.8/internals/contributing/">1.8</a>
+          </li>
+        
+      
+    </ul>
+    <ul id="backtotop-link">
+      <li class="current-link">
+        <a href="#top" aria-label="Back to top" class="icon-chevron-up-align"><i class="icon icon-chevron-up"></i></a>
+      </li>
+    </ul>
+  </div>
+
+  
+    <article id="docs-content">
+      <div class="section" id="s-contributing-to-django">
+<span id="contributing-to-django"></span><h1>Contribuer à Django<a class="headerlink" href="#contributing-to-django" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Django est une communauté qui vit de ses contributeurs volontaires. De par sa croissance continue, de plus en plus de personnes sont nécessaires pour en aider d’autres. Vous pouvez contribuer de multiples manières, soit sur le code de Django ou plus largement sur son écosystème.</p>
+<div class="section" id="s-work-on-the-django-framework">
+<span id="work-on-the-django-framework"></span><h2>Travail sur le cadriciel Django<a class="headerlink" href="#work-on-the-django-framework" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Le travail sur Django en tant que tel se divise en trois catégories principales :</p>
+<div class="section" id="s-writing-code">
+<span id="writing-code"></span><h3>Écriture du code 💻<a class="headerlink" href="#writing-code" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Corriger un bogue ou ajouter une nouvelle fonctionnalité. Vous pouvez créer une requête de contribution et voir <strong>votre code</strong> dans la prochaine version de Django !</p>
+<p>Commencez par la documentation <a class="reference internal" href="writing-code/"><span class="doc">Écriture du code</span></a>.</p>
+</div>
+<div class="section" id="s-writing-documentation">
+<span id="writing-documentation"></span><h3>Écriture de documentation ✍️<a class="headerlink" href="#writing-documentation" title="Lien permanent vers ce titre">¶</a></h3>
+<p>La documentation de Django est l’un de ses points forts. Elle est informative et sérieuse. Vous pouvez aider à l’améliorer et à la garder pertinente au fur et à mesure de l’évolution du code.</p>
+<p>Lisez <a class="reference internal" href="writing-documentation/"><span class="doc">Écrire la documentation</span></a> pour en savoir plus.</p>
+</div>
+<div class="section" id="s-localizing-django">
+<span id="localizing-django"></span><h3>Traduction de Django 🗺️<a class="headerlink" href="#localizing-django" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Django est traduit en plus de 100 langues, il existe même quelques traductions pour le Klingon ?! L’équipe i18n est toujours à la recherche de traductrices et traducteurs pour aider à maintenir et augmenter la couverture des langues.</p>
+<p>Lisez <a class="reference internal" href="localizing/"><span class="doc">Traduction de Django</span></a> pour aider à traduire Django.</p>
+</div>
+</div>
+<div class="section" id="s-contributing-guide">
+<span id="contributing-guide"></span><h2>Guide de contribution 📖<a class="headerlink" href="#contributing-guide" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Si vous pensez que travailler <em>avec</em> Django est plaisant, attendez de voir le moment où vous travaillerez <em>sur</em> Django. Sérieusement, <strong>tout le monde</strong> peut aider à rendre Django meilleur&nbsp;!</p>
+<p>Ce guide de contribution contient tout ce dont vous avez besoin pour savoir comment aider à construire le cadriciel Web Django. Parcourez les sections suivantes pour trouver comment :</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="new-contributors/">Conseils pour les nouveaux contributeurs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="new-contributors/#first-steps">Premiers pas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-contributors/#guidelines">Lignes de conduite</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bugs-and-features/">Signalement d’anomalies ou demandes de fonctionnalités</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bugs-and-features/#reporting-bugs">Signalement d’anomalies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bugs-and-features/#reporting-user-interface-bugs-and-features">Signalement d’anomalies ou de fonctionnalités de l’interface utilisateur</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bugs-and-features/#requesting-features">Demandes de fonctionnalités</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bugs-and-features/#how-we-make-decisions">Comment nous prenons des décisions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="triaging-tickets/">Tri des tickets</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="triaging-tickets/#triage-workflow">Procédures de tri des tickets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="triaging-tickets/#triage-stages">Étapes de tri</a></li>
+<li class="toctree-l2"><a class="reference internal" href="triaging-tickets/#other-triage-attributes">Autres attributs de tri</a></li>
+<li class="toctree-l2"><a class="reference internal" href="triaging-tickets/#closing-tickets">Fermeture de tickets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="triaging-tickets/#how-can-i-help-with-triaging">Commet puis-je aider à trier les tickets&nbsp;?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="triaging-tickets/#bisecting-a-regression">Recherche d’origine d’une régression avec bisect</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="writing-code/">Écriture du code</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="writing-code/coding-style/">Style de code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writing-code/unit-tests/">Les tests unitaires</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writing-code/submitting-patches/">Soumission de correctifs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writing-code/working-with-git/">Travailler avec Git et GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writing-code/javascript/">JavaScript</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="writing-documentation/">Écrire la documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="writing-documentation/#the-django-documentation-process">Le processus de documentation de Django</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writing-documentation/#how-the-documentation-is-organized">Organisation de la documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writing-documentation/#how-to-start-contributing-documentation">Comment débuter une contribution à la documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writing-documentation/#writing-style">Style d’écriture (anglais)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writing-documentation/#commonly-used-terms">Termes fréquemment utilisés</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writing-documentation/#django-specific-terminology">Terminologie spécifique à Django</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writing-documentation/#guidelines-for-restructuredtext-files">Directives pour les fichiers reStructuredText</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writing-documentation/#django-specific-markup">Balisage spécifique à Django</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writing-documentation/#documenting-new-features">Documentation de nouvelles fonctionnalités</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writing-documentation/#minimizing-images">Minimiser les images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writing-documentation/#an-example">Un exemple</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writing-documentation/#translating-documentation">Traduction de la documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writing-documentation/#django-admin-man-page">Page de manuel <code class="docutils literal notranslate"><span class="pre">django-admin</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="localizing/">Traduction de Django</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="localizing/#translations">Traductions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="localizing/#formats">Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="localizing/#documentation">Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="committing-code/">Commit de code</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="committing-code/#handling-pull-requests">Gestion des requêtes de contribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="committing-code/#committing-guidelines">Lignes directrices pour les commits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="committing-code/#reverting-commits">Annulation de commits</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="s-join-the-django-community">
+<span id="join-the-django-community"></span><h2>Rejoignez la communauté Django ❤️<a class="headerlink" href="#join-the-django-community" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Nous nous réjouissons de pouvoir aider les utilisateurs de Django à faire le pas de la contribution dans la communauté. Il existe plusieurs autres pistes pour pouvoir apporter son aide à la communauté Django et d’autres pour maintenir un écosystème dans lequel il fait bon travailler (anglais requis pour plusieurs de ces domaines)&nbsp;:</p>
+<ul class="simple">
+<li>Rejoingnez le <a class="reference external" href="https://forum.djangoproject.com/">forum Django</a>. Ce forum est un endroit pour discuter du cadriciel Django et des applications et projets qui l’utilisent. C’est aussi un bon endroit pour poser des questions et y répondre, en lien avec l’installation, l’utilisation ou la contribution à Django.</li>
+<li>Rejoignez la liste de diffusion <a class="reference internal" href="../mailing-lists/#django-users-mailing-list"><span class="std std-ref">django-users</span></a> (anglophone) et répondez aux questions. Cette liste de diffusion est très fréquentée et nous souhaitons vraiment y maintenir une atmosphère chaleureuse et instructive. Si vous êtes nouvelle ou nouveau dans la communauté Django, vous devriez lire les <a class="reference external" href="https://code.djangoproject.com/wiki/UsingTheMailingList">lignes directrices d’écriture</a> de la liste.</li>
+<li>Rejoignez le <a class="reference external" href="https://web.libera.chat/#django">serveur Discord Django</a>, le <a class="reference external" href="https://discord.gg/xcRH6mN4fa">canal IRC #django</a> (anglophone) ou <code class="docutils literal notranslate"><span class="pre">#django-fr</span></code> sur Libera.Chat pour discuter et répondre aux questions. En expliquant Django aux autres utilisateurs, vous en apprendrez beaucoup vous-même sur le fonctionnement de ce système.</li>
+<li>Écrivez sur Django dans votre blog. Nous rassemblons tous les blogs sur Django que nous connaissons sur la <a class="reference external" href="https://www.djangoproject.com/community/add/blogs/">page de la communauté</a>&nbsp;; si vous aimeriez voir apparaître votre blog sur cette page, vous pouvez <a class="reference external" href="https://www.djangoproject.com/community/">vous inscrire ici</a>.</li>
+<li>Contribuez aux projets Django libres, écrivez de la documentation ou publiez votre propre code sous forme d’application libre réutilisable. L’écosystème des applications réutilisables est une grande force de Django, aidez-nous à le construire&nbsp;!</li>
+</ul>
+<p>Nous nous réjouissons de travailler avec vous. Bienvenue à bord ! ⛵️</p>
+</div>
+</div>
+
+    </article>
+  
+
+  
+    <nav class="browse-horizontal" aria-labelledby="browse-horizontal-header">
+      <span id="browse-horizontal-header" class="visuallyhidden">Previous page and next page</span>
+      
+        <div class="left"><a rel="prev" href="../"><i class="icon icon-chevron-left"></i> Fonctionnement interne du projet Django</a></div>
+      
+      
+        <div class="right"><a rel="next" href="new-contributors/">Conseils pour les nouveaux contributeurs <i class="icon icon-chevron-right"></i></a></div>
+      
+    </nav>
+  
+
+
+        <a href="#top" class="backtotop"><i class="icon icon-chevron-up"></i> Back to Top</a>
+      </main>
+
+      
+  <div role="complementary">
+    <h2 class="visuallyhidden" id="aside-header">Informations supplémentaires</h2>
+
+    
+
+
+  <div class="fundraising-sidebar">
+    <h3>Support Django!</h3>
+
+    <div class="small-heart">
+      <img src="https://static.djangoproject.com/img/fundraising-heart.cd6bb84ffd33.svg" alt="Support Django!" />
+    </div>
+
+    <div class="small-cta">
+      <ul class="list-links-small">
+        <li><a href="https://www.djangoproject.com/fundraising/">
+          TyVik donated to the Django Software Foundation to support Django development. Donate today!
+        </a></li>
+      </ul>
+    </div>
+  </div>
+
+
+
+    
+      <h3>Sommaire</h3>
+      
+        <ul>
+<li><a class="reference internal" href="#">Contribuer à Django</a><ul>
+<li><a class="reference internal" href="#work-on-the-django-framework">Travail sur le cadriciel Django</a><ul>
+<li><a class="reference internal" href="#writing-code">Écriture du code 💻</a></li>
+<li><a class="reference internal" href="#writing-documentation">Écriture de documentation ✍️</a></li>
+<li><a class="reference internal" href="#localizing-django">Traduction de Django 🗺️</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#contributing-guide">Guide de contribution 📖</a></li>
+<li><a class="reference internal" href="#join-the-django-community">Rejoignez la communauté Django ❤️</a></li>
+</ul>
+</li>
+</ul>
+
+      
+    
+
+    
+      <nav aria-labelledby="browse-header">
+        <h3 id="browse-header">Parcourir</h3>
+        <ul>
+          
+            
+              <li>Précédent : <a rel="prev" href="../">Fonctionnement interne du projet Django</a></li>
+            
+            
+              <li>Suivant : <a rel="next" href="new-contributors/">Conseils pour les nouveaux contributeurs</a></li>
+            
+            <li><a href="https://docs.djangoproject.com/fr/5.0/contents/">Table des matières</a></li>
+            
+              <li><a href="https://docs.djangoproject.com/fr/5.0/genindex/">Index général</a></li>
+            
+              <li><a href="https://docs.djangoproject.com/fr/5.0/py-modindex/">Index des modules Python</a></li>
+            
+          
+        </ul>
+      </nav>
+    
+
+    
+      <nav aria-labelledby="breadcrumbs-header">
+        <h3 id="breadcrumbs-header">Vous êtes ici :</h3>
+        <ul>
+          <li>
+            <a href="https://docs.djangoproject.com/fr/5.0/">Documentation de Django 5.0</a>
+            
+              <ul><li><a href="../">Fonctionnement interne du projet Django</a>
+            
+            <ul><li>Contribuer à Django</li></ul>
+            </li></ul>
+          </li>
+        </ul>
+      </nav>
+    
+
+    
+      <section aria-labelledby="getting-help-sidebar">
+        <h3 id="getting-help-sidebar">Obtenir de l'aide</h3>
+        <dl class="list-links">
+          <dt><a href="https://docs.djangoproject.com/fr/5.0/faq/">FAQ</a></dt>
+          <dd>Essayez la FAQ, vous y trouverez des réponses à de nombreuses questions courantes.</dd>
+
+          <dt><a href="https://docs.djangoproject.com/en/stable/genindex/">Index</a>, <a href="https://docs.djangoproject.com/en/stable/py-modindex/">Index des modules</a>, or <a href="https://docs.djangoproject.com/en/stable/contents/">Sommaire</a></dt>
+          <dd>Pratique lorsqu'on cherche des informations précises.</dd>
+
+          <dt><a href="https://chat.djangoproject.com">Django Discord Server</a></dt>
+          <dd>Join the Django Discord Community.</dd>
+
+          <dt><a href="https://forum.djangoproject.com/">Official Django Forum</a></dt>
+          <dd>Join the community on the Django Forum.</dd>
+
+          <dt><a href="https://code.djangoproject.com/">Ticket tracker</a></dt>
+          <dd>Signalez des bogues de Django ou de sa documentation dans notre système de suivi de tickets.</dd>
+        </dl>
+      </section>
+    
+
+    
+      <section aria-labelledby="links-wrapper-header">
+        <h3 id="links-wrapper-header">Télécharger :</h3>
+        <p>
+          Hors ligne (Django 5.0) :
+          <a href="https://media.djangoproject.com/docs/django-docs-5.0-fr.zip">HTML</a> |
+          <a href="https://media.readthedocs.org/pdf/django/5.0.x/django.pdf">PDF</a> |
+          <a href="https://media.readthedocs.org/epub/django/5.0.x/django.epub">ePub</a>
+          <br>
+          <span class="quiet">
+            Offert par <a href="https://readthedocs.org/">Read the Docs</a>.
+          </span>
+        </p>
+      </section>
+    
+
+    
+  <div class="corporate-members">
+    <h3>Diamond and Platinum Members</h3>
+    
+      <div class="clearfix">
+        <div class="member-logo">
+          <a href="https://jb.gg/ybja10" title="JetBrains">
+            <img src="https://media.djangoproject.com/cache/c0/ea/c0ea128467983e64aab91cd27e7918c0.png" alt="JetBrains" />
+          </a>
+        </div>
+        <div class="small-cta">
+          <ul class="list-links-small">
+            <li><strong>JetBrains</strong></li>
+            <li><a href="https://jb.gg/ybja10" title="JetBrains">
+              JetBrains delivers intelligent software solutions that make developers more productive by simplifying their challenging tasks, automating the routine, and helping them adopt the best development practices. PyCharm is the Python IDE for Professional Developers by JetBrains providing a complete set of tools for productive Python, Web and scientific development.
+            </a></li>
+          </ul>
+        </div>
+      </div>
+    
+      <div class="clearfix">
+        <div class="member-logo">
+          <a href="https://sentry.io/for/django/" title="Sentry">
+            <img src="https://media.djangoproject.com/cache/7a/f9/7af9c770dc49465739a82c91a0eb3d51.png" alt="Sentry" />
+          </a>
+        </div>
+        <div class="small-cta">
+          <ul class="list-links-small">
+            <li><strong>Sentry</strong></li>
+            <li><a href="https://sentry.io/for/django/" title="Sentry">
+              Monitor your Django Code
+Resolve performance bottlenecks and errors using monitoring, replays, logs and Seer an AI agent for debugging.
+            </a></li>
+          </ul>
+        </div>
+      </div>
+    
+      <div class="clearfix">
+        <div class="member-logo">
+          <a href="https://kraken.tech" title="Kraken Tech">
+            <img src="https://media.djangoproject.com/cache/71/4b/714b3473ed0cf3665f6b894d3be9491e.png" alt="Kraken Tech" />
+          </a>
+        </div>
+        <div class="small-cta">
+          <ul class="list-links-small">
+            <li><strong>Kraken Tech</strong></li>
+            <li><a href="https://kraken.tech" title="Kraken Tech">
+              Kraken is the most-loved operating system for energy. Powered by our Utility-Grade AI™ and deep industry know-how, we help utilities transform their technology and operations so they can lead the energy transition. Delivering better outcomes from generation through distribution to supply, Kraken powers 70+ million accounts worldwide, and is on a mission to make a big, green dent in the universe.
+            </a></li>
+          </ul>
+        </div>
+      </div>
+    
+  </div>
+
+
+  </div>
+
+      
+
+    </div>
+
+     
+     
+
+    
+    
+    
+
+    <!-- SVGs -->
+    <svg xmlns="http://www.w3.org/2000/svg">
+      <symbol viewBox="0 0 24 24" id="icon-auto"><path d="M0 0h24v24H0z" fill="currentColor"/><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2V4a8 8 0 1 0 0 16z"/></symbol>
+      <symbol viewBox="0 0 24 24" id="icon-moon"><path d="M0 0h24v24H0z" fill="currentColor"/><path d="M10 7a7 7 0 0 0 12 4.9v.1c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2h.1A6.979 6.979 0 0 0 10 7zm-6 5a8 8 0 0 0 15.062 3.762A9 9 0 0 1 8.238 4.938 7.999 7.999 0 0 0 4 12z"/></symbol>
+      <symbol viewBox="0 0 24 24" id="icon-sun"><path d="M0 0h24v24H0z" fill="currentColor"/><path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/></symbol>
+    </svg>
+    <!-- END SVGs -->
+
+    
+      
+
+<footer>
+  <div class="subfooter">
+    <div class="container">
+      <h2 class="visuallyhidden">Django Links</h2>
+      <div class="column-container">
+        <div class="col-learn-more">
+          <h3>Learn More</h3>
+          <ul>
+            <li><a href="https://www.djangoproject.com/start/overview/">About Django</a></li>
+            
+            <li><a href="https://www.djangoproject.com/start/">Getting Started with Django</a></li>
+            <li><a href="https://www.djangoproject.com/foundation/teams/">Team Organization</a></li>
+            <li><a href="https://www.djangoproject.com/foundation/">Django Software Foundation</a></li>
+            <li><a href="https://www.djangoproject.com/conduct/">Code of Conduct</a></li>
+            <li><a href="https://www.djangoproject.com/diversity/">Diversity Statement</a></li>
+          </ul>
+        </div>
+
+        <div class="col-get-involved">
+          <h3>Get Involved</h3>
+          <ul>
+            <li><a href="https://www.djangoproject.com/community/">Join a Group</a></li>
+            <li><a href="https://docs.djangoproject.com/en/dev/internals/contributing/">Contribute
+              to Django</a></li>
+            <li><a
+              href="https://docs.djangoproject.com/en/dev/internals/contributing/bugs-and-features/">Submit
+              a Bug</a></li>
+            <li><a
+              href="https://docs.djangoproject.com/en/dev/internals/security/#reporting-security-issues">Report
+              a Security Issue</a></li>
+            <li><a href="https://www.djangoproject.com/foundation/individual-members/">Individual membership</a></li>
+          </ul>
+        </div>
+
+        <div class="col-get-help">
+          <h3>Get Help</h3>
+          <ul>
+            <li><a href="https://docs.djangoproject.com/en/stable/faq/">Getting Help FAQ</a>
+            </li>
+            <li><a href="https://chat.djangoproject.com" target="_blank">Django Discord</a></li>
+            <li><a href="https://forum.djangoproject.com/" target="_blank">Official Django Forum</a></li>
+          </ul>
+        </div>
+
+        <div class="col-follow-us">
+          <h3>Follow Us</h3>
+          <ul>
+            <li><a href="https://github.com/django">GitHub</a></li>
+            <li><a href="https://x.com/djangoproject">X</a></li>
+            <li><a href="https://fosstodon.org/@django" rel="me">Fediverse (Mastodon)</a></li>
+            <li><a href="https://bsky.app/profile/djangoproject.com">Bluesky</a></li>
+            <li><a href="https://www.linkedin.com/company/django-software-foundation">LinkedIn</a></li>
+            <li><a href="https://www.djangoproject.com/rss/weblog/">News RSS</a></li>
+          </ul>
+        </div>
+
+        <div class="col-support-us">
+          <h3>Support Us</h3>
+          <ul>
+            <li><a href="https://www.djangoproject.com/fundraising/">Sponsor Django</a></li>
+            <li><a href="https://www.djangoproject.com/foundation/corporate-members/">Corporate membership</a></li>
+            <li><a href="https://django.threadless.com/" target="_blank">Official merchandise store</a></li>
+            <li><a href="https://www.djangoproject.com/fundraising/#benevity-giving">Benevity Workplace Giving Program</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="container">
+      <div class="footer-logo">
+        <a class="logo" href="https://www.djangoproject.com/">Django</a>
+      </div>
+      <ul class="thanks">
+        <li>
+          <span>Hosting by</span> <a class="in-kind-donors" href="https://www.djangoproject.com/fundraising/#in-kind-donors">In-kind
+            donors</a>
+        </li>
+        <li class="design"><span>Design by</span> <a class="threespot" href="https://www.threespot.com">Threespot</a>
+          <span class="ampersand">&amp;</span> <a class="andrevv" href="http://andrevv.com/">andrevv</a></li>
+      </ul>
+      <p class="copyright">&copy; 2005-2026
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+          Foundation</a> and individual contributors. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+          trademark</a> of the Django Software Foundation.
+      </p>
+    </div>
+  </div>
+
+</footer>
+
+    
+
+    
+      
+      <script>
+        function extless(input) {
+          return input.replace(/(.*)\.[^.]+$/, '$1');
+        }
+        var require = {
+          shim: {
+            'jquery': [],
+            'stripe': {
+              exports: 'Stripe'
+            }
+          },
+          paths: {
+            "jquery": extless("https://static.djangoproject.com/js/lib/jquery.min.5790ead7ad3b.js"),
+            "mod/list-collapsing": extless("https://static.djangoproject.com/js/mod/list-collapsing.2d844151b2ec.js"),
+            "mod/stripe-change-card": extless("https://static.djangoproject.com/js/mod/stripe-change-card.eaa0afc324e9.js"),
+            "mod/switch-dark-mode": extless("https://static.djangoproject.com/js/mod/switch-dark-mode.139625c684db.js"),
+            "stripe-checkout": "https://checkout.stripe.com/checkout",
+            "stripe": "https://js.stripe.com/v3/?" // ? needed due to require.js
+          }
+        };
+      </script>
+      <script data-main="https://static.djangoproject.com/js/main.8677b21133eb.js" src="https://static.djangoproject.com/js/lib/require.177879fbe7dd.js"></script>
+      <script src="https://static.djangoproject.com/js/djangoproject.6e389ef71ec2.js"></script>
+    
+  </body>
+</html>

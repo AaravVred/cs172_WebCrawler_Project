@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="ROBOTS" content="ALL" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="" />
+    <meta name="fediverse:creator" content="@django@fosstodon.org" />
+    
+  
+    
+      
+    
+  
+  <link rel="canonical" href="https://docs.djangoproject.com/pt-br/6.0/internals/security/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="el"
+          href="https://docs.djangoproject.com/el/2.2/internals/security/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="en"
+          href="https://docs.djangoproject.com/en/2.2/internals/security/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="es"
+          href="https://docs.djangoproject.com/es/2.2/internals/security/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="fr"
+          href="https://docs.djangoproject.com/fr/2.2/internals/security/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="id"
+          href="https://docs.djangoproject.com/id/2.2/internals/security/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="ja"
+          href="https://docs.djangoproject.com/ja/2.2/internals/security/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="ko"
+          href="https://docs.djangoproject.com/ko/2.2/internals/security/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="pl"
+          href="https://docs.djangoproject.com/pl/2.2/internals/security/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="pt-br"
+          href="https://docs.djangoproject.com/pt-br/2.2/internals/security/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="zh-hans"
+          href="https://docs.djangoproject.com/zh-hans/2.2/internals/security/">
+  
+
+  <link rel="search"
+        type="application/opensearchdescription+xml"
+        href="https://docs.djangoproject.com/pt-br/2.2/search/description/"
+        title="Documentação do Django">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="https://static.djangoproject.com/img/icon-touch.e4872c4da341.png">
+    <link rel="icon" sizes="192x192" href="https://static.djangoproject.com/img/icon-touch.e4872c4da341.png">
+    <link rel="shortcut icon" href="https://static.djangoproject.com/img/favicon.6dbf28c0650e.ico">
+    <meta name="msapplication-TileColor" content="#113228">
+    <meta name="msapplication-TileImage" content="https://static.djangoproject.com/img/icon-tile.b01ac0ef9f67.png">
+    <meta name="theme-color" content="#0C4B33">
+
+    
+      <meta property="og:title" content="Política de Segurança do Django | Documentação do Django" />
+      <meta property="og:description" content="The web framework for perfectionists with deadlines." />
+      <meta property="og:image" content="https://static.djangoproject.com/img/logos/django-logo-negative.1d528e2cb5fb.png" />
+      <meta property="og:image:alt" content="Django logo" />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="546" />
+      <meta property="og:image:type" content="image/png"/>
+      <meta property="og:url" content="https://docs.djangoproject.com/pt-br/2.2/internals/security/" />
+      <meta property="og:site_name" content="Django Project" />
+
+      <meta property="twitter:creator" content="djangoproject" />
+      <meta property="twitter:site" content="djangoproject" />
+      <meta property="twitter:card" content="summary">
+    
+
+    <title>Política de Segurança do Django | Documentação do Django | Django</title>
+
+    <link rel="stylesheet" href="https://static.djangoproject.com/css/output.33b5c879d992.css" >
+
+    <script src="https://static.djangoproject.com/js/mod/switch-dark-mode.139625c684db.js"></script>
+    
+  </head>
+
+  <body id="generic" class="">
+    
+  
+    <div id="outdated-warning" class="doc-floating-warning">
+      Esse documento é para uma versão insegura do Django que não é mais suportada. Por favor atualize para uma versão mais recente!
+    </div>
+  
+
+
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+
+<header id="top">
+  <div class="container container--flex--wrap--mobile">
+    <a class="logo" href="https://www.djangoproject.com/">Django</a>
+    <p class="meta">The web framework for perfectionists with deadlines.</p>
+    <button class="menu-button">
+      <i class="icon icon-reorder" aria-hidden="true"></i>
+      <span class="visuallyhidden">Menu</span>
+    </button>
+    <nav aria-labelledby="navigation-header">
+      <span id="navigation-header" class="visuallyhidden">Main navigation</span>
+      <ul>
+        <li>
+          <a href="https://www.djangoproject.com/start/overview/">Overview</a>
+        </li>
+        <li>
+          <a href="https://www.djangoproject.com/download/">Download</a>
+        </li>
+        <li class="active">
+          <a href="https://docs.djangoproject.com/">Documentation</a>
+        </li>
+        <li>
+          <a href="https://www.djangoproject.com/weblog/">News</a>
+        </li>
+        <li>
+          <a href="https://github.com/django/django" target="_blank" rel="noopener">Code</a>
+        </li>
+        <li>
+          <a href="https://code.djangoproject.com/">Issues</a>
+        </li>
+        <li>
+          <a href="https://www.djangoproject.com/community/">Community</a>
+        </li>
+        <li>
+          <a href="https://www.djangoproject.com/foundation/">Foundation</a>
+        </li>
+        <li>
+          <a href="https://www.djangoproject.com/fundraising/">&#9829; Donate</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="header-tools">
+      
+<search class="search form-input" aria-labelledby="docs-search-label">
+  <form action="https://docs.djangoproject.com/pt-br/2.2/search/">
+    <label id="docs-search-label" class="visuallyhidden" for="id_q">Search</label>
+    <input type="search" name="q" placeholder="Search" id="id_q">
+    <input type="hidden" name="category" value="">
+
+    <button type="submit">
+      <i class="icon icon-search" aria-hidden="true"></i>
+      <span class="visuallyhidden">Enviar</span>
+    </button>
+  </form>
+</search>
+
+      
+
+<button class="theme-toggle">
+  <div class="visually-hidden theme-label-when-auto">Alternar tema (tema atual: automático)</div>
+  <div class="visually-hidden theme-label-when-light">Alternar tema (tema atual: claro)</div>
+  <div class="visually-hidden theme-label-when-dark">Alternar tema (tema atual: escuro)</div>
+
+  <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+  <svg aria-hidden="true" class="theme-icon-when-auto">
+    <use xlink:href="#icon-auto" />
+  </svg>
+  <svg aria-hidden="true" class="theme-icon-when-dark">
+    <use xlink:href="#icon-moon" />
+  </svg>
+  <svg aria-hidden="true" class="theme-icon-when-light">
+    <use xlink:href="#icon-sun" />
+  </svg>
+</button>
+
+    </div>
+  </div>
+</header>
+
+    
+
+    <section class="copy-banner">
+      <div class="container 
+  container--flex container--flex--wrap--mobile
+">
+        
+  <p><a href="https://docs.djangoproject.com/pt-br/2.2/">Documentação</a></p>
+
+      </div>
+    </section>
+
+    <div id="billboard">
+      
+  <div class="banner">
+    <h2>Until May 1, 2026, get PyCharm for 30% off!</h2>
+    Get 💸✨30%✨💸 off a new <em>or renewal</em> annual PyCharm Professional license while supporting the <em>Django Software Foundation</em>. <br/>
+🎁 Now includes renewals, and every purchase helps fund the DSF.
+    
+      <a id="banner-cta" class="cta" href="https://www.jetbrains.com/pycharm/promo/support-django/">Get PyCharm for 30% off</a>
+    
+  </div>
+
+
+    </div>
+
+    <div class="container sidebar-right">
+      <main id="main-content">
+
+        
+          
+        
+
+        
+  <div id="version-switcher">
+    <ul id="faq-link">
+      <li class="current-link">
+        <a href="https://docs.djangoproject.com/pt-br/2.2/faq/help/">
+          <span>Getting Help</span>
+        </a>
+      </li>
+    </ul>
+    <ul id="doc-languages" class="language-switcher doc-switcher">
+      <li class="current">
+        <button>Idioma: <strong>pt-br</strong></button>
+      </li>
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/zh-hans/2.2/internals/security/">zh-hans</a>
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/pl/2.2/internals/security/">pl</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/ko/2.2/internals/security/">ko</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/ja/2.2/internals/security/">ja</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/id/2.2/internals/security/">id</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/fr/2.2/internals/security/">fr</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/es/2.2/internals/security/">es</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/en/2.2/internals/security/">en</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/el/2.2/internals/security/">el</a>
+          </li>
+        
+      
+    </ul>
+
+    
+    <ul id="doc-versions" class="version-switcher doc-switcher">
+      <li class="current ">
+        <button>Versão da Documentação:
+          <strong>2.2</strong>
+        </button>
+      </li>
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/pt-br/dev/internals/security/">dev</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/pt-br/6.0/internals/security/">6.0</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/pt-br/5.2/internals/security/">5.2</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/pt-br/5.1/internals/security/">5.1</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/pt-br/5.0/internals/security/">5.0</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/pt-br/4.2/internals/security/">4.2</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/pt-br/4.1/internals/security/">4.1</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/pt-br/4.0/internals/security/">4.0</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/pt-br/3.2/internals/security/">3.2</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/pt-br/3.1/internals/security/">3.1</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/pt-br/3.0/internals/security/">3.0</a>
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/pt-br/2.1/internals/security/">2.1</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/pt-br/2.0/internals/security/">2.0</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/pt-br/1.11/internals/security/">1.11</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/pt-br/1.10/internals/security/">1.10</a>
+          </li>
+        
+      
+    </ul>
+    <ul id="backtotop-link">
+      <li class="current-link">
+        <a href="#top" aria-label="Back to top" class="icon-chevron-up-align"><i class="icon icon-chevron-up"></i></a>
+      </li>
+    </ul>
+  </div>
+
+  
+    <article id="docs-content">
+      <div class="section" id="s-django-s-security-policies">
+<span id="django-s-security-policies"></span><h1>Política de Segurança do Django<a class="headerlink" href="#django-s-security-policies" title="Link permanente para este título">¶</a></h1>
+<p>O time de desenvolvimento do Django é fortemente comprometido em reportar e divulgar problemas de segurança. Como tal, nós adotamos e seguimos um conjunto de políticas que se adequam a esse ideal e são voltados a nos permitir entregar atualizações de segurança pontuais para as distribuições oficiais do Django, assim como para distribuições de terceiros.</p>
+<div class="section" id="s-reporting-security-issues">
+<span id="s-id1"></span><span id="reporting-security-issues"></span><span id="id1"></span><h2>Reportando problemas de segurança<a class="headerlink" href="#reporting-security-issues" title="Link permanente para este título">¶</a></h2>
+<p><strong>Versão curta: por favor reporte problemas de segurança enviando email para security&#64;djangoproject.com</strong>.</p>
+<p>A maioria dos bugs normais no Django são reportados na <a href="#id1"><span class="problematic" id="id2">`</span></a>nossa instância publica do Trac <a href="#id3"><span class="problematic" id="id4">`</span></a>_, mas devido a natureza sensível dos problemas de segurança, nós pedimos que eles <strong>não</strong> sejam publicamente reportados desta maneira.</p>
+<p>Por outro lado, se você acredita que você encontrou algo no Django que tenha implicações de segurança, por favor envie uma descrição do problema via email para <code class="docutils literal notranslate"><span class="pre">security&#64;djangoproject.com</span></code>. O email enviado para este endereço chega até o <a class="reference external" href="https://www.djangoproject.com/foundation/teams/#security-team">security team</a>.</p>
+<p>Uma vez que você tenha submetido via email, você deve receber um recebido de um membro do time de segurança dentro de 48 horas, e dependendo da ação a ser tomada, você poderá receber mais emails de retorno.</p>
+<div class="admonition-sending-encrypted-reports admonition">
+<p class="first admonition-title">Enviando relatórios encriptados</p>
+<p class="last">Se você quiser enviar um email criptografado (<em>optional</em>), o ID da chave pública para <code class="docutils literal notranslate"><span class="pre">security&#64;djangoproject.com</span></code> é <code class="docutils literal notranslate"><span class="pre">0xfcb84b8d1d17f80b</span></code>, e essa chave pública está disponível nos keyservers mais comuns.</p>
+</div>
+</div>
+<div class="section" id="s-supported-versions">
+<span id="s-security-support"></span><span id="supported-versions"></span><span id="security-support"></span><h2>Versões suportadas<a class="headerlink" href="#supported-versions" title="Link permanente para este título">¶</a></h2>
+<p>A qualquer momento, o time Django fornece suporte de segurança oficial para várias versões do Django:</p>
+<ul class="simple">
+<li>A <a class="reference external" href="https://github.com/django/django/">branch de desenvolvimento master</a>, hospedado no Github, que deve se tornar a próxima versão do Django, recebe suporte de segurança. Problemas de segurança que apenas afeta a branch master, mas não afeta as versões estáveis são resolvidos em público sem passar por  <a class="reference internal" href="#security-disclosure"><span class="std std-ref">processo de divulgação</span></a>.</li>
+<li>As duas séries de releases mais recentes do Django recebem suporte de segurança. Por exemplo, durante o ciclo de desenvolvimento que culminou com a release do Django 1.5, suporte será provido para o Django 1.4 en Django 1.3. Com a release do Django 1.5, o suporte de segurança do Django 1.3 será encerrado.</li>
+<li><a class="reference internal" href="../release-process/#term-long-term-support-release"><span class="xref std std-term">Long-term support release</span></a>s irão receber atualizações de segurança por um período de tempo especificado.</li>
+</ul>
+<p>Quando novas releases são lançadas por questões de segurança, a notícia que a acompanha irá incluir uma lista de versões afetadas. Essa lista é composta somente de versões <em>suportadas</em> pelo Django: versões antigas também podem ser afetadas, mas nós não investigamos para determinar isso, e nós não lançamos patches ou novas releases para essas versões.</p>
+</div>
+<div class="section" id="s-how-django-discloses-security-issues">
+<span id="s-security-disclosure"></span><span id="how-django-discloses-security-issues"></span><span id="security-disclosure"></span><h2>Como o Django divulga problemas de segurança<a class="headerlink" href="#how-django-discloses-security-issues" title="Link permanente para este título">¶</a></h2>
+<p>Nosso processo para levar um problema de segurança de discussões privadas para divulgação pública envolve alguns passos.</p>
+<p>Aproximadamente uma semana antes da divulgação pública, nós enviamos duas notificações:</p>
+<p>Primeiro, nós notificamos o <a class="reference internal" href="../mailing-lists/#django-announce-mailing-list"><span class="std std-ref">django-announce</span></a> da data e hora aproximada do lançamento da próxima versão de segurança, bem como a gravidade do problema. Isso ajuda as organizações que precisam disso para garantir que tem pessoal disponível para lidar com a triagem do anúncio e atualizar Djagno se necessário. Os níveis de severidade são:</p>
+<p><strong>Grave</strong>:</p>
+<ul class="simple">
+<li>Execução de código remoto</li>
+<li>Proteção contra SQL injection</li>
+</ul>
+<p><strong>Moderada</strong>:</p>
+<ul class="simple">
+<li>Proteção contra Cross Site Scripting (XSS)</li>
+<li>Proteção contra Cross site request forgery (CSRF)</li>
+<li>Ataques negação de serviço</li>
+<li>Quebra na autenticação de usuário</li>
+</ul>
+<p><strong>Baixa</strong>:</p>
+<ul class="simple">
+<li>Exposição de dados sensíveis</li>
+<li>Quebra no gerenciamento de sesssões</li>
+<li>Redirecionamento/Encaminhamento não validados</li>
+<li>Problemas que pedem uma opção de configuração incomum</li>
+</ul>
+<p>Segundo, nós notificamos uma lista de <a class="reference internal" href="#security-notifications"><span class="std std-ref">pessoas e organizações</span></a>, primariamente compostas por fornecedores de sistemas operacionais e outros distribuidores do Django. Esse e-mail é assinado com uma chave PGP de alguém do <span class="xref std std-ref">time de edições do Django</span> e consiste de:</p>
+<ul class="simple">
+<li>Uma descrição completa do problema e das versões afetadas do Django.</li>
+<li>Os passos que serão tomados para remediar o problema.</li>
+<li>O patch (ou os patches), se existirem, que irá ser aplicado no Django.</li>
+<li>A data em que o time Django irá aplicar essas patches, lançando novas releases e publicamente divulgando o problema.</li>
+</ul>
+<p>No dia da divulgação, nós tomaremos as seguintes providências:</p>
+<ol class="arabic simple">
+<li>Aplicar os patch(es) relevantes para a base de código do Django.</li>
+<li>Lançar as releases (ou a release) relevantes, colocando novos pacotes no <a class="reference external" href="https://pypi.org/">Python Package Index</a>  e no website do Django, criando tags das novas releases (ou da release) no repositório git do Django.</li>
+<li>Postar uma entrada pública no <a class="reference external" href="https://www.djangoproject.com/weblog/">blog oficial de desenvolvimento do Django</a>, descrevendo o problema e a sua resolução em detalhe, apontando para os patches relevantes e novas releases, e creditando a pessoa que reportou o problema (se essa pessoa que o reportou quiser ser identificada publicamente).</li>
+<li>Poste uma notícia nas listas de email <a class="reference internal" href="../mailing-lists/#django-announce-mailing-list"><span class="std std-ref">django-announce</span></a> e <a class="reference external" href="mailto:oss-security&#37;&#52;&#48;lists&#46;openwall&#46;com">oss-security<span>&#64;</span>lists<span>&#46;</span>openwall<span>&#46;</span>com</a> que tenha links para o post no blog.</li>
+</ol>
+<p>Se acredita-se que o problema reportado é particularmente sensível ao tempo – devido a uma conhecida vulnerabilidade de segurança em aberto, por exemplo – o tempo entre a notificação prévia e a divulgação pública pode ser encurtada consideravelmente.</p>
+<p>Adicionalmente, se nós tivermos razões para acreditar que o problema reportado para nós afeta outras frameworks e ferramentas no ecossistema Python/web, nós podemos contatar privadamente e discutir esses problemas com os mantenedores apropriados, e coordenar nossa própria divulgação e resolução com eles.</p>
+<p>O time Django também mantém um <a class="reference internal" href="../../releases/security/"><span class="doc">arquivo de problemas de segurança divulgados no Django</span></a>.</p>
+</div>
+<div class="section" id="s-who-receives-advance-notification">
+<span id="s-security-notifications"></span><span id="who-receives-advance-notification"></span><span id="security-notifications"></span><h2>Quem recebe notificação prévia<a class="headerlink" href="#who-receives-advance-notification" title="Link permanente para este título">¶</a></h2>
+<p>A lista completa de pessoas e organizações que recebem uma notificação prévia de problemas de segurança não é e não será tornada pública.</p>
+<p>Nós também focamos em manter essa lista o quão pequena quanto for efetivamente possível, para gerenciar melhor o fluxo de informação confidencial que precede a divulgação. Como tal, nossa lista de notificação <em>não</em> é simplesmente uma lista de usuários do Django, e meramente ser um usário do Django não é razão suficiente para ser colocado na lista de notificação.</p>
+<p>Em linhas gerais, recipientes de notificações de segurança caem dentro de três grupos:</p>
+<ol class="arabic simple">
+<li>Fornecedores de sistemas operacionais e outras distribuições do Django que fornecem um endereço de email genérico para reportar problemas (ex. <em>não</em> são emails pessoais de indivíduos) para reportar problemas com o Django, ou para reportar problemas gerais de segurança. Em qualquer caso, tais endereços <strong>não devem</strong> redirecionar para listas de email públicas ou rastreadores de bugs. Endereços que encaminham para o email individual de um mantenedor ou contato para respostas de segurança são aceitas, embora rastreadores de segurança privados ou grupos de resposta a segurança são fortemente preferidos.</li>
+<li>De tempos em tempos, mantenedores de pacotes individuais que tenham demonstrado um compromisso em atender e agido de forma responsável nessas notificações.</li>
+<li>De tempos em tempos, outras entidades que, no julgamento do time de desenvolvimento do Django, precisem estar cientes do problema de segurança pendente. Tipicamente, membros do grupo irão consistir de alguns dos maiores usuários e distribuidores do Django e dos mais provavelmente impactados severamente com o problema, e irão requerer uma abilidade demonstrada para responder prontamente, manter confidencial e agir nessas notificações.</li>
+</ol>
+</div>
+<div class="section" id="s-requesting-notifications">
+<span id="requesting-notifications"></span><h2>Requisitando notificações<a class="headerlink" href="#requesting-notifications" title="Link permanente para este título">¶</a></h2>
+<p>Se você acredita que você, ou a organização que você está autorizado a representar, cai em um dos grupos listados acima, você pode pedir para ser adicionado a lista de notificações do Django enviando um email para <code class="docutils literal notranslate"><span class="pre">security&#64;djangoproject.com</span></code>. Por favor use “Security notification request” no assunto.</p>
+<p>O seu pedido <strong>deve</strong> incluir a informação a seguir:</p>
+<ul class="simple">
+<li>O seu nome completo, real e o nome da organização que você representa. Se aplicável, assim como o seu perfil dentro da organização.</li>
+<li>Uma explicação detalhada de como você ou sua organização se encaixam pelo menos em um dos grupos listados acima.</li>
+<li>Uma explicação detalhada do porque você está solicitando notificações de segurança. Novamente, tenha em mente de que esta <em>não</em> é simplesmente uma lista para usuários do Django, e a esmagadora maioria dos usuários devem se inscrever em <a class="reference internal" href="../mailing-lists/#django-announce-mailing-list"><span class="std std-ref">django-announce</span></a> para receber aviso prévio de quando uma release de segurança irá lançar, sem os detalhes dos problemas, em vez de pedir notificações detalhadas.</li>
+<li>O endereço de email que você gostaria de fosse adicionado em nossa lista de notificação.</li>
+<li>Uma explicação de quem irá estar recebendo/revisando os emails enviados para esse email, asim como as informações referentes a qualquer ação automatizada que será realizada (ex. preencher um registro de problema confidencial em um bug tracker).</li>
+<li>Para indivíduos, o ID ou a chave pública associada com o seu endereço que pode ser usado para verificar o seu email recebido de você e email encriptado enviado para você, quando necessário.</li>
+</ul>
+<p>Uma vez submetido, a sua solicitação será considerada pelo time de desenvolvimento do Django; você irá receber uma resposta notificando você do resultado da sua solicitação dentro de 30 dias.</p>
+<p>Por favor tambén tenha em mente que para qualquer indivíduo ou organização, receber notificações de segurança é um privilégio dado somente ao critério do time de desenvolvimento do Django, e que esse privilégio pode ser revogado a qualquer momento, com o sem explicação.</p>
+</div>
+</div>
+
+    </article>
+  
+
+  
+    <nav class="browse-horizontal" aria-labelledby="browse-horizontal-header">
+      <span id="browse-horizontal-header" class="visuallyhidden">Previous page and next page</span>
+      
+        <div class="left"><a rel="prev" href="../organization/"><i class="icon icon-chevron-left"></i> Organizaçaõ do Projeto Django</a></div>
+      
+      
+        <div class="right"><a rel="next" href="../release-process/">Processo de release do Django <i class="icon icon-chevron-right"></i></a></div>
+      
+    </nav>
+  
+
+
+        <a href="#top" class="backtotop"><i class="icon icon-chevron-up"></i> Back to Top</a>
+      </main>
+
+      
+  <div role="complementary">
+    <h2 class="visuallyhidden" id="aside-header">Informações Adicionais</h2>
+
+    
+
+
+  <div class="fundraising-sidebar">
+    <h3>Support Django!</h3>
+
+    <div class="small-heart">
+      <img src="https://static.djangoproject.com/img/fundraising-heart.cd6bb84ffd33.svg" alt="Support Django!" />
+    </div>
+
+    <div class="small-cta">
+      <ul class="list-links-small">
+        <li><a href="https://www.djangoproject.com/fundraising/">
+          @lukasztyrala donated to the Django Software Foundation to support Django development. Donate today!
+        </a></li>
+      </ul>
+    </div>
+  </div>
+
+
+
+    
+      <h3>Conteúdos</h3>
+      
+        <ul>
+<li><a class="reference internal" href="#">Política de Segurança do Django</a><ul>
+<li><a class="reference internal" href="#reporting-security-issues">Reportando problemas de segurança</a></li>
+<li><a class="reference internal" href="#supported-versions">Versões suportadas</a></li>
+<li><a class="reference internal" href="#how-django-discloses-security-issues">Como o Django divulga problemas de segurança</a></li>
+<li><a class="reference internal" href="#who-receives-advance-notification">Quem recebe notificação prévia</a></li>
+<li><a class="reference internal" href="#requesting-notifications">Requisitando notificações</a></li>
+</ul>
+</li>
+</ul>
+
+      
+    
+
+    
+      <nav aria-labelledby="browse-header">
+        <h3 id="browse-header">Navegar</h3>
+        <ul>
+          
+            
+              <li>Ant: <a rel="prev" href="../organization/">Organizaçaõ do Projeto Django</a></li>
+            
+            
+              <li>Próx: <a rel="next" href="../release-process/">Processo de release do Django</a></li>
+            
+            <li><a href="https://docs.djangoproject.com/pt-br/2.2/contents/">Tabela de conteúdos</a></li>
+            
+              <li><a href="https://docs.djangoproject.com/pt-br/2.2/genindex/">Índice Geral</a></li>
+            
+              <li><a href="https://docs.djangoproject.com/pt-br/2.2/py-modindex/">Índice de Módulos Python</a></li>
+            
+          
+        </ul>
+      </nav>
+    
+
+    
+      <nav aria-labelledby="breadcrumbs-header">
+        <h3 id="breadcrumbs-header">Você está aqui:</h3>
+        <ul>
+          <li>
+            <a href="https://docs.djangoproject.com/pt-br/2.2/">Documentação do Django 2.2</a>
+            
+              <ul><li><a href="../">Funcionamento interno do Projeto Django</a>
+            
+            <ul><li>Política de Segurança do Django</li></ul>
+            </li></ul>
+          </li>
+        </ul>
+      </nav>
+    
+
+    
+      <section aria-labelledby="getting-help-sidebar">
+        <h3 id="getting-help-sidebar">Obtendo ajuda</h3>
+        <dl class="list-links">
+          <dt><a href="https://docs.djangoproject.com/pt-br/2.2/faq/">FAQ</a></dt>
+          <dd>Tente o FAQ — lá tem a resposta para várias perguntas comuns.</dd>
+
+          <dt><a href="https://docs.djangoproject.com/en/stable/genindex/">Índice</a>, <a href="https://docs.djangoproject.com/en/stable/py-modindex/">Índice do módulo</a>, or <a href="https://docs.djangoproject.com/en/stable/contents/">Tabela de conteúdos</a></dt>
+          <dd>Útil ao procurar por uma informação especifica.</dd>
+
+          <dt><a href="https://chat.djangoproject.com">Django Discord Server</a></dt>
+          <dd>Join the Django Discord Community.</dd>
+
+          <dt><a href="https://forum.djangoproject.com/">Official Django Forum</a></dt>
+          <dd>Join the community on the Django Forum.</dd>
+
+          <dt><a href="https://code.djangoproject.com/">Ticket tracker</a></dt>
+          <dd>Reporte bugs no Django ou na Documentação do Django em nosso ticket tracker.</dd>
+        </dl>
+      </section>
+    
+
+    
+      <section aria-labelledby="links-wrapper-header">
+        <h3 id="links-wrapper-header">Download:</h3>
+        <p>
+          Offline (Django 2.2):
+          <a href="https://media.djangoproject.com/docs/django-docs-2.2-pt-br.zip">HTML</a> |
+          <a href="https://media.readthedocs.org/pdf/django/2.2.x/django.pdf">PDF</a> |
+          <a href="https://media.readthedocs.org/epub/django/2.2.x/django.epub">ePub</a>
+          <br>
+          <span class="quiet">
+            Oferecido por <a href="https://readthedocs.org/">Read the Docs</a>.
+          </span>
+        </p>
+      </section>
+    
+
+    
+  <div class="corporate-members">
+    <h3>Diamond and Platinum Members</h3>
+    
+      <div class="clearfix">
+        <div class="member-logo">
+          <a href="https://jb.gg/ybja10" title="JetBrains">
+            <img src="https://media.djangoproject.com/cache/c0/ea/c0ea128467983e64aab91cd27e7918c0.png" alt="JetBrains" />
+          </a>
+        </div>
+        <div class="small-cta">
+          <ul class="list-links-small">
+            <li><strong>JetBrains</strong></li>
+            <li><a href="https://jb.gg/ybja10" title="JetBrains">
+              JetBrains delivers intelligent software solutions that make developers more productive by simplifying their challenging tasks, automating the routine, and helping them adopt the best development practices. PyCharm is the Python IDE for Professional Developers by JetBrains providing a complete set of tools for productive Python, Web and scientific development.
+            </a></li>
+          </ul>
+        </div>
+      </div>
+    
+      <div class="clearfix">
+        <div class="member-logo">
+          <a href="https://sentry.io/for/django/" title="Sentry">
+            <img src="https://media.djangoproject.com/cache/7a/f9/7af9c770dc49465739a82c91a0eb3d51.png" alt="Sentry" />
+          </a>
+        </div>
+        <div class="small-cta">
+          <ul class="list-links-small">
+            <li><strong>Sentry</strong></li>
+            <li><a href="https://sentry.io/for/django/" title="Sentry">
+              Monitor your Django Code
+Resolve performance bottlenecks and errors using monitoring, replays, logs and Seer an AI agent for debugging.
+            </a></li>
+          </ul>
+        </div>
+      </div>
+    
+      <div class="clearfix">
+        <div class="member-logo">
+          <a href="https://kraken.tech" title="Kraken Tech">
+            <img src="https://media.djangoproject.com/cache/71/4b/714b3473ed0cf3665f6b894d3be9491e.png" alt="Kraken Tech" />
+          </a>
+        </div>
+        <div class="small-cta">
+          <ul class="list-links-small">
+            <li><strong>Kraken Tech</strong></li>
+            <li><a href="https://kraken.tech" title="Kraken Tech">
+              Kraken is the most-loved operating system for energy. Powered by our Utility-Grade AI™ and deep industry know-how, we help utilities transform their technology and operations so they can lead the energy transition. Delivering better outcomes from generation through distribution to supply, Kraken powers 70+ million accounts worldwide, and is on a mission to make a big, green dent in the universe.
+            </a></li>
+          </ul>
+        </div>
+      </div>
+    
+  </div>
+
+
+  </div>
+
+      
+
+    </div>
+
+     
+     
+
+    
+    
+    
+
+    <!-- SVGs -->
+    <svg xmlns="http://www.w3.org/2000/svg">
+      <symbol viewBox="0 0 24 24" id="icon-auto"><path d="M0 0h24v24H0z" fill="currentColor"/><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2V4a8 8 0 1 0 0 16z"/></symbol>
+      <symbol viewBox="0 0 24 24" id="icon-moon"><path d="M0 0h24v24H0z" fill="currentColor"/><path d="M10 7a7 7 0 0 0 12 4.9v.1c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2h.1A6.979 6.979 0 0 0 10 7zm-6 5a8 8 0 0 0 15.062 3.762A9 9 0 0 1 8.238 4.938 7.999 7.999 0 0 0 4 12z"/></symbol>
+      <symbol viewBox="0 0 24 24" id="icon-sun"><path d="M0 0h24v24H0z" fill="currentColor"/><path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/></symbol>
+    </svg>
+    <!-- END SVGs -->
+
+    
+      
+
+<footer>
+  <div class="subfooter">
+    <div class="container">
+      <h2 class="visuallyhidden">Django Links</h2>
+      <div class="column-container">
+        <div class="col-learn-more">
+          <h3>Learn More</h3>
+          <ul>
+            <li><a href="https://www.djangoproject.com/start/overview/">About Django</a></li>
+            
+            <li><a href="https://www.djangoproject.com/start/">Getting Started with Django</a></li>
+            <li><a href="https://www.djangoproject.com/foundation/teams/">Team Organization</a></li>
+            <li><a href="https://www.djangoproject.com/foundation/">Django Software Foundation</a></li>
+            <li><a href="https://www.djangoproject.com/conduct/">Code of Conduct</a></li>
+            <li><a href="https://www.djangoproject.com/diversity/">Diversity Statement</a></li>
+          </ul>
+        </div>
+
+        <div class="col-get-involved">
+          <h3>Get Involved</h3>
+          <ul>
+            <li><a href="https://www.djangoproject.com/community/">Join a Group</a></li>
+            <li><a href="https://docs.djangoproject.com/en/dev/internals/contributing/">Contribute
+              to Django</a></li>
+            <li><a
+              href="https://docs.djangoproject.com/en/dev/internals/contributing/bugs-and-features/">Submit
+              a Bug</a></li>
+            <li><a
+              href="https://docs.djangoproject.com/en/dev/internals/security/#reporting-security-issues">Report
+              a Security Issue</a></li>
+            <li><a href="https://www.djangoproject.com/foundation/individual-members/">Individual membership</a></li>
+          </ul>
+        </div>
+
+        <div class="col-get-help">
+          <h3>Get Help</h3>
+          <ul>
+            <li><a href="https://docs.djangoproject.com/en/stable/faq/">Getting Help FAQ</a>
+            </li>
+            <li><a href="https://chat.djangoproject.com" target="_blank">Django Discord</a></li>
+            <li><a href="https://forum.djangoproject.com/" target="_blank">Official Django Forum</a></li>
+          </ul>
+        </div>
+
+        <div class="col-follow-us">
+          <h3>Follow Us</h3>
+          <ul>
+            <li><a href="https://github.com/django">GitHub</a></li>
+            <li><a href="https://x.com/djangoproject">X</a></li>
+            <li><a href="https://fosstodon.org/@django" rel="me">Fediverse (Mastodon)</a></li>
+            <li><a href="https://bsky.app/profile/djangoproject.com">Bluesky</a></li>
+            <li><a href="https://www.linkedin.com/company/django-software-foundation">LinkedIn</a></li>
+            <li><a href="https://www.djangoproject.com/rss/weblog/">News RSS</a></li>
+          </ul>
+        </div>
+
+        <div class="col-support-us">
+          <h3>Support Us</h3>
+          <ul>
+            <li><a href="https://www.djangoproject.com/fundraising/">Sponsor Django</a></li>
+            <li><a href="https://www.djangoproject.com/foundation/corporate-members/">Corporate membership</a></li>
+            <li><a href="https://django.threadless.com/" target="_blank">Official merchandise store</a></li>
+            <li><a href="https://www.djangoproject.com/fundraising/#benevity-giving">Benevity Workplace Giving Program</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="container">
+      <div class="footer-logo">
+        <a class="logo" href="https://www.djangoproject.com/">Django</a>
+      </div>
+      <ul class="thanks">
+        <li>
+          <span>Hosting by</span> <a class="in-kind-donors" href="https://www.djangoproject.com/fundraising/#in-kind-donors">In-kind
+            donors</a>
+        </li>
+        <li class="design"><span>Design by</span> <a class="threespot" href="https://www.threespot.com">Threespot</a>
+          <span class="ampersand">&amp;</span> <a class="andrevv" href="http://andrevv.com/">andrevv</a></li>
+      </ul>
+      <p class="copyright">&copy; 2005-2026
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+          Foundation</a> and individual contributors. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+          trademark</a> of the Django Software Foundation.
+      </p>
+    </div>
+  </div>
+
+</footer>
+
+    
+
+    
+      
+      <script>
+        function extless(input) {
+          return input.replace(/(.*)\.[^.]+$/, '$1');
+        }
+        var require = {
+          shim: {
+            'jquery': [],
+            'stripe': {
+              exports: 'Stripe'
+            }
+          },
+          paths: {
+            "jquery": extless("https://static.djangoproject.com/js/lib/jquery.min.5790ead7ad3b.js"),
+            "mod/list-collapsing": extless("https://static.djangoproject.com/js/mod/list-collapsing.2d844151b2ec.js"),
+            "mod/stripe-change-card": extless("https://static.djangoproject.com/js/mod/stripe-change-card.eaa0afc324e9.js"),
+            "mod/switch-dark-mode": extless("https://static.djangoproject.com/js/mod/switch-dark-mode.139625c684db.js"),
+            "stripe-checkout": "https://checkout.stripe.com/checkout",
+            "stripe": "https://js.stripe.com/v3/?" // ? needed due to require.js
+          }
+        };
+      </script>
+      <script data-main="https://static.djangoproject.com/js/main.8677b21133eb.js" src="https://static.djangoproject.com/js/lib/require.177879fbe7dd.js"></script>
+      <script src="https://static.djangoproject.com/js/djangoproject.6e389ef71ec2.js"></script>
+    
+  </body>
+</html>

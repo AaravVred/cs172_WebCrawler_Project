@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="ROBOTS" content="ALL" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="" />
+    <meta name="fediverse:creator" content="@django@fosstodon.org" />
+    
+  
+    
+      
+    
+  
+  <link rel="canonical" href="https://docs.djangoproject.com/id/6.0/internals/security/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="el"
+          href="https://docs.djangoproject.com/el/1.10/internals/security/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="en"
+          href="https://docs.djangoproject.com/en/1.10/internals/security/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="es"
+          href="https://docs.djangoproject.com/es/1.10/internals/security/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="fr"
+          href="https://docs.djangoproject.com/fr/1.10/internals/security/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="id"
+          href="https://docs.djangoproject.com/id/1.10/internals/security/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="ja"
+          href="https://docs.djangoproject.com/ja/1.10/internals/security/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="pl"
+          href="https://docs.djangoproject.com/pl/1.10/internals/security/">
+  
+    
+      
+    
+    <link rel="alternate"
+          hreflang="pt-br"
+          href="https://docs.djangoproject.com/pt-br/1.10/internals/security/">
+  
+
+  <link rel="search"
+        type="application/opensearchdescription+xml"
+        href="https://docs.djangoproject.com/id/1.10/search/description/"
+        title="Dokumentasi Django">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="https://static.djangoproject.com/img/icon-touch.e4872c4da341.png">
+    <link rel="icon" sizes="192x192" href="https://static.djangoproject.com/img/icon-touch.e4872c4da341.png">
+    <link rel="shortcut icon" href="https://static.djangoproject.com/img/favicon.6dbf28c0650e.ico">
+    <meta name="msapplication-TileColor" content="#113228">
+    <meta name="msapplication-TileImage" content="https://static.djangoproject.com/img/icon-tile.b01ac0ef9f67.png">
+    <meta name="theme-color" content="#0C4B33">
+
+    
+      <meta property="og:title" content="Kebijakan keamanan Django | Dokumentasi Django" />
+      <meta property="og:description" content="The web framework for perfectionists with deadlines." />
+      <meta property="og:image" content="https://static.djangoproject.com/img/logos/django-logo-negative.1d528e2cb5fb.png" />
+      <meta property="og:image:alt" content="Django logo" />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="546" />
+      <meta property="og:image:type" content="image/png"/>
+      <meta property="og:url" content="https://docs.djangoproject.com/id/1.10/internals/security/" />
+      <meta property="og:site_name" content="Django Project" />
+
+      <meta property="twitter:creator" content="djangoproject" />
+      <meta property="twitter:site" content="djangoproject" />
+      <meta property="twitter:card" content="summary">
+    
+
+    <title>Kebijakan keamanan Django | Dokumentasi Django | Django</title>
+
+    <link rel="stylesheet" href="https://static.djangoproject.com/css/output.33b5c879d992.css" >
+
+    <script src="https://static.djangoproject.com/js/mod/switch-dark-mode.139625c684db.js"></script>
+    
+  </head>
+
+  <body id="generic" class="">
+    
+  
+    <div id="outdated-warning" class="doc-floating-warning">
+      Dokumen ini adalah untuk versi Django yang tidak lagi di support. Harap tingkatkan ke versi yang baru!
+    </div>
+  
+
+
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+
+<header id="top">
+  <div class="container container--flex--wrap--mobile">
+    <a class="logo" href="https://www.djangoproject.com/">Django</a>
+    <p class="meta">The web framework for perfectionists with deadlines.</p>
+    <button class="menu-button">
+      <i class="icon icon-reorder" aria-hidden="true"></i>
+      <span class="visuallyhidden">Menu</span>
+    </button>
+    <nav aria-labelledby="navigation-header">
+      <span id="navigation-header" class="visuallyhidden">Main navigation</span>
+      <ul>
+        <li>
+          <a href="https://www.djangoproject.com/start/overview/">Overview</a>
+        </li>
+        <li>
+          <a href="https://www.djangoproject.com/download/">Download</a>
+        </li>
+        <li class="active">
+          <a href="https://docs.djangoproject.com/">Documentation</a>
+        </li>
+        <li>
+          <a href="https://www.djangoproject.com/weblog/">News</a>
+        </li>
+        <li>
+          <a href="https://github.com/django/django" target="_blank" rel="noopener">Code</a>
+        </li>
+        <li>
+          <a href="https://code.djangoproject.com/">Issues</a>
+        </li>
+        <li>
+          <a href="https://www.djangoproject.com/community/">Community</a>
+        </li>
+        <li>
+          <a href="https://www.djangoproject.com/foundation/">Foundation</a>
+        </li>
+        <li>
+          <a href="https://www.djangoproject.com/fundraising/">&#9829; Donate</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="header-tools">
+      
+<search class="search form-input" aria-labelledby="docs-search-label">
+  <form action="https://docs.djangoproject.com/id/1.10/search/">
+    <label id="docs-search-label" class="visuallyhidden" for="id_q">Search</label>
+    <input type="search" name="q" placeholder="Search" id="id_q">
+    <input type="hidden" name="category" value="">
+
+    <button type="submit">
+      <i class="icon icon-search" aria-hidden="true"></i>
+      <span class="visuallyhidden">Ajukan</span>
+    </button>
+  </form>
+</search>
+
+      
+
+<button class="theme-toggle">
+  <div class="visually-hidden theme-label-when-auto">Ganti tema (tema saat ini: otomatis)</div>
+  <div class="visually-hidden theme-label-when-light">Ganti tema (tema saat ini: terang)</div>
+  <div class="visually-hidden theme-label-when-dark">Ganti tema (tema saat ini: gelap)</div>
+
+  <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+  <svg aria-hidden="true" class="theme-icon-when-auto">
+    <use xlink:href="#icon-auto" />
+  </svg>
+  <svg aria-hidden="true" class="theme-icon-when-dark">
+    <use xlink:href="#icon-moon" />
+  </svg>
+  <svg aria-hidden="true" class="theme-icon-when-light">
+    <use xlink:href="#icon-sun" />
+  </svg>
+</button>
+
+    </div>
+  </div>
+</header>
+
+    
+
+    <section class="copy-banner">
+      <div class="container 
+  container--flex container--flex--wrap--mobile
+">
+        
+  <p><a href="https://docs.djangoproject.com/id/1.10/">Dokumentasi</a></p>
+
+      </div>
+    </section>
+
+    <div id="billboard">
+      
+  <div class="banner">
+    <h2>Until May 1, 2026, get PyCharm for 30% off!</h2>
+    Get 💸✨30%✨💸 off a new <em>or renewal</em> annual PyCharm Professional license while supporting the <em>Django Software Foundation</em>. <br/>
+🎁 Now includes renewals, and every purchase helps fund the DSF.
+    
+      <a id="banner-cta" class="cta" href="https://www.jetbrains.com/pycharm/promo/support-django/">Get PyCharm for 30% off</a>
+    
+  </div>
+
+
+    </div>
+
+    <div class="container sidebar-right">
+      <main id="main-content">
+
+        
+          
+        
+
+        
+  <div id="version-switcher">
+    <ul id="faq-link">
+      <li class="current-link">
+        <a href="https://docs.djangoproject.com/id/1.10/faq/help/">
+          <span>Getting Help</span>
+        </a>
+      </li>
+    </ul>
+    <ul id="doc-languages" class="language-switcher doc-switcher">
+      <li class="current">
+        <button>Bahasa: <strong>id</strong></button>
+      </li>
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/pt-br/1.10/internals/security/">pt-br</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/pl/1.10/internals/security/">pl</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/ja/1.10/internals/security/">ja</a>
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/fr/1.10/internals/security/">fr</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/es/1.10/internals/security/">es</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/en/1.10/internals/security/">en</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/el/1.10/internals/security/">el</a>
+          </li>
+        
+      
+    </ul>
+
+    
+    <ul id="doc-versions" class="version-switcher doc-switcher">
+      <li class="current ">
+        <button>Versi dokumentasi:
+          <strong>1.10</strong>
+        </button>
+      </li>
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/id/dev/internals/security/">dev</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/id/6.0/internals/security/">6.0</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/id/5.2/internals/security/">5.2</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/id/5.1/internals/security/">5.1</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/id/5.0/internals/security/">5.0</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/id/4.2/internals/security/">4.2</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/id/4.1/internals/security/">4.1</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/id/4.0/internals/security/">4.0</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/id/3.2/internals/security/">3.2</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/id/3.1/internals/security/">3.1</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/id/3.0/internals/security/">3.0</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/id/2.2/internals/security/">2.2</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/id/2.1/internals/security/">2.1</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/id/2.0/internals/security/">2.0</a>
+          </li>
+        
+      
+        
+          <li class="other">
+            
+              
+            
+            <a href="https://docs.djangoproject.com/id/1.11/internals/security/">1.11</a>
+          </li>
+        
+      
+        
+      
+    </ul>
+    <ul id="backtotop-link">
+      <li class="current-link">
+        <a href="#top" aria-label="Back to top" class="icon-chevron-up-align"><i class="icon icon-chevron-up"></i></a>
+      </li>
+    </ul>
+  </div>
+
+  
+    <article id="docs-content">
+      <div class="section" id="s-django-s-security-policies">
+<span id="django-s-security-policies"></span><h1>Kebijakan keamanan Django<a class="headerlink" href="#django-s-security-policies" title="Link permanen untuk headline ini">¶</a></h1>
+<p>Tim pengembangan Django memiliki komitmen yang kuat untuk bertanggungjawab melaporkan dan menyingkap terbitan keamanan terkait. Dengan demikian, kami telah memungut dan mengikuti sekumpulan kebijakan yang menyesuaikan ke yang sesuai dan diarahkan kedepan mengizinkan kami untuk mengirim pembaharuan keamanan tepat waktu ke penyaluran resmi Django, sama halnya ke penyaluran pihak ketiga.</p>
+<div class="section" id="s-reporting-security-issues">
+<span id="s-id1"></span><span id="reporting-security-issues"></span><span id="id1"></span><h2>Melaporkan masalah keamanan<a class="headerlink" href="#reporting-security-issues" title="Link permanen untuk headline ini">¶</a></h2>
+<p><strong>Versi pendek: seilahkan laporkan masalah keamanan dengan menyurel security&#64;djangoproject.com</strong>.</p>
+<p>Kebanyakan kesalahan biasa di Django dilaporkan ke <a class="reference external" href="https://code.djangoproject.com/query">our public Trac instance</a>, tetapi karena sifat sensitif dari masalah keamanan, kami menanyakan bahwa mereka <strong>tidak</strong> dilaporkan ke umum dalam cara ini.</p>
+<p>Malahan, jika anda percaya anda telah menemukan sesuatu di Django yang mempunyai pengaruh keamanan, harap kirim gambaran dari masalah melalui surel ke <code class="docutils literal"><span class="pre">security&#64;djangoproject.com</span></code>. Surat terkirim ke alamat itu menggapai <a class="reference internal" href="../roles/#security-team-list"><span class="std std-ref">subset of the core team</span></a>, yang dapat meneruskan masalah keamanan kedalam daftar penyuratan tim pribadi untuk obrolan lebih luas jika dibutuhkan.</p>
+<p>Sekali anda telah mengajukan sebuah masalah via surel, anda harusnya menerima sebuah pengakuan dari anggota tim keamanan dalam 48 jam, dan tergantung pada tindakan untuk diambil, anda mungkin menerima surel tindak lanjut lebih jauh.</p>
+<div class="admonition-sending-encrypted-reports admonition">
+<p class="first admonition-title">Mengirim laporan dienkripsi</p>
+<p class="last">Jika anda ingin mengirim sebuah surel terenkripsi (<em>pilihan</em>), ID kunci umum untuk <code class="docutils literal"><span class="pre">security&#64;djangoproject.com</span></code> adalah <code class="docutils literal"><span class="pre">0xfcb84b8d1d17f80b</span></code>, dan kunci umum ini tersedia dari kebanyakan peladen kunci umum digunakan.</p>
+</div>
+</div>
+<div class="section" id="s-supported-versions">
+<span id="s-security-support"></span><span id="supported-versions"></span><span id="security-support"></span><h2>Versi didukung<a class="headerlink" href="#supported-versions" title="Link permanen untuk headline ini">¶</a></h2>
+<p>Pada waktu tertentu, tim Django menyediakan dukungan keamanan resmi untuk beberapa versi dari Django:</p>
+<ul class="simple">
+<li><p class="first"><a class="reference external" href="https://github.com/django/django/">master development branch</a>, disimpan pada GitHub, yang akan menjadi terbitan utama selanjutnya dari Django, menerima dukungan keamanan. Masalah keamanan yang hanya mempengaruhi cabang pengembangan master dan tidak setiap versi terbitan stabil diperbaiki di umum tanpa melewati <a class="reference internal" href="#security-disclosure"><span class="std std-ref">disclosure process</span></a>.</p>
+</li>
+<li><p class="first">Dua paling terakhir rangkaian terbitan Django menerima dukungan keamanan. Sebagai contoh, selama siklus pengembangan membawa ke terbitan Django 1.5, dukungan akan disediakan untuk Django 1.4 dan Django 1.3. Atas terbitan Django 1.5, dukungan keamanan Django 1.3 akan berakhir.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../release-process/#term-long-term-support-release"><span class="xref std std-term">Long-term support release</span></a> akan menerima pembaharuan keamanan untuk masa ditentukan.</p>
+</li>
+</ul>
+<p>Ketika terbitan baru dikeluarkan untuk alasan keamanan, pemberitahuan yang mendampingi akan menyertakan daftar dari versi terpengaruh. Daftar ini terdiri hanya versi <em>didukung</em> Django: versi terlama mungkin juga terpengaruh, tetapi kami tidak menyelidiki untuk menentukan itu, dan tidak mengeluarkan tambalan atau terbitan baru untuk versi itu.</p>
+</div>
+<div class="section" id="s-how-django-discloses-security-issues">
+<span id="s-security-disclosure"></span><span id="how-django-discloses-security-issues"></span><span id="security-disclosure"></span><h2>Bagaimana Django menyingkap masalah keamanan<a class="headerlink" href="#how-django-discloses-security-issues" title="Link permanen untuk headline ini">¶</a></h2>
+<p>SemVer membuatnya mudah untuk melihat sekilas bagaimana terbitan sesuai dengan satu sama lain. Itu juga membantu mengantisipasi ketika kesesuaian shim akan dipindahkan. Itu tidak murni bentuk dari SemVer dimana setiap terbitan fitur akan berlanjut untuk memiliki sedikit ketidaksesuaian kebelakang terdokumentasi dimana jalur pengusangan tidak mungkin atau tidak sebanding dengan biaya. Juga, pengusangan dimulai dalam terbitan LTS (X.2) akan dijatuhkan di terbitan non-dot-zero (Y.1) untuk mengakomodasi kebijakan kami dari menjaga pengusangan shim untuk setidaknya dua terbitan fitur. Baca di bagian selanjutnya untuk contoh.</p>
+<p>Lebih kurang satu minggu sebelum penutupan umum, kami mengirim dua pemberitahuan:</p>
+<p>Pertama, kami memberitahu <a class="reference internal" href="../mailing-lists/#django-announce-mailing-list"><span class="std std-ref">django-announce</span></a> dari tanggal dan lebih kurang waktu dari terbitan keamanan akan datang, sama halnya sukarnya masalah. Ini untuk membantu organisasi yang butuh memastikan mereka mempunyai staf tersedia untuk menangani mendahulukan pengumuman kami dan meingkatkan Django sesuai kebutuhan. Tingkat kesukaran adalah:</p>
+<p><strong>Tinggi</strong>:</p>
+<ul class="simple">
+<li><p class="first">Penjalanan kdoe terpencil</p>
+</li>
+<li><p class="first">Suntikan SQL</p>
+</li>
+</ul>
+<p><strong>Sedang</strong>:</p>
+<ul class="simple">
+<li>Cross site scripting (XSS)</li>
+<li>Cross site request forgery (CSRF)</li>
+<li><p class="first">Otentifikasi rusak</p>
+</li>
+</ul>
+<p><strong>Rendah</strong>:</p>
+<ul class="simple">
+<li><p class="first">Pembongkaran data sensitif</p>
+</li>
+<li><p class="first">Pengelolaan sesi rusak</p>
+</li>
+<li><p class="first">Tidak sah pengalihan/penerusan</p>
+</li>
+<li><p class="first">Masalah-masalah membutuhkan pilihan konfigurasi tidak umum</p>
+</li>
+</ul>
+<p>Kedua, kami memberitahu sebuah daftar dari <a class="reference internal" href="#security-notifications"><span class="std std-ref">people and organizations</span></a>, utamanya disusun dari penjaja sistem-operasi dan penyalur lain dari Django. Surel ini ditandatangi dengan kunci PGP dari seseorang dari <a class="reference internal" href="../roles/#releasers-list"><span class="std std-ref">Django&#8217;s release team</span></a> dan terdiri dari:</p>
+<ul class="simple">
+<li><p class="first">Gambaran lengkap dari masalah dan versi terpengaruh dari Django.</p>
+</li>
+<li><p class="first">Langkah-langkah yang akan kami ambil untuk memperbaiki masalah.</p>
+</li>
+<li><p class="first">Tambalan, jika ada, yang akan diterapkan ke Django.</p>
+</li>
+<li><p class="first">Tanggal dimana tim Django akan memberlakukan tambalan ini, masalah terbitan baru dan menyingkap secara terbuka masalah.</p>
+</li>
+</ul>
+<p>Pada hari penyingkapan, kami akan mengambil langkah-langkah berikut:</p>
+<ol class="arabic simple">
+<li><p class="first">Berlakukan tambalan sesuai pada kode dasar Django</p>
+</li>
+<li><p class="first">Masalah terbitan bersangkut paut, dengan menempatkan paket baru pada <a class="reference external" href="https://pypi.python.org/pypi">the Python Package Index</a> dan pada situs jaringan Django, dan menandai terbitan baru di gudang git Django.</p>
+</li>
+<li><p class="first">Tempatkan sebuah masukan umum pada <a class="reference external" href="https://www.djangoproject.com/weblog/">the official Django development blog</a>, menggambarkan masalah dan pemecahan secara rinci, menunjuk pada tambalan terkait dan terbitan baru, dan mempercayakan melaporkan masalah (jika pelapor berharap untuk dikenali di depan umum).</p>
+</li>
+<li><p class="first">Tempatkan sebuah pemberitahuan ke <a class="reference internal" href="../mailing-lists/#django-announce-mailing-list"><span class="std std-ref">django-announce</span></a> dan daftar penyuratan <a class="reference external" href="mailto:oss-security&#37;&#52;&#48;lists&#46;openwall&#46;com">oss-security<span>&#64;</span>lists<span>&#46;</span>openwall<span>&#46;</span>com</a> yang menaut ke tempatan blog.</p>
+</li>
+</ol>
+<p>Jika masalah yang dilaporkan dipercaya menjadi khususnya sesitif waktu &#8211; disebabkan oleh  pemanfaatan di alam liar, sebagai contoh &#8211; waktu diantara pemberitahuan lanjutan dan penyingkapan umum mungkin dianggap mempersingkat.</p>
+<p>Tambahannya, jika kami mempunyai alasan untuk dipercaya bahwa sebuah masalah dilaporkan ke kami mempengaruhi kerangka kerja lain atau alat-alat di ekosistem Python/jaringan, kami mungkin secara pribadi menghubungi dan mengobrol masalah itu dengan perawat yang sesuai, dan mengkoordinasikan penyingkapan kami sendiri dan pemecahan dengan mereka.</p>
+<p>Tim Django juga merawat <a class="reference internal" href="../../releases/security/"><span class="doc">archive of security issues disclosed in Django</span></a>.</p>
+</div>
+<div class="section" id="s-who-receives-advance-notification">
+<span id="s-security-notifications"></span><span id="who-receives-advance-notification"></span><span id="security-notifications"></span><h2>Siapa menerima pemberitahuan lanjut<a class="headerlink" href="#who-receives-advance-notification" title="Link permanen untuk headline ini">¶</a></h2>
+<p>Daftar penuh dari orang dan organisasi yang menerima pemberitahuan lanjutan dari masalah keamanan adalah tidak dan tidak akan dibuat umum.</p>
+<p>Kami juga bertujuan untuk menjaga daftar ini sekecil efektif mungkin, agar pengelolaan lebih baik aliran dari informasi rahasia sebelum penyingkapan. Dengan demikian, daftar pemberitahuan kami <em>tidak</em> cukup daftar pengguna Django, dan hanya menjadi pengguna Django bukan alasan cukup ditempatkan pada daftar pemberitahuan.</p>
+<p>Dalam istilah luas, penerima dari pemberitahuan keamanan jatih kedalam tiga kelompok:</p>
+<ol class="arabic simple">
+<li><p class="first">Penjaja sistem-operasi dan penyalur lainnya Django yang menyediakan umum-pantas (yaitu, <em>bukan</em> alamat surel pribadi sendiri) alamat kontak untuk melaporkan masalah dengan paket Django mereka, atau untuk pelaporan keamanan umum. Dalam kasus lain, seperti alamat <strong>harus tidak</strong> meneruskan ke daftar penyuratan umum atau pelacak kesalahan. Alamat yang meneruskan ke surel pribadi dari sebuah perawat sendiri atau kontak tanggapan-keamanan dapat diterima, meskipun pelacak keamanan pribadi atau kelompok tanggapan-keamanan sangat kuat dipilih.</p>
+</li>
+<li><p class="first">Pada dasar kasus-per-kasus, perawat paket perorangan yang telah menunjukkan tanggung jawab pada menanggapi dan bertanggungjawab bertindak pada pemberitahuan ini.</p>
+</li>
+<li><p class="first">Pada berdasarkan kasus-per-kasus, di penilaian tim pengembangan Django, butuh dibuat waspada dari masalah keamanan tertunda. Khususnya, keanggotaan di kelompok ini akan terdiri dari beberapa terbesar dan/atau kebanyakan terkenda dampaknya pengguna diketahui atau penyalur Django, dan akan membutuhkan kemampuan pertunjukan untuk menerima tanggung jawab, tetap percaya diri dan bertindak pada pemberitahuan ini.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="s-requesting-notifications">
+<span id="requesting-notifications"></span><h2>Meminta pemberitahuan<a class="headerlink" href="#requesting-notifications" title="Link permanen untuk headline ini">¶</a></h2>
+<p>Jika anda percaya bahwa anda, atau organisasi anda berwenang untuk mewakili, jatuh kedalam satu dari kelompok terdaftar diatas, anda dapat meminta ditambahkan ke daftar pemberitahuan Django dengan mensurelkan <code class="docutils literal"><span class="pre">security&#64;djangoproject.com</span></code>. Silahkan gunakan subjek baris &#8220;Security notification request&#8221;.</p>
+<p>Permintaan anda <strong>harus</strong> menyertakan informasi berikut:</p>
+<ul class="simple">
+<li><p class="first">Nama panjang anda, nama asli dan nama organisasi anda wakili, jika berlaku, sama halnya peran anda dalam organisasi itu.</p>
+</li>
+<li><p class="first">Penjelasan rinci dari bagaimana anda atau organisasi anda cocok setidaknya satu kumpulan dari kriteria terdaftar diatas.</p>
+</li>
+<li><p class="first">Penjelasan rinci dari mengapa anda sedang meminta pemberitahuan keamanan. Kembali, harap mengingat bahwa ini <em>bukan</em> daftar sederhana dari Django, dan kebanyakan pengguna harus berlangganan pada <a class="reference internal" href="../mailing-lists/#django-announce-mailing-list"><span class="std std-ref">django-announce</span></a> untuk menerima pemberitahuan lebih lanjut ketika terbitan keamanan akan terjadi, tanpa rincian dari masalah, daripada  rincian pemberitahuan.</p>
+</li>
+<li><p class="first">Alamat surel anda ingin miliki ditambahkan ke daftar pemberitahuan kami.</p>
+</li>
+<li><p class="first">Sebuah penjelasan dari siapa yang akan menerima/meninjau surat terkirim ke alamat itu, sama halnya informasi mengenai tindakan otomatis yang akan diambil (yaitu, mengisi masalah rahasia di pelacak kesalahan).</p>
+</li>
+<li><p class="first">Untuk perorangan, ID dari kunci umum terhubung dengan alamat anda yang dapat digunakan untuk memeriksa surel diterima dari anda dan surel enkripsi dikirim ke anda, seperti kebutuhan.</p>
+</li>
+</ul>
+<p>Sekali diajukan, permintaan anda akan dianggap oleh tim pengembang Django; anda akan menerima balasan memberitahu anda dari hasil dari permintaan anda dalam 30 hari.</p>
+<p>Silahkan juga ingat bahwa untuk setiap perseorangan atau oranisasi, menerima pemberitahuan keamanan adalah hak yang diberikan pada kebijakan dari tim pengembangan Django, dan bahwa hak ini dapat diambil kapanpun, dengan atau tanpa penjelasan.</p>
+</div>
+</div>
+
+    </article>
+  
+
+  
+    <nav class="browse-horizontal" aria-labelledby="browse-horizontal-header">
+      <span id="browse-horizontal-header" class="visuallyhidden">Previous page and next page</span>
+      
+        <div class="left"><a rel="prev" href="../roles/"><i class="icon icon-chevron-left"></i> Peran</a></div>
+      
+      
+        <div class="right"><a rel="next" href="../release-process/">Pengolahan terbitan Django <i class="icon icon-chevron-right"></i></a></div>
+      
+    </nav>
+  
+
+
+        <a href="#top" class="backtotop"><i class="icon icon-chevron-up"></i> Back to Top</a>
+      </main>
+
+      
+  <div role="complementary">
+    <h2 class="visuallyhidden" id="aside-header">Informasi Tambahan</h2>
+
+    
+
+
+  <div class="fundraising-sidebar">
+    <h3>Support Django!</h3>
+
+    <div class="small-heart">
+      <img src="https://static.djangoproject.com/img/fundraising-heart.cd6bb84ffd33.svg" alt="Support Django!" />
+    </div>
+
+    <div class="small-cta">
+      <ul class="list-links-small">
+        <li><a href="https://www.djangoproject.com/fundraising/">
+          Ready Mowing donated to the Django Software Foundation to support Django development. Donate today!
+        </a></li>
+      </ul>
+    </div>
+  </div>
+
+
+
+    
+      <h3>Isi</h3>
+      
+        <ul>
+<li><a class="reference internal" href="#">Kebijakan keamanan Django</a><ul>
+<li><a class="reference internal" href="#reporting-security-issues">Melaporkan masalah keamanan</a></li>
+<li><a class="reference internal" href="#supported-versions">Versi didukung</a></li>
+<li><a class="reference internal" href="#how-django-discloses-security-issues">Bagaimana Django menyingkap masalah keamanan</a></li>
+<li><a class="reference internal" href="#who-receives-advance-notification">Siapa menerima pemberitahuan lanjut</a></li>
+<li><a class="reference internal" href="#requesting-notifications">Meminta pemberitahuan</a></li>
+</ul>
+</li>
+</ul>
+
+      
+    
+
+    
+      <nav aria-labelledby="browse-header">
+        <h3 id="browse-header">Cari</h3>
+        <ul>
+          
+            
+              <li>Sebelumnya: <a rel="prev" href="../roles/">Peran</a></li>
+            
+            
+              <li>Selanjutnya: <a rel="next" href="../release-process/">Pengolahan terbitan Django</a></li>
+            
+            <li><a href="https://docs.djangoproject.com/id/1.10/contents/">Daftar isi</a></li>
+            
+              <li><a href="https://docs.djangoproject.com/id/1.10/genindex/">Indeks Umum</a></li>
+            
+              <li><a href="https://docs.djangoproject.com/id/1.10/py-modindex/">Indeks Modul Python</a></li>
+            
+          
+        </ul>
+      </nav>
+    
+
+    
+      <nav aria-labelledby="breadcrumbs-header">
+        <h3 id="breadcrumbs-header">Anda berada di:</h3>
+        <ul>
+          <li>
+            <a href="https://docs.djangoproject.com/id/1.10/">Dokumentasi Django 1.10</a>
+            
+              <ul><li><a href="../">Dalam Django</a>
+            
+            <ul><li>Kebijakan keamanan Django</li></ul>
+            </li></ul>
+          </li>
+        </ul>
+      </nav>
+    
+
+    
+      <section aria-labelledby="getting-help-sidebar">
+        <h3 id="getting-help-sidebar">Mendapatkan bantuan</h3>
+        <dl class="list-links">
+          <dt><a href="https://docs.djangoproject.com/id/1.10/faq/">FAQ</a></dt>
+          <dd>Coba FAQ -- yang menjawab banyak pertanyaan-pertanyaan umum.</dd>
+
+          <dt><a href="https://docs.djangoproject.com/en/stable/genindex/">Indeks</a>, <a href="https://docs.djangoproject.com/en/stable/py-modindex/">Indeks Modul</a>, or <a href="https://docs.djangoproject.com/en/stable/contents/">Daftar Isi</a></dt>
+          <dd>Mudah digunakan untuk mencari informasi yang lebih spesifik.</dd>
+
+          <dt><a href="https://chat.djangoproject.com">Django Discord Server</a></dt>
+          <dd>Join the Django Discord Community.</dd>
+
+          <dt><a href="https://forum.djangoproject.com/">Official Django Forum</a></dt>
+          <dd>Join the community on the Django Forum.</dd>
+
+          <dt><a href="https://code.djangoproject.com/">Ticket tracker</a></dt>
+          <dd>Laporkan kesalahan pada Django atau Dokumentasi Django pada pelacak tiket kami.</dd>
+        </dl>
+      </section>
+    
+
+    
+      <section aria-labelledby="links-wrapper-header">
+        <h3 id="links-wrapper-header">Unduh:</h3>
+        <p>
+          Offline(Django 1.10):
+          <a href="https://media.djangoproject.com/docs/django-docs-1.10-id.zip">HTML</a> |
+          <a href="https://media.readthedocs.org/pdf/django/1.10.x/django.pdf">PDF</a> |
+          <a href="https://media.readthedocs.org/epub/django/1.10.x/django.epub">ePub</a>
+          <br>
+          <span class="quiet">
+            Disediakan oleh <a href="https://readthedocs.org/">Read the Docs</a>.
+          </span>
+        </p>
+      </section>
+    
+
+    
+  <div class="corporate-members">
+    <h3>Diamond and Platinum Members</h3>
+    
+      <div class="clearfix">
+        <div class="member-logo">
+          <a href="https://jb.gg/ybja10" title="JetBrains">
+            <img src="https://media.djangoproject.com/cache/c0/ea/c0ea128467983e64aab91cd27e7918c0.png" alt="JetBrains" />
+          </a>
+        </div>
+        <div class="small-cta">
+          <ul class="list-links-small">
+            <li><strong>JetBrains</strong></li>
+            <li><a href="https://jb.gg/ybja10" title="JetBrains">
+              JetBrains delivers intelligent software solutions that make developers more productive by simplifying their challenging tasks, automating the routine, and helping them adopt the best development practices. PyCharm is the Python IDE for Professional Developers by JetBrains providing a complete set of tools for productive Python, Web and scientific development.
+            </a></li>
+          </ul>
+        </div>
+      </div>
+    
+      <div class="clearfix">
+        <div class="member-logo">
+          <a href="https://sentry.io/for/django/" title="Sentry">
+            <img src="https://media.djangoproject.com/cache/7a/f9/7af9c770dc49465739a82c91a0eb3d51.png" alt="Sentry" />
+          </a>
+        </div>
+        <div class="small-cta">
+          <ul class="list-links-small">
+            <li><strong>Sentry</strong></li>
+            <li><a href="https://sentry.io/for/django/" title="Sentry">
+              Monitor your Django Code
+Resolve performance bottlenecks and errors using monitoring, replays, logs and Seer an AI agent for debugging.
+            </a></li>
+          </ul>
+        </div>
+      </div>
+    
+      <div class="clearfix">
+        <div class="member-logo">
+          <a href="https://kraken.tech" title="Kraken Tech">
+            <img src="https://media.djangoproject.com/cache/71/4b/714b3473ed0cf3665f6b894d3be9491e.png" alt="Kraken Tech" />
+          </a>
+        </div>
+        <div class="small-cta">
+          <ul class="list-links-small">
+            <li><strong>Kraken Tech</strong></li>
+            <li><a href="https://kraken.tech" title="Kraken Tech">
+              Kraken is the most-loved operating system for energy. Powered by our Utility-Grade AI™ and deep industry know-how, we help utilities transform their technology and operations so they can lead the energy transition. Delivering better outcomes from generation through distribution to supply, Kraken powers 70+ million accounts worldwide, and is on a mission to make a big, green dent in the universe.
+            </a></li>
+          </ul>
+        </div>
+      </div>
+    
+  </div>
+
+
+  </div>
+
+      
+
+    </div>
+
+     
+     
+
+    
+    
+    
+
+    <!-- SVGs -->
+    <svg xmlns="http://www.w3.org/2000/svg">
+      <symbol viewBox="0 0 24 24" id="icon-auto"><path d="M0 0h24v24H0z" fill="currentColor"/><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2V4a8 8 0 1 0 0 16z"/></symbol>
+      <symbol viewBox="0 0 24 24" id="icon-moon"><path d="M0 0h24v24H0z" fill="currentColor"/><path d="M10 7a7 7 0 0 0 12 4.9v.1c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2h.1A6.979 6.979 0 0 0 10 7zm-6 5a8 8 0 0 0 15.062 3.762A9 9 0 0 1 8.238 4.938 7.999 7.999 0 0 0 4 12z"/></symbol>
+      <symbol viewBox="0 0 24 24" id="icon-sun"><path d="M0 0h24v24H0z" fill="currentColor"/><path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/></symbol>
+    </svg>
+    <!-- END SVGs -->
+
+    
+      
+
+<footer>
+  <div class="subfooter">
+    <div class="container">
+      <h2 class="visuallyhidden">Django Links</h2>
+      <div class="column-container">
+        <div class="col-learn-more">
+          <h3>Learn More</h3>
+          <ul>
+            <li><a href="https://www.djangoproject.com/start/overview/">About Django</a></li>
+            
+            <li><a href="https://www.djangoproject.com/start/">Getting Started with Django</a></li>
+            <li><a href="https://www.djangoproject.com/foundation/teams/">Team Organization</a></li>
+            <li><a href="https://www.djangoproject.com/foundation/">Django Software Foundation</a></li>
+            <li><a href="https://www.djangoproject.com/conduct/">Code of Conduct</a></li>
+            <li><a href="https://www.djangoproject.com/diversity/">Diversity Statement</a></li>
+          </ul>
+        </div>
+
+        <div class="col-get-involved">
+          <h3>Get Involved</h3>
+          <ul>
+            <li><a href="https://www.djangoproject.com/community/">Join a Group</a></li>
+            <li><a href="https://docs.djangoproject.com/en/dev/internals/contributing/">Contribute
+              to Django</a></li>
+            <li><a
+              href="https://docs.djangoproject.com/en/dev/internals/contributing/bugs-and-features/">Submit
+              a Bug</a></li>
+            <li><a
+              href="https://docs.djangoproject.com/en/dev/internals/security/#reporting-security-issues">Report
+              a Security Issue</a></li>
+            <li><a href="https://www.djangoproject.com/foundation/individual-members/">Individual membership</a></li>
+          </ul>
+        </div>
+
+        <div class="col-get-help">
+          <h3>Get Help</h3>
+          <ul>
+            <li><a href="https://docs.djangoproject.com/en/stable/faq/">Getting Help FAQ</a>
+            </li>
+            <li><a href="https://chat.djangoproject.com" target="_blank">Django Discord</a></li>
+            <li><a href="https://forum.djangoproject.com/" target="_blank">Official Django Forum</a></li>
+          </ul>
+        </div>
+
+        <div class="col-follow-us">
+          <h3>Follow Us</h3>
+          <ul>
+            <li><a href="https://github.com/django">GitHub</a></li>
+            <li><a href="https://x.com/djangoproject">X</a></li>
+            <li><a href="https://fosstodon.org/@django" rel="me">Fediverse (Mastodon)</a></li>
+            <li><a href="https://bsky.app/profile/djangoproject.com">Bluesky</a></li>
+            <li><a href="https://www.linkedin.com/company/django-software-foundation">LinkedIn</a></li>
+            <li><a href="https://www.djangoproject.com/rss/weblog/">News RSS</a></li>
+          </ul>
+        </div>
+
+        <div class="col-support-us">
+          <h3>Support Us</h3>
+          <ul>
+            <li><a href="https://www.djangoproject.com/fundraising/">Sponsor Django</a></li>
+            <li><a href="https://www.djangoproject.com/foundation/corporate-members/">Corporate membership</a></li>
+            <li><a href="https://django.threadless.com/" target="_blank">Official merchandise store</a></li>
+            <li><a href="https://www.djangoproject.com/fundraising/#benevity-giving">Benevity Workplace Giving Program</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="container">
+      <div class="footer-logo">
+        <a class="logo" href="https://www.djangoproject.com/">Django</a>
+      </div>
+      <ul class="thanks">
+        <li>
+          <span>Hosting by</span> <a class="in-kind-donors" href="https://www.djangoproject.com/fundraising/#in-kind-donors">In-kind
+            donors</a>
+        </li>
+        <li class="design"><span>Design by</span> <a class="threespot" href="https://www.threespot.com">Threespot</a>
+          <span class="ampersand">&amp;</span> <a class="andrevv" href="http://andrevv.com/">andrevv</a></li>
+      </ul>
+      <p class="copyright">&copy; 2005-2026
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+          Foundation</a> and individual contributors. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+          trademark</a> of the Django Software Foundation.
+      </p>
+    </div>
+  </div>
+
+</footer>
+
+    
+
+    
+      
+      <script>
+        function extless(input) {
+          return input.replace(/(.*)\.[^.]+$/, '$1');
+        }
+        var require = {
+          shim: {
+            'jquery': [],
+            'stripe': {
+              exports: 'Stripe'
+            }
+          },
+          paths: {
+            "jquery": extless("https://static.djangoproject.com/js/lib/jquery.min.5790ead7ad3b.js"),
+            "mod/list-collapsing": extless("https://static.djangoproject.com/js/mod/list-collapsing.2d844151b2ec.js"),
+            "mod/stripe-change-card": extless("https://static.djangoproject.com/js/mod/stripe-change-card.eaa0afc324e9.js"),
+            "mod/switch-dark-mode": extless("https://static.djangoproject.com/js/mod/switch-dark-mode.139625c684db.js"),
+            "stripe-checkout": "https://checkout.stripe.com/checkout",
+            "stripe": "https://js.stripe.com/v3/?" // ? needed due to require.js
+          }
+        };
+      </script>
+      <script data-main="https://static.djangoproject.com/js/main.8677b21133eb.js" src="https://static.djangoproject.com/js/lib/require.177879fbe7dd.js"></script>
+      <script src="https://static.djangoproject.com/js/djangoproject.6e389ef71ec2.js"></script>
+    
+  </body>
+</html>

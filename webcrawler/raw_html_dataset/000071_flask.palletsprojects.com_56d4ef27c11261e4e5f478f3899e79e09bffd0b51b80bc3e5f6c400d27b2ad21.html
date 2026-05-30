@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Async with Gevent &#8212; Flask Documentation (3.1.x)</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=6625fa76" />
+    <link rel="stylesheet" type="text/css" href="../_static/flask.css?v=b87c8d14" />
+    <script src="../_static/documentation_options.js?v=006ca01b"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="canonical" href="https://flask.palletsprojects.com/en/stable/gevent/" />
+    <link rel="icon" href="../_static/flask-icon.svg"/>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="Using async and await" href="../async-await/" />
+    <link rel="prev" title="Apache httpd" href="../deploying/apache-httpd/" /> 
+  <script async type="text/javascript" src="/_/static/javascript/readthedocs-addons.js"></script><meta name="readthedocs-project-slug" content="flask" /><meta name="readthedocs-version-slug" content="stable" /><meta name="readthedocs-resolver-filename" content="/gevent/" /><meta name="readthedocs-http-status" content="200" /></head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex/" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex/" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../async-await/" title="Using async and await"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../deploying/apache-httpd/" title="Apache httpd"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../">Flask Documentation (3.1.x)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Async with Gevent</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="async-with-gevent">
+<h1>Async with Gevent<a class="headerlink" href="#async-with-gevent" title="Link to this heading">¶</a></h1>
+<p><a class="reference external" href="https://www.gevent.org">Gevent</a> patches Python’s standard library to run within special async workers
+called <a class="reference external" href="https://greenlet.readthedocs.io">greenlets</a>. Gevent has existed since long before Python’s native
+asyncio was available, and Flask has always worked with it.</p>
+<p>Gevent is a reliable way to handle numerous, long lived, concurrent connections,
+and to achieve similar capabilities to ASGI and asyncio. This works without
+needing to write <code class="docutils literal notranslate"><span class="pre">async</span> <span class="pre">def</span></code> or <code class="docutils literal notranslate"><span class="pre">await</span></code> anywhere, but relies on gevent and
+greenlet’s low level manipulation of the Python interpreter.</p>
+<p>Deciding whether you should use gevent with Flask, or <a class="reference external" href="https://quart.palletsprojects.com">Quart</a>, or something
+else, is ultimately up to understanding the specific needs of your project.</p>
+<section id="enabling-gevent">
+<h2>Enabling gevent<a class="headerlink" href="#enabling-gevent" title="Link to this heading">¶</a></h2>
+<p>You need to apply gevent’s patching as early as possible in your code. This
+enables gevent’s underlying event loop and converts many Python internals to run
+inside it. Add the following at the top of your project’s module or top
+<code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gevent.monkey</span>
+<span class="n">gevent</span><span class="o">.</span><span class="n">monkey</span><span class="o">.</span><span class="n">patch_all</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>When deploying in production, use <a class="reference internal" href="../deploying/gunicorn/"><span class="doc">Gunicorn</span></a> or
+<a class="reference internal" href="../deploying/uwsgi/"><span class="doc">uWSGI</span></a> with a gevent worker, as described on those pages.</p>
+<p>To run concurrent tasks within your own code, such as views, use
+<a class="reference external" href="https://www.gevent.org/api/gevent.html#gevent.spawn"><code class="docutils literal notranslate"><span class="pre">gevent.spawn()</span></code></a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/send&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">send_email</span><span class="p">():</span>
+    <span class="n">gevent</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span><span class="n">email</span><span class="o">.</span><span class="n">send</span><span class="p">,</span> <span class="n">to</span><span class="o">=</span><span class="s2">&quot;example@example.example&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s2">&quot;Email is being sent.&quot;</span>
+</pre></div>
+</div>
+<p>If you need to access <code class="xref py py-data docutils literal notranslate"><span class="pre">request</span></code> or other Flask context globals within the
+spawned function, decorate the function with <a class="reference internal" href="../api/#flask.stream_with_context" title="flask.stream_with_context"><code class="xref py py-func docutils literal notranslate"><span class="pre">stream_with_context()</span></code></a> or
+<a class="reference internal" href="../api/#flask.copy_current_request_context" title="flask.copy_current_request_context"><code class="xref py py-func docutils literal notranslate"><span class="pre">copy_current_request_context()</span></code></a>. Prefer passing the exact data you need
+when spawning the function, rather than using the decorators.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When using gevent, greenlet&gt;=1.0 is required. When using PyPy, PyPy&gt;=7.3.7
+is required.</p>
+</div>
+</section>
+<section id="combining-with-async-await">
+<span id="gevent-asyncio"></span><h2>Combining with <code class="docutils literal notranslate"><span class="pre">async</span></code>/<code class="docutils literal notranslate"><span class="pre">await</span></code><a class="headerlink" href="#combining-with-async-await" title="Link to this heading">¶</a></h2>
+<p>Gevent’s patching does not interact well with Flask’s built-in asyncio support.
+If you want to use Gevent and asyncio in the same app, you’ll need to override
+<a class="reference internal" href="../api/#flask.Flask.async_to_sync" title="flask.Flask.async_to_sync"><code class="xref py py-meth docutils literal notranslate"><span class="pre">flask.Flask.async_to_sync()</span></code></a> to run async functions inside gevent.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gevent.monkey</span>
+<span class="n">gevent</span><span class="o">.</span><span class="n">monkey</span><span class="o">.</span><span class="n">patch_all</span><span class="p">()</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">flask</span><span class="w"> </span><span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">request</span>
+
+<span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">EventLoop</span><span class="p">()</span>
+<span class="n">gevent</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span><span class="n">loop</span><span class="o">.</span><span class="n">run_forever</span><span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">GeventFlask</span><span class="p">(</span><span class="n">Flask</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">async_to_sync</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="n">coro</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">future</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run_coroutine_threadsafe</span><span class="p">(</span><span class="n">coro</span><span class="p">,</span> <span class="n">loop</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">run</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">GeventFlask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">greet</span><span class="p">():</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Hello, </span><span class="si">{</span><span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;World&quot;</span><span class="p">)</span><span class="si">}</span><span class="s2">!&quot;</span>
+</pre></div>
+</div>
+<p>This starts an asyncio event loop in a gevent worker. Async functions are
+scheduled on that event loop. This may still have limitations, and may need to
+be modified further when using other asyncio implementations.</p>
+<section id="libuv">
+<h3>libuv<a class="headerlink" href="#libuv" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://libuv.org/">libuv</a> is another event loop implementation that <a class="reference external" href="https://www.gevent.org/loop_impls.html">gevent supports</a>. There’s
+also a project called <a class="reference external" href="https://uvloop.readthedocs.io/">uvloop</a> that enables libuv in asyncio. If you want to
+use libuv, use gevent’s support, not uvloop. It may be possible to further
+modify the <code class="docutils literal notranslate"><span class="pre">async_to_sync</span></code> code from the previous section to work with uvloop,
+but that’s not currently known.</p>
+<p>To enable gevent’s libuv support, add the following at the <em>very</em> top of your
+code, before <code class="docutils literal notranslate"><span class="pre">gevent.monkey.patch_all()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gevent</span>
+<span class="n">gevent</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">loop</span> <span class="o">=</span> <span class="s2">&quot;libuv&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">gevent.monkey</span>
+<span class="n">gevent</span><span class="o">.</span><span class="n">monkey</span><span class="o">.</span><span class="n">patch_all</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+  <span id="sidebar-top"></span>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  
+    
+            <p class="logo"><a href="../">
+              <img class="logo" src="../_static/flask-logo.svg" alt="Logo of Flask"/>
+            </a></p>
+  
+
+  <h3>Contents</h3>
+  <ul>
+<li><a class="reference internal" href="#">Async with Gevent</a><ul>
+<li><a class="reference internal" href="#enabling-gevent">Enabling gevent</a></li>
+<li><a class="reference internal" href="#combining-with-async-await">Combining with <code class="docutils literal notranslate"><span class="pre">async</span></code>/<code class="docutils literal notranslate"><span class="pre">await</span></code></a><ul>
+<li><a class="reference internal" href="#libuv">libuv</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3>Navigation</h3>
+<ul>
+  <li><a href="../">Overview</a>
+    <ul>
+          <li>Previous: <a href="../deploying/apache-httpd/" title="previous chapter">Apache httpd</a>
+          <li>Next: <a href="../async-await/" title="next chapter">Using <code class="docutils literal notranslate"><span class="pre">async</span></code> and <code class="docutils literal notranslate"><span class="pre">await</span></code></a>
+    </ul>
+  </li>
+</ul>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search/" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><div id="ethical-ad-placement"></div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2010 Pallets.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+  </body>
+</html>
